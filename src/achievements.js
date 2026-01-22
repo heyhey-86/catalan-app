@@ -131,7 +131,7 @@ export const ACHIEVEMENTS = [
     description: 'Complete your first daily challenge',
     icon: '🎮',
     category: 'Challenges',
-    condition: (data) => data.challengeHistory.filter(h => h.completed).length >= 1,
+    condition: (data) => (data.challengeHistory || []).filter(h => h.completed === true).length >= 1,
     points: 50
   },
   {
@@ -140,7 +140,7 @@ export const ACHIEVEMENTS = [
     description: 'Complete 7 daily challenges',
     icon: '🏅',
     category: 'Challenges',
-    condition: (data) => data.challengeHistory.filter(h => h.completed).length >= 7,
+    condition: (data) => (data.challengeHistory || []).filter(h => h.completed === true).length >= 7,
     points: 200
   },
   {
@@ -149,7 +149,7 @@ export const ACHIEVEMENTS = [
     description: 'Complete 30 daily challenges',
     icon: '🎖️',
     category: 'Challenges',
-    condition: (data) => data.challengeHistory.filter(h => h.completed).length >= 30,
+    condition: (data) => (data.challengeHistory || []).filter(h => h.completed === true).length >= 30,
     points: 500
   },
 
