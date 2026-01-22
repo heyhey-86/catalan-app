@@ -354,6 +354,8 @@ function App() {
   const [newAchievement, setNewAchievement] = useState(null);
   const [showAchievements, setShowAchievements] = useState(false);
   const timerRef = useRef(null);
+  const secretTapsRef = useRef(0);
+  const secretTapTimerRef = useRef(null);
 
   useEffect(() => {
     const saved = localStorage.getItem('catalan_progress');
@@ -1182,14 +1184,11 @@ function App() {
   }
 
   // DASHBOARD
-  // Secret tap counter for premium toggle (mobile testing)
-  const secretTapsRef = useRef(0);
-  const secretTapTimer = useRef(null);
-  
+  // Secret tap for premium toggle (mobile testing) - tap title 5 times
   const handleSecretTap = () => {
     secretTapsRef.current += 1;
-    if (secretTapTimer.current) clearTimeout(secretTapTimer.current);
-    secretTapTimer.current = setTimeout(() => {
+    if (secretTapTimerRef.current) clearTimeout(secretTapTimerRef.current);
+    secretTapTimerRef.current = setTimeout(() => {
       if (secretTapsRef.current >= 5) {
         setPremium(!premium);
         alert(premium ? 'Premium disabled' : 'Premium enabled!');
