@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { CheckCircle, Lock, Award, Home, User, ArrowRight, RotateCw, BookOpen, Calendar, TrendingUp, MessageCircle, Clock, X, Trophy, Star } from 'lucide-react';
+import { CheckCircle, Lock, Award, Home, User, ArrowRight, RotateCw, BookOpen, Calendar, TrendingUp, MessageCircle, Clock, X, Trophy, Star, Volume2 } from 'lucide-react';
 import { getWordsToReview, updateWordReview, initializeWordForReview } from './reviewSystem.js';
 import { CONVERSATIONS } from './conversations.js';
 import { getTodayChallenge, wasChallengeCompletedToday, getChallengeStreak, getTimeUntilNextChallenge, CHALLENGE_TYPES } from './challenges.js';
@@ -757,6 +757,17 @@ function App() {
     { id: '15', label: '15+ min/day', desc: 'Serious student', icon: '🌳' }
   ];
 
+  // Text-to-speech for Catalan words
+  const speakWord = (text) => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel(); // Stop any current speech
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ca-ES'; // Catalan
+      utterance.rate = 0.8; // Slightly slower for learning
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
   const completeOnboarding = () => {
     setUser({ 
       name: onboardingName || 'Learner', 
@@ -1055,11 +1066,17 @@ function App() {
           {lessonStage === 'intro' && (
             <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-8">
               <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center">Learn These Words</h2>
+              <p className="text-center text-gray-500 text-xs sm:text-sm mb-4">Tap 🔊 to hear pronunciation</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
                 {currentLesson.words.map((word, i) => (
                   <div key={i} className="border-2 border-blue-200 rounded-lg p-3 sm:p-4 bg-blue-50">
                     <div className="text-base sm:text-lg font-semibold text-gray-800">{word.en}</div>
-                    <div className="text-xl sm:text-2xl font-bold text-blue-600">{word.ca}</div>
+                    <div className="flex items-center gap-2">
+                      <div className="text-xl sm:text-2xl font-bold text-blue-600">{word.ca}</div>
+                      <button onClick={() => speakWord(word.ca)} className="p-1.5 rounded-full bg-blue-100 hover:bg-blue-200 active:scale-95 transition-all">
+                        <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+                      </button>
+                    </div>
                     <div className="text-xs sm:text-sm text-gray-600 italic">{word.pronunciation}</div>
                   </div>
                 ))}
@@ -1075,8 +1092,15 @@ function App() {
                 <div onClick={() => setFlipped(!flipped)} className="bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl p-8 sm:p-12 cursor-pointer shadow-lg active:scale-95 transition-all min-h-[220px] sm:min-h-[300px] flex items-center justify-center">
                   <div className="text-center text-white">
                     <div className="text-2xl sm:text-4xl font-bold mb-4">{flipped ? currentLesson.words[currentCardIndex].ca : currentLesson.words[currentCardIndex].en}</div>
-                    {flipped && <div className="text-base sm:text-lg italic opacity-90">{currentLesson.words[currentCardIndex].pronunciation}</div>}
-                    <div className="mt-6 sm:mt-8 flex items-center justify-center gap-2 text-sm opacity-75"><RotateCw className="w-4 h-4" /> Tap to flip</div>
+                    {flipped && (
+                      <>
+                        <div className="text-base sm:text-lg italic opacity-90 mb-3">{currentLesson.words[currentCardIndex].pronunciation}</div>
+                        <button onClick={(e) => { e.stopPropagation(); speakWord(currentLesson.words[currentCardIndex].ca); }} className="p-2 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 transition-all">
+                          <Volume2 className="w-6 h-6 text-white" />
+                        </button>
+                      </>
+                    )}
+                    <div className="mt-4 sm:mt-6 flex items-center justify-center gap-2 text-sm opacity-75"><RotateCw className="w-4 h-4" /> Tap to flip</div>
                   </div>
                 </div>
                 <div className="mt-4 sm:mt-6 flex justify-between items-center gap-2">
