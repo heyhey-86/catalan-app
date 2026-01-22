@@ -1190,11 +1190,12 @@ function App() {
     if (secretTapTimerRef.current) clearTimeout(secretTapTimerRef.current);
     secretTapTimerRef.current = setTimeout(() => {
       if (secretTapsRef.current >= 5) {
-        setPremium(!premium);
-        alert(premium ? 'Premium disabled' : 'Premium enabled!');
+        const newPremium = !premium;
+        setPremium(newPremium);
+        window.alert(newPremium ? '🔓 Premium ENABLED!' : '🔒 Premium DISABLED!');
       }
       secretTapsRef.current = 0;
-    }, 600);
+    }, 800);
   };
 
   return (
