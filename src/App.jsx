@@ -1202,7 +1202,7 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow-sm border-b sticky top-0 z-40">
         <div className="max-w-6xl mx-auto px-3 sm:px-4 py-3 flex justify-between items-center">
-          <h1 onClick={handleSecretTap} className="text-lg sm:text-2xl font-bold text-blue-600 cursor-pointer select-none">Aprèn Català</h1>
+          <h1 onClick={handleSecretTap} onTouchEnd={handleSecretTap} className="text-lg sm:text-2xl font-bold text-blue-600 cursor-pointer select-none">Aprèn Català</h1>
           <div className="flex items-center gap-2 sm:gap-4">
             <a href="mailto:aprencatalaapp@gmail.com?subject=Beta Feedback" className="text-xs sm:text-sm bg-purple-100 text-purple-700 px-2 sm:px-3 py-1 rounded-full hover:bg-purple-200 transition-colors">Feedback</a>
             <div className="text-right"><div className="text-xs text-gray-600">Points</div><div className="font-bold text-sm sm:text-lg">{score}</div></div>
