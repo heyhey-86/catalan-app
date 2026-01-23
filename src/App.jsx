@@ -358,12 +358,23 @@ function App() {
   const secretTapTimerRef = useRef(null);
 
   useEffect(() => {
+    // Check URL for testing parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('premium') === 'true') {
+      setPremium(true);
+    }
+    if (urlParams.get('reset') === 'true') {
+      localStorage.removeItem('catalan_progress');
+      window.location.href = window.location.pathname; // Reload without params
+      return;
+    }
+    
     const saved = localStorage.getItem('catalan_progress');
     if (saved) {
       const data = JSON.parse(saved);
       setCompleted(data.completed || []);
       setScore(data.score || 0);
-      setPremium(data.premium || false);
+      setPremium(urlParams.get('premium') === 'true' || data.premium || false);
       setUser(data.user || null);
       setWordHistory(data.wordHistory || []);
       setReviewStreak(data.reviewStreak || 0);
