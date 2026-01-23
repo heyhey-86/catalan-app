@@ -308,12 +308,38 @@ const LESSONS = [
     { en: "Impossible", ca: "Impossible", pronunciation: "eem-poh-SEE-bleh" }
   ]}
 ];
+// Check URL parameters BEFORE component initializes
+const getInitialState = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  // Handle reset
+  if (urlParams.get('reset') === 'true') {
+    localStorage.removeItem('catalan_progress');
+    window.history.replaceState({}, '', window.location.pathname);
+    return { premium: false, reset: true };
+  }
+  
+  // Handle premium URL param
+  if (urlParams.get('premium') === 'true') {
+    const existing = JSON.parse(localStorage.getItem('catalan_progress') || '{}');
+    existing.premium = true;
+    localStorage.setItem('catalan_progress', JSON.stringify(existing));
+    window.history.replaceState({}, '', window.location.pathname);
+    return { premium: true, reset: false };
+  }
+  
+  // Default: check localStorage
+  const stored = JSON.parse(localStorage.getItem('catalan_progress') || '{}');
+  return { premium: stored.premium || false, reset: false };
+};
+
+const INITIAL_STATE = getInitialState();
 
 function App() {
   const [view, setView] = useState('home');
   const [dashboardTab, setDashboardTab] = useState('lessons');
   const [user, setUser] = useState(null);
-  const [premium, setPremium] = useState(false);
+  const [premium, setPremium] = useState(INITIAL_STATE.premium);
   const [currentLesson, setCurrentLesson] = useState(null);
   const [lessonStage, setLessonStage] = useState('intro');
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -356,38 +382,6 @@ function App() {
   const timerRef = useRef(null);
   const secretTapsRef = useRef(0);
   const secretTapTimerRef = useRef(null);
-
-  useEffect(() => {
-    // Check URL for testing parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('premium') === 'true') {
-      setPremium(true);
-    }
-    if (urlParams.get('reset') === 'true') {
-      localStorage.removeItem('catalan_progress');
-      window.location.href = window.location.pathname; // Reload without params
-      return;
-    }
-    
-    const saved = localStorage.getItem('catalan_progress');
-    if (saved) {
-      const data = JSON.parse(saved);
-      setCompleted(data.completed || []);
-      setScore(data.score || 0);
-      setPremium(urlParams.get('premium') === 'true' || data.premium || false);
-      setUser(data.user || null);
-      setWordHistory(data.wordHistory || []);
-      setReviewStreak(data.reviewStreak || 0);
-      setLastReviewDate(data.lastReviewDate || null);
-      setCompletedConversations(data.completedConversations || []);
-      setChallengeHistory(data.challengeHistory || []);
-      setChallengeStreak(getChallengeStreak(data.challengeHistory || []));
-      setUnlockedAchievements(getUnlockedAchievements(data));
-      if (data.wordHistory) {
-        setReviewQueue(getWordsToReview(data.wordHistory));
-      }
-    }
-  }, []);
 
   useEffect(() => {
     if (user) {
