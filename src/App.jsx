@@ -1,337 +1,150 @@
 import { useState, useEffect, useRef } from 'react';
+import { supabase } from './supabase.js';
+import Auth from './Auth.jsx';
 import { CheckCircle, Lock, Award, Home, User, ArrowRight, RotateCw, BookOpen, Calendar, TrendingUp, MessageCircle, Clock, X, Trophy, Star, Volume2 } from 'lucide-react';
 import { getWordsToReview, updateWordReview, initializeWordForReview } from './reviewSystem.js';
 import { CONVERSATIONS } from './conversations.js';
+import { FillInTheBlank, SentenceOrdering, ListenAndType, MiniConversation, ErrorCorrection } from './LessonStages.jsx';
+import { lessons as lessons50 } from './lessons50.js';
 import { getTodayChallenge, wasChallengeCompletedToday, getChallengeStreak, getTimeUntilNextChallenge, CHALLENGE_TYPES } from './challenges.js';
 import { ACHIEVEMENTS, getUnlockedAchievements, getNewlyUnlocked, getAchievementProgress, getAchievementsByCategory } from './achievements.js';
+import { Analytics } from '@vercel/analytics/react';
 
-const LESSONS = [
-  { id: 1, title: "Greetings & Basics", module: "Basics", free: true, words: [
-    { en: "Hello", ca: "Hola", pronunciation: "OH-lah" },
-    { en: "Good morning", ca: "Bon dia", pronunciation: "bone DEE-ah" },
-    { en: "Good afternoon", ca: "Bona tarda", pronunciation: "BOH-nah TAR-dah" },
-    { en: "Thank you", ca: "Gràcies", pronunciation: "GRAH-see-es" },
-    { en: "Please", ca: "Si us plau", pronunciation: "see oos plow" },
-    { en: "Yes", ca: "Sí", pronunciation: "see" },
-    { en: "No", ca: "No", pronunciation: "noh" }
-  ]},
-  { id: 2, title: "Numbers 1-10", module: "Basics", free: true, words: [
-    { en: "One", ca: "Un", pronunciation: "oon" },
-    { en: "Two", ca: "Dos", pronunciation: "dohs" },
-    { en: "Three", ca: "Tres", pronunciation: "tres" },
-    { en: "Four", ca: "Quatre", pronunciation: "KWAH-treh" },
-    { en: "Five", ca: "Cinc", pronunciation: "sink" },
-    { en: "Six", ca: "Sis", pronunciation: "sees" },
-    { en: "Seven", ca: "Set", pronunciation: "set" },
-    { en: "Eight", ca: "Vuit", pronunciation: "vweet" },
-    { en: "Nine", ca: "Nou", pronunciation: "noh-oo" },
-    { en: "Ten", ca: "Deu", pronunciation: "deh-oo" }
-  ]},
-  { id: 3, title: "At the Restaurant", module: "Daily Life", free: false, words: [
-    { en: "Menu", ca: "Menú", pronunciation: "meh-NOO" },
-    { en: "Water", ca: "Aigua", pronunciation: "AY-gwah" },
-    { en: "Wine", ca: "Vi", pronunciation: "vee" },
-    { en: "Beer", ca: "Cervesa", pronunciation: "ser-VEH-sah" },
-    { en: "The bill", ca: "El compte", pronunciation: "el KOM-teh" },
-    { en: "I would like", ca: "Voldria", pronunciation: "vol-DREE-ah" },
-    { en: "Delicious", ca: "Deliciós", pronunciation: "deh-lee-see-OHS" },
-    { en: "Waiter", ca: "Cambrer", pronunciation: "kahm-BRER" }
-  ]},
-  { id: 4, title: "Shopping & Money", module: "Daily Life", free: false, words: [
-    { en: "How much?", ca: "Quan costa?", pronunciation: "kwan KOS-tah" },
-    { en: "Expensive", ca: "Car", pronunciation: "kar" },
-    { en: "Cheap", ca: "Barat", pronunciation: "bah-RAHT" },
-    { en: "Store", ca: "Botiga", pronunciation: "boh-TEE-gah" },
-    { en: "Market", ca: "Mercat", pronunciation: "mer-KAHT" },
-    { en: "Cash", ca: "Efectiu", pronunciation: "eh-fek-TEE-oo" },
-    { en: "Card", ca: "Targeta", pronunciation: "tar-ZHE-tah" },
-    { en: "Change (money)", ca: "Canvi", pronunciation: "KAN-vee" }
-  ]},
-  { id: 5, title: "Directions", module: "Daily Life", free: false, words: [
-    { en: "Where is?", ca: "On és?", pronunciation: "ohn es" },
-    { en: "Left", ca: "Esquerra", pronunciation: "es-KER-rah" },
-    { en: "Right", ca: "Dreta", pronunciation: "DREH-tah" },
-    { en: "Straight", ca: "Recte", pronunciation: "REK-teh" },
-    { en: "Near", ca: "A prop", pronunciation: "ah prohp" },
-    { en: "Far", ca: "Lluny", pronunciation: "yoon-y" },
-    { en: "Street", ca: "Carrer", pronunciation: "kah-RER" },
-    { en: "Square", ca: "Plaça", pronunciation: "PLAH-sah" }
-  ]},
-  { id: 6, title: "Transportation", module: "Daily Life", free: false, words: [
-    { en: "Bus", ca: "Autobús", pronunciation: "ow-toh-BOOS" },
-    { en: "Metro", ca: "Metro", pronunciation: "MEH-troh" },
-    { en: "Train", ca: "Tren", pronunciation: "tren" },
-    { en: "Taxi", ca: "Taxi", pronunciation: "TAK-see" },
-    { en: "Ticket", ca: "Bitllet", pronunciation: "bee-YET" },
-    { en: "Station", ca: "Estació", pronunciation: "es-tah-see-OH" },
-    { en: "Airport", ca: "Aeroport", pronunciation: "ah-eh-roh-PORT" },
-    { en: "Stop", ca: "Parada", pronunciation: "pah-RAH-dah" }
-  ]},
-  { id: 7, title: "At the Pharmacy", module: "Living", free: false, words: [
-    { en: "Pharmacy", ca: "Farmàcia", pronunciation: "far-MAH-see-ah" },
-    { en: "Medicine", ca: "Medicina", pronunciation: "meh-dee-SEE-nah" },
-    { en: "Pain", ca: "Dolor", pronunciation: "doh-LOR" },
-    { en: "Headache", ca: "Mal de cap", pronunciation: "mal deh kap" },
-    { en: "Fever", ca: "Febre", pronunciation: "FEH-breh" },
-    { en: "Prescription", ca: "Recepta", pronunciation: "reh-SEP-tah" },
-    { en: "Pills", ca: "Pastilles", pronunciation: "pas-TEE-yes" },
-    { en: "Doctor", ca: "Metge", pronunciation: "MET-zheh" }
-  ]},
-  { id: 8, title: "Making Friends", module: "Social", free: false, words: [
-    { en: "Friend", ca: "Amic", pronunciation: "ah-MEEK" },
-    { en: "Nice to meet you", ca: "Encantat", pronunciation: "en-kan-TAT" },
-    { en: "What's your name?", ca: "Com et dius?", pronunciation: "kohm et DEE-oos" },
-    { en: "Where are you from?", ca: "D'on ets?", pronunciation: "dohn ets" },
-    { en: "I'm from...", ca: "Sóc de...", pronunciation: "sohk deh" },
-    { en: "Do you live here?", ca: "Vius aquí?", pronunciation: "vee-oos ah-KEE" },
-    { en: "See you later", ca: "Fins després", pronunciation: "feens des-PRES" },
-    { en: "Goodbye", ca: "Adéu", pronunciation: "ah-DEH-oo" }
-  ]},
-  { id: 9, title: "Food & Dining", module: "Social", free: false, words: [
-    { en: "Breakfast", ca: "Esmorzar", pronunciation: "es-mor-TZAR" },
-    { en: "Lunch", ca: "Dinar", pronunciation: "dee-NAR" },
-    { en: "Dinner", ca: "Sopar", pronunciation: "soh-PAR" },
-    { en: "Hungry", ca: "Tinc gana", pronunciation: "teenk GAH-nah" },
-    { en: "Thirsty", ca: "Tinc set", pronunciation: "teenk set" },
-    { en: "Tasty", ca: "Saborós", pronunciation: "sah-boh-ROHS" },
-    { en: "Hot", ca: "Calent", pronunciation: "kah-LENT" },
-    { en: "Cold", ca: "Fred", pronunciation: "fred" }
-  ]},
-  { id: 10, title: "Emergency Basics", module: "Living", free: false, words: [
-    { en: "Help!", ca: "Ajuda!", pronunciation: "ah-ZHOO-dah" },
-    { en: "Emergency", ca: "Emergència", pronunciation: "eh-mer-ZHEN-see-ah" },
-    { en: "Police", ca: "Policia", pronunciation: "poh-lee-SEE-ah" },
-    { en: "Fire", ca: "Foc", pronunciation: "fohk" },
-    { en: "Ambulance", ca: "Ambulància", pronunciation: "am-boo-LAN-see-ah" },
-    { en: "Accident", ca: "Accident", pronunciation: "ak-see-DENT" },
-    { en: "Danger", ca: "Perill", pronunciation: "peh-REEL" },
-    { en: "Hospital", ca: "Hospital", pronunciation: "os-pee-TAL" }
-  ]},
-  { id: 11, title: "At the Bank", module: "Living", free: false, words: [
-    { en: "Bank", ca: "Banc", pronunciation: "banhk" },
-    { en: "Account", ca: "Compte", pronunciation: "KOM-teh" },
-    { en: "Money", ca: "Diners", pronunciation: "dee-NERS" },
-    { en: "Withdraw", ca: "Retirar", pronunciation: "reh-tee-RAR" },
-    { en: "Deposit", ca: "Ingressar", pronunciation: "een-greh-SAR" },
-    { en: "Transfer", ca: "Transferència", pronunciation: "trans-feh-REN-see-ah" },
-    { en: "ATM", ca: "Caixer", pronunciation: "kay-SHER" },
-    { en: "Balance", ca: "Saldo", pronunciation: "SAL-doh" }
-  ]},
-  { id: 12, title: "Housing & Home", module: "Living", free: false, words: [
-    { en: "Apartment", ca: "Pis", pronunciation: "pees" },
-    { en: "Rent", ca: "Lloguer", pronunciation: "yoh-GAIR" },
-    { en: "Roommate", ca: "Company de pis", pronunciation: "kohm-PAN-y deh pees" },
-    { en: "Kitchen", ca: "Cuina", pronunciation: "koo-EE-nah" },
-    { en: "Bedroom", ca: "Habitació", pronunciation: "ah-bee-tah-see-OH" },
-    { en: "Bathroom", ca: "Bany", pronunciation: "ban-y" },
-    { en: "Living room", ca: "Sala d'estar", pronunciation: "SAH-lah des-TAR" },
-    { en: "Furniture", ca: "Mobles", pronunciation: "MOH-bles" }
-  ]},
-  { id: 13, title: "At the Doctor", module: "Living", free: false, words: [
-    { en: "Doctor", ca: "Metge", pronunciation: "MET-zheh" },
-    { en: "Appointment", ca: "Cita", pronunciation: "SEE-tah" },
-    { en: "I feel sick", ca: "Em trobo malament", pronunciation: "em TROH-boh mah-lah-MENT" },
-    { en: "Allergy", ca: "Al·lèrgia", pronunciation: "ah-LER-zhee-ah" },
-    { en: "Symptoms", ca: "Símptomes", pronunciation: "SEEM-toh-mes" },
-    { en: "Treatment", ca: "Tractament", pronunciation: "trak-tah-MENT" },
-    { en: "Nurse", ca: "Infermer", pronunciation: "een-fer-MER" },
-    { en: "Test", ca: "Prova", pronunciation: "PROH-vah" }
-  ]},
-  { id: 14, title: "Weather & Seasons", module: "Social", free: false, words: [
-    { en: "It's sunny", ca: "Fa sol", pronunciation: "fah sohl" },
-    { en: "It's raining", ca: "Plou", pronunciation: "ploh-oo" },
-    { en: "It's cold", ca: "Fa fred", pronunciation: "fah fred" },
-    { en: "It's hot", ca: "Fa calor", pronunciation: "fah kah-LOR" },
-    { en: "Spring", ca: "Primavera", pronunciation: "pree-mah-VEH-rah" },
-    { en: "Summer", ca: "Estiu", pronunciation: "es-tee-OO" },
-    { en: "Autumn", ca: "Tardor", pronunciation: "tar-DOR" },
-    { en: "Winter", ca: "Hivern", pronunciation: "ee-VERN" }
-  ]},
-  { id: 15, title: "Family & Relationships", module: "Social", free: false, words: [
-    { en: "Mother", ca: "Mare", pronunciation: "MAH-reh" },
-    { en: "Father", ca: "Pare", pronunciation: "PAH-reh" },
-    { en: "Brother", ca: "Germà", pronunciation: "zher-MAH" },
-    { en: "Sister", ca: "Germana", pronunciation: "zher-MAH-nah" },
-    { en: "Husband", ca: "Marit", pronunciation: "mah-REET" },
-    { en: "Wife", ca: "Muller", pronunciation: "moo-YER" },
-    { en: "Son", ca: "Fill", pronunciation: "fee" },
-    { en: "Daughter", ca: "Filla", pronunciation: "FEE-yah" }
-  ]},
-  { id: 16, title: "Work & Office", module: "Living", free: false, words: [
-    { en: "Work", ca: "Feina", pronunciation: "FAY-nah" },
-    { en: "Job", ca: "Treball", pronunciation: "treh-BAL" },
-    { en: "Office", ca: "Oficina", pronunciation: "oh-fee-SEE-nah" },
-    { en: "Meeting", ca: "Reunió", pronunciation: "reh-oo-nee-OH" },
-    { en: "Boss", ca: "Cap", pronunciation: "kap" },
-    { en: "Colleague", ca: "Company", pronunciation: "kohm-PAN-y" },
-    { en: "Email", ca: "Correu electrònic", pronunciation: "koh-REH-oo eh-lek-TROH-neek" },
-    { en: "Deadline", ca: "Data límit", pronunciation: "DAH-tah LEE-meet" }
-  ]},
-  { id: 17, title: "Hobbies & Free Time", module: "Social", free: false, words: [
-    { en: "I like", ca: "M'agrada", pronunciation: "mah-GRAH-dah" },
-    { en: "Reading", ca: "Llegir", pronunciation: "yeh-ZHEER" },
-    { en: "Sports", ca: "Esports", pronunciation: "es-PORTS" },
-    { en: "Music", ca: "Música", pronunciation: "MOO-see-kah" },
-    { en: "Movies", ca: "Pel·lícules", pronunciation: "peh-LEE-koo-les" },
-    { en: "Cooking", ca: "Cuinar", pronunciation: "koo-ee-NAR" },
-    { en: "Travel", ca: "Viatjar", pronunciation: "vee-at-ZHAR" },
-    { en: "Dancing", ca: "Ballar", pronunciation: "bah-YAR" }
-  ]},
-  { id: 18, title: "Common Verbs", module: "Basics", free: false, words: [
-    { en: "To be", ca: "Ser/Estar", pronunciation: "ser/es-TAR" },
-    { en: "To have", ca: "Tenir", pronunciation: "teh-NEER" },
-    { en: "To go", ca: "Anar", pronunciation: "ah-NAR" },
-    { en: "To come", ca: "Venir", pronunciation: "veh-NEER" },
-    { en: "To want", ca: "Voler", pronunciation: "voh-LER" },
-    { en: "To need", ca: "Necessitar", pronunciation: "neh-seh-see-TAR" },
-    { en: "To know", ca: "Saber", pronunciation: "sah-BER" },
-    { en: "To speak", ca: "Parlar", pronunciation: "par-LAR" }
-  ]},
-  { id: 19, title: "Common Adjectives", module: "Basics", free: false, words: [
-    { en: "Good", ca: "Bo", pronunciation: "boh" },
-    { en: "Bad", ca: "Dolent", pronunciation: "doh-LENT" },
-    { en: "Big", ca: "Gran", pronunciation: "gran" },
-    { en: "Small", ca: "Petit", pronunciation: "peh-TEET" },
-    { en: "New", ca: "Nou", pronunciation: "noh-oo" },
-    { en: "Old", ca: "Vell", pronunciation: "vel" },
-    { en: "Beautiful", ca: "Bonic", pronunciation: "boh-NEEK" },
-    { en: "Difficult", ca: "Difícil", pronunciation: "dee-FEE-seel" }
-  ]},
-  { id: 20, title: "Time Expressions", module: "Basics", free: false, words: [
-    { en: "Now", ca: "Ara", pronunciation: "AH-rah" },
-    { en: "Later", ca: "Més tard", pronunciation: "mes tard" },
-    { en: "Yesterday", ca: "Ahir", pronunciation: "ah-EER" },
-    { en: "Tomorrow", ca: "Demà", pronunciation: "deh-MAH" },
-    { en: "Morning", ca: "Matí", pronunciation: "mah-TEE" },
-    { en: "Afternoon", ca: "Tarda", pronunciation: "TAR-dah" },
-    { en: "Night", ca: "Nit", pronunciation: "neet" },
-    { en: "Always", ca: "Sempre", pronunciation: "SEM-preh" }
-  ]},
-  { id: 21, title: "Post Office & Mail", module: "Living", free: false, words: [
-    { en: "Post office", ca: "Correus", pronunciation: "koh-REH-oos" },
-    { en: "Letter", ca: "Carta", pronunciation: "KAR-tah" },
-    { en: "Package", ca: "Paquet", pronunciation: "pah-KET" },
-    { en: "Stamp", ca: "Segell", pronunciation: "seh-ZHEL" },
-    { en: "Address", ca: "Adreça", pronunciation: "ah-DREH-sah" },
-    { en: "Send", ca: "Enviar", pronunciation: "en-vee-AR" },
-    { en: "Receive", ca: "Rebre", pronunciation: "REH-breh" },
-    { en: "Mailbox", ca: "Bústia", pronunciation: "BOOS-tee-ah" }
-  ]},
-  { id: 22, title: "Supermarket & Groceries", module: "Daily Life", free: false, words: [
-    { en: "Bread", ca: "Pa", pronunciation: "pah" },
-    { en: "Milk", ca: "Llet", pronunciation: "yet" },
-    { en: "Eggs", ca: "Ous", pronunciation: "oh-oos" },
-    { en: "Fruit", ca: "Fruita", pronunciation: "FROO-ee-tah" },
-    { en: "Vegetables", ca: "Verdures", pronunciation: "ver-DOO-res" },
-    { en: "Meat", ca: "Carn", pronunciation: "karn" },
-    { en: "Fish", ca: "Peix", pronunciation: "pesh" },
-    { en: "Cheese", ca: "Formatge", pronunciation: "for-MAT-zheh" }
-  ]},
-  { id: 23, title: "Celebrations & Events", module: "Social", free: false, words: [
-    { en: "Birthday", ca: "Aniversari", pronunciation: "ah-nee-ver-SAH-ree" },
-    { en: "Party", ca: "Festa", pronunciation: "FES-tah" },
-    { en: "Gift", ca: "Regal", pronunciation: "reh-GAL" },
-    { en: "Cake", ca: "Pastís", pronunciation: "pas-TEES" },
-    { en: "Happy", ca: "Feliç", pronunciation: "feh-LEES" },
-    { en: "Congratulations", ca: "Felicitats", pronunciation: "feh-lee-see-TATS" },
-    { en: "Celebrate", ca: "Celebrar", pronunciation: "seh-leh-BRAR" },
-    { en: "Invite", ca: "Convidar", pronunciation: "kohn-vee-DAR" }
-  ]},
-  { id: 24, title: "Body Parts & Health", module: "Living", free: false, words: [
-    { en: "Head", ca: "Cap", pronunciation: "kap" },
-    { en: "Eyes", ca: "Ulls", pronunciation: "ools" },
-    { en: "Nose", ca: "Nas", pronunciation: "nas" },
-    { en: "Mouth", ca: "Boca", pronunciation: "BOH-kah" },
-    { en: "Hand", ca: "Mà", pronunciation: "mah" },
-    { en: "Leg", ca: "Cama", pronunciation: "KAH-mah" },
-    { en: "Foot", ca: "Peu", pronunciation: "peh-oo" },
-    { en: "Stomach", ca: "Estómac", pronunciation: "es-TOH-mak" }
-  ]},
-  { id: 25, title: "Clothing & Shopping", module: "Daily Life", free: false, words: [
-    { en: "Shirt", ca: "Camisa", pronunciation: "kah-MEE-sah" },
-    { en: "Pants", ca: "Pantalons", pronunciation: "pan-tah-LONS" },
-    { en: "Shoes", ca: "Sabates", pronunciation: "sah-BAH-tes" },
-    { en: "Jacket", ca: "Jaqueta", pronunciation: "zhah-KEH-tah" },
-    { en: "Dress", ca: "Vestit", pronunciation: "ves-TEET" },
-    { en: "Size", ca: "Talla", pronunciation: "TAH-yah" },
-    { en: "Color", ca: "Color", pronunciation: "koh-LOR" },
-    { en: "Price", ca: "Preu", pronunciation: "preh-oo" }
-  ]},
-  { id: 26, title: "Technology & Internet", module: "Living", free: false, words: [
-    { en: "Computer", ca: "Ordinador", pronunciation: "or-dee-nah-DOR" },
-    { en: "Phone", ca: "Telèfon", pronunciation: "teh-LEH-fohn" },
-    { en: "Internet", ca: "Internet", pronunciation: "een-ter-NET" },
-    { en: "WiFi", ca: "WiFi", pronunciation: "wee-fee" },
-    { en: "Password", ca: "Contrasenya", pronunciation: "kohn-trah-SEN-yah" },
-    { en: "Download", ca: "Descarregar", pronunciation: "des-kah-reh-GAR" },
-    { en: "Upload", ca: "Carregar", pronunciation: "kah-reh-GAR" },
-    { en: "Connect", ca: "Connectar", pronunciation: "koh-nek-TAR" }
-  ]},
-  { id: 27, title: "Nature & Environment", module: "Social", free: false, words: [
-    { en: "Mountain", ca: "Muntanya", pronunciation: "moon-TAN-yah" },
-    { en: "River", ca: "Riu", pronunciation: "ree-oo" },
-    { en: "Beach", ca: "Platja", pronunciation: "PLAT-zhah" },
-    { en: "Forest", ca: "Bosc", pronunciation: "bosk" },
-    { en: "Tree", ca: "Arbre", pronunciation: "AR-breh" },
-    { en: "Flower", ca: "Flor", pronunciation: "flor" },
-    { en: "Animal", ca: "Animal", pronunciation: "ah-nee-MAL" },
-    { en: "Bird", ca: "Ocell", pronunciation: "oh-SEL" }
-  ]},
-  { id: 28, title: "Sports & Activities", module: "Social", free: false, words: [
-    { en: "Football", ca: "Futbol", pronunciation: "FOOT-bol" },
-    { en: "Basketball", ca: "Bàsquet", pronunciation: "BAS-ket" },
-    { en: "Swimming", ca: "Natació", pronunciation: "nah-tah-see-OH" },
-    { en: "Running", ca: "Córrer", pronunciation: "KOR-er" },
-    { en: "Cycling", ca: "Ciclisme", pronunciation: "see-KLEES-meh" },
-    { en: "Gym", ca: "Gimnàs", pronunciation: "zheem-NAS" },
-    { en: "Team", ca: "Equip", pronunciation: "eh-KEEP" },
-    { en: "Win", ca: "Guanyar", pronunciation: "gwan-YAR" }
-  ]},
-  { id: 29, title: "At the Hotel", module: "Daily Life", free: false, words: [
-    { en: "Hotel", ca: "Hotel", pronunciation: "oh-TEL" },
-    { en: "Room", ca: "Habitació", pronunciation: "ah-bee-tah-see-OH" },
-    { en: "Reservation", ca: "Reserva", pronunciation: "reh-SER-vah" },
-    { en: "Key", ca: "Clau", pronunciation: "kla-oo" },
-    { en: "Reception", ca: "Recepció", pronunciation: "reh-sep-see-OH" },
-    { en: "Breakfast", ca: "Esmorzar", pronunciation: "es-mor-TZAR" },
-    { en: "Check-in", ca: "Registre", pronunciation: "reh-ZHEES-treh" },
-    { en: "Check-out", ca: "Sortida", pronunciation: "sor-TEE-dah" }
-  ]},
-  { id: 30, title: "Mixed Practice", module: "Review", free: false, words: [
-    { en: "Problem", ca: "Problema", pronunciation: "proh-BLEH-mah" },
-    { en: "Solution", ca: "Solució", pronunciation: "soh-loo-see-OH" },
-    { en: "Question", ca: "Pregunta", pronunciation: "preh-GOON-tah" },
-    { en: "Answer", ca: "Resposta", pronunciation: "res-POS-tah" },
-    { en: "Important", ca: "Important", pronunciation: "eem-por-TANT" },
-    { en: "Necessary", ca: "Necessari", pronunciation: "neh-seh-SAH-ree" },
-    { en: "Possible", ca: "Possible", pronunciation: "poh-SEE-bleh" },
-    { en: "Impossible", ca: "Impossible", pronunciation: "eem-poh-SEE-bleh" }
-  ]}
+const LESSONS = lessons50;
+
+// REVIEW GATE: Define lesson tiers (groups of 3 lessons)
+const LESSON_TIERS = [
+  { tier: 1, lessons: [1, 2, 3] },
+  { tier: 2, lessons: [4, 5, 6] },
+  { tier: 3, lessons: [7, 8, 9] },
+  { tier: 4, lessons: [10, 11, 12] },
+  { tier: 5, lessons: [13, 14, 15] },
+  { tier: 6, lessons: [16, 17, 18] },
+  { tier: 7, lessons: [19, 20, 21] },
+  { tier: 8, lessons: [22, 23, 24] },
+  { tier: 9, lessons: [25, 26, 27] },
+  { tier: 10, lessons: [28, 29, 30] },
+  { tier: 11, lessons: [31, 32, 33] },
+  { tier: 12, lessons: [34, 35, 36] },
+  { tier: 13, lessons: [37, 38, 39] },
+  { tier: 14, lessons: [40, 41, 42] },
+  { tier: 15, lessons: [43, 44, 45] },
+  { tier: 16, lessons: [46, 47, 48] },
+  { tier: 17, lessons: [49, 50] }
 ];
-// Check URL parameters BEFORE component initializes
+
+// Helper: Get tier for a lesson ID
+const getTierForLesson = (lessonId) => {
+  const tierObj = LESSON_TIERS.find(t => t.lessons.includes(lessonId));
+  return tierObj ? tierObj.tier : 1;
+};
+
+// Helper: Check if all lessons in a tier are completed
+const isTierComplete = (tier, completedLessons) => {
+  const tierObj = LESSON_TIERS.find(t => t.tier === tier);
+  if (!tierObj) return false;
+  return tierObj.lessons.every(lessonId => completedLessons.includes(lessonId));
+};
+
+// Helper: Get words from a tier's lessons
+const getWordsFromTier = (tier) => {
+  const tierObj = LESSON_TIERS.find(t => t.tier === tier);
+  if (!tierObj) return [];
+  const words = [];
+  tierObj.lessons.forEach(lessonId => {
+    const lesson = LESSONS.find(l => l.id === lessonId);
+    if (lesson) {
+      words.push(...lesson.words);
+    }
+  });
+  return words;
+};
+
+// Helper: Get all words from tiers 1 through specified tier
+const getAllWordsUpToTier = (tier) => {
+  const words = [];
+  for (let t = 1; t <= tier; t++) {
+    words.push(...getWordsFromTier(t));
+  }
+  return words;
+};
+
+// Check if this is a comprehensive review point (after lessons 9, 18, 27)
+const isComprehensiveReviewPoint = (lessonId) => {
+  return [9, 18, 27].includes(lessonId);
+};
+
+// Premium activation tokens
+const PREMIUM_TOKENS = {
+  dev: 'HC_DEV_2026',           // Your personal testing token
+  paid: 'HC_PAID_2026',         // Stripe redirects here after payment
+  beta: 'HC_BETA_LIFE',         // 15 free-for-life beta testers
+  betaDiscount: 'HC_BETA_50'    // Other beta testers (paid via Stripe with 50% off)
+};
+
+// Obfuscated localStorage key for premium status
+const PREMIUM_KEY = 'hc_sub_status';
+const PREMIUM_VALUE = 'active_subscriber';
+
+const isPremiumStored = () => {
+  try {
+    const stored = JSON.parse(localStorage.getItem('catalan_progress') || '{}');
+    return stored[PREMIUM_KEY] === PREMIUM_VALUE;
+  } catch { return false; }
+};
+
+const storePremium = () => {
+  const existing = JSON.parse(localStorage.getItem('catalan_progress') || '{}');
+  existing[PREMIUM_KEY] = PREMIUM_VALUE;
+  existing.premium = true; // Keep for backward compatibility
+  localStorage.setItem('catalan_progress', JSON.stringify(existing));
+};
+
 const getInitialState = () => {
   const urlParams = new URLSearchParams(window.location.search);
   
-  // Handle reset
+  // Handle reset (your testing only)
   if (urlParams.get('reset') === 'true') {
     localStorage.removeItem('catalan_progress');
     window.history.replaceState({}, '', window.location.pathname);
     return { premium: false, reset: true };
   }
   
-  // Handle premium URL param
-  if (urlParams.get('premium') === 'true') {
-    const existing = JSON.parse(localStorage.getItem('catalan_progress') || '{}');
-    existing.premium = true;
-    localStorage.setItem('catalan_progress', JSON.stringify(existing));
+  // Handle premium activation tokens
+  const activateToken = urlParams.get('activate');
+  const devToken = urlParams.get('dev');
+  
+  const validTokens = Object.values(PREMIUM_TOKENS);
+  const providedToken = activateToken || devToken;
+  
+  if (providedToken && validTokens.includes(providedToken)) {
+    storePremium();
     window.history.replaceState({}, '', window.location.pathname);
     return { premium: true, reset: false };
   }
   
-  // Default: check localStorage
+  // OLD ?premium=true NO LONGER WORKS - remove the backdoor
+  // (If someone tries it, nothing happens)
+  
+  // Check stored premium status
+  if (isPremiumStored()) {
+    return { premium: true, reset: false };
+  }
+  
+  // Check legacy premium flag (for existing beta users who already have it)
   const stored = JSON.parse(localStorage.getItem('catalan_progress') || '{}');
-  return { premium: stored.premium || false, reset: false };
+  if (stored.premium === true) {
+    // Migrate them to new system
+    storePremium();
+    return { premium: true, reset: false };
+  }
+  
+  return { premium: false, reset: false };
 };
+
+// BETA EXPIRY - App stops working after this date
+const BETA_EXPIRY_DATE = new Date('2026-02-10');
+const isBetaExpired = () => new Date() > BETA_EXPIRY_DATE;
 
 const INITIAL_STATE = getInitialState();
 
@@ -354,6 +167,9 @@ function App() {
   const [conversationTurnIndex, setConversationTurnIndex] = useState(0);
   const [userSentence, setUserSentence] = useState([]);
   const [conversationFeedback, setConversationFeedback] = useState('');
+  const [showTranslation, setShowTranslation] = useState({});
+  const [showChallengeTranslation, setShowChallengeTranslation] = useState({});
+  const [shuffledWordBank, setShuffledWordBank] = useState([]);
   const [completedConversations, setCompletedConversations] = useState([]);
   const [challengeHistory, setChallengeHistory] = useState([]);
   const [challengeStreak, setChallengeStreak] = useState(0);
@@ -370,23 +186,55 @@ function App() {
   const [challengeSelectedPairs, setChallengeSelectedPairs] = useState([]);
   const [challengeMatchedPairs, setChallengeMatchedPairs] = useState([]);
   const [challengeShuffledCatalan, setChallengeShuffledCatalan] = useState([]);
+  // Challenge conversation state
+  const [challengeConversations, setChallengeConversations] = useState([]);
+  const [challengeConvIndex, setChallengeConvIndex] = useState(0);
+  const [challengeConvTurnIndex, setChallengeConvTurnIndex] = useState(0);
+  const [challengeConvUserSentence, setChallengeConvUserSentence] = useState([]);
+  const [challengeConvWordBank, setChallengeConvWordBank] = useState([]);
+  const [challengeConvFeedback, setChallengeConvFeedback] = useState('');
+  const [savedChallengeState, setSavedChallengeState] = useState(null);
   const [selectedPairs, setSelectedPairs] = useState([]);
   const [matchedPairs, setMatchedPairs] = useState([]);
   const [shuffledCatalan, setShuffledCatalan] = useState([]);
   const [quizIndex, setQuizIndex] = useState(0);
   const [quizFeedback, setQuizFeedback] = useState('');
   const [quizOptions, setQuizOptions] = useState([]);
+  const [quizWords, setQuizWords] = useState([]);
+  const [selectedQuizAnswer, setSelectedQuizAnswer] = useState(null);
   const [unlockedAchievements, setUnlockedAchievements] = useState([]);
   const [newAchievement, setNewAchievement] = useState(null);
   const [showAchievements, setShowAchievements] = useState(false);
+  // REVIEW GATE STATE
+  const [unlockedTier, setUnlockedTier] = useState(1);
+  const [reviewGateActive, setReviewGateActive] = useState(false);
+  const [reviewGateTier, setReviewGateTier] = useState(null);
+  const [reviewGateWords, setReviewGateWords] = useState([]);
+  const [reviewGateIndex, setReviewGateIndex] = useState(0);
+  const [reviewGateScore, setReviewGateScore] = useState(0);
+  const [reviewGateFeedback, setReviewGateFeedback] = useState('');
+  const [reviewGateOptions, setReviewGateOptions] = useState([]);
+const [selectedReviewGateAnswer, setSelectedReviewGateAnswer] = useState(null);
+  const [reviewGateComplete, setReviewGateComplete] = useState(false);
+  const [reviewGatePassed, setReviewGatePassed] = useState(false);
+  const [isComprehensiveReview, setIsComprehensiveReview] = useState(false);
+  const [showSaved, setShowSaved] = useState(false);
+  const [showPaywall, setShowPaywall] = useState(false);
+  const [authUser, setAuthUser] = useState(null);
+  const [showAuth, setShowAuth] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [syncStatus, setSyncStatus] = useState('');
   const timerRef = useRef(null);
   const secretTapsRef = useRef(0);
   const secretTapTimerRef = useRef(null);
 
-  useEffect(() => {
+ useEffect(() => {
     if (user) {
-      const userData = { completed, score, premium, user, wordHistory, reviewStreak, lastReviewDate, completedConversations, challengeHistory };
+      const userData = { completed, score, premium, user, wordHistory, reviewStreak, lastReviewDate, completedConversations, challengeHistory, unlockedTier, ...(premium ? { [PREMIUM_KEY]: PREMIUM_VALUE } : {}) };
+
       localStorage.setItem('catalan_progress', JSON.stringify(userData));
+      setShowSaved(true);
+      setTimeout(() => setShowSaved(false), 2000);
       setReviewQueue(getWordsToReview(wordHistory));
       
       // Check for new achievements
@@ -394,7 +242,6 @@ function App() {
       const newlyUnlocked = currentUnlocked.filter(a => !unlockedAchievements.map(u => u.id).includes(a.id));
       
       if (newlyUnlocked.length > 0 && unlockedAchievements.length > 0) {
-        // Show notification for first new achievement
         setNewAchievement(newlyUnlocked[0]);
         setTimeout(() => setNewAchievement(null), 4000);
       }
@@ -402,6 +249,201 @@ function App() {
       setUnlockedAchievements(currentUnlocked);
     }
   }, [completed, score, premium, user, wordHistory, reviewStreak, lastReviewDate, completedConversations, challengeHistory]);
+
+  // Load saved progress on app startup
+useEffect(() => {
+  const saved = localStorage.getItem('catalan_progress');
+  if (saved) {
+    const data = JSON.parse(saved);
+    if (data.user) setUser(data.user);
+    if (data.completed) setCompleted(data.completed);
+    if (data.score) setScore(data.score);
+    if (data.premium) setPremium(data.premium);
+    if (data.wordHistory) setWordHistory(data.wordHistory);
+    if (data.completedConversations) setCompletedConversations(data.completedConversations);
+    if (data.challengeHistory) setChallengeHistory(data.challengeHistory);
+    if (data.unlockedTier) setUnlockedTier(data.unlockedTier);
+    
+    // Check if streak should be reset (missed a day)
+    if (data.lastReviewDate) {
+      const lastDate = new Date(data.lastReviewDate);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      lastDate.setHours(0, 0, 0, 0);
+      const diffDays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
+      
+      if (diffDays <= 1) {
+        // Same day or yesterday - keep streak
+        setReviewStreak(data.reviewStreak || 0);
+      } else {
+        // Missed more than one day - reset streak to 0
+        setReviewStreak(0);
+      }
+      setLastReviewDate(data.lastReviewDate);
+    } else {
+      setReviewStreak(data.reviewStreak || 0);
+    }
+  }
+}, []);
+
+// ===== SUPABASE AUTH & SYNC FUNCTIONS =====
+  
+  // Check auth state on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        setAuthUser(session.user);
+        setEmailVerified(!!session.user.email_confirmed_at);
+        await loadProgressFromCloud(session.user.id);
+      }
+      setAuthLoading(false);
+    };
+    checkAuth();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session?.user) {
+        setAuthUser(session.user);
+        setEmailVerified(!!session.user.email_confirmed_at);
+      } else if (event === 'SIGNED_OUT') {
+        setAuthUser(null);
+        setEmailVerified(false);
+      } else if (event === 'USER_UPDATED' && session?.user) {
+        // This fires when email is verified
+        setAuthUser(session.user);
+        setEmailVerified(!!session.user.email_confirmed_at);
+        if (session.user.email_confirmed_at) {
+          setShowVerifyPrompt(false); // Close the prompt if open
+        }
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // Save progress to Supabase
+  const saveProgressToCloud = async (userId) => {
+    if (!userId) return;
+    
+    const progressData = {
+      completed,
+      score,
+      premium,
+      user,
+      wordHistory,
+      reviewStreak,
+      lastReviewDate,
+      completedConversations,
+      challengeHistory,
+      unlockedTier,
+      unlockedAchievements: unlockedAchievements.map(a => a.id)
+    };
+
+    const { error } = await supabase
+      .from('user_progress')
+      .upsert({
+        user_id: userId,
+        progress_data: progressData
+      }, {
+        onConflict: 'user_id'
+      });
+
+    if (error) {
+      console.error('Error saving to cloud:', error);
+    } else {
+      setSyncStatus('saved');
+      setTimeout(() => setSyncStatus(''), 2000);
+    }
+  };
+
+  // Load progress from Supabase
+  const loadProgressFromCloud = async (userId) => {
+    if (!userId) return;
+
+    const { data, error } = await supabase
+      .from('user_progress')
+      .select('progress_data')
+      .eq('user_id', userId)
+      .single();
+
+    if (error && error.code !== 'PGRST116') { // PGRST116 = no rows found (new user)
+      console.error('Error loading from cloud:', error);
+      return;
+    }
+
+    if (data?.progress_data) {
+      const p = data.progress_data;
+      if (p.user) setUser(p.user);
+      if (p.completed) setCompleted(p.completed);
+      if (p.score) setScore(p.score);
+      if (p.premium) setPremium(p.premium);
+      if (p.wordHistory) setWordHistory(p.wordHistory);
+      if (p.completedConversations) setCompletedConversations(p.completedConversations);
+      if (p.challengeHistory) setChallengeHistory(p.challengeHistory);
+      if (p.unlockedTier) setUnlockedTier(p.unlockedTier);
+      if (p.reviewStreak !== undefined) setReviewStreak(p.reviewStreak);
+      if (p.lastReviewDate) setLastReviewDate(p.lastReviewDate);
+      setSyncStatus('loaded');
+      setTimeout(() => setSyncStatus(''), 2000);
+    }
+  };
+
+  // Handle successful auth
+  const handleAuthSuccess = async (authUserData, existingLocalData) => {
+    setShowAuth(false);
+    
+    if (!authUserData) {
+      // User chose to continue without account
+      return;
+    }
+
+    setAuthUser(authUserData);
+
+    // Check if user has cloud data
+    const { data: cloudData } = await supabase
+      .from('user_progress')
+      .select('progress_data')
+      .eq('user_id', authUserData.id)
+      .single();
+
+    if (cloudData?.progress_data && cloudData.progress_data.completed?.length > 0) {
+      // User has existing cloud progress - load it
+      await loadProgressFromCloud(authUserData.id);
+    } else if (existingLocalData && existingLocalData.completed?.length > 0) {
+      // User has local progress but no cloud data - migrate it
+      setUser(existingLocalData.user || { name: authUserData.user_metadata?.name || 'Learner' });
+      if (existingLocalData.completed) setCompleted(existingLocalData.completed);
+      if (existingLocalData.score) setScore(existingLocalData.score);
+      if (existingLocalData.premium) setPremium(existingLocalData.premium);
+      if (existingLocalData.wordHistory) setWordHistory(existingLocalData.wordHistory);
+      if (existingLocalData.completedConversations) setCompletedConversations(existingLocalData.completedConversations);
+      if (existingLocalData.challengeHistory) setChallengeHistory(existingLocalData.challengeHistory);
+      if (existingLocalData.unlockedTier) setUnlockedTier(existingLocalData.unlockedTier);
+      // Save migrated data to cloud
+      setTimeout(() => saveProgressToCloud(authUserData.id), 1000);
+    } else {
+      // New user with no progress anywhere
+      setUser({ name: authUserData.user_metadata?.name || 'Learner' });
+    }
+  };
+
+  // Sign out function
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    setAuthUser(null);
+    // Don't clear local data - let them keep it for offline use
+  };
+
+  // Auto-save to cloud when progress changes (if logged in)
+  useEffect(() => {
+    if (authUser && user) {
+      const timeoutId = setTimeout(() => {
+        saveProgressToCloud(authUser.id);
+      }, 2000); // Debounce: wait 2 seconds after last change
+      return () => clearTimeout(timeoutId);
+    }
+  }, [completed, score, premium, wordHistory, completedConversations, challengeHistory, unlockedTier, authUser]);
 
   useEffect(() => {
     if (view === 'challenge' && currentChallenge && currentChallenge.timeLimit && challengeStartTime && !challengeCompleted && !challengeFailed) {
@@ -420,6 +462,7 @@ function App() {
           }];
           setChallengeHistory(newHistory);
           setChallengeFailed(true);
+          setSavedChallengeState(null);
         } else {
           setChallengeTimeRemaining(remaining);
         }
@@ -439,16 +482,182 @@ function App() {
     setView('lesson');
   };
 
-  const startConversation = (conversation) => {
-    setCurrentConversation(conversation);
-    const firstUserTurn = conversation.turns.findIndex(turn => turn.speaker === 'user');
-    setConversationTurnIndex(firstUserTurn);
-    setUserSentence([]);
-    setConversationFeedback('');
-    setView('conversation');
+ const startConversation = (conversation) => {
+  setCurrentConversation(conversation);
+  const firstUserTurn = conversation.turns.findIndex(turn => turn.speaker === 'user');
+  setConversationTurnIndex(firstUserTurn);
+  setUserSentence([]);
+  setConversationFeedback('');
+  // Shuffle word bank once at start
+  const turn = conversation.turns[firstUserTurn];
+  if (turn && turn.wordBank) {
+    setShuffledWordBank([...turn.wordBank].sort(() => Math.random() - 0.5));
+  }
+  setView('conversation');
+};
+
+// REVIEW GATE: Start the review gate quiz
+  const startReviewGate = (tier, comprehensive = false) => {
+    const words = comprehensive ? getAllWordsUpToTier(tier) : getWordsFromTier(tier);
+    const questionCount = comprehensive ? 20 : 10;
+    const shuffled = [...words].sort(() => Math.random() - 0.5).slice(0, questionCount);
+    setReviewGateWords(shuffled);
+    setReviewGateTier(tier);
+    setReviewGateIndex(0);
+    setReviewGateScore(0);
+    setReviewGateFeedback('');
+    setSelectedReviewGateAnswer(null);
+    setReviewGateComplete(false);
+    setReviewGatePassed(false);
+    setIsComprehensiveReview(comprehensive);
+    
+    const firstWord = shuffled[0];
+    const otherWords = words.filter(w => w.ca !== firstWord.ca);
+    const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ca);
+    setReviewGateOptions([firstWord.ca, ...wrongAnswers].sort(() => Math.random() - 0.5));
+    
+    setReviewGateActive(true);
+    setView('reviewGate');
+  };
+
+  const handleReviewGateAnswer = (answer) => {
+    const currentWord = reviewGateWords[reviewGateIndex];
+    const isCorrect = answer === currentWord.ca;
+    setSelectedReviewGateAnswer(answer);
+    
+    if (isCorrect) {
+      setReviewGateScore(reviewGateScore + 1);
+      setReviewGateFeedback('Correcte! ✓');
+    } else {
+      setReviewGateFeedback(`Incorrecte. La resposta és: "${currentWord.ca}"`);
+    }
+    
+    setTimeout(() => {
+      if (reviewGateIndex < reviewGateWords.length - 1) {
+        const nextIndex = reviewGateIndex + 1;
+        setReviewGateIndex(nextIndex);
+        setReviewGateFeedback('');
+        setSelectedReviewGateAnswer(null);
+        
+        const nextWord = reviewGateWords[nextIndex];
+        const allTierWords = getWordsFromTier(reviewGateTier);
+        const otherWords = allTierWords.filter(w => w.ca !== nextWord.ca);
+        const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ca);
+        setReviewGateOptions([nextWord.ca, ...wrongAnswers].sort(() => Math.random() - 0.5));
+      } else {
+        const finalScore = isCorrect ? reviewGateScore + 1 : reviewGateScore;
+        const passThreshold = isComprehensiveReview ? 16 : 8;
+        const passed = finalScore >= passThreshold;
+        setReviewGateComplete(true);
+        setReviewGatePassed(passed);
+        
+        if (passed) {
+          setUnlockedTier(reviewGateTier + 1);
+          const pointsAwarded = isComprehensiveReview ? 200 : 100;
+          setScore(score + pointsAwarded);
+        }
+      }
+    }, 1500);
+  };
+
+  const exitReviewGate = () => {
+    setReviewGateActive(false);
+    setView('home');
+  };
+
+  const retryReviewGate = () => {
+    startReviewGate(reviewGateTier, isComprehensiveReview);
+  };
+
+  const checkForReviewGate = (lessonId) => {
+    const lessonTier = getTierForLesson(lessonId);
+    const tierObj = LESSON_TIERS.find(t => t.tier === lessonTier);
+    
+    if (tierObj) {
+      const otherLessonsInTier = tierObj.lessons.filter(id => id !== lessonId);
+      const otherLessonsComplete = otherLessonsInTier.every(id => completed.includes(id));
+      
+      if (otherLessonsComplete && lessonTier >= unlockedTier && lessonTier < 18) {
+        return lessonTier;
+      }
+    }
+    return null;
+  };
+
+  const isLessonLocked = (lesson) => {
+    // Premium users bypass all payment locks
+    if (premium) {
+      const lessonTier = getTierForLesson(lesson.id);
+      if (lessonTier > unlockedTier) return { locked: true, reason: 'tier', tier: lessonTier };
+      return { locked: false };
+    }
+    
+    // Free user: day-gated drip system
+    // Day 1: lessons 1-3, Day 2: lessons 4-6, Day 3: lessons 7-9, Day 4+: paywall
+    const lessonTier = getTierForLesson(lesson.id);
+    
+    // Calculate days since signup
+    let daysSinceSignup = 0;
+    if (user && user.startedAt) {
+      const startDate = new Date(user.startedAt);
+      const now = new Date();
+      startDate.setHours(0, 0, 0, 0);
+      now.setHours(0, 0, 0, 0);
+      daysSinceSignup = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+    }
+    
+    // Free tiers available based on days since signup
+    // Day 0 (signup day): Tier 1 (lessons 1-3)
+    // Day 1 (next day): Tier 2 (lessons 4-6)
+    // Day 2 (day after): Tier 3 (lessons 7-9)
+    const maxFreeTier = Math.min(daysSinceSignup + 1, 3);
+    
+    // Beyond tier 3 is always premium
+    if (lessonTier > 3) return { locked: true, reason: 'premium' };
+    
+    // Within free range but not yet unlocked by day
+    if (lessonTier > maxFreeTier) return { locked: true, reason: 'daygate', tier: lessonTier, daysUntil: lessonTier - maxFreeTier };
+    
+    // Review gate check (still applies to free users)
+    if (lessonTier > unlockedTier) return { locked: true, reason: 'tier', tier: lessonTier };
+    
+    return { locked: false };
+  };
+
+  const shouldShowReviewGateButton = (tier) => {
+    return isTierComplete(tier, completed) && unlockedTier === tier && tier < 18;
   };
 
   const startChallenge = () => {
+    // Check if we have saved state from earlier today
+    if (savedChallengeState && savedChallengeState.challenge.id === getTodayChallenge().id) {
+      // Restore saved state
+      setCurrentChallenge(savedChallengeState.challenge);
+      setChallengeProgress(savedChallengeState.progress);
+      setChallengeTimeRemaining(savedChallengeState.timeRemaining);
+      setChallengeStartTime(savedChallengeState.startTime);
+      setChallengeItems(savedChallengeState.items);
+      setChallengeCurrentIndex(savedChallengeState.currentIndex);
+      setChallengeSelectedPairs(savedChallengeState.selectedPairs);
+      setChallengeMatchedPairs(savedChallengeState.matchedPairs);
+      setChallengeShuffledCatalan(savedChallengeState.shuffledCatalan);
+      setChallengeConversations(savedChallengeState.conversations);
+      setChallengeConvIndex(savedChallengeState.convIndex);
+      setChallengeConvTurnIndex(savedChallengeState.convTurnIndex);
+      setChallengeConvUserSentence(savedChallengeState.convUserSentence);
+      setChallengeConvWordBank(savedChallengeState.convWordBank);
+      setChallengeConvFeedback(savedChallengeState.convFeedback);
+      
+      // Restart timer from where we left off (if it was a timed challenge)
+      if (savedChallengeState.timeRemaining !== null) {
+        setChallengeStartTime(Date.now());
+      }
+      
+      setView('challenge');
+      return;
+    }
+    
+    // Otherwise start fresh
     const challenge = getTodayChallenge();
     setCurrentChallenge(challenge);
     setChallengeProgress(0);
@@ -466,24 +675,52 @@ function App() {
     
     if (challenge.type === CHALLENGE_TYPES.TRANSLATE) {
       if (hasEnoughWords) {
-        // Use words the user has learned
         const shuffledUserWords = [...userWords].sort(() => Math.random() - 0.5).slice(0, challenge.targetCount + 5);
         setChallengeItems(shuffledUserWords);
       } else {
-        // Fall back to easy sentences from challenge
-        setChallengeItems([...challenge.sentences].sort(() => Math.random() - 0.5));
+        // Pull words from completed lessons only
+        const completedWords = LESSONS.filter(l => completed.includes(l.id)).flatMap(l => l.words.map(w => ({ en: w.en, ca: w.ca })));
+        if (completedWords.length >= 5) {
+          setChallengeItems([...completedWords].sort(() => Math.random() - 0.5));
+        } else {
+          setChallengeItems([...challenge.sentences].sort(() => Math.random() - 0.5));
+        }
       }
     } else if (challenge.type === CHALLENGE_TYPES.MATCH) {
       if (hasEnoughWords) {
-        // Use words the user has learned
         const words = [...userWords].sort(() => Math.random() - 0.5).slice(0, challenge.targetCount);
         setChallengeItems(words);
         setChallengeShuffledCatalan([...words].sort(() => Math.random() - 0.5));
       } else {
-        // Fall back to challenge defaults
-        const words = [...challenge.words].sort(() => Math.random() - 0.5).slice(0, challenge.targetCount);
-        setChallengeItems(words);
-        setChallengeShuffledCatalan([...words].sort(() => Math.random() - 0.5));
+        // Pull words from completed lessons only
+        const completedWords = LESSONS.filter(l => completed.includes(l.id)).flatMap(l => l.words.map(w => ({ en: w.en, ca: w.ca })));
+        if (completedWords.length >= 5) {
+          const words = [...completedWords].sort(() => Math.random() - 0.5).slice(0, challenge.targetCount);
+          setChallengeItems(words);
+          setChallengeShuffledCatalan([...words].sort(() => Math.random() - 0.5));
+        } else {
+          const words = [...challenge.words].sort(() => Math.random() - 0.5).slice(0, challenge.targetCount);
+          setChallengeItems(words);
+          setChallengeShuffledCatalan([...words].sort(() => Math.random() - 0.5));
+        }
+      }
+    } else if (challenge.type === CHALLENGE_TYPES.CONVERSATIONS) {
+      // Pick random conversations for the challenge
+      const availableConvs = CONVERSATIONS.filter(c => completed.includes(c.unlockAfterLesson));
+      const shuffled = [...availableConvs].sort(() => Math.random() - 0.5).slice(0, challenge.targetCount);
+      setChallengeConversations(shuffled);
+      setChallengeConvIndex(0);
+      // Set up first conversation
+      if (shuffled.length > 0) {
+        const firstConv = shuffled[0];
+        const firstUserTurn = firstConv.turns.findIndex(turn => turn.speaker === 'user');
+        setChallengeConvTurnIndex(firstUserTurn);
+        setChallengeConvUserSentence([]);
+        setChallengeConvFeedback('');
+        const turn = firstConv.turns[firstUserTurn];
+        if (turn && turn.wordBank) {
+          setChallengeConvWordBank([...turn.wordBank].sort(() => Math.random() - 0.5));
+        }
       }
     }
     if (challenge.timeLimit) {
@@ -493,6 +730,82 @@ function App() {
       setChallengeTimeRemaining(null);
     }
     setView('challenge');
+  };
+
+  // Challenge conversation handlers
+  const addChallengeConvWord = (word) => {
+    setChallengeConvUserSentence([...challengeConvUserSentence, word]);
+  };
+
+  const removeChallengeConvWord = () => {
+    setChallengeConvUserSentence(challengeConvUserSentence.slice(0, -1));
+  };
+
+  const checkChallengeConvAnswer = () => {
+    const currentConv = challengeConversations[challengeConvIndex];
+    const currentTurn = currentConv.turns[challengeConvTurnIndex];
+    const userAnswer = challengeConvUserSentence.join(' ');
+    const correctAnswer = currentTurn.correctSentence;
+
+    if (normalizeText(userAnswer) === normalizeText(correctAnswer)) {
+      setChallengeConvFeedback('Correcte! ✓');
+      
+      // Mark this turn as answered
+      const updatedConvs = [...challengeConversations];
+      updatedConvs[challengeConvIndex] = {
+        ...updatedConvs[challengeConvIndex],
+        turns: updatedConvs[challengeConvIndex].turns.map((t, i) => 
+          i === challengeConvTurnIndex ? { ...t, userAnswer } : t
+        )
+      };
+      setChallengeConversations(updatedConvs);
+
+      setTimeout(() => {
+        setChallengeConvFeedback('');
+        setChallengeConvUserSentence([]);
+        
+        // Find next user turn in current conversation
+        let nextIndex = challengeConvTurnIndex + 1;
+        while (nextIndex < currentConv.turns.length && currentConv.turns[nextIndex].speaker !== 'user') {
+          nextIndex++;
+        }
+        
+        if (nextIndex < currentConv.turns.length) {
+          // More turns in this conversation
+          setChallengeConvTurnIndex(nextIndex);
+          const nextTurn = currentConv.turns[nextIndex];
+          if (nextTurn && nextTurn.wordBank) {
+            setChallengeConvWordBank([...nextTurn.wordBank].sort(() => Math.random() - 0.5));
+          }
+        } else {
+          // Conversation complete - move to next conversation
+          const newProgress = challengeProgress + 1;
+          setChallengeProgress(newProgress);
+          
+          if (newProgress >= currentChallenge.targetCount || challengeConvIndex >= challengeConversations.length - 1) {
+            // Challenge complete!
+            completeChallenge();
+          } else {
+            // Start next conversation
+            const nextConvIndex = challengeConvIndex + 1;
+            setChallengeConvIndex(nextConvIndex);
+            const nextConv = challengeConversations[nextConvIndex];
+            const firstUserTurn = nextConv.turns.findIndex(turn => turn.speaker === 'user');
+            setChallengeConvTurnIndex(firstUserTurn);
+            const turn = nextConv.turns[firstUserTurn];
+            if (turn && turn.wordBank) {
+              setChallengeConvWordBank([...turn.wordBank].sort(() => Math.random() - 0.5));
+            }
+          }
+        }
+      }, 1500);
+    } else {
+      setChallengeConvFeedback(`Try again! The correct answer is: "${correctAnswer}"`);
+      setTimeout(() => {
+        setChallengeConvFeedback('');
+        setChallengeConvUserSentence([]);
+      }, 3000);
+    }
   };
 
   // Helper function to normalize text (remove accents and punctuation for comparison)
@@ -560,6 +873,7 @@ function App() {
             }];
             setChallengeHistory(newHistory);
             setChallengeFailed(true);
+            setSavedChallengeState(null);
           }
         }
       }, 3000); // 3 seconds for incorrect to read the answer
@@ -595,6 +909,7 @@ function App() {
 
   const completeChallenge = () => {
     setChallengeCompleted(true);
+    setSavedChallengeState(null);
     if (timerRef.current) clearInterval(timerRef.current);
     const newHistory = [...challengeHistory, {
       challengeId: currentChallenge.id,
@@ -618,6 +933,7 @@ function App() {
     }];
     setChallengeHistory(newHistory);
     setChallengeFailed(true);
+    setSavedChallengeState(null);
   };
 
   // Dev helper: Ctrl+Shift+D to reset daily challenge
@@ -650,6 +966,28 @@ function App() {
 
   const exitChallenge = () => {
     if (timerRef.current) clearInterval(timerRef.current);
+    
+    // Save challenge state before exiting
+    if (currentChallenge) {
+      setSavedChallengeState({
+        challenge: currentChallenge,
+        progress: challengeProgress,
+        timeRemaining: challengeTimeRemaining,
+        startTime: challengeStartTime,
+        items: challengeItems,
+        currentIndex: challengeCurrentIndex,
+        selectedPairs: challengeSelectedPairs,
+        matchedPairs: challengeMatchedPairs,
+        shuffledCatalan: challengeShuffledCatalan,
+        conversations: challengeConversations,
+        convIndex: challengeConvIndex,
+        convTurnIndex: challengeConvTurnIndex,
+        convUserSentence: challengeConvUserSentence,
+        convWordBank: challengeConvWordBank,
+        convFeedback: challengeConvFeedback
+      });
+    }
+    
     setView('home');
     setCurrentChallenge(null);
   };
@@ -676,13 +1014,22 @@ function App() {
           setConversationTurnIndex(nextIndex);
           setUserSentence([]);
           setConversationFeedback('');
+          // Update word bank for next turn
+          const nextTurn = currentConversation.turns[nextIndex];
+          if (nextTurn && nextTurn.wordBank) {
+            setShuffledWordBank([...nextTurn.wordBank].sort(() => Math.random() - 0.5));
+          }
         } else {
           if (!completedConversations.includes(currentConversation.id)) {
             setCompletedConversations([...completedConversations, currentConversation.id]);
             setScore(s => s + 50);
           }
-          setView('home');
-          setCurrentConversation(null);
+          setView('conversationComplete');
+          setTimeout(() => {
+            setView('home');
+            setCurrentConversation(null);
+            setConversationTurnIndex(0);
+          }, 3000);
         }
       }, 1500);
     } else {
@@ -692,26 +1039,21 @@ function App() {
   };
 
   const nextStage = () => {
-    if (lessonStage === 'intro') setLessonStage('flashcards');
-    else if (lessonStage === 'flashcards') setLessonStage('match');
-    else if (lessonStage === 'match') {
-      setLessonStage('quiz');
+    const stages = currentLesson.stages || ['intro', 'flashcards', 'match', 'quiz'];
+    const currentIndex = stages.indexOf(lessonStage);
+    const nextStageName = currentIndex < stages.length - 1 ? stages[currentIndex + 1] : 'complete';
+    
+    if (nextStageName === 'quiz') {
       setQuizIndex(0);
       setQuizFeedback('');
-      const correctAnswer = currentLesson.words[0].ca;
-      const wrongAnswers = currentLesson.words.filter((_, i) => i !== 0).map(w => w.ca).sort(() => Math.random() - 0.5).slice(0, 2);
+      const shuffledWords = [...currentLesson.words].sort(() => Math.random() - 0.5);
+      setQuizWords(shuffledWords);
+      const correctAnswer = shuffledWords[0].ca;
+      const wrongAnswers = shuffledWords.filter((_, i) => i !== 0).map(w => w.ca).sort(() => Math.random() - 0.5).slice(0, 2);
       setQuizOptions([correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5));
-    } else {
-      if (!completed.includes(currentLesson.id)) {
-        setCompleted([...completed, currentLesson.id]);
-        setScore(score + 50);
-        const newWords = currentLesson.words.map(word => initializeWordForReview(word, currentLesson.id));
-        setWordHistory([...wordHistory, ...newWords]);
-      }
-      setView('home');
-      setCurrentLesson(null);
-      setQuizIndex(0);
     }
+    
+    setLessonStage(nextStageName);
   };
 
   const handleMatchClick = (word, type) => {
@@ -725,38 +1067,44 @@ function App() {
       } else {
         const isMatch = (first.type === 'en' && first.word.ca === newSelection.word.ca) || (first.type === 'ca' && newSelection.word.ca === first.word.ca);
         if (isMatch) {
-          setMatchedPairs([...matchedPairs, first.word.ca]);
-          setSelectedPairs([]);
-          setScore(score + 10);
-        } else {
-          setTimeout(() => setSelectedPairs([]), 500);
-        }
+  setMatchedPairs([...matchedPairs, first.word.ca]);
+  setSelectedPairs([]);
+  if (!completed.includes(currentLesson.id)) {
+    setScore(score + 10);
+  }
+}
       }
     }
   };
 
-  const handleQuizAnswer = (answer) => {
-    const correct = currentLesson.words[quizIndex];
-    if (answer === correct.ca) {
-      setQuizFeedback('Correcte! ✓');
+const handleQuizAnswer = (answer) => {
+  const correct = quizWords[quizIndex];
+  const isCorrect = answer === correct.ca;
+  
+  if (isCorrect) {
+    setQuizFeedback('Correcte! ✓');
+    if (!completed.includes(currentLesson.id)) {
       setScore(score + 5);
-      setTimeout(() => {
-        if (quizIndex < currentLesson.words.length - 1) {
-          const nextIndex = quizIndex + 1;
-          setQuizIndex(nextIndex);
-          setQuizFeedback('');
-          const correctAnswer = currentLesson.words[nextIndex].ca;
-          const wrongAnswers = currentLesson.words.filter((_, i) => i !== nextIndex).map(w => w.ca).sort(() => Math.random() - 0.5).slice(0, 2);
-          setQuizOptions([correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5));
-        } else {
-          nextStage();
-        }
-      }, 1000);
-    } else {
-      setQuizFeedback('Try again!');
-      setTimeout(() => setQuizFeedback(''), 1000);
     }
-  };
+    setTimeout(() => {
+      if (quizIndex < quizWords.length - 1) {
+        const nextIndex = quizIndex + 1;
+        const correctAnswer = quizWords[nextIndex].ca;
+        const wrongAnswers = quizWords.filter((_, i) => i !== nextIndex).map(w => w.ca).sort(() => Math.random() - 0.5).slice(0, 2);
+        setQuizOptions([correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5));
+        setQuizIndex(nextIndex);
+        setQuizFeedback('');
+      } else {
+        nextStage();
+      }
+    }, 1000);
+  } else {
+    setQuizFeedback('Try again!');
+    setTimeout(() => {
+      setQuizFeedback('');
+    }, 1000);
+  }
+};
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -769,10 +1117,15 @@ function App() {
   const [onboardingName, setOnboardingName] = useState('');
   const [onboardingGoal, setOnboardingGoal] = useState('');
   const [onboardingTime, setOnboardingTime] = useState('');
+  const [onboardingEmail, setOnboardingEmail] = useState('');
+  const [onboardingPassword, setOnboardingPassword] = useState('');
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [showVerifyPrompt, setShowVerifyPrompt] = useState(false);
 
   const goals = [
+    { id: 'living', label: 'Already living in Catalonia/Andorra', icon: '📍' },
     { id: 'moving', label: 'Moving to Barcelona/Catalonia', icon: '🏠' },
-    { id: 'andorra', label: 'Living in Andorra', icon: '🏔️' },
+    { id: 'andorra', label: 'Moving to Andorra', icon: '🏔️' },
     { id: 'family', label: 'Family or relationship', icon: '❤️' },
     { id: 'travel', label: 'Travel and holidays', icon: '✈️' },
     { id: 'curious', label: 'Just curious!', icon: '🤔' }
@@ -794,27 +1147,105 @@ function App() {
     return shuffled;
   };
 
-  // Text-to-speech for Catalan words
-  const speakWord = (text) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel(); // Stop any current speech
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'ca-ES'; // Catalan
-      utterance.rate = 0.8; // Slightly slower for learning
-      window.speechSynthesis.speak(utterance);
+  // Audio cache to ensure consistent pronunciation
+  const audioCache = useRef({});
+
+  // Text-to-speech for Catalan words using ElevenLabs
+  const speakWord = async (text, slow = false) => {
+    try {
+      // Check cache first
+      if (audioCache.current[text]) {
+        const audio = new Audio(audioCache.current[text]);
+        audio.playbackRate = slow ? 0.5 : 1.0;
+        audio.play();
+        return;
+      }
+
+      const response = await fetch('https://api.elevenlabs.io/v1/text-to-speech/AxFLn9byyiDbMn5fmyqu', {
+        method: 'POST',
+        headers: {
+          'Accept': 'audio/mpeg',
+          'Content-Type': 'application/json',
+          'xi-api-key': 'sk_75b4eb8a57c22f39ba4cd877d79c18d631a13107a8fab115'
+        },
+        body: JSON.stringify({
+          text: text,
+          model_id: 'eleven_v3',
+          language_code: 'es',
+          voice_settings: {
+            stability: 1.0,
+            similarity_boost: 1.0
+          }
+        })
+      });
+
+      if (response.ok) {
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+        // Cache the audio URL
+        audioCache.current[text] = audioUrl;
+        const audio = new Audio(audioUrl);
+        audio.playbackRate = slow ? 0.5 : 1.0;
+        audio.play();
+      }
+    } catch (error) {
+      console.error('Audio error:', error);
     }
   };
 
-  const completeOnboarding = () => {
-    setUser({ 
+ const completeOnboarding = () => {
+    const newUser = { 
       name: onboardingName || 'Learner', 
       goal: onboardingGoal, 
-      dailyMinutes: parseInt(onboardingTime) || 10 
-    });
+      dailyMinutes: parseInt(onboardingTime) || 10,
+      startedAt: new Date().toISOString()
+    };
+    setUser(newUser);
+    
+    // Silent beta tracking - sends email notification when someone starts
+    const trackingData = `New beta user started!\n\nName: ${onboardingName || 'Anonymous'}\nGoal: ${onboardingGoal}\nTime: ${new Date().toLocaleString()}`;
+    
+    // This opens nothing visible - just logs for now
+    console.log('Beta user started:', trackingData);
+    
     // Start them on lesson 1
     const firstLesson = LESSONS[0];
     startLesson(firstLesson);
   };
+
+  // Auth loading state
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center">
+        <div className="text-center text-white">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent mx-auto mb-4"></div>
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show Auth screen if requested
+  if (showAuth) {
+    const existingData = JSON.parse(localStorage.getItem('catalan_progress') || '{}');
+    return <Auth onAuthSuccess={handleAuthSuccess} existingLocalData={existingData} />;
+  }
+  // Beta expiry check
+  if (isBetaExpired()) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
+          <img src="./logo.png" alt="HolaCatalà" className="h-32 w-auto mx-auto mb-4" />
+          <h1 className="text-2xl font-bold mb-2">We're Launching Soon! 🚀</h1>
+          <p className="text-gray-600 mb-6">Thank you for being a beta tester! We're putting the finishing touches on HolaCatalà and launching on <strong>February 15th</strong>.</p>
+          <p className="text-gray-600 mb-6">Check your email on launch day for your special beta tester discount!</p>
+          <a href="mailto:aprencatalaapp@gmail.com" className="block w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-semibold">
+            Questions? Contact Us →
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   if (!user) {
     return (
@@ -824,13 +1255,20 @@ function App() {
           {/* Step 0: Welcome */}
           {onboardingStep === 0 && (
             <div className="text-center">
-              <div className="text-6xl mb-4">📚</div>
-              <h1 className="text-3xl font-bold mb-2">Aprèn Català</h1>
+              <img src="./logo.png" alt="HolaCatalà" className="h-36 sm:h-44 w-auto mx-auto mb-3" />
               <p className="text-gray-600 mb-8">Learn Catalan the easy way. Perfect for expats in Barcelona, Catalonia & Andorra.</p>
               <button onClick={() => setOnboardingStep(1)} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all">
                 Let's Get Started →
               </button>
-              <p className="text-xs text-gray-400 mt-4">Join 50+ learners already on the waitlist!</p>
+              <p className="text-sm text-gray-500 mt-6">
+                Already have an account?{' '}
+                <button 
+                  onClick={() => setShowAuth(true)} 
+                  className="text-blue-600 font-semibold hover:underline"
+                >
+                  Sign in
+                </button>
+              </p>
             </div>
           )}
 
@@ -914,25 +1352,76 @@ function App() {
             </div>
           )}
 
-          {/* Step 4: Ready! */}
+          {/* Step 4: Create Account */}
           {onboardingStep === 4 && (
-            <div className="text-center">
-              <div className="text-6xl mb-4">🚀</div>
-              <h2 className="text-2xl font-bold mb-2">You're all set, {onboardingName || 'friend'}!</h2>
-              <p className="text-gray-600 mb-6">Let's start with your first lesson and learn some basic Catalan greetings.</p>
-              <div className="bg-blue-50 rounded-xl p-4 mb-6 text-left">
-                <div className="text-sm font-semibold text-blue-800 mb-2">Your first lesson:</div>
-                <div className="flex items-center gap-3">
-                  <span className="text-3xl">👋</span>
-                  <div>
-                    <div className="font-bold">Greetings & Basics</div>
-                    <div className="text-xs text-gray-600">7 essential words • 5 min</div>
-                  </div>
-                </div>
+            <div>
+              <div className="text-center mb-6">
+                <div className="text-4xl mb-2">🔐</div>
+                <h2 className="text-2xl font-bold">Save Your Progress</h2>
+                <p className="text-gray-600 text-sm">Create an account so you never lose your learning progress</p>
               </div>
-              <button onClick={completeOnboarding} className="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white py-4 rounded-xl font-semibold text-lg hover:from-green-600 hover:to-emerald-600 transition-all">
-                Start First Lesson! 🎉
-              </button>
+              
+              <form onSubmit={async (e) => {
+                e.preventDefault();
+                setAuthLoading(true);
+                const { data, error } = await supabase.auth.signUp({
+                  email: onboardingEmail,
+                  password: onboardingPassword,
+                  options: { data: { name: onboardingName } }
+                });
+                if (error) {
+                  alert(error.message);
+                  setAuthLoading(false);
+                  return;
+                }
+                if (data.user) {
+                  setAuthUser(data.user);
+                  setEmailVerified(false); // New signup, not verified yet
+                  completeOnboarding();
+                }
+                setAuthLoading(false);
+              }}>
+                <div className="mb-4">
+                  <label className="block text-gray-700 text-sm font-medium mb-1">Email</label>
+                  <input
+                    type="email"
+                    value={onboardingEmail}
+                    onChange={(e) => setOnboardingEmail(e.target.value)}
+                    placeholder="your@email.com"
+                    className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none"
+                    required
+                  />
+                </div>
+                <div className="mb-6">
+                  <label className="block text-gray-700 text-sm font-medium mb-1">Password</label>
+                  <input
+                    type="password"
+                    value={onboardingPassword}
+                    onChange={(e) => setOnboardingPassword(e.target.value)}
+                    placeholder="At least 6 characters"
+                    className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none"
+                    required
+                    minLength={6}
+                  />
+                </div>
+                <button 
+                  type="submit" 
+                  disabled={authLoading}
+                  className="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white py-4 px-6 rounded-xl font-semibold text-base hover:from-green-600 hover:to-emerald-600 transition-all disabled:opacity-50"
+                >
+                  {authLoading ? 'Creating Account...' : 'Create Account & Start Learning 🎉'}
+                </button>
+              </form>
+              
+              <div className="mt-4 text-center">
+                <button 
+                  onClick={completeOnboarding} 
+                  className="text-gray-500 text-sm hover:underline"
+                >
+                  Skip for now (progress won't be saved)
+                </button>
+              </div>
+              
               <button onClick={() => setOnboardingStep(3)} className="w-full text-gray-500 py-2 mt-2 text-sm">← Back</button>
             </div>
           )}
@@ -943,6 +1432,131 @@ function App() {
               {[1, 2, 3, 4].map((step) => (
                 <div key={step} className={`w-2 h-2 rounded-full transition-all ${onboardingStep >= step ? 'bg-blue-600' : 'bg-gray-300'}`} />
               ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // REVIEW GATE VIEW
+  if (view === 'reviewGate' && reviewGateActive) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-600 to-indigo-700">
+        <nav className="bg-white/10 backdrop-blur p-3 sm:p-4 sticky top-0 z-40">
+          <div className="max-w-4xl mx-auto flex justify-between items-center">
+            <button onClick={exitReviewGate} className="flex items-center gap-1 sm:gap-2 text-white/80 text-sm sm:text-base">
+              <X className="w-5 h-5" /> <span className="hidden sm:inline">Exit Review</span>
+            </button>
+            <div className="text-white font-semibold">Tier {reviewGateTier} Review</div>
+          </div>
+        </nav>
+        
+        <div className="max-w-2xl mx-auto p-4 sm:p-6">
+          {!reviewGateComplete ? (
+            <>
+              <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 mb-4 sm:mb-6">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl">{isComprehensiveReview ? '🏆' : '🔓'}</span>
+                    <div>
+                      <h2 className="text-lg sm:text-xl font-bold">{isComprehensiveReview ? 'Comprehensive Review' : 'Unlock Next Lessons'}</h2>
+                      <p className="text-gray-600 text-sm">Score {isComprehensiveReview ? '16/20' : '8/10'} to continue</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-bold text-purple-600">{reviewGateScore}/{isComprehensiveReview ? 20 : 10}</div>
+                    <div className="text-xs text-gray-500">correct</div>
+                  </div>
+                </div>
+                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-purple-500 to-indigo-500 transition-all duration-300" style={{ width: `${((reviewGateIndex + 1) / (isComprehensiveReview ? 20 : 10)) * 100}%` }} />
+                </div>
+                <div className="text-xs text-gray-500 mt-1 text-right">Question {reviewGateIndex + 1} of {isComprehensiveReview ? 20 : 10}</div>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
+                <h3 className="text-lg text-gray-600 mb-2">What is this in Catalan?</h3>
+                <div className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center py-6 bg-purple-50 rounded-xl flex items-center justify-center gap-3">
+                  {reviewGateWords[reviewGateIndex]?.en}
+                  <button onClick={() => speakWord(reviewGateWords[reviewGateIndex]?.ca)} className="p-2 rounded-full hover:bg-purple-200 active:bg-purple-300 transition-colors" title="Hear pronunciation">
+                    <Volume2 className="w-6 h-6 text-purple-600" />
+                  </button>
+                  <button onClick={() => speakWord(reviewGateWords[reviewGateIndex]?.ca, true)} className="p-2 rounded-full hover:bg-purple-200 active:bg-purple-300 transition-colors" title="Hear slowly">
+                    <span className="text-base leading-none">🐢</span>
+                  </button>
+                </div>
+                
+                <div className="space-y-3">
+                  {reviewGateOptions.map((option, i) => (
+                    <button
+                      key={`${reviewGateIndex}-${i}`}
+                      onClick={() => !reviewGateFeedback && handleReviewGateAnswer(option)}
+                      disabled={!!reviewGateFeedback}
+                      className={`w-full p-4 rounded-xl font-semibold text-left transition-all ${
+                        reviewGateFeedback
+                          ? option === reviewGateWords[reviewGateIndex]?.ca
+                            ? 'bg-green-100 text-green-800 border-2 border-green-500'
+                            : selectedReviewGateAnswer === option
+                              ? 'bg-red-100 text-red-800 border-2 border-red-500'
+                              : 'bg-gray-100 text-gray-400'
+                          : selectedReviewGateAnswer === option
+                            ? 'bg-purple-200'
+                            : 'bg-gray-100 hover:bg-purple-100'
+                      }`}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+                
+                {reviewGateFeedback && (
+                  <div className={`mt-4 p-4 rounded-xl text-center font-semibold ${reviewGateFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                    {reviewGateFeedback}
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 text-center">
+              {reviewGatePassed ? (
+                <div className="flex justify-center mb-4">
+                  <img src="./bubblesolo.png" alt="Celebration" className="h-24 sm:h-32 w-auto animate-bounce" />
+                </div>
+              ) : (
+                <div className="text-6xl mb-4">😔</div>
+              )}
+              <h2 className="text-2xl sm:text-3xl font-bold mb-2">{reviewGatePassed ? 'Review Passed!' : 'Not Quite...'}</h2>
+              <p className="text-gray-600 mb-6">
+                You scored {reviewGateScore}/{isComprehensiveReview ? 20 : 10}
+                {reviewGatePassed 
+                  ? `. Lessons ${reviewGateTier * 3 + 1}-${reviewGateTier * 3 + 3} are now unlocked!` 
+                  : `. You need ${isComprehensiveReview ? '16/20' : '8/10'} to unlock the next lessons.`}
+              </p>
+              
+              {reviewGatePassed ? (
+                <div className="bg-gradient-to-r from-purple-100 to-indigo-100 rounded-xl p-6 mb-6">
+                  <div className="flex items-center justify-center gap-3">
+                    <Trophy className="w-8 h-8 text-purple-600" />
+                    <span className="text-xl font-bold text-purple-700">+{isComprehensiveReview ? 200 : 100} Bonus Points!</span>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-gray-100 rounded-xl p-4 mb-6">
+                  <p className="text-sm text-gray-600">Tip: Review the words from lessons {(reviewGateTier - 1) * 3 + 1}-{reviewGateTier * 3} and try again!</p>
+                </div>
+              )}
+              
+              <div className="space-y-3">
+                {reviewGatePassed ? (
+                  <button onClick={exitReviewGate} className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 rounded-xl font-bold text-lg">Continue Learning →</button>
+                ) : (
+                  <>
+                    <button onClick={retryReviewGate} className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 rounded-xl font-bold text-lg">Try Again</button>
+                    <button onClick={exitReviewGate} className="w-full bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold">Practice More First</button>
+                  </>
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -964,6 +1578,35 @@ function App() {
             )}
           </div>
         </nav>
+        {/* Email Verification Banner */}
+        {/* DISABLED: Email confirmation is off. Enable when SMTP is set up.
+        {authUser && !emailVerified && (
+          <div className="bg-amber-50 border-b border-amber-200 px-4 py-3">
+            <div className="max-w-4xl mx-auto flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2 text-amber-800">
+                <Mail className="w-5 h-5 flex-shrink-0" />
+                <span className="text-sm">Verify your email to save your progress permanently</span>
+              </div>
+              <button
+                onClick={async () => {
+                  const { error } = await supabase.auth.resend({
+                    type: 'signup',
+                    email: authUser.email,
+                  });
+                  if (error) {
+                    alert('Error sending email: ' + error.message);
+                  } else {
+                    alert('Verification email sent! Check your inbox.');
+                  }
+                }}
+                className="text-sm bg-amber-600 text-white px-3 py-1 rounded-lg hover:bg-amber-700 flex-shrink-0"
+              >
+                Resend
+              </button>
+            </div>
+          </div>
+        )}
+        */}
         <div className="max-w-4xl mx-auto p-3 sm:p-4">
           <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 mb-4 sm:mb-6">
             <div className="flex items-center gap-3 sm:gap-4 mb-4">
@@ -999,26 +1642,118 @@ function App() {
                       <button key={i} onClick={() => handleChallengeMatchClick(word, 'en')} disabled={challengeMatchedPairs.includes(word.ca)} className={`w-full p-4 rounded-lg font-semibold transition-all ${challengeMatchedPairs.includes(word.ca) ? 'bg-green-100 text-green-800 opacity-50' : challengeSelectedPairs.some(p => p.word === word && p.type === 'en') ? 'bg-orange-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>{word.en}</button>
                     ))}
                   </div>
-                  <div className="space-y-3">
-                    <h3 className="font-semibold text-gray-600 mb-2">Català</h3>
+                  <div className="space-y-2 sm:space-y-3">
+                    <h3 className="font-semibold text-gray-600 mb-2 text-sm sm:text-base">Català</h3>
                     {challengeShuffledCatalan.map((word, i) => (
                       <button key={i} onClick={() => handleChallengeMatchClick(word, 'ca')} disabled={challengeMatchedPairs.includes(word.ca)} className={`w-full p-4 rounded-lg font-semibold transition-all ${challengeMatchedPairs.includes(word.ca) ? 'bg-green-100 text-green-800 opacity-50' : challengeSelectedPairs.some(p => p.word === word && p.type === 'ca') ? 'bg-orange-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>{word.ca}</button>
                     ))}
                   </div>
                 </div>
               )}
-              {(currentChallenge.type === CHALLENGE_TYPES.CONVERSATIONS || currentChallenge.type === CHALLENGE_TYPES.REVIEW) && (
+              {currentChallenge.type === CHALLENGE_TYPES.REVIEW && (
                 <div className="text-center py-8 sm:py-12">
-                  <p className="text-base sm:text-xl text-gray-600 mb-4">This challenge requires completing {currentChallenge.targetCount} {currentChallenge.type === CHALLENGE_TYPES.CONVERSATIONS ? 'conversations' : 'reviews'}.</p>
-                  <p className="text-gray-500 text-sm sm:text-base">Go to the Practice tab to complete conversations!</p>
+                  <p className="text-base sm:text-xl text-gray-600 mb-4">
+                    Score perfectly on {currentChallenge.targetCount} word reviews to finish this challenge.
+                  </p>
+                  <p className="text-gray-500 text-sm sm:text-base">
+                    Complete lessons and review your vocabulary to build your streak!
+                  </p>
                   <button onClick={exitChallenge} className="mt-4 sm:mt-6 px-6 sm:px-8 py-2 sm:py-3 bg-gray-200 rounded-lg font-semibold active:bg-gray-300">Back to Dashboard</button>
+                </div>
+              )}
+              {currentChallenge.type === CHALLENGE_TYPES.CONVERSATIONS && challengeConversations.length > 0 && (
+                <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-8">
+                  {(() => {
+                    const currentConv = challengeConversations[challengeConvIndex];
+                    const displayedTurns = currentConv.turns.slice(0, challengeConvTurnIndex + 1);
+                    const currentTurn = currentConv.turns[challengeConvTurnIndex];
+                    const isUserTurn = currentTurn && currentTurn.speaker === 'user';
+                    return (
+                      <>
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="text-3xl">{currentConv.icon}</span>
+                          <div>
+                            <h3 className="text-lg font-bold">{currentConv.title}</h3>
+                            <span className="text-sm text-gray-500">Conversation {challengeConvIndex + 1} of {currentChallenge.targetCount}</span>
+                          </div>
+                        </div>
+                        <div className="space-y-3 mb-6 max-h-64 overflow-y-auto" ref={(el) => { if (el) el.scrollTop = el.scrollHeight; }}>
+                          {displayedTurns.map((turn, i) => (
+                            <div key={i} className={`flex ${turn.speaker === 'user' ? 'justify-end' : 'justify-start'}`}>
+                              <div className={`max-w-xs sm:max-w-md p-3 rounded-2xl ${turn.speaker === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-800'}`}>
+                                <div>
+                                  {turn.speaker === 'user' ? (turn.userAnswer || turn.text) : (
+                                    <>
+                                      <div>{turn.text}</div>
+                                      {turn.english && (
+                                        <div className="mt-2 pt-2 border-t border-gray-300">
+                                          <button 
+                                            onClick={() => setShowChallengeTranslation({...showChallengeTranslation, [i]: !showChallengeTranslation[i]})}
+                                            className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                                          >
+                                            🇬🇧 {showChallengeTranslation[i] ? 'Hide' : 'Show'} translation
+                                          </button>
+                                          {showChallengeTranslation[i] && (
+                                            <div className="text-sm italic text-gray-600 mt-1">{turn.english}</div>
+                                          )}
+                                        </div>
+                                      )}
+                                    </>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        {isUserTurn && (
+                          <>
+                            <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-3 mb-3">
+                              <div className="font-semibold text-blue-900 text-sm sm:text-base">{currentTurn.prompt}</div>
+                            </div>
+                            <div className="bg-white border-2 border-gray-200 rounded-lg p-3 mb-3 min-h-[50px] flex flex-wrap gap-2 items-center">
+                              {challengeConvUserSentence.length === 0 
+                                ? <span className="text-gray-400 text-sm">Tap words below...</span> 
+                                : challengeConvUserSentence.map((word, i) => <span key={i} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm font-semibold">{word}</span>)}
+                            </div>
+                            <div className="flex flex-wrap gap-2 mb-4">
+                              {challengeConvWordBank.map((word, i) => {
+                                const selectedCount = challengeConvUserSentence.filter(w => w === word).length;
+                                const totalCount = challengeConvWordBank.filter(w => w === word).length;
+                                const isUsed = selectedCount >= totalCount;
+                                return (
+                                  <button 
+                                    key={i} 
+                                    onClick={() => !isUsed && addChallengeConvWord(word)} 
+                                    disabled={isUsed}
+                                    className={`px-3 py-2 rounded-lg font-semibold text-sm transition-all ${isUsed ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-gray-100 hover:bg-gray-200'}`}
+                                  >{word}</button>
+                                );
+                              })}
+                            </div>
+                            <div className="flex gap-0.5 items-center">
+                              <button onClick={removeChallengeConvWord} disabled={challengeConvUserSentence.length === 0} className="px-4 py-2 bg-gray-200 rounded-lg font-semibold text-sm disabled:opacity-50">← Remove</button>
+                              <button onClick={checkChallengeConvAnswer} disabled={challengeConvUserSentence.length === 0} className="flex-1 bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50">Check Answer</button>
+                            </div>
+                            {challengeConvFeedback && (
+                              <div className={`mt-3 p-3 rounded-lg text-center font-semibold text-sm ${challengeConvFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
+                                {challengeConvFeedback}
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </>
+                    );
+                  })()}
                 </div>
               )}
             </div>
           )}
           {challengeCompleted && (
             <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 text-center">
-              <div className="text-5xl sm:text-6xl mb-4">🎉</div>
+              <div className="flex justify-center mb-4">
+                <img src="./bubblesolo.png" alt="Celebration" className="h-20 sm:h-28 w-auto animate-bounce" />
+              </div>
+              <div className="text-2xl mb-2">🎉✨🎉</div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-2">Challenge Complete!</h2>
               <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">You earned {currentChallenge.points} points!</p>
               <div className="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
@@ -1056,11 +1791,30 @@ function App() {
               <span className="text-4xl">{currentConversation.icon}</span>
               <div><h2 className="text-2xl font-bold">{currentConversation.title}</h2><span className="text-sm text-gray-500">{currentConversation.difficulty}</span></div>
             </div>
-            <div className="space-y-4 mb-8 max-h-96 overflow-y-auto">
+            <div className="space-y-4 mb-8 max-h-96 overflow-y-auto" ref={(el) => { if (el) el.scrollTop = el.scrollHeight; }}>
               {displayedTurns.map((turn, i) => (
                 <div key={i} className={`flex ${turn.speaker === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div className={`max-w-md p-4 rounded-2xl ${turn.speaker === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-800'}`}>
-                    {turn.speaker === 'user' ? (turn.userAnswer || turn.text) : turn.text}
+                    <div>
+                      {turn.speaker === 'user' ? (turn.userAnswer || turn.text) : (
+                        <>
+                          <div>{turn.text}</div>
+                          {turn.english && (
+                            <div className="mt-2 pt-2 border-t border-gray-300">
+                              <button 
+                                onClick={() => setShowTranslation({...showTranslation, [i]: !showTranslation[i]})}
+                                className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                              >
+                                🇬🇧 {showTranslation[i] ? 'Hide' : 'Show'} translation
+                              </button>
+                              {showTranslation[i] && (
+                                <div className="text-sm italic text-gray-600 mt-1">{turn.english}</div>
+                              )}
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -1072,8 +1826,21 @@ function App() {
                   {userSentence.length === 0 ? <span className="text-gray-400">Tap words below to build your sentence...</span> : userSentence.map((word, i) => <span key={i} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-semibold">{word}</span>)}
                 </div>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {shuffleArray(currentTurn.wordBank).map((word, i) => <button key={i} onClick={() => addWordToSentence(word)} className="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg font-semibold transition-all">{word}</button>)}
-                </div>
+{shuffledWordBank.map((word, i) => {
+  const selectedCount = userSentence.filter(w => w === word).length;
+  const totalCount = shuffledWordBank.filter(w => w === word).length;
+  const isUsed = selectedCount >= totalCount;
+  return (
+    <button
+      key={i}
+      onClick={() => !isUsed && addWordToSentence(word)}
+      disabled={isUsed}
+      className={`px-4 py-2 rounded-lg font-semibold transition-all ${isUsed ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-gray-100 hover:bg-gray-200'}`}
+    >{word}</button>
+  );
+      
+})}
+</div>
                 <div className="flex gap-3">
                   <button onClick={removeLastWord} disabled={userSentence.length === 0} className="px-6 py-2 bg-gray-200 rounded-lg font-semibold disabled:opacity-50">← Remove</button>
                   <button onClick={checkConversationAnswer} disabled={userSentence.length === 0} className="flex-1 bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50">Check Answer</button>
@@ -1081,6 +1848,55 @@ function App() {
                 {conversationFeedback && <div className={`mt-4 p-4 rounded-lg text-center font-semibold ${conversationFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>{conversationFeedback}</div>}
               </>
             )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // CONVERSATION COMPLETE CELEBRATION
+  if (view === 'conversationComplete') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 flex items-center justify-center p-4">
+        <div className="relative">
+          {/* Confetti */}
+          <div className="fixed inset-0 overflow-hidden pointer-events-none z-50">
+            {[...Array(50)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute rounded-full animate-confetti"
+                style={{
+                  width: '10px',
+                  height: '10px',
+                  left: `${Math.random() * 100}%`,
+                  top: '-20px',
+                  animationDelay: `${Math.random() * 0.5}s`,
+                  animationDuration: `${2 + Math.random() * 2}s`,
+                  backgroundColor: ['#FFD700', '#FF6B9D', '#4169E1', '#32CD32', '#FF69B4', '#00CED1'][Math.floor(Math.random() * 6)]
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Main content */}
+          <div className="bg-white rounded-2xl shadow-2xl p-8 text-center relative z-10 max-w-md">
+            <div className="flex justify-center mb-6">
+              <img 
+                src="./bubblesolo.png" 
+                alt="Celebration" 
+                className="h-32 w-auto animate-bounce"
+              />
+            </div>
+            <div className="text-5xl mb-4">🎉✨🎊</div>
+            <h2 className="text-3xl font-bold mb-2 text-gray-800">Conversation Complete!</h2>
+            <p className="text-gray-600 text-lg">Great job practicing! 🗣️</p>
+            
+            <div className="mt-6 bg-gradient-to-r from-green-100 to-teal-100 rounded-xl p-4">
+              <div className="flex items-center justify-center gap-3">
+                <span className="text-2xl">💬</span>
+                <span className="text-xl font-bold text-green-700">+65 Points!</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1096,8 +1912,8 @@ function App() {
         </nav>
         <div className="max-w-4xl mx-auto p-3 sm:p-4">
           <div className="bg-white rounded-lg p-3 sm:p-4 mb-4">
-            <div className="flex justify-between text-xs sm:text-sm mb-2"><span className="font-semibold truncate mr-2">{currentLesson.title}</span><span className="text-gray-600 flex-shrink-0">{lessonStage === 'intro' ? '1/4' : lessonStage === 'flashcards' ? '2/4' : lessonStage === 'match' ? '3/4' : '4/4'}</span></div>
-            <div className="h-2 bg-gray-200 rounded-full overflow-hidden"><div className="h-full bg-blue-600 transition-all duration-300" style={{ width: lessonStage === 'intro' ? '25%' : lessonStage === 'flashcards' ? '50%' : lessonStage === 'match' ? '75%' : '100%' }} /></div>
+            <div className="flex justify-between text-xs sm:text-sm mb-2"><span className="font-semibold truncate mr-2">{currentLesson.title}</span><span className="text-gray-600 flex-shrink-0">{(() => { const s = currentLesson.stages || ['intro','flashcards','match','quiz']; return `${s.indexOf(lessonStage)+1}/${s.length}`; })()}</span></div>
+            <div className="h-2 bg-gray-200 rounded-full overflow-hidden"><div className="h-full bg-blue-600 transition-all duration-300" style={{ width: `${((( currentLesson.stages || ['intro','flashcards','match','quiz']).indexOf(lessonStage)+1) / (currentLesson.stages || ['intro','flashcards','match','quiz']).length) * 100}%` }} /></div>
           </div>
 
           {lessonStage === 'intro' && (
@@ -1107,7 +1923,15 @@ function App() {
                 {currentLesson.words.map((word, i) => (
                   <div key={i} className="border-2 border-blue-200 rounded-lg p-3 sm:p-4 bg-blue-50">
                     <div className="text-base sm:text-lg font-semibold text-gray-800">{word.en}</div>
-                    <div className="text-xl sm:text-2xl font-bold text-blue-600">{word.ca}</div>
+                    <div className="flex items-center gap-1">
+                      <div className="text-xl sm:text-2xl font-bold text-blue-600">{word.ca}</div>
+                      <button onClick={() => speakWord(word.ca)} className="p-1 rounded-full hover:bg-blue-200 active:bg-blue-300 transition-colors" title="Hear pronunciation">
+                        <Volume2 className="w-5 h-5 text-blue-600" />
+                      </button>
+                      <button onClick={() => speakWord(word.ca, true)} className="rounded-full hover:bg-blue-200 active:bg-blue-300 transition-colors inline-flex items-center justify-center h-7 w-7" title="Hear slowly">
+                        <span className="block -mt-1.5" style={{fontSize: '20px', lineHeight: '20px'}}>🐢</span>
+                      </button>
+                    </div>
                     <div className="text-xs sm:text-sm text-gray-600 italic">{word.pronunciation}</div>
                   </div>
                 ))}
@@ -1123,7 +1947,19 @@ function App() {
                 <div onClick={() => setFlipped(!flipped)} className="bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl p-8 sm:p-12 cursor-pointer shadow-lg active:scale-95 transition-all min-h-[220px] sm:min-h-[300px] flex items-center justify-center">
                   <div className="text-center text-white">
                     <div className="text-2xl sm:text-4xl font-bold mb-4">{flipped ? currentLesson.words[currentCardIndex].ca : currentLesson.words[currentCardIndex].en}</div>
-                    {flipped && <div className="text-base sm:text-lg italic opacity-90">{currentLesson.words[currentCardIndex].pronunciation}</div>}
+                    {flipped && (
+                      <>
+                        <div className="text-base sm:text-lg italic opacity-90 mb-3">{currentLesson.words[currentCardIndex].pronunciation}</div>
+                        <div className="flex gap-1 items-center">
+                          <button onClick={(e) => { e.stopPropagation(); speakWord(currentLesson.words[currentCardIndex].ca); }} className="p-2 rounded-full bg-white/20 hover:bg-white/30 active:bg-white/40 transition-colors" title="Hear pronunciation">
+                            <Volume2 className="w-6 h-6" />
+                          </button>
+                          <button onClick={(e) => { e.stopPropagation(); speakWord(currentLesson.words[currentCardIndex].ca, true); }} className="p-2 rounded-full bg-white/20 hover:bg-white/30 active:bg-white/40 transition-colors inline-flex items-center justify-center h-10 w-10" title="Hear slowly">
+                            <span className="text-xl leading-none block -mt-1">🐢</span>
+                          </button>
+                        </div>
+                      </>
+                    )}
                     <div className="mt-6 sm:mt-8 flex items-center justify-center gap-2 text-sm opacity-75"><RotateCw className="w-4 h-4" /> Tap to flip</div>
                   </div>
                 </div>
@@ -1172,15 +2008,128 @@ function App() {
               <div className="max-w-2xl mx-auto">
                 <div className="mb-6">
                   <div className="text-sm text-gray-600 mb-2">Question {quizIndex + 1} / {currentLesson.words.length}</div>
-                  <h3 className="text-xl font-semibold mb-4">What is "{currentLesson.words[quizIndex].en}" in Catalan?</h3>
+                  <h3 className="text-xl font-semibold mb-4 flex items-center justify-center gap-0.5">
+                  What is "{quizWords[quizIndex].en}" in Catalan?
+                  <button onClick={() => speakWord(quizWords[quizIndex].ca)} className="p-1 rounded-full hover:bg-blue-100 active:bg-blue-200 transition-colors" title="Hear pronunciation">
+                    <Volume2 className="w-5 h-5 text-blue-600" />
+                  </button>
+                  <button onClick={() => speakWord(quizWords[quizIndex].ca, true)} className="p-1 rounded-full hover:bg-blue-100 active:bg-blue-200 transition-colors inline-flex items-center justify-center h-7 w-7" title="Hear slowly">
+                    <span className="text-lg leading-none block -mt-1">🐢</span>
+                  </button>
+                </h3>
                 </div>
                 <div className="space-y-3">
                   {quizOptions.map((option, i) => (
-                    <button key={i} onClick={() => handleQuizAnswer(option)} disabled={quizFeedback !== ''} className="w-full p-4 rounded-lg font-semibold bg-gray-100 hover:bg-blue-100 transition-all text-left disabled:opacity-75">{option}</button>
+                    <button key={i} onClick={() => handleQuizAnswer(option)} disabled={quizFeedback !== ''} className={`w-full p-4 rounded-lg font-semibold transition-all text-left disabled:opacity-75 focus:outline-none focus:bg-gray-100 active:bg-blue-200 ${quizFeedback && option === quizWords[quizIndex]?.ca ? 'bg-green-200' : quizFeedback ? 'bg-gray-100' : 'bg-gray-100'}`}>{option}</button>
                   ))}
                 </div>
                 {quizFeedback && <div className={`mt-4 p-4 rounded-lg text-center font-semibold ${quizFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>{quizFeedback}</div>}
               </div>
+            </div>
+          )}
+          {lessonStage === 'fillInTheBlank' && currentLesson.stageData?.fillInTheBlank && (
+            <FillInTheBlank
+              exercises={currentLesson.stageData.fillInTheBlank}
+              onComplete={() => nextStage()}
+              audioCache={audioCache}
+              ELEVENLABS_API_KEY="sk_75b4eb8a57c22f39ba4cd877d79c18d631a13107a8fab115"
+              ELEVENLABS_VOICE_ID="AxFLn9byyiDbMn5fmyqu"
+            />
+          )}
+          {lessonStage === 'sentenceOrdering' && currentLesson.stageData?.sentenceOrdering && (
+            <SentenceOrdering
+              exercises={currentLesson.stageData.sentenceOrdering}
+              onComplete={() => nextStage()}
+              audioCache={audioCache}
+              ELEVENLABS_API_KEY="sk_75b4eb8a57c22f39ba4cd877d79c18d631a13107a8fab115"
+              ELEVENLABS_VOICE_ID="AxFLn9byyiDbMn5fmyqu"
+            />
+          )}
+          {lessonStage === 'listenAndType' && currentLesson.stageData?.listenAndType && (
+            <ListenAndType
+              exercises={currentLesson.stageData.listenAndType}
+              onComplete={() => nextStage()}
+              audioCache={audioCache}
+              ELEVENLABS_API_KEY="sk_75b4eb8a57c22f39ba4cd877d79c18d631a13107a8fab115"
+              ELEVENLABS_VOICE_ID="AxFLn9byyiDbMn5fmyqu"
+            />
+          )}
+          {lessonStage === 'miniConversation' && currentLesson.stageData?.miniConversation && (
+            <MiniConversation
+              dialogue={currentLesson.stageData.miniConversation}
+              onComplete={() => nextStage()}
+              audioCache={audioCache}
+              ELEVENLABS_API_KEY="sk_75b4eb8a57c22f39ba4cd877d79c18d631a13107a8fab115"
+              ELEVENLABS_VOICE_ID="AxFLn9byyiDbMn5fmyqu"
+            />
+          )}
+          {lessonStage === 'errorCorrection' && currentLesson.stageData?.errorCorrection && (
+            <ErrorCorrection
+              exercises={currentLesson.stageData.errorCorrection}
+              onComplete={() => nextStage()}
+              audioCache={audioCache}
+              ELEVENLABS_API_KEY="sk_75b4eb8a57c22f39ba4cd877d79c18d631a13107a8fab115"
+              ELEVENLABS_VOICE_ID="AxFLn9byyiDbMn5fmyqu"
+            />
+          )}
+
+          {lessonStage === 'complete' && (
+            <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
+              <div className="flex justify-center mb-4">
+                <img src="./bubblesolo.png" alt="Celebration" className="h-24 sm:h-32 w-auto animate-bounce" />
+              </div>
+              <div className="text-2xl mb-2">🎉✨🎉</div>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-2">Lesson Complete!</h2>
+              <p className="text-gray-600 mb-6">You've learned {currentLesson.words.length} new words!</p>
+              <div className="bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl p-6 mb-6">
+                <div className="flex items-center justify-center gap-3">
+                  <Trophy className="w-8 h-8 text-green-600" />
+                  <span className="text-xl font-bold text-green-700">+50 Points!</span>
+                </div>
+              </div>
+              <button 
+                onClick={() => {
+                  if (!completed.includes(currentLesson.id)) {
+                    setCompleted([...completed, currentLesson.id]);
+                    setScore(score + 50);
+                    const newWords = currentLesson.words.map(word => initializeWordForReview(word, currentLesson.id));
+                    setWordHistory([...wordHistory, ...newWords]);
+                    
+                    // Update streak when completing a lesson
+                    const today = new Date().toDateString();
+                    if (lastReviewDate !== today) {
+                      if (lastReviewDate) {
+                        const lastDate = new Date(lastReviewDate);
+                        const todayDate = new Date(today);
+                        const diffDays = Math.ceil((todayDate - lastDate) / (1000 * 60 * 60 * 24));
+                        if (diffDays === 1) {
+                          setReviewStreak(reviewStreak + 1);
+                        } else {
+                          setReviewStreak(1);
+                        }
+                      } else {
+                        setReviewStreak(1);
+                      }
+                      setLastReviewDate(today);
+                    }
+                  }
+                  // Show verify prompt after first lesson if not verified
+                  // DISABLED: Email confirmation is off. Enable when SMTP is set up.
+                  // if (authUser && !emailVerified && completed.length === 0) {
+                  //   setShowVerifyPrompt(true);
+                  // }
+                  setView('home');
+                  setCurrentLesson(null);
+                  setQuizIndex(0);
+                  setLessonStage('intro');
+                  setCurrentLesson(null);
+                  setQuizIndex(0);
+                  setLessonStage('intro');
+                }} 
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white py-4 rounded-xl font-bold text-lg"
+              >
+                Continue →
+              </button>
             </div>
           )}
         </div>
@@ -1207,30 +2156,85 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow-sm border-b sticky top-0 z-40">
         <div className="max-w-6xl mx-auto px-3 sm:px-4 py-3 flex justify-between items-center">
-          <h1 onClick={handleSecretTap} onTouchEnd={handleSecretTap} className="text-lg sm:text-2xl font-bold text-blue-600 cursor-pointer select-none">Aprèn Català</h1>
+          <div onClick={handleSecretTap} onTouchEnd={handleSecretTap} className="flex items-center gap-2 cursor-pointer select-none">
+            <img src="./bubble.png" alt="HolaCatalà" className="h-9 sm:h-11 w-auto" />
+            <span className="text-xl sm:text-2xl font-bold text-blue-600">HolaCatalà</span>
+          </div>
           <div className="flex items-center gap-2 sm:gap-4">
-            <a href="mailto:aprencatalaapp@gmail.com?subject=Beta Feedback" className="text-xs sm:text-sm bg-purple-100 text-purple-700 px-2 sm:px-3 py-1 rounded-full hover:bg-purple-200 transition-colors">Feedback</a>
-            <div className="text-right"><div className="text-xs text-gray-600">Points</div><div className="font-bold text-sm sm:text-lg">{score}</div></div>
-            <User className="w-6 h-6 sm:w-8 sm:h-8 text-gray-600" />
+            <a href="mailto:aprencatalaapp@gmail.com?subject=HolaCatalà Beta Feedback" className="text-xs sm:text-sm bg-purple-100 text-purple-700 px-2 sm:px-3 py-1 rounded-full hover:bg-purple-200 transition-colors">Feedback</a>
+            {authUser ? (
+              <button 
+                onClick={handleSignOut}
+                className="flex items-center gap-1 bg-gray-100 hover:bg-red-100 text-gray-700 hover:text-red-600 px-2 py-1.5 rounded-lg transition-colors active:bg-red-200"
+              >
+                <User className="w-5 h-5" />
+                <span className="text-xs font-medium">Sign Out</span>
+              </button>
+            ) : (
+              <button 
+                onClick={() => setShowAuth(true)}
+                className="flex items-center gap-1 bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1.5 rounded-lg transition-colors active:bg-blue-300"
+              >
+                <User className="w-5 h-5" />
+                <span className="text-xs font-medium">Sign In</span>
+              </button>
+            )}
           </div>
         </div>
       </nav>
       <div className="max-w-4xl mx-auto p-3 sm:p-4">
+        {/* Continue Learning CTA */}
+        {completed.length > 0 && completed.length < 30 && (() => {
+          const nextLesson = LESSONS.find(l => !completed.includes(l.id) && !isLessonLocked(l).locked);
+          if (!nextLesson) return null;
+          return (
+            <div onClick={() => startLesson(nextLesson)} className="bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl shadow-lg p-4 mb-4 sm:mb-6 cursor-pointer active:scale-95 transition-all">
+              <div className="flex items-center justify-between text-white">
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/20 rounded-full p-2"><BookOpen className="w-5 h-5" /></div>
+                  <div>
+                    <div className="text-sm opacity-90">Continue Learning</div>
+                    <div className="font-bold">{nextLesson.title}</div>
+                  </div>
+                </div>
+                <ArrowRight className="w-6 h-6" />
+              </div>
+            </div>
+          );
+        })()}
         {/* Stats Cards - horizontal scroll on mobile */}
         <div className="flex sm:grid sm:grid-cols-3 gap-3 mb-4 sm:mb-6 overflow-x-auto pb-2 sm:pb-0 -mx-3 px-3 sm:mx-0 sm:px-0">
-          <div onClick={() => !wasChallengeAttemptedToday() && startChallenge()} className={`bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl shadow-lg p-4 sm:p-6 text-white min-w-[200px] sm:min-w-0 flex-shrink-0 sm:flex-shrink ${!wasChallengeAttemptedToday() ? 'cursor-pointer active:scale-95 transition-all' : 'opacity-75'}`}>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-3xl sm:text-4xl">{getTodayChallenge().icon}</span>
-              {wasChallengeAttemptedToday() ? <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8" /> : <Award className="w-6 h-6 sm:w-8 sm:h-8" />}
-            </div>
-            <div className="text-xs sm:text-sm opacity-90">Daily Challenge</div>
-            <div className="text-base sm:text-lg font-bold mt-1">{getTodayChallenge().title}</div>
-            {wasChallengeAttemptedToday() ? (
-              wasChallengeCompletedSuccessfully() ? 
-                <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">✓ Done!</div> :
-                <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">✗ Try tomorrow</div>
-            ) : <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">+{getTodayChallenge().points} pts →</div>}
-          </div>
+          {(() => {
+  const todayChallenge = getTodayChallenge();
+  const canDoChallenge = !(
+    (todayChallenge.type === 'conversations' && completedConversations.length < 3) ||
+    (todayChallenge.type === 'review' && wordHistory.length < 15)
+  );
+  const attemptedToday = wasChallengeAttemptedToday();
+  
+  return (
+    <div 
+      onClick={() => attemptedToday ? null : canDoChallenge ? startChallenge() : null}
+      className={`bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl shadow-lg p-4 sm:p-6 text-white min-w-[200px] sm:min-w-0 flex-shrink-0 sm:flex-shrink ${attemptedToday ? 'opacity-75' : 'cursor-pointer active:scale-95 transition-all'}`}
+    >
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-3xl sm:text-4xl">{todayChallenge.icon}</span>
+        {attemptedToday ? <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8" /> : <Award className="w-6 h-6 sm:w-8 sm:h-8" />}
+      </div>
+      <div className="text-xs sm:text-sm opacity-90">Daily Challenge</div>
+      <div className="text-base sm:text-lg font-bold mt-1">{todayChallenge.title}</div>
+      {attemptedToday ? (
+        wasChallengeCompletedSuccessfully() ? 
+          <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">✓ Done!</div> :
+          <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">✗ Try tomorrow</div>
+      ) : !canDoChallenge ? (
+        <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">Complete 3 conversations first →</div>
+      ) : (
+        <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">+{todayChallenge.points} pts →</div>
+      )}
+    </div>
+  );
+})()}
           <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-xl shadow-lg p-4 sm:p-6 text-white min-w-[140px] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
             <div className="flex items-center justify-between mb-2"><Calendar className="w-6 h-6 sm:w-8 sm:h-8" /><span className="text-2xl sm:text-3xl font-bold">{reviewStreak}</span></div>
             <div className="text-xs sm:text-sm opacity-90">Day Streak</div>
@@ -1253,10 +2257,7 @@ function App() {
               <MessageCircle className="w-5 h-5" />
               <span className="hidden sm:inline">Practice</span>
             </button>
-            <button onClick={() => setDashboardTab('progress')} className={`flex-1 py-3 font-semibold text-xs sm:text-base flex flex-col sm:flex-row items-center justify-center gap-1 ${dashboardTab === 'progress' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}>
-              <TrendingUp className="w-5 h-5" />
-              <span className="hidden sm:inline">Progress</span>
-            </button>
+            
             <button onClick={() => setDashboardTab('achievements')} className={`flex-1 py-3 font-semibold text-xs sm:text-base flex flex-col sm:flex-row items-center justify-center gap-1 ${dashboardTab === 'achievements' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}>
               <Trophy className="w-5 h-5" />
               <span className="hidden sm:inline">Badges</span>
@@ -1268,141 +2269,67 @@ function App() {
             <h2 className="text-xl sm:text-2xl font-bold mb-4">Your Lessons</h2>
             <div className="space-y-2 sm:space-y-3">
               {LESSONS.map((lesson) => {
-                const locked = !lesson.free && !premium;
-                const isComplete = completed.includes(lesson.id);
-                return (
-                  <div key={lesson.id} onClick={() => !locked && startLesson(lesson)} className={`border-2 rounded-lg p-4 transition-all ${locked ? 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-60' : isComplete ? 'border-green-500 bg-green-50 cursor-pointer hover:bg-green-100' : 'border-gray-200 hover:border-blue-400 hover:bg-blue-50 cursor-pointer'}`}>
-                    <div className="flex items-center justify-between">
-                      <div><div className="text-xs text-gray-500 uppercase mb-1">{lesson.module}</div><div className="font-semibold">{lesson.title}</div></div>
-                      {locked ? <Lock className="w-6 h-6 text-gray-400" /> : isComplete ? <CheckCircle className="w-6 h-6 text-green-600" /> : null}
-                    </div>
-                  </div>
-                );
-              })}
+  const lockStatus = isLessonLocked(lesson);
+  const isComplete = completed.includes(lesson.id);
+  const lessonTier = getTierForLesson(lesson.id);
+  const showReviewButton = shouldShowReviewGateButton(lessonTier) && LESSON_TIERS.find(t => t.tier === lessonTier)?.lessons[2] === lesson.id;
+  
+  return (
+    <div key={lesson.id}>
+      <div 
+        onClick={() => { if (lockStatus.locked && lockStatus.reason === 'premium') { setShowPaywall(true); } else if (lockStatus.locked && lockStatus.reason === 'daygate') { setShowPaywall(true); } else if (!lockStatus.locked) { startLesson(lesson); } }}
+        className={`border-2 rounded-lg p-4 transition-all ${lockStatus.locked ? 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-60' : isComplete ? 'border-green-500 bg-green-50 cursor-pointer hover:bg-green-100' : 'border-gray-200 hover:border-blue-400 hover:bg-blue-50 cursor-pointer'}`}
+      >
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-xs text-gray-500 uppercase mb-1">{lesson.module}</div>
+            <div className="font-semibold">{lesson.title}</div>
+            {lockStatus.locked && lockStatus.reason === 'tier' && (
+              <div className="text-xs text-purple-600 mt-1">Complete review to unlock</div>
+            )}
+            {lockStatus.locked && lockStatus.reason === 'daygate' && (
+              <div className="text-xs text-blue-600 mt-1">🕐 Unlocks tomorrow — come back!</div>
+            )}
+          </div>
+          {lockStatus.locked ? <Lock className="w-6 h-6 text-gray-400" /> : isComplete ? <CheckCircle className="w-6 h-6 text-green-600" /> : null}
+        </div>
+      </div>
+      
+      {showReviewButton && (
+        <div onClick={() => startReviewGate(lessonTier, isComprehensiveReviewPoint(lesson.id))} className="mt-2 mb-4 border-2 border-purple-400 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg p-4 cursor-pointer hover:from-purple-100 hover:to-indigo-100 transition-all">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">{isComprehensiveReviewPoint(lesson.id) ? '🏆' : '🔓'}</span>
+              <div>
+                <div className="font-semibold text-purple-800">{isComprehensiveReviewPoint(lesson.id) ? 'Comprehensive Review' : 'Unlock Next Lessons'}</div>
+                <div className="text-xs text-purple-600">{isComprehensiveReviewPoint(lesson.id) ? 'Pass a big review (16/20) to continue' : 'Pass a quick review (8/10) to continue'}</div>
+              </div>
+            </div>
+            <ArrowRight className="w-5 h-5 text-purple-600" />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+})}
             </div>
           </div>
         )}
-        {dashboardTab === 'progress' && (
-          <div className="space-y-6">
-            {/* Weekly Activity */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h2 className="text-2xl font-bold mb-4">This Week</h2>
-              <div className="flex justify-between items-end h-32 mb-2">
-                {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, i) => {
-                  const today = new Date().getDay();
-                  const adjustedToday = today === 0 ? 6 : today - 1;
-                  const isToday = i === adjustedToday;
-                  const isPast = i < adjustedToday;
-                  const hasActivity = isPast || isToday;
-                  const height = hasActivity ? Math.max(20, Math.random() * 80 + 20) : 0;
-                  return (
-                    <div key={day} className="flex flex-col items-center flex-1">
-                      <div className="w-full max-w-[30px] mx-1 rounded-t-lg transition-all" style={{ height: `${height}%`, backgroundColor: isToday ? '#3B82F6' : isPast ? '#93C5FD' : '#E5E7EB' }} />
-                      <div className={`text-xs mt-2 ${isToday ? 'font-bold text-blue-600' : 'text-gray-500'}`}>{day}</div>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="text-center text-sm text-gray-600 mt-4">
-                {reviewStreak > 0 ? `🔥 ${reviewStreak} day streak! Keep it going!` : "Start your streak today!"}
-              </div>
-            </div>
-
-            {/* Stats Summary */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h2 className="text-2xl font-bold mb-4">Your Stats</h2>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-blue-50 rounded-lg p-4 text-center">
-                  <div className="text-3xl font-bold text-blue-600">{completed.length}</div>
-                  <div className="text-sm text-gray-600">Lessons Done</div>
-                  <div className="text-xs text-gray-400 mt-1">{Math.round((completed.length / 30) * 100)}% complete</div>
-                </div>
-                <div className="bg-green-50 rounded-lg p-4 text-center">
-                  <div className="text-3xl font-bold text-green-600">{wordHistory.length}</div>
-                  <div className="text-sm text-gray-600">Words Learned</div>
-                  <div className="text-xs text-gray-400 mt-1">{wordHistory.length >= 100 ? 'Amazing!' : `${100 - wordHistory.length} to 100`}</div>
-                </div>
-                <div className="bg-purple-50 rounded-lg p-4 text-center">
-                  <div className="text-3xl font-bold text-purple-600">{completedConversations.length}</div>
-                  <div className="text-sm text-gray-600">Conversations</div>
-                  <div className="text-xs text-gray-400 mt-1">{10 - completedConversations.length} remaining</div>
-                </div>
-                <div className="bg-orange-50 rounded-lg p-4 text-center">
-                  <div className="text-3xl font-bold text-orange-600">{challengeHistory.filter(h => h.completed).length}</div>
-                  <div className="text-sm text-gray-600">Challenges Won</div>
-                  <div className="text-xs text-gray-400 mt-1">{challengeHistory.length} attempted</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Motivational Message */}
-            <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl shadow-sm p-6 text-white">
-              <div className="flex items-center gap-4">
-                <div className="text-4xl">
-                  {completed.length === 0 ? '🌱' : completed.length < 10 ? '🌿' : completed.length < 20 ? '🌳' : '🏆'}
-                </div>
-                <div>
-                  <div className="font-bold text-lg">
-                    {completed.length === 0 && "Ready to start your Catalan journey?"}
-                    {completed.length > 0 && completed.length < 5 && "Great start! You're building a foundation."}
-                    {completed.length >= 5 && completed.length < 10 && "You're making real progress!"}
-                    {completed.length >= 10 && completed.length < 20 && "Impressive! Keep up the momentum!"}
-                    {completed.length >= 20 && completed.length < 30 && "You're almost a Catalan expert!"}
-                    {completed.length >= 30 && "🎉 You've completed all lessons!"}
-                  </div>
-                  <div className="text-sm opacity-90 mt-1">
-                    {completed.length === 0 && "Complete your first lesson to begin."}
-                    {completed.length > 0 && completed.length < 30 && `${30 - completed.length} lessons to go. You've got this!`}
-                    {completed.length >= 30 && "Time to practice conversations and master your skills!"}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Course Progress */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h2 className="text-2xl font-bold mb-4">Course Progress</h2>
-              <div className="mb-4">
-                <div className="flex justify-between text-sm mb-2">
-                  <span className="text-gray-600">Overall completion</span>
-                  <span className="font-bold">{Math.round((completed.length / 30) * 100)}%</span>
-                </div>
-                <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all" style={{ width: `${(completed.length / 30) * 100}%` }} />
-                </div>
-              </div>
-              <div className="grid grid-cols-5 gap-2">
-                {['Basics', 'Daily Life', 'Living', 'Social', 'Review'].map((module) => {
-                  const moduleCount = LESSONS.filter(l => l.module === module).length;
-                  const moduleDone = LESSONS.filter(l => l.module === module && completed.includes(l.id)).length;
-                  return (
-                    <div key={module} className="text-center">
-                      <div className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center text-sm font-bold ${moduleDone === moduleCount ? 'bg-green-500 text-white' : moduleDone > 0 ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-400'}`}>
-                        {moduleDone}/{moduleCount}
-                      </div>
-                      <div className="text-xs text-gray-500 mt-1">{module}</div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        )}
+        
         {dashboardTab === 'practice' && (
           <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
             <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4">Conversation Practice</h2>
             <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">Practice real conversations in Catalan. Unlock scenarios by completing lessons!</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-              {CONVERSATIONS.map((conv) => {
+              {[...CONVERSATIONS].sort((a, b) => a.unlockAfterLesson - b.unlockAfterLesson).map((conv) => {
                 const unlocked = completed.includes(conv.unlockAfterLesson);
                 const isComplete = completedConversations.includes(conv.id);
                 return (
-                  <div key={conv.id} onClick={() => unlocked && startConversation(conv)} className={`border-2 rounded-lg p-3 sm:p-4 transition-all active:scale-98 ${!unlocked ? 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-60' : isComplete ? 'border-green-500 bg-green-50 cursor-pointer hover:bg-green-100' : 'border-gray-200 hover:border-green-400 hover:bg-green-50 cursor-pointer'}`}>
+                  <div key={conv.id} onClick={() => { if (unlocked) { startConversation(conv); } else if (!premium) { setShowPaywall(true); } }} className={`border-2 rounded-lg p-3 sm:p-4 transition-all active:scale-98 ${!unlocked ? 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-60' : isComplete ? 'border-green-500 bg-green-50 cursor-pointer hover:bg-green-100' : 'border-gray-200 hover:border-green-400 hover:bg-green-50 cursor-pointer'}`}>
                     <div className="flex items-center gap-3">
                       <span className="text-2xl sm:text-3xl">{conv.icon}</span>
                       <div className="flex-1 min-w-0">
                         <div className="font-semibold text-sm sm:text-base truncate">{conv.title}</div>
-                        <div className="text-xs text-gray-500">{conv.difficulty}</div>
                         {!unlocked && <div className="text-xs text-gray-500 mt-1">Complete lesson {conv.unlockAfterLesson} to unlock</div>}
                       </div>
                       {!unlocked ? <Lock className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 flex-shrink-0" /> : isComplete ? <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" /> : null}
@@ -1456,6 +2383,97 @@ function App() {
           </div>
         )}
       </div>
+      {showPaywall && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowPaywall(false)}>
+    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8" onClick={(e) => e.stopPropagation()}>
+      <div className="text-center">
+        <div className="text-5xl mb-4">{completed.length >= 3 ? '🎓' : '🚀'}</div>
+        <h2 className="text-2xl font-bold mb-2">{completed.length >= 3 ? `You've learned ${wordHistory.length} words!` : 'Unlock Full Access'}</h2>
+        <p className="text-gray-600 mb-6">{completed.length >= 3 ? "You're making great progress! Subscribe now to unlock everything instantly, or come back tomorrow for more free lessons." : 'Start your Catalan learning journey with full access to all content.'}</p>
+        
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 mb-6">
+          <div className="space-y-3">
+            <div className="flex items-center gap-3 text-left">
+              <span className="text-xl">📚</span>
+              <span className="text-sm font-medium">Full access to all lessons & vocabulary</span>
+            </div>
+            <div className="flex items-center gap-3 text-left">
+              <span className="text-xl">🗣️</span>
+              <span className="text-sm font-medium">Real conversation practice scenarios</span>
+            </div>
+            <div className="flex items-center gap-3 text-left">
+              <span className="text-xl">🔊</span>
+              <span className="text-sm font-medium">Audio pronunciation for every word</span>
+            </div>
+            <div className="flex items-center gap-3 text-left">
+              <span className="text-xl">🏆</span>
+              <span className="text-sm font-medium">Daily challenges & achievements</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="mb-4">
+          <div className="text-3xl font-bold text-blue-600">€3.99<span className="text-base font-normal text-gray-500">/month</span></div>
+          <div className="text-xs text-gray-500 mt-1">Cancel anytime</div>
+        </div>
+        
+        <a href="https://buy.stripe.com/test_4gM28s044cIP7o8f5VefC00" className="block w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition-all text-center">
+          Subscribe Now →
+        </a>
+        
+        <button onClick={() => setShowPaywall(false)} className="w-full text-gray-500 py-3 mt-2 text-sm">Maybe later</button>
+      </div>
+    </div>
+  </div>
+)}
+{/* Email Verification Prompt Modal */}
+      {showVerifyPrompt && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowVerifyPrompt(false)}>
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8" onClick={(e) => e.stopPropagation()}>
+            <div className="text-center">
+              <div className="text-5xl mb-4">📧</div>
+              <h2 className="text-2xl font-bold mb-2">Great job on your first lesson!</h2>
+              <p className="text-gray-600 mb-6">Check your email to verify your account and make sure your progress is saved forever.</p>
+              
+              <div className="bg-blue-50 rounded-xl p-4 mb-6">
+                <p className="text-sm text-blue-800">
+                  We sent a verification link to:<br/>
+                  <strong>{authUser?.email}</strong>
+                </p>
+              </div>
+
+              <button
+                onClick={async () => {
+                  const { error } = await supabase.auth.resend({
+                    type: 'signup',
+                    email: authUser.email,
+                  });
+                  if (error) {
+                    alert('Error: ' + error.message);
+                  } else {
+                    alert('Verification email sent! Check your inbox.');
+                  }
+                }}
+                className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold mb-3 hover:bg-blue-700"
+              >
+                Resend Verification Email
+              </button>
+              
+              <button 
+                onClick={() => setShowVerifyPrompt(false)} 
+                className="w-full text-gray-500 py-2 text-sm hover:underline"
+              >
+                I'll do it later
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showSaved && (
+        <div className="fixed top-16 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-full shadow-lg z-50 text-sm font-medium opacity-90">
+          ✓ Progress saved
+        </div>
+      )}
       {newAchievement && (
         <div className="fixed bottom-4 right-4 bg-gradient-to-r from-yellow-400 to-orange-400 text-white p-4 rounded-xl shadow-2xl animate-bounce z-50">
           <div className="flex items-center gap-3">
@@ -1468,6 +2486,7 @@ function App() {
           </div>
         </div>
       )}
+      <Analytics />
     </div>
   );
 }

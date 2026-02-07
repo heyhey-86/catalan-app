@@ -2,8 +2,7 @@
   "name": "catalan-learning-app",
   "version": "1.0.0",
   "private": true,
-"type": "module",
-
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -11,6 +10,8 @@
   },
   "dependencies": {
     "@babel/preset-react": "^7.28.5",
+    "@supabase/supabase-js": "^2.94.0",
+    "@vercel/analytics": "^1.6.1",
     "lucide-react": "^0.294.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

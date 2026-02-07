@@ -8,6 +8,7 @@ export const CHALLENGE_TYPES = {
 };
 
 // Challenge definitions - cycles through these
+// ALL words and sentences use ONLY vocabulary from the 30 lessons
 export const CHALLENGES = [
   {
     id: 1,
@@ -15,21 +16,21 @@ export const CHALLENGES = [
     title: "Speed Translator",
     description: "Translate 10 sentences in 3 minutes",
     icon: "⚡",
-    timeLimit: 180, // seconds
+    timeLimit: 180,
     targetCount: 10,
     points: 100,
     difficulty: "Easy",
     sentences: [
-      { en: "Hello, how are you?", ca: "Hola, com estàs?" },
+      { en: "Hello", ca: "Hola" },
       { en: "Good morning", ca: "Bon dia" },
-      { en: "Thank you very much", ca: "Moltes gràcies" },
-      { en: "Where is the bathroom?", ca: "On és el bany?" },
-      { en: "I would like water", ca: "Voldria aigua" },
-      { en: "How much does it cost?", ca: "Quan costa?" },
-      { en: "See you later", ca: "Fins després" },
-      { en: "I don't understand", ca: "No entenc" },
-      { en: "Can you help me?", ca: "Pots ajudar-me?" },
-      { en: "I'm sorry", ca: "Ho sento" }
+      { en: "Good afternoon", ca: "Bona tarda" },
+      { en: "Thank you", ca: "Gràcies" },
+      { en: "Please", ca: "Si us plau" },
+      { en: "Yes", ca: "Sí" },
+      { en: "No", ca: "No" },
+      { en: "Water", ca: "Aigua" },
+      { en: "Goodbye", ca: "Adéu" },
+      { en: "See you later", ca: "Fins després" }
     ]
   },
   {
@@ -43,26 +44,26 @@ export const CHALLENGES = [
     points: 100,
     difficulty: "Medium",
     words: [
-      { en: "Cat", ca: "Gat" },
-      { en: "Dog", ca: "Gos" },
-      { en: "House", ca: "Casa" },
-      { en: "Car", ca: "Cotxe" },
-      { en: "Book", ca: "Llibre" },
-      { en: "Table", ca: "Taula" },
-      { en: "Chair", ca: "Cadira" },
-      { en: "Window", ca: "Finestra" },
-      { en: "Door", ca: "Porta" },
-      { en: "Street", ca: "Carrer" },
-      { en: "City", ca: "Ciutat" },
-      { en: "Country", ca: "País" },
-      { en: "Friend", ca: "Amic" },
-      { en: "Family", ca: "Família" },
-      { en: "Work", ca: "Feina" },
-      { en: "School", ca: "Escola" },
-      { en: "Food", ca: "Menjar" },
+      { en: "Hello", ca: "Hola" },
+      { en: "Thank you", ca: "Gràcies" },
       { en: "Water", ca: "Aigua" },
-      { en: "Coffee", ca: "Cafè" },
-      { en: "Tea", ca: "Te" }
+      { en: "Beer", ca: "Cervesa" },
+      { en: "Wine", ca: "Vi" },
+      { en: "Store", ca: "Botiga" },
+      { en: "Market", ca: "Mercat" },
+      { en: "Left", ca: "Esquerra" },
+      { en: "Right", ca: "Dreta" },
+      { en: "Street", ca: "Carrer" },
+      { en: "Bus", ca: "Autobús" },
+      { en: "Train", ca: "Tren" },
+      { en: "Ticket", ca: "Bitllet" },
+      { en: "Friend", ca: "Amic" },
+      { en: "Breakfast", ca: "Esmorzar" },
+      { en: "Lunch", ca: "Dinar" },
+      { en: "Dinner", ca: "Sopar" },
+      { en: "Help!", ca: "Ajuda!" },
+      { en: "Money", ca: "Diners" },
+      { en: "Bread", ca: "Pa" }
     ]
   },
   {
@@ -98,21 +99,21 @@ export const CHALLENGES = [
     points: 150,
     difficulty: "Hard",
     sentences: [
-      { en: "Good afternoon", ca: "Bona tarda" },
-      { en: "Good night", ca: "Bona nit" },
-      { en: "Please", ca: "Si us plau" },
-      { en: "Excuse me", ca: "Perdoni" },
-      { en: "I'm hungry", ca: "Tinc gana" },
-      { en: "I'm thirsty", ca: "Tinc set" },
-      { en: "What time is it?", ca: "Quina hora és?" },
-      { en: "I'm lost", ca: "Estic perdut" },
-      { en: "Call the police", ca: "Truqui a la policia" },
-      { en: "Where do you live?", ca: "On vius?" },
-      { en: "I love you", ca: "T'estimo" },
-      { en: "Happy birthday", ca: "Feliç aniversari" },
-      { en: "Congratulations", ca: "Felicitats" },
-      { en: "Have a good day", ca: "Que tinguis un bon dia" },
-      { en: "Nice to meet you", ca: "Encantat de conèixer-te" }
+      { en: "Good morning", ca: "Bon dia" },
+      { en: "Menu", ca: "Menú" },
+      { en: "How much?", ca: "Quan costa?" },
+      { en: "Expensive", ca: "Car" },
+      { en: "Cheap", ca: "Barat" },
+      { en: "Where is?", ca: "On és?" },
+      { en: "Near", ca: "A prop" },
+      { en: "Far", ca: "Lluny" },
+      { en: "Pharmacy", ca: "Farmàcia" },
+      { en: "Doctor", ca: "Metge" },
+      { en: "Hungry", ca: "Tinc gana" },
+      { en: "Cold", ca: "Fred" },
+      { en: "Hot", ca: "Calent" },
+      { en: "Card", ca: "Targeta" },
+      { en: "Station", ca: "Estació" }
     ]
   },
   {
@@ -126,21 +127,21 @@ export const CHALLENGES = [
     points: 120,
     difficulty: "Hard",
     words: [
-      { en: "Big", ca: "Gran" },
-      { en: "Small", ca: "Petit" },
-      { en: "Hot", ca: "Calent" },
-      { en: "Cold", ca: "Fred" },
-      { en: "New", ca: "Nou" },
-      { en: "Old", ca: "Vell" },
       { en: "Good", ca: "Bo" },
       { en: "Bad", ca: "Dolent" },
+      { en: "Big", ca: "Gran" },
+      { en: "Small", ca: "Petit" },
+      { en: "New", ca: "Nou" },
+      { en: "Old", ca: "Vell" },
       { en: "Beautiful", ca: "Bonic" },
-      { en: "Ugly", ca: "Lleig" },
-      { en: "Fast", ca: "Ràpid" },
-      { en: "Slow", ca: "Lent" },
+      { en: "Mother", ca: "Mare" },
+      { en: "Father", ca: "Pare" },
+      { en: "Work", ca: "Feina" },
+      { en: "Beach", ca: "Platja" },
+      { en: "Mountain", ca: "Muntanya" },
       { en: "Happy", ca: "Feliç" },
-      { en: "Sad", ca: "Trist" },
-      { en: "Easy", ca: "Fàcil" }
+      { en: "Now", ca: "Ara" },
+      { en: "Tomorrow", ca: "Demà" }
     ]
   },
   {
