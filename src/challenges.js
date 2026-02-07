@@ -77,17 +77,7 @@ export const CHALLENGES = [
     points: 150,
     difficulty: "Medium"
   },
-  {
-    id: 4,
-    type: CHALLENGE_TYPES.REVIEW,
-    title: "Perfect Review",
-    description: "Review 15 words with 100% accuracy",
-    icon: "🎯",
-    timeLimit: null,
-    targetCount: 15,
-    points: 120,
-    difficulty: "Hard"
-  },
+  
   {
     id: 5,
     type: CHALLENGE_TYPES.TRANSLATE,

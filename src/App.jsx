@@ -163,6 +163,15 @@ function App() {
   const [reviewQueue, setReviewQueue] = useState([]);
   const [reviewStreak, setReviewStreak] = useState(0);
   const [lastReviewDate, setLastReviewDate] = useState(null);
+  const [reviewSessionActive, setReviewSessionActive] = useState(false);
+  const [reviewSessionWords, setReviewSessionWords] = useState([]);
+  const [reviewSessionIndex, setReviewSessionIndex] = useState(0);
+  const [reviewSessionScore, setReviewSessionScore] = useState(0);
+  const [reviewSessionFeedback, setReviewSessionFeedback] = useState('');
+  const [reviewSessionOptions, setReviewSessionOptions] = useState([]);
+  const [selectedReviewAnswer, setSelectedReviewAnswer] = useState(null);
+  const [dailyReviewsCompleted, setDailyReviewsCompleted] = useState(0);
+  const [lastDailyReviewDate, setLastDailyReviewDate] = useState(null);
   const [currentConversation, setCurrentConversation] = useState(null);
   const [conversationTurnIndex, setConversationTurnIndex] = useState(0);
   const [userSentence, setUserSentence] = useState([]);
@@ -230,7 +239,7 @@ const [selectedReviewGateAnswer, setSelectedReviewGateAnswer] = useState(null);
 
  useEffect(() => {
     if (user) {
-      const userData = { completed, score, premium, user, wordHistory, reviewStreak, lastReviewDate, completedConversations, challengeHistory, unlockedTier, ...(premium ? { [PREMIUM_KEY]: PREMIUM_VALUE } : {}) };
+      const userData = { completed, score, premium, user, wordHistory, reviewStreak, lastReviewDate, completedConversations, challengeHistory, unlockedTier, dailyReviewsCompleted, lastDailyReviewDate, ...(premium ? { [PREMIUM_KEY]: PREMIUM_VALUE } : {}) };
 
       localStorage.setItem('catalan_progress', JSON.stringify(userData));
       setShowSaved(true);
@@ -263,7 +272,9 @@ useEffect(() => {
     if (data.completedConversations) setCompletedConversations(data.completedConversations);
     if (data.challengeHistory) setChallengeHistory(data.challengeHistory);
     if (data.unlockedTier) setUnlockedTier(data.unlockedTier);
-    
+    if (data.dailyReviewsCompleted !== undefined) setDailyReviewsCompleted(data.dailyReviewsCompleted);
+    if (data.lastDailyReviewDate) setLastDailyReviewDate(data.lastDailyReviewDate);
+
     // Check if streak should be reset (missed a day)
     if (data.lastReviewDate) {
       const lastDate = new Date(data.lastReviewDate);
@@ -626,6 +637,93 @@ useEffect(() => {
 
   const shouldShowReviewGateButton = (tier) => {
     return isTierComplete(tier, completed) && unlockedTier === tier && tier < 18;
+  };
+
+  const startReviewSession = () => {
+    // Reset daily counter if new day
+    const today = new Date().toDateString();
+    let currentDailyCount = dailyReviewsCompleted;
+    
+    if (lastDailyReviewDate !== today) {
+      currentDailyCount = 0;
+      setDailyReviewsCompleted(0);
+      setLastDailyReviewDate(today);
+    }
+    
+    // Check if daily limit reached (using current count)
+    if (currentDailyCount >= 10) {
+      alert('You\'ve completed your daily review! Come back tomorrow for more.');
+      return;
+    }
+
+    // Get 15 random words from learned words
+    const wordsToReview = [...wordHistory].sort(() => Math.random() - 0.5).slice(0, 10);
+    setReviewSessionWords(wordsToReview);
+    setReviewSessionIndex(0);
+    setReviewSessionScore(0);
+    setReviewSessionFeedback('');
+    setSelectedReviewAnswer(null);
+    
+    // Generate options for first word
+    const firstWord = wordsToReview[0];
+    const otherWords = wordHistory.filter(w => w.ca !== firstWord.ca);
+    const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ca);
+    setReviewSessionOptions([firstWord.ca, ...wrongAnswers].sort(() => Math.random() - 0.5));
+    
+    
+    
+    setReviewSessionActive(true);
+    setView('reviewSession');
+};
+
+  const handleReviewAnswer = (answer) => {
+    const currentWord = reviewSessionWords[reviewSessionIndex];
+    const isCorrect = answer === currentWord.ca;
+    setSelectedReviewAnswer(answer);
+    
+    if (isCorrect) {
+      setReviewSessionScore(reviewSessionScore + 1);
+      setReviewSessionFeedback('Correcte! ✓');
+    } else {
+      setReviewSessionFeedback(`Incorrecte. La resposta és: "${currentWord.ca}"`);
+    }
+    
+    setTimeout(() => {
+      if (reviewSessionIndex < reviewSessionWords.length - 1) {
+        const nextIndex = reviewSessionIndex + 1;
+        setReviewSessionIndex(nextIndex);
+        setReviewSessionFeedback('');
+        setSelectedReviewAnswer(null);
+        
+        const nextWord = reviewSessionWords[nextIndex];
+        const otherWords = wordHistory.filter(w => w.ca !== nextWord.ca);
+        const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ca);
+        setReviewSessionOptions([nextWord.ca, ...wrongAnswers].sort(() => Math.random() - 0.5));
+      } else {
+        // Session complete!
+        const finalScore = isCorrect ? reviewSessionScore + 1 : reviewSessionScore;
+        
+        setScore(score + finalScore * 5); // 5 points per correct answer
+        
+    // Advance index to trigger congratulations screen
+        setReviewSessionIndex(reviewSessionWords.length);
+        setReviewSessionFeedback('');
+        setSelectedReviewAnswer(null);
+      
+       // Increment daily counter NOW (session is complete)
+        setDailyReviewsCompleted(dailyReviewsCompleted + 1);
+        // Close session after 3 seconds
+        setTimeout(() => {
+          setReviewSessionActive(false);
+          setView('home');
+        }, 3000);
+      }
+    }, 3000);
+  };
+
+  const exitReviewSession = () => {
+    setReviewSessionActive(false);
+    setView('home');
   };
 
   const startChallenge = () => {
@@ -1439,6 +1537,103 @@ const handleQuizAnswer = (answer) => {
     );
   }
 
+  // DAILY WORD REVIEW SESSION
+  if (view === 'reviewSession' && reviewSessionActive) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-600 to-cyan-700">
+        <nav className="bg-white/10 backdrop-blur p-3 sm:p-4 sticky top-0 z-40">
+          <div className="max-w-4xl mx-auto flex justify-between items-center">
+            <button onClick={exitReviewSession} className="flex items-center gap-1 sm:gap-2 text-white/80 text-sm sm:text-base">
+              <X className="w-5 h-5" /> <span className="hidden sm:inline">Exit Review</span>
+            </button>
+            <div className="text-white font-semibold">Daily Word Review</div>
+          </div>
+        </nav>
+        
+        <div className="max-w-2xl mx-auto p-4 sm:p-6">
+          {reviewSessionIndex < reviewSessionWords.length ? (
+            <>
+              <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 mb-4 sm:mb-6">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl">📚</span>
+                    <div>
+                      <h2 className="text-lg sm:text-xl font-bold">Word Review</h2>
+                      <p className="text-gray-600 text-sm">{10 - dailyReviewsCompleted} reviews left today</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-bold text-blue-600">{reviewSessionScore}/{reviewSessionWords.length}</div>
+                    <div className="text-xs text-gray-500">correct</div>
+                  </div>
+                </div>
+                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-all duration-300" style={{ width: `${((reviewSessionIndex + 1) / reviewSessionWords.length) * 100}%` }} />
+                </div>
+                <div className="text-xs text-gray-500 mt-1 text-right">Question {reviewSessionIndex + 1} of {reviewSessionWords.length}</div>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
+                <h3 className="text-lg text-gray-600 mb-2">What is this in Catalan?</h3>
+                <div className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center py-6 bg-blue-50 rounded-xl flex items-center justify-center gap-1">
+                  {reviewSessionWords[reviewSessionIndex]?.en}
+                  <button onClick={() => speakWord(reviewSessionWords[reviewSessionIndex]?.ca)} className="p-1 rounded-full hover:bg-blue-200 active:bg-blue-300 transition-colors" title="Hear pronunciation">
+                    <Volume2 className="w-5 h-5 text-blue-600" />
+                  </button>
+                  <button onClick={() => speakWord(reviewSessionWords[reviewSessionIndex]?.ca, true)} className="rounded-full hover:bg-blue-200 active:bg-blue-300 transition-colors inline-flex items-center justify-center h-7 w-7" title="Hear slowly">
+                    <span className="block -mt-1.5" style={{fontSize: '20px', lineHeight: '20px'}}>🐢</span>
+                  </button>
+                </div>
+                
+                <div className="space-y-3">
+                  {reviewSessionOptions.map((option, i) => (
+                    <button
+                      key={`${reviewSessionIndex}-${i}`}
+                      onClick={() => !reviewSessionFeedback && handleReviewAnswer(option)}
+                      disabled={!!reviewSessionFeedback}
+                      className={`w-full p-4 rounded-xl font-semibold text-left transition-all ${
+                        reviewSessionFeedback
+                          ? option === reviewSessionWords[reviewSessionIndex]?.ca
+                            ? 'bg-green-100 text-green-800 border-2 border-green-500'
+                            : selectedReviewAnswer === option
+                              ? 'bg-red-100 text-red-800 border-2 border-red-500'
+                              : 'bg-gray-100 text-gray-400'
+                          : selectedReviewAnswer === option
+                            ? 'bg-blue-200'
+                            : 'bg-gray-100 hover:bg-blue-100'
+                      }`}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+                
+                {reviewSessionFeedback && (
+                  <div className={`mt-4 p-4 rounded-xl text-center font-semibold ${reviewSessionFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                    {reviewSessionFeedback}
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 text-center">
+              <div className="text-6xl mb-4">🎉</div>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-2">Review Complete!</h2>
+              <p className="text-gray-600 mb-6">You scored {reviewSessionScore}/{reviewSessionWords.length}</p>
+              <div className="bg-gradient-to-r from-blue-100 to-cyan-100 rounded-xl p-4 mb-6">
+                <div className="flex items-center justify-center gap-3">
+                  <span className="text-2xl">⭐</span>
+                  <span className="text-xl font-bold text-blue-700">+{reviewSessionScore * 5} Points!</span>
+                </div>
+              </div>
+              <p className="text-sm text-gray-500 mb-4">{10 - dailyReviewsCompleted - 1} reviews remaining today</p>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   // REVIEW GATE VIEW
   if (view === 'reviewGate' && reviewGateActive) {
     return (
@@ -2240,10 +2435,29 @@ const handleQuizAnswer = (answer) => {
             <div className="text-xs sm:text-sm opacity-90">Day Streak</div>
             <div className="mt-2 sm:mt-3 text-xs opacity-75">Keep it up! 🔥</div>
           </div>
-          <div className="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl shadow-lg p-4 sm:p-6 text-white min-w-[140px] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
+          <div 
+            onClick={() => {
+              // Check if user has words to review
+              if (wordHistory.length < 10) {
+                alert('Complete more lessons to unlock word review! You need at least 10 words.');
+                return;
+              }
+              // Check daily limit
+              const today = new Date().toDateString();
+              if (lastDailyReviewDate === today && dailyReviewsCompleted >= 10) {
+                alert('You\'ve completed your daily review! Come back tomorrow for more.');
+                return;
+              }
+              // Start review session
+              startReviewSession();
+            }}
+            className="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl shadow-lg p-4 sm:p-6 text-white min-w-[140px] sm:min-w-0 flex-shrink-0 sm:flex-shrink cursor-pointer active:scale-95 transition-all"
+          >
             <div className="flex items-center justify-between mb-2"><TrendingUp className="w-6 h-6 sm:w-8 sm:h-8" /><span className="text-2xl sm:text-3xl font-bold">{wordHistory.length}</span></div>
             <div className="text-xs sm:text-sm opacity-90">Words Learned</div>
-            <div className="mt-2 sm:mt-3 text-xs opacity-75">{completed.length} lessons</div>
+            <div className="mt-2 sm:mt-3 text-xs opacity-75">
+              {dailyReviewsCompleted >= 10 ? '✓ Review complete today!' : wordHistory.length >= 10 ? 'Tap to review 10 words →' : 'Complete lessons to unlock →'}
+            </div>
           </div>
         </div>
         {/* Tab Navigation - icon only on mobile */}
