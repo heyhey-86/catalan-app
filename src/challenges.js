@@ -82,10 +82,11 @@ export const CHALLENGES = [
     id: 5,
     type: CHALLENGE_TYPES.TRANSLATE,
     title: "Quick Fire",
-    description: "Translate 15 sentences in 2 minutes",
+    description: "Translate at least 13 out of 15 sentences in 2 minutes",
     icon: "🔥",
     timeLimit: 120,
     targetCount: 15,
+    passingScore: 13,
     points: 150,
     difficulty: "Hard",
     sentences: [

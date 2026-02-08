@@ -79,7 +79,8 @@ const PREMIUM_TOKENS = {
   dev: 'HC_DEV_2026',           // Your personal testing token
   paid: 'HC_PAID_2026',         // Stripe redirects here after payment
   beta: 'HC_BETA_LIFE',         // 15 free-for-life beta testers
-  betaDiscount: 'HC_BETA_50'    // Other beta testers (paid via Stripe with 50% off)
+  betaDiscount: 'HC_BETA_50',   // Other beta testers (paid via Stripe with 50% off)
+  betaExtended: 'HC_BETA_EXT_2026'  // Top 15 beta testers - extended access until Feb 14
 };
 
 // Obfuscated localStorage key for premium status
@@ -639,7 +640,7 @@ useEffect(() => {
     return isTierComplete(tier, completed) && unlockedTier === tier && tier < 18;
   };
 
-  const startReviewSession = () => {
+ const startReviewSession = () => {
     // Reset daily counter if new day
     const today = new Date().toDateString();
     let currentDailyCount = dailyReviewsCompleted;
@@ -650,8 +651,8 @@ useEffect(() => {
       setLastDailyReviewDate(today);
     }
     
-    // Check if daily limit reached (using current count)
-    if (currentDailyCount >= 10) {
+    // Check if daily limit reached - ONE SESSION = LOCKED
+    if (currentDailyCount >= 1) {
       alert('You\'ve completed your daily review! Come back tomorrow for more.');
       return;
     }
@@ -705,13 +706,14 @@ useEffect(() => {
         
         setScore(score + finalScore * 5); // 5 points per correct answer
         
-    // Advance index to trigger congratulations screen
+        // Increment daily counter using functional update (ensures correct value)
+        setDailyReviewsCompleted(prev => prev + 1);
+        
+        // Advance index to trigger congratulations screen
         setReviewSessionIndex(reviewSessionWords.length);
         setReviewSessionFeedback('');
         setSelectedReviewAnswer(null);
       
-       // Increment daily counter NOW (session is complete)
-        setDailyReviewsCompleted(dailyReviewsCompleted + 1);
         // Close session after 3 seconds
         setTimeout(() => {
           setReviewSessionActive(false);
@@ -880,7 +882,8 @@ useEffect(() => {
           const newProgress = challengeProgress + 1;
           setChallengeProgress(newProgress);
           
-          if (newProgress >= currentChallenge.targetCount || challengeConvIndex >= challengeConversations.length - 1) {
+          const passingThreshold = currentChallenge.passingScore || currentChallenge.targetCount;
+          if (newProgress >= passingThreshold || challengeConvIndex >= challengeConversations.length - 1) {
             // Challenge complete!
             completeChallenge();
           } else {
@@ -943,7 +946,8 @@ useEffect(() => {
       }
       
       setTimeout(() => {
-        if (newProgress >= currentChallenge.targetCount) {
+        const passingThreshold = currentChallenge.passingScore || currentChallenge.targetCount;
+        if (newProgress >= passingThreshold) {
           completeChallenge();
         } else {
           setChallengeCurrentIndex(challengeCurrentIndex + 1);
@@ -995,7 +999,8 @@ useEffect(() => {
           setChallengeSelectedPairs([]);
           const newProgress = challengeProgress + 1;
           setChallengeProgress(newProgress);
-          if (newProgress >= currentChallenge.targetCount) {
+          const passingThreshold = currentChallenge.passingScore || currentChallenge.targetCount;
+          if (newProgress >= passingThreshold) {
             setTimeout(() => completeChallenge(), 500);
           }
         } else {
@@ -1559,7 +1564,7 @@ const handleQuizAnswer = (answer) => {
                     <span className="text-3xl">📚</span>
                     <div>
                       <h2 className="text-lg sm:text-xl font-bold">Word Review</h2>
-                      <p className="text-gray-600 text-sm">{10 - dailyReviewsCompleted} reviews left today</p>
+                      <p className="text-gray-600 text-sm">Daily practice session</p>
                     </div>
                   </div>
                   <div className="text-right">
@@ -1626,7 +1631,7 @@ const handleQuizAnswer = (answer) => {
                   <span className="text-xl font-bold text-blue-700">+{reviewSessionScore * 5} Points!</span>
                 </div>
               </div>
-              <p className="text-sm text-gray-500 mb-4">{10 - dailyReviewsCompleted - 1} reviews remaining today</p>
+              <p className="text-sm text-gray-500 mb-4">Come back tomorrow for more practice!</p>
             </div>
           )}
         </div>
@@ -1820,14 +1825,25 @@ const handleQuizAnswer = (answer) => {
           </div>
           {!challengeCompleted && !challengeFailed && (
             <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-8">
-              {currentChallenge.type === CHALLENGE_TYPES.TRANSLATE && challengeItems[challengeCurrentIndex] && (
-                <div>
-                  <h3 className="text-base sm:text-lg text-gray-600 mb-2">Translate to Catalan:</h3>
-                  <div className="text-xl sm:text-3xl font-bold mb-4 sm:mb-8 text-center py-4 sm:py-6 bg-blue-50 rounded-xl">{challengeItems[challengeCurrentIndex].en}</div>
-                  <input type="text" value={userInput} onChange={(e) => setUserInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleTranslateAnswer()} placeholder="Type your answer..." className="w-full p-3 sm:p-4 text-base sm:text-xl border-2 border-gray-200 rounded-xl mb-3 sm:mb-4 focus:border-orange-500 focus:outline-none" autoFocus />
-                  <button onClick={handleTranslateAnswer} disabled={!userInput.trim()} className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-white py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg active:scale-95 transition-transform disabled:opacity-50">Check Answer</button>
-                  {challengeFeedback && <div className={`mt-3 sm:mt-4 p-3 sm:p-4 rounded-xl text-center font-semibold text-sm sm:text-base ${challengeFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>{challengeFeedback}</div>}
-                </div>
+              {currentChallenge.type === CHALLENGE_TYPES.TRANSLATE && (
+                <>
+                  {challengeItems[challengeCurrentIndex] ? (
+                    <div>
+                      <h3 className="text-base sm:text-lg text-gray-600 mb-2">Translate to Catalan:</h3>
+                      <div className="text-xl sm:text-3xl font-bold mb-4 sm:mb-8 text-center py-4 sm:py-6 bg-blue-50 rounded-xl">{challengeItems[challengeCurrentIndex].en}</div>
+                      <input type="text" value={userInput} onChange={(e) => setUserInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleTranslateAnswer()} placeholder="Type your answer..." className="w-full p-3 sm:p-4 text-base sm:text-xl border-2 border-gray-200 rounded-xl mb-3 sm:mb-4 focus:border-orange-500 focus:outline-none" autoFocus />
+                      <button onClick={handleTranslateAnswer} disabled={!userInput.trim()} className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-white py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg active:scale-95 transition-transform disabled:opacity-50">Check Answer</button>
+                      {challengeFeedback && <div className={`mt-3 sm:mt-4 p-3 sm:p-4 rounded-xl text-center font-semibold text-sm sm:text-base ${challengeFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>{challengeFeedback}</div>}
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <div className="text-5xl mb-4">📚</div>
+                      <h3 className="text-xl font-bold mb-2">Not Enough Words Yet!</h3>
+                      <p className="text-gray-600 mb-4">You've completed all your learned words. Finish more lessons to unlock the full challenge!</p>
+                      <button onClick={exitChallenge} className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-6 py-3 rounded-xl font-bold">Back to Dashboard</button>
+                    </div>
+                  )}
+                </>
               )}
               {currentChallenge.type === CHALLENGE_TYPES.MATCH && (
                 <div className="grid grid-cols-2 gap-3 sm:gap-6">
@@ -1945,10 +1961,29 @@ const handleQuizAnswer = (answer) => {
           )}
           {challengeCompleted && (
             <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 text-center">
+              {/* Confetti */}
+              <div className="fixed inset-0 overflow-hidden pointer-events-none z-50">
+                {[...Array(50)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute rounded-full animate-confetti"
+                    style={{
+                      width: '10px',
+                      height: '10px',
+                      left: `${Math.random() * 100}%`,
+                      top: '-20px',
+                      animationDelay: `${Math.random() * 0.5}s`,
+                      animationDuration: `${2 + Math.random() * 2}s`,
+                      backgroundColor: ['#FFD700', '#FF6B9D', '#4169E1', '#32CD32', '#FF69B4', '#00CED1'][Math.floor(Math.random() * 6)]
+                    }}
+                  />
+                ))}
+              </div>
+
               <div className="flex justify-center mb-4">
                 <img src="./bubblesolo.png" alt="Celebration" className="h-20 sm:h-28 w-auto animate-bounce" />
               </div>
-              <div className="text-2xl mb-2">🎉✨🎉</div>
+              <div className="text-2xl mb-2">🎉✨🎊</div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-2">Challenge Complete!</h2>
               <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">You earned {currentChallenge.points} points!</p>
               <div className="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
@@ -1960,8 +1995,15 @@ const handleQuizAnswer = (answer) => {
           {challengeFailed && (
             <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 text-center">
               <div className="text-5xl sm:text-6xl mb-4">😔</div>
-              <h2 className="text-2xl sm:text-3xl font-bold mb-2">Time's Up!</h2>
-              <p className="text-gray-600 mb-6">You got {challengeProgress} out of {currentChallenge.targetCount}. Try again tomorrow!</p>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-2">
+                {challengeProgress < (currentChallenge.passingScore || currentChallenge.targetCount) ? "Not Quite!" : "Time's Up!"}
+              </h2>
+              <p className="text-gray-600 mb-6">
+                You got {challengeProgress} out of {currentChallenge.targetCount}. 
+                {currentChallenge.passingScore && challengeProgress < currentChallenge.passingScore && ` You need ${currentChallenge.passingScore} to pass.`}
+                {challengeProgress < 10 && " Learn more lessons to unlock more words!"}
+                {" "}Try again tomorrow!
+              </p>
               <button onClick={exitChallenge} className="w-full bg-gray-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-gray-700">Back to Dashboard</button>
             </div>
           )}
@@ -2270,10 +2312,29 @@ const handleQuizAnswer = (answer) => {
 
           {lessonStage === 'complete' && (
             <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
+              {/* Confetti */}
+              <div className="fixed inset-0 overflow-hidden pointer-events-none z-50">
+                {[...Array(50)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute rounded-full animate-confetti"
+                    style={{
+                      width: '10px',
+                      height: '10px',
+                      left: `${Math.random() * 100}%`,
+                      top: '-20px',
+                      animationDelay: `${Math.random() * 0.5}s`,
+                      animationDuration: `${2 + Math.random() * 2}s`,
+                      backgroundColor: ['#FFD700', '#FF6B9D', '#4169E1', '#32CD32', '#FF69B4', '#00CED1'][Math.floor(Math.random() * 6)]
+                    }}
+                  />
+                ))}
+              </div>
+
               <div className="flex justify-center mb-4">
                 <img src="./bubblesolo.png" alt="Celebration" className="h-24 sm:h-32 w-auto animate-bounce" />
               </div>
-              <div className="text-2xl mb-2">🎉✨🎉</div>
+              <div className="text-2xl mb-2">🎉✨🎊</div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-2">Lesson Complete!</h2>
               <p className="text-gray-600 mb-6">You've learned {currentLesson.words.length} new words!</p>
               <div className="bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl p-6 mb-6">
