@@ -18,13 +18,14 @@ import { Volume2, Check, X, ArrowRight, RotateCcw, HelpCircle } from 'lucide-rea
 // ─────────────────────────────────────────────────────────────
 // SHARED: Audio playback helper (reuses your existing ElevenLabs setup)
 // ─────────────────────────────────────────────────────────────
-const playAudio = (text, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID) => {
+const playAudio = (text, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID, playbackRate = 1.0) => {
   if (!text || !ELEVENLABS_API_KEY) return;
   
   const cacheKey = text.toLowerCase().trim();
   
   if (audioCache.current && audioCache.current[cacheKey]) {
     const audio = new Audio(audioCache.current[cacheKey]);
+    audio.playbackRate = playbackRate;
     audio.play().catch(() => {});
     return;
   }
@@ -47,6 +48,7 @@ const playAudio = (text, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID) =>
     const url = URL.createObjectURL(blob);
     if (audioCache.current) audioCache.current[cacheKey] = url;
     const audio = new Audio(url);
+    audio.playbackRate = playbackRate;
     audio.play().catch(() => {});
   })
   .catch(() => {});
@@ -111,7 +113,7 @@ export function FillInTheBlank({
       } else {
         setCompleted(true);
       }
-    }, 2000);
+    }, 4000);
   };
 
   if (completed) {
@@ -157,7 +159,7 @@ export function FillInTheBlank({
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
         <p className="text-xl text-gray-800 leading-relaxed text-center">
           {parts[0]}
-          <span className={`inline-block min-w-[80px] mx-1 px-3 py-1 rounded-lg font-bold text-lg border-2 border-dashed ${
+          <span key={currentIndex} className={`inline-block min-w-[80px] mx-1 px-3 py-1 rounded-lg font-bold text-lg border-2 border-dashed ${
             isCorrect === true ? 'bg-green-100 border-green-400 text-green-700' :
             isCorrect === false ? 'bg-red-100 border-red-400 text-red-700' :
             'bg-blue-50 border-blue-300 text-blue-600'
@@ -197,7 +199,7 @@ export function FillInTheBlank({
 
           return (
             <button
-              key={idx}
+              key={`${currentIndex}-${idx}`}
               onClick={() => handleSelect(idx)}
               disabled={isCorrect !== null}
               className={`${btnClass} rounded-xl py-3 px-4 text-center font-medium text-lg transition-all active:scale-95`}
@@ -297,7 +299,7 @@ export function SentenceOrdering({
       } else {
         setCompleted(true);
       }
-    }, 2500);
+    }, 3000);
   };
 
   const handleClear = () => {
@@ -499,7 +501,7 @@ export function ListenAndType({
       } else {
         setCompleted(true);
       }
-    }, 2500);
+    }, 4000);
   };
 
   const handleKeyDown = (e) => {
@@ -549,12 +551,19 @@ export function ListenAndType({
       </div>
 
       {/* Big play button */}
-      <div className="flex justify-center mb-6">
+      <div className="flex flex-col items-center mb-6">
         <button
           onClick={handlePlay}
           className="w-24 h-24 rounded-full bg-amber-500 hover:bg-amber-600 active:scale-95 transition-all flex items-center justify-center shadow-lg"
         >
           <Volume2 className="w-10 h-10 text-white" />
+        </button>
+        <button
+          onClick={() => playAudio(current.catalan, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID, 0.5)}
+          className="w-16 h-16 rounded-full bg-amber-400 hover:bg-amber-500 active:scale-95 transition-all flex items-center justify-center shadow-md mt-3"
+          title="Play slowly"
+        >
+          <span className="text-3xl leading-none">🐢</span>
         </button>
       </div>
       <p className="text-center text-sm text-gray-400 mb-6">

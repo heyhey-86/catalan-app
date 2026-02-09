@@ -69,9 +69,9 @@ const getAllWordsUpToTier = (tier) => {
   return words;
 };
 
-// Check if this is a comprehensive review point (after lessons 9, 18, 27)
+// Check if this is a comprehensive review point (every 9 lessons: 9, 18, 27, 36, 45...)
 const isComprehensiveReviewPoint = (lessonId) => {
-  return [9, 18, 27].includes(lessonId);
+  return lessonId % 9 === 0;
 };
 
 // Premium activation tokens
@@ -637,7 +637,7 @@ useEffect(() => {
   };
 
   const shouldShowReviewGateButton = (tier) => {
-    return isTierComplete(tier, completed) && unlockedTier === tier && tier < 18;
+    return isTierComplete(tier, completed) && unlockedTier === tier && tier < 17;
   };
 
  const startReviewSession = () => {
@@ -1585,8 +1585,8 @@ const handleQuizAnswer = (answer) => {
                   <button onClick={() => speakWord(reviewSessionWords[reviewSessionIndex]?.ca)} className="p-1 rounded-full hover:bg-blue-200 active:bg-blue-300 transition-colors" title="Hear pronunciation">
                     <Volume2 className="w-5 h-5 text-blue-600" />
                   </button>
-                  <button onClick={() => speakWord(reviewSessionWords[reviewSessionIndex]?.ca, true)} className="rounded-full hover:bg-blue-200 active:bg-blue-300 transition-colors inline-flex items-center justify-center h-7 w-7" title="Hear slowly">
-                    <span className="block -mt-1.5" style={{fontSize: '20px', lineHeight: '20px'}}>🐢</span>
+                  <button onClick={() => speakWord(reviewSessionWords[reviewSessionIndex]?.ca, true)} className="rounded-full hover:bg-blue-200 active:bg-blue-300 transition-colors inline-flex items-center justify-center h-8 w-8" title="Hear slowly">
+                    <span className="block -mt-1" style={{fontSize: '24px', lineHeight: '24px'}}>🐢</span>
                   </button>
                 </div>
                 
@@ -1677,13 +1677,13 @@ const handleQuizAnswer = (answer) => {
 
               <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
                 <h3 className="text-lg text-gray-600 mb-2">What is this in Catalan?</h3>
-                <div className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center py-6 bg-purple-50 rounded-xl flex items-center justify-center gap-3">
+                <div className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center py-6 bg-purple-50 rounded-xl flex items-center justify-center gap-1">
                   {reviewGateWords[reviewGateIndex]?.en}
                   <button onClick={() => speakWord(reviewGateWords[reviewGateIndex]?.ca)} className="p-2 rounded-full hover:bg-purple-200 active:bg-purple-300 transition-colors" title="Hear pronunciation">
                     <Volume2 className="w-6 h-6 text-purple-600" />
                   </button>
-                  <button onClick={() => speakWord(reviewGateWords[reviewGateIndex]?.ca, true)} className="p-2 rounded-full hover:bg-purple-200 active:bg-purple-300 transition-colors" title="Hear slowly">
-                    <span className="text-base leading-none">🐢</span>
+                  <button onClick={() => speakWord(reviewGateWords[reviewGateIndex]?.ca, true)} className="p-2 rounded-full hover:bg-purple-200 active:bg-purple-300 transition-colors inline-flex items-center justify-center h-10 w-10" title="Hear slowly">
+                    <span className="text-2xl leading-none">🐢</span>
                   </button>
                 </div>
                 
@@ -2500,24 +2500,30 @@ const handleQuizAnswer = (answer) => {
             onClick={() => {
               // Check if user has words to review
               if (wordHistory.length < 10) {
-                alert('Complete more lessons to unlock word review! You need at least 10 words.');
-                return;
+                return; // Don't do anything, message is in the card
               }
               // Check daily limit
               const today = new Date().toDateString();
-              if (lastDailyReviewDate === today && dailyReviewsCompleted >= 10) {
-                alert('You\'ve completed your daily review! Come back tomorrow for more.');
-                return;
+              if (lastDailyReviewDate === today && dailyReviewsCompleted >= 1) {
+                return; // Don't do anything, message is in the card
               }
               // Start review session
               startReviewSession();
             }}
-            className="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl shadow-lg p-4 sm:p-6 text-white min-w-[140px] sm:min-w-0 flex-shrink-0 sm:flex-shrink cursor-pointer active:scale-95 transition-all"
+            className={`bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl shadow-lg p-4 sm:p-6 text-white min-w-[140px] sm:min-w-0 flex-shrink-0 sm:flex-shrink ${
+              wordHistory.length >= 10 && !(lastDailyReviewDate === new Date().toDateString() && dailyReviewsCompleted >= 1) 
+                ? 'cursor-pointer active:scale-95' 
+                : 'cursor-default'
+            } transition-all`}
           >
             <div className="flex items-center justify-between mb-2"><TrendingUp className="w-6 h-6 sm:w-8 sm:h-8" /><span className="text-2xl sm:text-3xl font-bold">{wordHistory.length}</span></div>
             <div className="text-xs sm:text-sm opacity-90">Words Learned</div>
             <div className="mt-2 sm:mt-3 text-xs opacity-75">
-              {dailyReviewsCompleted >= 10 ? '✓ Review complete today!' : wordHistory.length >= 10 ? 'Tap to review 10 words →' : 'Complete lessons to unlock →'}
+              {lastDailyReviewDate === new Date().toDateString() && dailyReviewsCompleted >= 1
+                ? '✓ Done today! Come back tomorrow' 
+                : wordHistory.length >= 10 
+                  ? 'Click here to daily review →' 
+                  : 'Complete lessons to unlock →'}
             </div>
           </div>
         </div>
