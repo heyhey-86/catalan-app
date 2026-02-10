@@ -831,10 +831,20 @@ export function ErrorCorrection({
   const [isCorrect, setIsCorrect] = useState(null);
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
+  const [shuffledOptions, setShuffledOptions] = useState([]);
+  const [shuffledCorrectIndex, setShuffledCorrectIndex] = useState(0);
 
   const current = exercises[currentIndex];
   const total = exercises.length;
   const words = current.sentence.split(' ');
+
+  // Shuffle options when question changes
+  useEffect(() => {
+    const correctAnswer = current.options[current.correctIndex];
+    const newOptions = [...current.options].sort(() => Math.random() - 0.5);
+    setShuffledOptions(newOptions);
+    setShuffledCorrectIndex(newOptions.indexOf(correctAnswer));
+  }, [currentIndex]);
 
   const handleWordTap = (wordIndex) => {
     if (step !== 'find' || isCorrect !== null) return;
@@ -852,27 +862,15 @@ export function ErrorCorrection({
   const handleOptionSelect = (optionIndex) => {
     if (isCorrect !== null) return;
     setSelectedOption(optionIndex);
-    const correct = optionIndex === current.correctIndex;
+    const correct = optionIndex === shuffledCorrectIndex;
     setIsCorrect(correct);
     if (correct) setScore(s => s + 15);
 
     // Play corrected sentence
     const correctedWords = [...words];
-    correctedWords[current.errorWordIndex] = current.options[current.correctIndex];
+    correctedWords[current.errorWordIndex] = shuffledOptions[shuffledCorrectIndex];
     const correctedSentence = correctedWords.join(' ');
     playAudio(correctedSentence, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID);
-
-    setTimeout(() => {
-      if (currentIndex < total - 1) {
-        setCurrentIndex(i => i + 1);
-        setSelectedWordIndex(null);
-        setSelectedOption(null);
-        setStep('find');
-        setIsCorrect(null);
-      } else {
-        setCompleted(true);
-      }
-    }, 2500);
   };
 
   if (completed) {
@@ -962,11 +960,11 @@ export function ErrorCorrection({
       {step === 'fix' && (
         <div className="space-y-2">
           <p className="text-sm text-gray-500 text-center mb-2">Replace with:</p>
-          {current.options.map((option, idx) => {
+          {shuffledOptions.map((option, idx) => {
             let optClass = 'bg-white border-2 border-gray-200 text-gray-700 hover:border-rose-400';
             
             if (isCorrect !== null) {
-              if (idx === current.correctIndex) {
+              if (idx === shuffledCorrectIndex) {
                 optClass = 'bg-green-100 border-2 border-green-400 text-green-700';
               } else if (idx === selectedOption && !isCorrect) {
                 optClass = 'bg-red-100 border-2 border-red-400 text-red-700';
@@ -998,7 +996,7 @@ export function ErrorCorrection({
             <p className="font-medium"><Check className="inline w-5 h-5 mr-1" /> Correct! +15 points</p>
           ) : (
             <>
-              <p className="font-medium"><X className="inline w-5 h-5 mr-1" /> The correct word is: <strong>{current.options[current.correctIndex]}</strong></p>
+              <p className="font-medium"><X className="inline w-5 h-5 mr-1" /> The correct word is: <strong>{shuffledOptions[shuffledCorrectIndex]}</strong></p>
             </>
           )}
           {current.explanation && (

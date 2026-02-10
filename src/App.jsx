@@ -1333,8 +1333,8 @@ const handleQuizAnswer = (answer) => {
     const existingData = JSON.parse(localStorage.getItem('catalan_progress') || '{}');
     return <Auth onAuthSuccess={handleAuthSuccess} existingLocalData={existingData} />;
   }
-  // Beta expiry check
-  if (isBetaExpired()) {
+  // Beta expiry check - VIP testers bypass this
+  if (isBetaExpired() && !premium) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
