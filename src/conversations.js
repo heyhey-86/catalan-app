@@ -892,7 +892,7 @@ export const CONVERSATIONS = [
         speaker: "user",
         prompt: "Say: No I don't have pets",
         correctSentence: "No no tinc mascotes",
-        wordBank: ["No", "tinc", "mascotes", "gos", "gat", "animals"]
+        wordBank: ["No", "No", "tinc", "mascotes", "gos", "gat"]
       },
       {
         speaker: "landlord",

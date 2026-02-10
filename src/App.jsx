@@ -144,8 +144,11 @@ const getInitialState = () => {
 };
 
 // BETA EXPIRY - App stops working after this date
-const BETA_EXPIRY_DATE = new Date('2026-02-10');
-const isBetaExpired = () => new Date() > BETA_EXPIRY_DATE;
+const BETA_EXPIRY_DATE = new Date('2026-02-15');
+const isBetaExpired = () => {
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') return false;
+  return new Date() > BETA_EXPIRY_DATE;
+};
 
 const INITIAL_STATE = getInitialState();
 
@@ -1202,10 +1205,7 @@ const handleQuizAnswer = (answer) => {
       }
     }, 1000);
   } else {
-    setQuizFeedback('Try again!');
-    setTimeout(() => {
-      setQuizFeedback('');
-    }, 1000);
+    setQuizFeedback(`Incorrecte. La resposta és: "${quizWords[quizIndex].ca}"`);
   }
 };
 
@@ -2260,7 +2260,28 @@ const handleQuizAnswer = (answer) => {
                     <button key={i} onClick={() => handleQuizAnswer(option)} disabled={quizFeedback !== ''} className={`w-full p-4 rounded-lg font-semibold transition-all text-left disabled:opacity-75 focus:outline-none focus:bg-gray-100 active:bg-blue-200 ${quizFeedback && option === quizWords[quizIndex]?.ca ? 'bg-green-200' : quizFeedback ? 'bg-gray-100' : 'bg-gray-100'}`}>{option}</button>
                   ))}
                 </div>
-                {quizFeedback && <div className={`mt-4 p-4 rounded-lg text-center font-semibold ${quizFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>{quizFeedback}</div>}
+                {quizFeedback && (
+                  <div className={`mt-4 p-4 rounded-lg text-center font-semibold ${quizFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                    {quizFeedback}
+                    <button
+                      onClick={() => {
+                        if (quizIndex < quizWords.length - 1) {
+                          const nextIndex = quizIndex + 1;
+                          const correctAnswer = quizWords[nextIndex].ca;
+                          const wrongAnswers = quizWords.filter((_, i) => i !== nextIndex).map(w => w.ca).sort(() => Math.random() - 0.5).slice(0, 2);
+                          setQuizOptions([correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5));
+                          setQuizIndex(nextIndex);
+                          setQuizFeedback('');
+                        } else {
+                          nextStage();
+                        }
+                      }}
+                      className="mt-3 block w-full bg-white text-gray-700 border-2 border-gray-300 px-6 py-2 rounded-xl font-semibold hover:bg-gray-50 active:scale-95 transition-all"
+                    >
+                      Next →
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           )}

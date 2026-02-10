@@ -90,8 +90,8 @@ export function FillInTheBlank({
   const [showTranslation, setShowTranslation] = useState(false);
   const [completed, setCompleted] = useState(false);
 
-  const current = exercises[currentIndex];
   const total = exercises.length;
+  const current = exercises[currentIndex] || exercises[total - 1];
 
   const handleSelect = (optionIndex) => {
     if (isCorrect !== null) return; // Already answered
@@ -104,17 +104,7 @@ export function FillInTheBlank({
     const fullSentence = current.sentence.replace('___', current.options[current.correctIndex]);
     playAudio(fullSentence, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID);
 
-    setTimeout(() => {
-      if (currentIndex < total - 1) {
-        setCurrentIndex(i => i + 1);
-        setSelected(null);
-        setIsCorrect(null);
-        setShowTranslation(false);
-      } else {
-        setCompleted(true);
-      }
-    }, 4000);
-  };
+    };
 
   if (completed) {
     return (
@@ -220,6 +210,21 @@ export function FillInTheBlank({
           ) : (
             <span><X className="inline w-5 h-5 mr-1" /> The answer is: <strong>{current.options[current.correctIndex]}</strong></span>
           )}
+          <button
+            onClick={() => {
+              if (currentIndex < total - 1) {
+                setCurrentIndex(i => i + 1);
+                setSelected(null);
+                setIsCorrect(null);
+                setShowTranslation(false);
+              } else {
+                setCompleted(true);
+              }
+            }}
+            className="mt-3 block w-full bg-white text-gray-700 border-2 border-gray-300 px-6 py-2 rounded-xl font-semibold hover:bg-gray-50 active:scale-95 transition-all"
+          >
+            Next →
+          </button>
         </div>
       )}
     </div>
@@ -292,14 +297,6 @@ export function SentenceOrdering({
 
     // Play correct sentence
     playAudio(current.correctOrder, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID);
-
-    setTimeout(() => {
-      if (currentIndex < total - 1) {
-        setCurrentIndex(i => i + 1);
-      } else {
-        setCompleted(true);
-      }
-    }, 3000);
   };
 
   const handleClear = () => {
@@ -437,6 +434,18 @@ export function SentenceOrdering({
           ) : (
             <span><X className="inline w-5 h-5 mr-1" /> Correct: <strong>{current.correctOrder}</strong></span>
           )}
+          <button
+            onClick={() => {
+              if (currentIndex < total - 1) {
+                setCurrentIndex(i => i + 1);
+              } else {
+                setCompleted(true);
+              }
+            }}
+            className="mt-3 block w-full bg-white text-gray-700 border-2 border-gray-300 px-6 py-2 rounded-xl font-semibold hover:bg-gray-50 active:scale-95 transition-all"
+          >
+            Next →
+          </button>
         </div>
       )}
     </div>
@@ -491,17 +500,7 @@ export function ListenAndType({
     // Play it again so they hear the correct version
     playAudio(current.catalan, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID);
 
-    setTimeout(() => {
-      if (currentIndex < total - 1) {
-        setCurrentIndex(i => i + 1);
-        setUserInput('');
-        setIsCorrect(null);
-        setHasPlayed(false);
-        setShowAnswer(false);
-      } else {
-        setCompleted(true);
-      }
-    }, 4000);
+
   };
 
   const handleKeyDown = (e) => {
@@ -620,6 +619,22 @@ export function ListenAndType({
               <p className="text-sm mt-1 opacity-75">({current.pronunciation})</p>
             </>
           )}
+          <button
+            onClick={() => {
+              if (currentIndex < total - 1) {
+                setCurrentIndex(i => i + 1);
+                setUserInput('');
+                setIsCorrect(null);
+                setHasPlayed(false);
+                setShowAnswer(false);
+              } else {
+                setCompleted(true);
+              }
+            }}
+            className="mt-3 block w-full bg-white text-gray-700 border-2 border-gray-300 px-6 py-2 rounded-xl font-semibold hover:bg-gray-50 active:scale-95 transition-all"
+          >
+            Next →
+          </button>
         </div>
       )}
     </div>
@@ -649,9 +664,26 @@ export function MiniConversation({
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
   const [showTranslation, setShowTranslation] = useState(null);
+  const [shuffledTurnOptions, setShuffledTurnOptions] = useState({});
   const chatRef = useRef(null);
 
   const total = dialogue.length;
+
+  // Shuffle options for all user turns on mount
+  useEffect(() => {
+    const shuffled = {};
+    dialogue.forEach((turn, idx) => {
+      if (turn.isUserTurn && turn.options) {
+        const correctAnswer = turn.options[turn.correctIndex];
+        const newOptions = [...turn.options].sort(() => Math.random() - 0.5);
+        shuffled[idx] = {
+          options: newOptions,
+          correctIndex: newOptions.indexOf(correctAnswer)
+        };
+      }
+    });
+    setShuffledTurnOptions(shuffled);
+  }, []);
 
   // Auto-scroll chat
   useEffect(() => {
@@ -684,7 +716,8 @@ export function MiniConversation({
     if (isCorrect !== null) return;
     const turn = dialogue[currentTurn];
     setSelected(optionIndex);
-    const correct = optionIndex === turn.correctIndex;
+    const correctIdx = shuffledTurnOptions[currentTurn]?.correctIndex ?? turn.correctIndex;
+    const correct = optionIndex === correctIdx;
     setIsCorrect(correct);
     if (correct) setScore(s => s + 15);
 
@@ -771,11 +804,12 @@ export function MiniConversation({
         <div className="px-4 pb-4 pt-2 bg-gray-50 border-t border-gray-100">
           <p className="text-sm text-gray-500 mb-2 text-center">Choose your response:</p>
           <div className="space-y-2">
-            {currentTurnData.options.map((option, idx) => {
+            {(shuffledTurnOptions[currentTurn]?.options || currentTurnData.options).map((option, idx) => {
               let btnClass = 'bg-white border-2 border-gray-200 text-gray-700 hover:border-teal-400';
               
               if (isCorrect !== null) {
-                if (idx === currentTurnData.correctIndex) {
+                const correctIdx = shuffledTurnOptions[currentTurn]?.correctIndex ?? currentTurnData.correctIndex;
+if (idx === correctIdx) {
                   btnClass = 'bg-green-100 border-2 border-green-400 text-green-700';
                 } else if (idx === selected && !isCorrect) {
                   btnClass = 'bg-red-100 border-2 border-red-400 text-red-700';
@@ -799,7 +833,7 @@ export function MiniConversation({
           
           {isCorrect === false && (
             <p className="text-center text-sm text-red-500 mt-2">
-              Correct: <strong>{currentTurnData.options[currentTurnData.correctIndex]}</strong>
+              Correct: <strong>{(shuffledTurnOptions[currentTurn]?.options || currentTurnData.options)[shuffledTurnOptions[currentTurn]?.correctIndex ?? currentTurnData.correctIndex]}</strong>
             </p>
           )}
         </div>
@@ -834,8 +868,8 @@ export function ErrorCorrection({
   const [shuffledOptions, setShuffledOptions] = useState([]);
   const [shuffledCorrectIndex, setShuffledCorrectIndex] = useState(0);
 
-  const current = exercises[currentIndex];
   const total = exercises.length;
+  const current = exercises[currentIndex] || exercises[total - 1];
   const words = current.sentence.split(' ');
 
   // Shuffle options when question changes
@@ -1002,6 +1036,22 @@ export function ErrorCorrection({
           {current.explanation && (
             <p className="text-sm mt-2 opacity-75">{current.explanation}</p>
           )}
+          <button
+            onClick={() => {
+              if (currentIndex < total - 1) {
+                setCurrentIndex(i => i + 1);
+                setSelectedWordIndex(null);
+                setSelectedOption(null);
+                setStep('find');
+                setIsCorrect(null);
+              } else {
+                setCompleted(true);
+              }
+            }}
+            className="mt-3 bg-white text-gray-700 border-2 border-gray-300 px-6 py-2 rounded-xl font-semibold hover:bg-gray-50 active:scale-95 transition-all"
+          >
+            Next →
+          </button>
         </div>
       )}
     </div>
