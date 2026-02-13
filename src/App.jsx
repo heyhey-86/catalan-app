@@ -9,6 +9,8 @@ import { lessons as lessons50 } from './lessons50.js';
 import { getTodayChallenge, wasChallengeCompletedToday, getChallengeStreak, getTimeUntilNextChallenge, CHALLENGE_TYPES } from './challenges.js';
 import { ACHIEVEMENTS, getUnlockedAchievements, getNewlyUnlocked, getAchievementProgress, getAchievementsByCategory } from './achievements.js';
 import { Analytics } from '@vercel/analytics/react';
+const ELEVENLABS_API_KEY = import.meta.env.VITE_ELEVENLABS_API_KEY;
+const ELEVENLABS_VOICE_ID = import.meta.env.VITE_ELEVENLABS_VOICE_ID;
 
 const LESSONS = lessons50;
 
@@ -30,7 +32,13 @@ const LESSON_TIERS = [
   { tier: 14, lessons: [40, 41, 42] },
   { tier: 15, lessons: [43, 44, 45] },
   { tier: 16, lessons: [46, 47, 48] },
-  { tier: 17, lessons: [49, 50] }
+  { tier: 17, lessons: [49, 50] },
+  { tier: 18, lessons: [53, 54] },
+{ tier: 19, lessons: [55, 56] },
+{ tier: 20, lessons: [57, 58] },
+{ tier: 21, lessons: [59, 60] },
+{ tier: 22, lessons: [61, 62, 63] },
+{ tier: 23, lessons: [64, 65] },
 ];
 
 // Helper: Get tier for a lesson ID
@@ -144,7 +152,7 @@ const getInitialState = () => {
 };
 
 // BETA EXPIRY - App stops working after this date
-const BETA_EXPIRY_DATE = new Date('2026-02-15');
+const BETA_EXPIRY_DATE = new Date('2026-02-28');
 const isBetaExpired = () => {
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') return false;
   return new Date() > BETA_EXPIRY_DATE;
@@ -214,6 +222,9 @@ function App() {
   const [quizFeedback, setQuizFeedback] = useState('');
   const [quizOptions, setQuizOptions] = useState([]);
   const [quizWords, setQuizWords] = useState([]);
+  const [quizCorrectCount, setQuizCorrectCount] = useState(0);
+  const [lessonCorrectAnswers, setLessonCorrectAnswers] = useState(0);
+const [lessonTotalQuestions, setLessonTotalQuestions] = useState(0);
   const [selectedQuizAnswer, setSelectedQuizAnswer] = useState(null);
   const [unlockedAchievements, setUnlockedAchievements] = useState([]);
   const [newAchievement, setNewAchievement] = useState(null);
@@ -240,6 +251,15 @@ const [selectedReviewGateAnswer, setSelectedReviewGateAnswer] = useState(null);
   const timerRef = useRef(null);
   const secretTapsRef = useRef(0);
   const secretTapTimerRef = useRef(null);
+  const nextLessonRef = useRef(null);
+
+  useEffect(() => {
+    if (nextLessonRef.current) {
+      setTimeout(() => {
+        nextLessonRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 500);
+    }
+  }, [completed]);
 
  useEffect(() => {
     if (user) {
@@ -468,6 +488,12 @@ useEffect(() => {
         if (remaining <= 0) {
           clearInterval(timerRef.current);
           setChallengeTimeRemaining(0);
+          // Guard: don't fail if target already met
+          const passingThreshold = currentChallenge?.passingScore || currentChallenge?.targetCount;
+          if (challengeProgress >= passingThreshold) {
+            completeChallenge();
+            return;
+          }
           // Record the failed attempt
           const newHistory = [...challengeHistory, {
             challengeId: currentChallenge.id,
@@ -494,7 +520,17 @@ useEffect(() => {
     setMatchedPairs([]);
     setSelectedPairs([]);
     setShuffledCatalan([...lesson.words].sort(() => Math.random() - 0.5));
+    setLessonCorrectAnswers(0); // RESET lesson tracking
+    setLessonTotalQuestions(0); // RESET lesson tracking
     setView('lesson');
+  };
+
+  const handleLessonAnswer = (isCorrect) => {
+    console.log('Answer tracked:', isCorrect);
+    setLessonTotalQuestions(prev => prev + 1);
+    if (isCorrect) {
+      setLessonCorrectAnswers(prev => prev + 1);
+    }
   };
 
  const startConversation = (conversation) => {
@@ -1004,6 +1040,7 @@ useEffect(() => {
           setChallengeProgress(newProgress);
           const passingThreshold = currentChallenge.passingScore || currentChallenge.targetCount;
           if (newProgress >= passingThreshold) {
+            if (timerRef.current) clearInterval(timerRef.current);
             setTimeout(() => completeChallenge(), 500);
           }
         } else {
@@ -1149,9 +1186,22 @@ useEffect(() => {
     const currentIndex = stages.indexOf(lessonStage);
     const nextStageName = currentIndex < stages.length - 1 ? stages[currentIndex + 1] : 'complete';
     
+    // CHECK 70% BEFORE SHOWING COMPLETION SCREEN
+    if (nextStageName === 'complete') {
+      const percentage = lessonTotalQuestions > 0 
+        ? (lessonCorrectAnswers / lessonTotalQuestions) * 100 
+        : 100;
+      
+      if (percentage < 70) {
+        setLessonStage('failed');
+        return;
+      }
+    }
+    
     if (nextStageName === 'quiz') {
       setQuizIndex(0);
       setQuizFeedback('');
+      setQuizCorrectCount(0);
       const shuffledWords = [...currentLesson.words].sort(() => Math.random() - 0.5);
       setQuizWords(shuffledWords);
       const correctAnswer = shuffledWords[0].ca;
@@ -1175,20 +1225,27 @@ useEffect(() => {
         if (isMatch) {
   setMatchedPairs([...matchedPairs, first.word.ca]);
   setSelectedPairs([]);
+  handleLessonAnswer(true); // TRACK CORRECT MATCH
   if (!completed.includes(currentLesson.id)) {
     setScore(score + 10);
   }
+} else {
+  setSelectedPairs([]); // Wrong match - clear selection
+  handleLessonAnswer(false); // TRACK WRONG MATCH
 }
       }
     }
   };
 
 const handleQuizAnswer = (answer) => {
+  console.log('handleQuizAnswer called!', { answer, quizIndex });
   const correct = quizWords[quizIndex];
   const isCorrect = answer === correct.ca;
   
   if (isCorrect) {
     setQuizFeedback('Correcte! ✓');
+    setQuizCorrectCount(prev => prev + 1); // INCREMENT COUNTER
+    handleLessonAnswer(true); // TRACK CORRECT ANSWER
     if (!completed.includes(currentLesson.id)) {
       setScore(score + 5);
     }
@@ -1201,11 +1258,32 @@ const handleQuizAnswer = (answer) => {
         setQuizIndex(nextIndex);
         setQuizFeedback('');
       } else {
-        nextStage();
+        // FINAL CHECK - need 70% minimum
+        const finalCorrect = quizCorrectCount + 1; // +1 for THIS correct answer
+        const totalQuestions = quizWords.length;
+        const percentage = (finalCorrect / totalQuestions) * 100;
+        console.log('QUIZ CHECK:', { finalCorrect, totalQuestions, percentage, quizCorrectCount });
+        
+        if (percentage >= 70) {
+          setQuizCorrectCount(0); // RESET for next lesson
+          nextStage();
+        } else {
+          alert(`You got ${finalCorrect}/${totalQuestions} (${Math.round(percentage)}%). You need 70% to pass. Try again!`);
+          // RESET QUIZ
+          setQuizIndex(0);
+          setQuizCorrectCount(0);
+          setQuizFeedback('');
+          const shuffledWords = [...currentLesson.words].sort(() => Math.random() - 0.5);
+          setQuizWords(shuffledWords);
+          const correctAnswer = shuffledWords[0].ca;
+          const wrongAnswers = shuffledWords.filter((_, i) => i !== 0).map(w => w.ca).sort(() => Math.random() - 0.5).slice(0, 2);
+          setQuizOptions([correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5));
+        }
       }
     }, 1000);
   } else {
     setQuizFeedback(`Incorrecte. La resposta és: "${quizWords[quizIndex].ca}"`);
+    handleLessonAnswer(false); // TRACK WRONG ANSWER
   }
 };
 
@@ -1269,7 +1347,7 @@ const handleQuizAnswer = (answer) => {
         headers: {
           'Accept': 'audio/mpeg',
           'Content-Type': 'application/json',
-          'xi-api-key': 'sk_75b4eb8a57c22f39ba4cd877d79c18d631a13107a8fab115'
+          'xi-api-key': ELEVENLABS_API_KEY
         },
         body: JSON.stringify({
           text: text,
@@ -1340,7 +1418,7 @@ const handleQuizAnswer = (answer) => {
         <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
           <img src="./logo.png" alt="HolaCatalà" className="h-32 w-auto mx-auto mb-4" />
           <h1 className="text-2xl font-bold mb-2">We're Launching Soon! 🚀</h1>
-          <p className="text-gray-600 mb-6">Thank you for being a beta tester! We're putting the finishing touches on HolaCatalà and launching on <strong>February 15th</strong>.</p>
+          <p className="text-gray-600 mb-6">Thank you for being a beta tester! We're putting the finishing touches on HolaCatalà and launching very soon!</p>
           <p className="text-gray-600 mb-6">Check your email on launch day for your special beta tester discount!</p>
           <a href="mailto:aprencatalaapp@gmail.com" className="block w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-semibold">
             Questions? Contact Us →
@@ -1924,7 +2002,7 @@ const handleQuizAnswer = (answer) => {
                             <div className="bg-white border-2 border-gray-200 rounded-lg p-3 mb-3 min-h-[50px] flex flex-wrap gap-2 items-center">
                               {challengeConvUserSentence.length === 0 
                                 ? <span className="text-gray-400 text-sm">Tap words below...</span> 
-                                : challengeConvUserSentence.map((word, i) => <span key={i} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm font-semibold">{word}</span>)}
+                                : challengeConvUserSentence.map((word, i) => <span key={i} onClick={() => setChallengeConvUserSentence(prev => prev.filter((_, idx) => idx !== i))} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm font-semibold cursor-pointer hover:bg-red-100 hover:text-red-700 active:scale-95 transition-all">{word} <span className="text-xs opacity-50">x</span></span>)}
                             </div>
                             <div className="flex flex-wrap gap-2 mb-4">
                               {challengeConvWordBank.map((word, i) => {
@@ -2060,7 +2138,7 @@ const handleQuizAnswer = (answer) => {
               <>
                 <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 mb-4"><div className="font-semibold text-blue-900">{currentTurn.prompt}</div></div>
                 <div className="bg-white border-2 border-gray-200 rounded-lg p-4 mb-4 min-h-[60px] flex flex-wrap gap-2 items-center">
-                  {userSentence.length === 0 ? <span className="text-gray-400">Tap words below to build your sentence...</span> : userSentence.map((word, i) => <span key={i} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-semibold">{word}</span>)}
+                  {userSentence.length === 0 ? <span className="text-gray-400">Tap words below to build your sentence...</span> : userSentence.map((word, i) => <span key={i} onClick={() => setUserSentence(prev => prev.filter((_, idx) => idx !== i))} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-semibold cursor-pointer hover:bg-red-100 hover:text-red-700 active:scale-95 transition-all">{word} <span className="text-xs opacity-50">x</span></span>)}
                 </div>
                 <div className="flex flex-wrap gap-2 mb-4">
 {shuffledWordBank.map((word, i) => {
@@ -2289,48 +2367,104 @@ const handleQuizAnswer = (answer) => {
             <FillInTheBlank
               exercises={currentLesson.stageData.fillInTheBlank}
               onComplete={() => nextStage()}
+              onAnswer={handleLessonAnswer}
               audioCache={audioCache}
-              ELEVENLABS_API_KEY="sk_75b4eb8a57c22f39ba4cd877d79c18d631a13107a8fab115"
-              ELEVENLABS_VOICE_ID="AxFLn9byyiDbMn5fmyqu"
+              ELEVENLABS_API_KEY={ELEVENLABS_API_KEY}
+              ELEVENLABS_VOICE_ID={ELEVENLABS_VOICE_ID}
             />
           )}
           {lessonStage === 'sentenceOrdering' && currentLesson.stageData?.sentenceOrdering && (
             <SentenceOrdering
               exercises={currentLesson.stageData.sentenceOrdering}
               onComplete={() => nextStage()}
+              onAnswer={handleLessonAnswer}
               audioCache={audioCache}
-              ELEVENLABS_API_KEY="sk_75b4eb8a57c22f39ba4cd877d79c18d631a13107a8fab115"
-              ELEVENLABS_VOICE_ID="AxFLn9byyiDbMn5fmyqu"
+              ELEVENLABS_API_KEY={ELEVENLABS_API_KEY}
+              ELEVENLABS_VOICE_ID={ELEVENLABS_VOICE_ID}
             />
           )}
           {lessonStage === 'listenAndType' && currentLesson.stageData?.listenAndType && (
             <ListenAndType
               exercises={currentLesson.stageData.listenAndType}
               onComplete={() => nextStage()}
+              onAnswer={handleLessonAnswer}
               audioCache={audioCache}
-              ELEVENLABS_API_KEY="sk_75b4eb8a57c22f39ba4cd877d79c18d631a13107a8fab115"
-              ELEVENLABS_VOICE_ID="AxFLn9byyiDbMn5fmyqu"
+              ELEVENLABS_API_KEY={ELEVENLABS_API_KEY}
+              ELEVENLABS_VOICE_ID={ELEVENLABS_VOICE_ID}
             />
           )}
           {lessonStage === 'miniConversation' && currentLesson.stageData?.miniConversation && (
             <MiniConversation
               dialogue={currentLesson.stageData.miniConversation}
               onComplete={() => nextStage()}
+              onAnswer={handleLessonAnswer}
               audioCache={audioCache}
-              ELEVENLABS_API_KEY="sk_75b4eb8a57c22f39ba4cd877d79c18d631a13107a8fab115"
-              ELEVENLABS_VOICE_ID="AxFLn9byyiDbMn5fmyqu"
+              ELEVENLABS_API_KEY={ELEVENLABS_API_KEY}
+              ELEVENLABS_VOICE_ID={ELEVENLABS_VOICE_ID}
             />
           )}
           {lessonStage === 'errorCorrection' && currentLesson.stageData?.errorCorrection && (
             <ErrorCorrection
               exercises={currentLesson.stageData.errorCorrection}
               onComplete={() => nextStage()}
+              onAnswer={handleLessonAnswer}
               audioCache={audioCache}
-              ELEVENLABS_API_KEY="sk_75b4eb8a57c22f39ba4cd877d79c18d631a13107a8fab115"
-              ELEVENLABS_VOICE_ID="AxFLn9byyiDbMn5fmyqu"
+              ELEVENLABS_API_KEY={ELEVENLABS_API_KEY}
+              ELEVENLABS_VOICE_ID={ELEVENLABS_VOICE_ID}
             />
           )}
 
+{lessonStage === 'failed' && (
+            <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
+              <div className="text-6xl mb-4">😔</div>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-gray-800">Not Quite There Yet</h2>
+              <p className="text-gray-600 mb-6">
+                You got <span className="font-bold text-red-600">{lessonCorrectAnswers}/{lessonTotalQuestions}</span> correct 
+                (<span className="font-bold">{Math.round((lessonCorrectAnswers / lessonTotalQuestions) * 100)}%</span>)
+              </p>
+              <p className="text-gray-700 mb-8">You need 70% to pass this lesson. Let's review and try again!</p>
+              
+              <div className="bg-blue-50 rounded-xl p-6 mb-6">
+                <h3 className="font-bold text-blue-900 mb-3">💡 Study Tip</h3>
+                <p className="text-blue-800 text-sm">
+                  Take your time with each question. Listen carefully to the pronunciations and read the translations.
+                </p>
+              </div>
+
+              <button
+                onClick={() => {
+                  // RESTART LESSON
+                  setLessonStage('intro');
+                  setCurrentCardIndex(0);
+                  setFlipped(false);
+                  setMatchedPairs([]);
+                  setSelectedPairs([]);
+                  setQuizIndex(0);
+                  setQuizCorrectCount(0);
+                  setLessonCorrectAnswers(0);
+                  setLessonTotalQuestions(0);
+                }}
+                className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-4 rounded-xl font-bold text-lg mb-3"
+              >
+                Try Again
+              </button>
+
+              <button
+                onClick={() => {
+                  setView('home');
+                  setCurrentLesson(null);
+                  setLessonStage('intro');
+                  setLessonCorrectAnswers(0);
+                  setLessonTotalQuestions(0);
+                }}
+                className="w-full bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold"
+              >
+                Back to Home
+              </button>
+            </div>
+          )}
+
+      
           {lessonStage === 'complete' && (
             <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
               {/* Confetti */}
@@ -2570,14 +2704,16 @@ const handleQuizAnswer = (answer) => {
           <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
             <h2 className="text-xl sm:text-2xl font-bold mb-4">Your Lessons</h2>
             <div className="space-y-2 sm:space-y-3">
-              {LESSONS.map((lesson) => {
+              {(() => { let foundNext = false; return LESSONS.map((lesson) => {
   const lockStatus = isLessonLocked(lesson);
   const isComplete = completed.includes(lesson.id);
   const lessonTier = getTierForLesson(lesson.id);
   const showReviewButton = shouldShowReviewGateButton(lessonTier) && LESSON_TIERS.find(t => t.tier === lessonTier)?.lessons[2] === lesson.id;
-  
+  const isNextLesson = !isComplete && !lockStatus.locked && !foundNext;
+  if (isNextLesson) foundNext = true;
+
   return (
-    <div key={lesson.id}>
+    <div key={lesson.id} ref={isNextLesson ? nextLessonRef : null}>
       <div 
         onClick={() => { if (lockStatus.locked && lockStatus.reason === 'premium') { setShowPaywall(true); } else if (lockStatus.locked && lockStatus.reason === 'daygate') { setShowPaywall(true); } else if (!lockStatus.locked) { startLesson(lesson); } }}
         className={`border-2 rounded-lg p-4 transition-all ${lockStatus.locked ? 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-60' : isComplete ? 'border-green-500 bg-green-50 cursor-pointer hover:bg-green-100' : 'border-gray-200 hover:border-blue-400 hover:bg-blue-50 cursor-pointer'}`}
@@ -2613,7 +2749,7 @@ const handleQuizAnswer = (answer) => {
       )}
     </div>
   );
-})}
+})})()}
             </div>
           </div>
         )}

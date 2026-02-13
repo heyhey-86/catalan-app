@@ -67,6 +67,18 @@ const normalizeText = (text) => {
     .replace(/\s+/g, ' ');
 };
 
+const ReportButton = ({ lessonTitle, questionText }) => {
+  const subject = encodeURIComponent('Report: ' + (lessonTitle || 'Unknown'));
+  const body = encodeURIComponent('Question: ' + (questionText || '') + '\n\nMy issue: ');
+  return (
+        <a
+      href={'mailto:aprencatalaapp@gmail.com?subject=' + subject + '&body=' + body}
+      className="flex items-center justify-center text-xs text-gray-400 hover:text-gray-600 mt-3"
+    >
+      🚩 Report incorrect
+    </a>
+  );
+};
 
 // =============================================================
 // 1. FILL IN THE BLANK
@@ -77,7 +89,8 @@ const normalizeText = (text) => {
 
 export function FillInTheBlank({ 
   exercises, // Array of { sentence, blank, options, correctIndex, translation }
-  onComplete, 
+  onComplete,
+  onAnswer,
   audioCache, 
   ELEVENLABS_API_KEY, 
   ELEVENLABS_VOICE_ID,
@@ -87,18 +100,19 @@ export function FillInTheBlank({
   const [selected, setSelected] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [score, setScore] = useState(0);
-  const [showTranslation, setShowTranslation] = useState(false);
+  const [showTranslation, setShowTranslation] = useState(true);
   const [completed, setCompleted] = useState(false);
 
   const total = exercises.length;
   const current = exercises[currentIndex] || exercises[total - 1];
 
-  const handleSelect = (optionIndex) => {
+ const handleSelect = (optionIndex) => {
     if (isCorrect !== null) return; // Already answered
     setSelected(optionIndex);
     const correct = optionIndex === current.correctIndex;
     setIsCorrect(correct);
     if (correct) setScore(s => s + 10);
+    if (onAnswer) onAnswer(correct); // REPORT TO PARENT
 
     // Play the full sentence with the correct word
     const fullSentence = current.sentence.replace('___', current.options[current.correctIndex]);
@@ -208,7 +222,12 @@ export function FillInTheBlank({
           {isCorrect ? (
             <span><Check className="inline w-5 h-5 mr-1" /> Correct! +10 points</span>
           ) : (
-            <span><X className="inline w-5 h-5 mr-1" /> The answer is: <strong>{current.options[current.correctIndex]}</strong></span>
+            <>
+              <span><X className="inline w-5 h-5 mr-1" /> The answer is: <strong>{current.options[current.correctIndex]}</strong></span>
+              {current.explanation && (
+                <p className="text-sm mt-2 font-normal opacity-75">{current.explanation}</p>
+              )}
+            </>
           )}
           <button
             onClick={() => {
@@ -216,7 +235,7 @@ export function FillInTheBlank({
                 setCurrentIndex(i => i + 1);
                 setSelected(null);
                 setIsCorrect(null);
-                setShowTranslation(false);
+                setShowTranslation(true);
               } else {
                 setCompleted(true);
               }
@@ -226,6 +245,9 @@ export function FillInTheBlank({
             Next →
           </button>
         </div>
+      )}
+      {isCorrect !== null && (
+        <ReportButton lessonTitle={lessonTitle} questionText={current.sentence} />
       )}
     </div>
   );
@@ -241,7 +263,8 @@ export function FillInTheBlank({
 
 export function SentenceOrdering({ 
   exercises, // Array of { words: string[], correctOrder: string, translation, hint? }
-  onComplete, 
+  onComplete,
+  onAnswer, 
   audioCache, 
   ELEVENLABS_API_KEY, 
   ELEVENLABS_VOICE_ID,
@@ -347,6 +370,13 @@ export function SentenceOrdering({
         <p className="text-lg font-medium text-gray-800">{current.translation}</p>
       </div>
 
+      {/* Grammar note */}
+      {current.grammarNote && (
+        <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-3 mb-4 text-center">
+          <p className="text-sm text-yellow-800">{current.grammarNote}</p>
+        </div>
+      )}
+
       {/* Answer area - where selected words appear */}
       <div className="bg-white rounded-2xl shadow-sm border-2 border-dashed border-gray-200 p-4 mb-4 min-h-[60px]">
         <div className="flex flex-wrap gap-2">
@@ -448,6 +478,9 @@ export function SentenceOrdering({
           </button>
         </div>
       )}
+      {isCorrect !== null && (
+        <ReportButton lessonTitle={lessonTitle} questionText={current.translation} />
+      )}
     </div>
   );
 }
@@ -462,7 +495,8 @@ export function SentenceOrdering({
 
 export function ListenAndType({ 
   exercises, // Array of { catalan, english, pronunciation }
-  onComplete, 
+  onComplete,
+  onAnswer, 
   audioCache, 
   ELEVENLABS_API_KEY, 
   ELEVENLABS_VOICE_ID,
@@ -496,6 +530,7 @@ export function ListenAndType({
     setIsCorrect(correct);
     setShowAnswer(true);
     if (correct) setScore(s => s + 15);
+    if (onAnswer) onAnswer(correct); // REPORT TO PARENT
 
     // Play it again so they hear the correct version
     playAudio(current.catalan, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID);
@@ -637,6 +672,9 @@ export function ListenAndType({
           </button>
         </div>
       )}
+      {isCorrect !== null && (
+        <ReportButton lessonTitle={lessonTitle} questionText={current.english} />
+      )}
     </div>
   );
 }
@@ -651,7 +689,8 @@ export function ListenAndType({
 
 export function MiniConversation({ 
   dialogue, // Array of { speaker, text, isUserTurn, options?, correctIndex?, translation? }
-  onComplete, 
+  onComplete,
+  onAnswer,
   audioCache, 
   ELEVENLABS_API_KEY, 
   ELEVENLABS_VOICE_ID,
@@ -720,13 +759,15 @@ export function MiniConversation({
     const correct = optionIndex === correctIdx;
     setIsCorrect(correct);
     if (correct) setScore(s => s + 15);
+    if (onAnswer) onAnswer(correct); // REPORT TO PARENT
 
-    const responseText = turn.options[correct ? optionIndex : turn.correctIndex];
+    const shuffledOpts = shuffledTurnOptions[currentTurn]?.options || turn.options;
+    const responseText = shuffledOpts[correct ? optionIndex : (shuffledTurnOptions[currentTurn]?.correctIndex ?? turn.correctIndex)];
     
     // Add user message to chat
     setVisibleMessages(prev => [...prev, {
       speaker: 'You',
-      text: turn.options[optionIndex],
+      text: (shuffledTurnOptions[currentTurn]?.options || turn.options)[optionIndex],
       isUserTurn: true,
       turnIndex: currentTurn,
       wasCorrect: correct
@@ -734,11 +775,13 @@ export function MiniConversation({
 
     playAudio(responseText, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID);
 
-    setTimeout(() => {
-      setSelected(null);
-      setIsCorrect(null);
-      setCurrentTurn(c => c + 1);
-    }, correct ? 1500 : 2500);
+    if (correct) {
+      setTimeout(() => {
+        setSelected(null);
+        setIsCorrect(null);
+        setCurrentTurn(c => c + 1);
+      }, 1500);
+    }
   };
 
   if (completed) {
@@ -791,9 +834,11 @@ export function MiniConversation({
             >
               <p className="text-xs font-medium mb-1 opacity-70">{msg.speaker}</p>
               <p className="text-base">{msg.text}</p>
-              {showTranslation === idx && msg.translation && (
+              {showTranslation === idx && msg.translation ? (
                 <p className="text-xs mt-1 opacity-70 italic">{msg.translation}</p>
-              )}
+              ) : !msg.isUserTurn && msg.translation ? (
+                <p className="text-xs mt-1 opacity-50 italic">🌐 Tap for translation</p>
+              ) : null}
             </div>
           </div>
         ))}
@@ -832,11 +877,26 @@ if (idx === correctIdx) {
           </div>
           
           {isCorrect === false && (
-            <p className="text-center text-sm text-red-500 mt-2">
-              Correct: <strong>{(shuffledTurnOptions[currentTurn]?.options || currentTurnData.options)[shuffledTurnOptions[currentTurn]?.correctIndex ?? currentTurnData.correctIndex]}</strong>
-            </p>
+            <>
+              <p className="text-center text-sm text-red-500 mt-2">
+                Correct: <strong>{(shuffledTurnOptions[currentTurn]?.options || currentTurnData.options)[shuffledTurnOptions[currentTurn]?.correctIndex ?? currentTurnData.correctIndex]}</strong>
+              </p>
+              <button
+                onClick={() => {
+                  setSelected(null);
+                  setIsCorrect(null);
+                  setCurrentTurn(c => c + 1);
+                }}
+                className="mt-2 w-full bg-white text-gray-700 border-2 border-gray-300 py-2 rounded-xl font-semibold hover:bg-gray-50 active:scale-95 transition-all"
+              >
+                Continue →
+              </button>
+            </>
           )}
         </div>
+      )}
+      {isCorrect !== null && (
+        <ReportButton lessonTitle={lessonTitle} questionText={currentTurnData?.text || ''} />
       )}
     </div>
   );
@@ -852,7 +912,8 @@ if (idx === correctIdx) {
 
 export function ErrorCorrection({ 
   exercises, // Array of { sentence, errorWordIndex, options, correctIndex, translation, explanation }
-  onComplete, 
+  onComplete,
+  onAnswer, 
   audioCache, 
   ELEVENLABS_API_KEY, 
   ELEVENLABS_VOICE_ID,
@@ -899,6 +960,7 @@ export function ErrorCorrection({
     const correct = optionIndex === shuffledCorrectIndex;
     setIsCorrect(correct);
     if (correct) setScore(s => s + 15);
+    if (onAnswer) onAnswer(correct); // REPORT TO PARENT
 
     // Play corrected sentence
     const correctedWords = [...words];
@@ -1053,6 +1115,9 @@ export function ErrorCorrection({
             Next →
           </button>
         </div>
+      )}
+      {isCorrect !== null && (
+        <ReportButton lessonTitle={lessonTitle} questionText={current.sentence} />
       )}
     </div>
   );

@@ -203,12 +203,89 @@ export const lessons = [
     ]
   },
 
-  // ═══════════════════════════════════════════════════════════
-  // MODULE 3: LIVING (Lessons 11-15)
-  // Format: Intro → Flashcards → FILL-IN-THE-BLANK → SENTENCE ORDERING
-  // ═══════════════════════════════════════════════════════════
-
+  // BRIDGE LESSON: Essential Verbs
+  // Teaches the 5 key verbs needed for lessons 11-20
   {
+    id: 51,
+    title: "Essential Verbs",
+    module: "Foundations",
+    stages: ['intro', 'flashcards', 'fillInTheBlank', 'sentenceOrdering'],
+    words: [
+      { en: "Is", ca: "És", pronunciation: "EHS" },
+      { en: "I would like", ca: "Voldria", pronunciation: "bol-DREE-ah" },
+      { en: "How much does it cost?", ca: "Quant costa?", pronunciation: "kwahnt KOHS-tah" },
+      { en: "Where is?", ca: "On és?", pronunciation: "ohn EHS" },
+      { en: "It makes / It's (weather)", ca: "Fa", pronunciation: "FAH" },
+      { en: "It hurts me", ca: "Em fa mal", pronunciation: "ehm fah MAHL" },
+      { en: "Very", ca: "Molt", pronunciation: "MOHLT" },
+      { en: "This", ca: "Això", pronunciation: "ah-SHOH" }
+    ],
+    stageData: {
+      fillInTheBlank: [
+        { sentence: "Barcelona ___ molt bonica", blank: "és", options: ["és", "fa", "voldria", "on"], correctIndex: 0, translation: "Barcelona is very beautiful", explanation: "'És' = is. The most important verb in Catalan! Use it to describe things." },
+        { sentence: "___ un cafè, si us plau", blank: "Voldria", options: ["És", "Voldria", "Fa", "On"], correctIndex: 1, translation: "I would like a coffee, please", explanation: "'Voldria' = I would like. The polite way to ask for things." },
+        { sentence: "___ costa el pa?", blank: "Quant", options: ["On", "Què", "Quant", "Com"], correctIndex: 2, translation: "How much does the bread cost?", explanation: "'Quant costa?' = How much does it cost? Essential for shopping." },
+        { sentence: "___ és la farmàcia?", blank: "On", options: ["Quant", "Què", "Com", "On"], correctIndex: 3, translation: "Where is the pharmacy?", explanation: "'On és?' = Where is? Use it to find places." },
+        { sentence: "Avui ___ sol", blank: "fa", options: ["és", "fa", "molt", "on"], correctIndex: 1, translation: "Today it's sunny", explanation: "'Fa' is used for weather: fa sol, fa fred, fa calor, fa vent." }
+      ],
+      sentenceOrdering: [
+        { grammarNote: "💡 'És' = is. Use it to describe anything: Barcelona és bonica, el cafè és bo.", words: ["Barcelona", "és", "molt", "bonica"], correctOrder: "Barcelona és molt bonica", translation: "Barcelona is very beautiful" },
+        { grammarNote: "💡 'Voldria' = I would like. Add any item after it: Voldria + un cafè, Voldria + aigua.", words: ["Voldria", "un", "cafè", "si", "us", "plau"], correctOrder: "Voldria un cafè si us plau", translation: "I would like a coffee please" },
+        { grammarNote: "💡 'On és...?' = Where is...? Put the place at the end.", words: ["On", "és", "la", "farmàcia"], correctOrder: "On és la farmàcia", translation: "Where is the pharmacy?" },
+        { grammarNote: "💡 'Això és' = This is. Point at something and describe it!", words: ["Això", "és", "molt", "bo"], correctOrder: "Això és molt bo", translation: "This is very good" }
+      ]
+    }
+  },
+
+  // BRIDGE LESSON: Building Sentences
+  // Teaches sentence structure with previously learned vocabulary
+  {
+    id: 52,
+    title: "Building Sentences",
+    module: "Foundations",
+    stages: ['intro', 'flashcards', 'fillInTheBlank', 'sentenceOrdering'],
+    words: [
+      { en: "The (masculine)", ca: "El", pronunciation: "EHL" },
+      { en: "The (feminine)", ca: "La", pronunciation: "LAH" },
+      { en: "A / One (masculine)", ca: "Un", pronunciation: "OON" },
+      { en: "A / One (feminine)", ca: "Una", pronunciation: "OO-nah" },
+      { en: "My (masculine)", ca: "El meu", pronunciation: "ehl MEH-oo" },
+      { en: "My (feminine)", ca: "La meva", pronunciation: "lah MEH-bah" },
+      { en: "And", ca: "I", pronunciation: "ee" },
+      { en: "But", ca: "Però", pronunciation: "peh-ROH" }
+    ],
+    stageData: {
+      fillInTheBlank: [
+        { sentence: "___ mercat és gran", blank: "El", options: ["El", "La", "Un", "Una"], correctIndex: 0, translation: "The market is big", explanation: "'El' = the (masculine). 'Mercat' is masculine, so we use 'el'." },
+        { sentence: "___ casa és bonica", blank: "La", options: ["El", "La", "Un", "Una"], correctIndex: 1, translation: "The house is beautiful", explanation: "'La' = the (feminine). 'Casa' is feminine, so we use 'la'." },
+        { sentence: "Voldria ___ cafè", blank: "un", options: ["el", "la", "un", "una"], correctIndex: 2, translation: "I would like a coffee", explanation: "'Un' = a/one (masculine). Use with masculine nouns like 'cafè'." },
+        { sentence: "El cafè és bo ___ car", blank: "però", options: ["i", "però", "un", "molt"], correctIndex: 1, translation: "The coffee is good but expensive", explanation: "'Però' = but. Connects two contrasting ideas." },
+        { sentence: "___ pare és alt i fort", blank: "El meu", options: ["La meva", "El meu", "Un", "Una"], correctIndex: 1, translation: "My father is tall and strong", explanation: "'El meu' = my (masculine). 'Pare' is masculine, so 'el meu'." }
+      ],
+      sentenceOrdering: [
+        { grammarNote: "💡 Basic Catalan sentence: Article + Noun + 'és' + Adjective. El cafè és bo.", words: ["El", "cafè", "és", "molt", "bo"], correctOrder: "El cafè és molt bo", translation: "The coffee is very good" },
+        { grammarNote: "💡 'La meva' = my (feminine). Use with feminine nouns: la meva mare, la meva casa.", words: ["La", "meva", "mare", "és", "amable"], correctOrder: "La meva mare és amable", translation: "My mother is kind" },
+        { grammarNote: "💡 'I' = and. Connect descriptions: gran i bonic, alt i fort, bo i barat.", words: ["El", "mercat", "és", "gran", "i", "bonic"], correctOrder: "El mercat és gran i bonic", translation: "The market is big and beautiful" },
+        { grammarNote: "💡 'Però' = but. Join contrasting ideas: és bo però car, és petit però bonic.", words: ["La", "botiga", "és", "petita", "però", "bonica"], correctOrder: "La botiga és petita però bonica", translation: "The shop is small but beautiful" }
+      ]
+    }
+  },
+  
+  // ═══════════════════════════════════════════════════════════
+// CORRECTED LESSONS 11-20
+// Key changes:
+// - Exercises only use vocabulary from COMPLETED lessons + current lesson
+// - Grammar notes added to vocabulary where new patterns are introduced
+// - Lesson 13: "Prova" replaced with "Paraigua" (Umbrella)
+// - Lesson 14: Gender agreement forms taught explicitly
+// - Simple structures only until Lesson 18 (Common Verbs)
+// - After Lesson 18, verb forms can be used freely
+// ═══════════════════════════════════════════════════════════
+
+// LESSON 11 — At the Supermarket
+// Previously known: Lessons 1-10 vocabulary
+// New patterns: "Voldria" (already from L3), simple "és" (is)
+{
     id: 11,
     title: "At the Supermarket",
     module: "Living",
@@ -225,21 +302,23 @@ export const lessons = [
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "Voldria un quilo de ___", blank: "formatge", options: ["formatge", "bossa", "tiquet", "cafè"], correctIndex: 0, translation: "I would like a kilo of cheese" },
-        { sentence: "Té una ___ si us plau?", blank: "bossa", options: ["mantega", "bossa", "ous", "vi"], correctIndex: 1, translation: "Do you have a bag please?" },
-        { sentence: "Això és molt ___", blank: "car", options: ["barat", "petit", "car", "gran"], correctIndex: 2, translation: "This is very expensive" },
-        { sentence: "Necessito ___ per la tortilla", blank: "ous", options: ["pa", "ous", "arròs", "carn"], correctIndex: 1, translation: "I need eggs for the omelette" },
-        { sentence: "Les ___ són fresques", blank: "verdures", options: ["verdures", "bossa", "tiquet", "formatge"], correctIndex: 0, translation: "The vegetables are fresh" }
+        { sentence: "Voldria un quilo de ___", blank: "formatge", options: ["formatge", "bossa", "tiquet", "cafè"], correctIndex: 0, translation: "I would like a kilo of cheese", explanation: "'Formatge' = cheese. You buy cheese by the kilo at the supermarket." },
+        { sentence: "Una ___ si us plau", blank: "bossa", options: ["mantega", "bossa", "ous", "vi"], correctIndex: 1, translation: "A bag please", explanation: "'Bossa' = bag. Ask for one at the checkout." },
+        { sentence: "Això és molt ___", blank: "car", options: ["barat", "petit", "car", "gran"], correctIndex: 2, translation: "This is very expensive", explanation: "'Car' = expensive. The opposite is 'barat' (cheap)." },
+        { sentence: "Voldria ___ per la tortilla", blank: "ous", options: ["pa", "ous", "arròs", "carn"], correctIndex: 1, translation: "I would like eggs for the omelette", explanation: "'Ous' = eggs. Essential for making a tortilla!" },
+        { sentence: "La ___ és molt bona", blank: "mantega", options: ["mantega", "bossa", "tiquet", "formatge"], correctIndex: 0, translation: "The butter is very good", explanation: "'Mantega' = butter. A dairy product like 'formatge' (cheese)." }
       ],
       sentenceOrdering: [
-        { words: ["Voldria", "un", "quilo", "de", "formatge"], correctOrder: "Voldria un quilo de formatge", translation: "I would like a kilo of cheese" },
-        { words: ["Quant", "costa", "la", "mantega"], correctOrder: "Quant costa la mantega", translation: "How much does the butter cost?" },
-        { words: ["Necessito", "una", "bossa", "si", "us", "plau"], correctOrder: "Necessito una bossa si us plau", translation: "I need a bag please" },
-        { words: ["Els", "ous", "són", "molt", "barats"], correctOrder: "Els ous són molt barats", translation: "The eggs are very cheap" }
+        { grammarNote: "💡 'Voldria' = I would like. A polite way to ask for things in shops and restaurants.", words: ["Voldria", "un", "quilo", "de", "formatge"], correctOrder: "Voldria un quilo de formatge", translation: "I would like a kilo of cheese" },
+        { grammarNote: "💡 'Quant costa?' = How much does it cost? Put the item at the end.", words: ["Quant", "costa", "la", "mantega"], correctOrder: "Quant costa la mantega", translation: "How much does the butter cost?" },
+        { grammarNote: "💡 'Si us plau' = Please. Add it at the end of any request to be polite.", words: ["Una", "bossa", "si", "us", "plau"], correctOrder: "Una bossa si us plau", translation: "A bag please" },
+        { grammarNote: "💡 'Això és' = This is. Use 'molt' before adjectives to mean 'very'.", words: ["Això", "és", "molt", "barat"], correctOrder: "Això és molt barat", translation: "This is very cheap" }
       ]
     }
   },
 
+  // LESSON 12 — Home & Rooms
+  // New patterns: "On és...?" (already from L4), "és" (is), adjectives
   {
     id: 12,
     title: "Home & Rooms",
@@ -257,21 +336,24 @@ export const lessons = [
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "La ___ és molt gran", blank: "cuina", options: ["cuina", "porta", "terra", "bany"], correctIndex: 0, translation: "The kitchen is very big" },
-        { sentence: "On és el ___?", blank: "bany", options: ["casa", "bany", "finestra", "terra"], correctIndex: 1, translation: "Where is the bathroom?" },
-        { sentence: "Tanca la ___ si us plau", blank: "porta", options: ["cuina", "sala", "porta", "finestra"], correctIndex: 2, translation: "Close the door please" },
-        { sentence: "L'___ té dues finestres", blank: "habitació", options: ["habitació", "cuina", "bany", "casa"], correctIndex: 0, translation: "The bedroom has two windows" },
-        { sentence: "La ___ d'estar és acollidora", blank: "sala", options: ["porta", "terra", "sala", "cuina"], correctIndex: 2, translation: "The living room is cosy" }
+        { sentence: "La ___ és molt gran", blank: "cuina", options: ["cuina", "porta", "terra", "bany"], correctIndex: 0, translation: "The kitchen is very big", explanation: "'Cuina' = kitchen. The room where you cook." },
+        { sentence: "On és el ___?", blank: "bany", options: ["casa", "bany", "finestra", "terra"], correctIndex: 1, translation: "Where is the bathroom?", explanation: "'Bany' = bathroom. Use 'el' because it's masculine." },
+        { sentence: "La ___ és petita", blank: "habitació", options: ["habitació", "cuina", "bany", "casa"], correctIndex: 0, translation: "The bedroom is small", explanation: "'Habitació' = bedroom. 'Petita' is feminine to match." },
+        { sentence: "La ___ és bonica", blank: "casa", options: ["porta", "terra", "casa", "cuina"], correctIndex: 2, translation: "The house is beautiful", explanation: "'Casa' = house. 'Bonica' = beautiful (feminine form)." },
+        { sentence: "On és la ___?", blank: "porta", options: ["cuina", "sala", "porta", "finestra"], correctIndex: 2, translation: "Where is the door?", explanation: "'Porta' = door. Uses 'la' because it's feminine." }
       ],
       sentenceOrdering: [
-        { words: ["On", "és", "el", "bany"], correctOrder: "On és el bany", translation: "Where is the bathroom?" },
-        { words: ["La", "cuina", "és", "molt", "gran"], correctOrder: "La cuina és molt gran", translation: "The kitchen is very big" },
-        { words: ["Tanca", "la", "porta", "si", "us", "plau"], correctOrder: "Tanca la porta si us plau", translation: "Close the door please" },
-        { words: ["M'agrada", "la", "meva", "casa"], correctOrder: "M'agrada la meva casa", translation: "I like my house" }
+        { grammarNote: "💡 'On és...?' = Where is...? Use 'el' for masculine nouns, 'la' for feminine.", words: ["On", "és", "el", "bany"], correctOrder: "On és el bany", translation: "Where is the bathroom?" },
+        { grammarNote: "💡 'La cuina és...' = The kitchen is... Use 'és' (is) to describe things.", words: ["La", "cuina", "és", "molt", "gran"], correctOrder: "La cuina és molt gran", translation: "The kitchen is very big" },
+        { grammarNote: "💡 'Bonica' is the feminine form of 'bonic' (beautiful). Matches 'la casa' (feminine).", words: ["La", "casa", "és", "bonica"], correctOrder: "La casa és bonica", translation: "The house is beautiful" },
+        { grammarNote: "💡 'Porta' is feminine, so we use 'la'. Notice: 'el bany' but 'la porta'.", words: ["On", "és", "la", "porta"], correctOrder: "On és la porta", translation: "Where is the door?" }
       ]
     }
   },
 
+  // LESSON 13 — Weather & Seasons
+  // New patterns: "Fa" (it makes/it's - weather), "Avui" (already from L5)
+  // FIXED: Removed rogue "Prova" (Try/Taste), replaced with "Paraigua" (Umbrella)
   {
     id: 13,
     title: "Weather & Seasons",
@@ -285,57 +367,62 @@ export const lessons = [
       { en: "Wind", ca: "Vent", pronunciation: "BEHN" },
       { en: "Snow", ca: "Neu", pronunciation: "NEH-oo" },
       { en: "Cloud", ca: "Núvol", pronunciation: "NOO-bool" },
-      { en: "Try / Taste", ca: "Prova", pronunciation: "PROH-bah" }
+      { en: "Umbrella", ca: "Paraigua", pronunciation: "pah-RAH-ee-gwah" }
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "Avui fa molt de ___", blank: "sol", options: ["sol", "fred", "neu", "pluja"], correctIndex: 0, translation: "Today it's very sunny" },
-        { sentence: "Porta un abric, fa ___", blank: "fred", options: ["calor", "sol", "fred", "vent"], correctIndex: 2, translation: "Bring a coat, it's cold" },
-        { sentence: "Està plovent, necessites un ___", blank: "paraigua", options: ["núvol", "sol", "paraigua", "vent"], correctIndex: 2, translation: "It's raining, you need an umbrella" },
-        { sentence: "A l'hivern cau ___", blank: "neu", options: ["pluja", "sol", "calor", "neu"], correctIndex: 3, translation: "In winter it snows" },
-        { sentence: "Avui fa molt de ___", blank: "vent", options: ["sol", "vent", "fred", "calor"], correctIndex: 1, translation: "Today it's very windy" }
+        { sentence: "Avui fa molt de ___", blank: "sol", options: ["sol", "fred", "neu", "pluja"], correctIndex: 0, translation: "Today it's very sunny", explanation: "'Sol' = sun. 'Fa sol' is how you say 'it's sunny' in Catalan." },
+        { sentence: "Fa molt de ___!", blank: "fred", options: ["calor", "sol", "fred", "vent"], correctIndex: 2, translation: "It's very cold!", explanation: "'Fred' = cold. 'Fa fred' = it's cold (weather)." },
+        { sentence: "Pluja! Voldria un ___", blank: "paraigua", options: ["núvol", "sol", "paraigua", "vent"], correctIndex: 2, translation: "Rain! I would like an umbrella", explanation: "'Paraigua' = umbrella. Literally 'stops water'!" },
+        { sentence: "Avui fa molt de ___", blank: "vent", options: ["sol", "vent", "fred", "calor"], correctIndex: 1, translation: "Today it's very windy", explanation: "'Vent' = wind. 'Fa vent' = it's windy." },
+        { sentence: "Fa molt de ___ avui!", blank: "calor", options: ["pluja", "sol", "calor", "neu"], correctIndex: 2, translation: "It's very hot today!", explanation: "'Calor' = heat. 'Fa calor' = it's hot (weather)." }
       ],
       sentenceOrdering: [
-        { words: ["Avui", "fa", "molt", "de", "sol"], correctOrder: "Avui fa molt de sol", translation: "Today it's very sunny" },
-        { words: ["Fa", "fred", "a", "Andorra"], correctOrder: "Fa fred a Andorra", translation: "It's cold in Andorra" },
-        { words: ["Plou", "molt", "a", "Barcelona"], correctOrder: "Plou molt a Barcelona", translation: "It rains a lot in Barcelona" },
-        { words: ["A", "l'estiu", "fa", "molta", "calor"], correctOrder: "A l'estiu fa molta calor", translation: "In summer it's very hot" }
+        { grammarNote: "💡 'Fa' describes weather: Fa sol (sunny), Fa fred (cold), Fa calor (hot). Add 'molt de' for 'very'.", words: ["Avui", "fa", "molt", "de", "sol"], correctOrder: "Avui fa molt de sol", translation: "Today it's very sunny" },
+        { grammarNote: "💡 Short weather sentences: 'Fa' + condition + time. 'Avui' (today) can go at the start or end.", words: ["Fa", "fred", "avui"], correctOrder: "Fa fred avui", translation: "It's cold today" },
+        { grammarNote: "💡 Combine patterns! 'Voldria' (I would like) + item + 'si us plau' (please).", words: ["Voldria", "un", "paraigua", "si", "us", "plau"], correctOrder: "Voldria un paraigua si us plau", translation: "I would like an umbrella please" },
+        { grammarNote: "💡 'Molta' is feminine because 'calor' is feminine in Catalan. Fa molta calor, NOT fa molt calor.", words: ["Fa", "molta", "calor", "avui"], correctOrder: "Fa molta calor avui", translation: "It's very hot today" }
       ]
     }
   },
 
+  // LESSON 14 — Colours & Clothes
+  // FIXED: Added feminine forms to vocabulary, simplified exercises
   {
     id: 14,
     title: "Colours & Clothes",
     module: "Living",
     stages: ['intro', 'flashcards', 'fillInTheBlank', 'sentenceOrdering'],
     words: [
-      { en: "Red", ca: "Vermell", pronunciation: "ber-MEYL" },
-      { en: "Blue", ca: "Blau", pronunciation: "BLOW" },
-      { en: "Green", ca: "Verd", pronunciation: "BERT" },
-      { en: "White", ca: "Blanc", pronunciation: "BLAHNK" },
-      { en: "Black", ca: "Negre", pronunciation: "NEH-greh" },
+      { en: "Red", ca: "Vermell / Vermella", pronunciation: "ber-MEYL / ber-MEH-yah" },
+      { en: "Blue", ca: "Blau / Blava", pronunciation: "BLOW / BLAH-bah" },
+      { en: "Green", ca: "Verd / Verda", pronunciation: "BERT / BER-dah" },
+      { en: "White", ca: "Blanc / Blanca", pronunciation: "BLAHNK / BLAHN-kah" },
+      { en: "Black", ca: "Negre / Negra", pronunciation: "NEH-greh / NEH-grah" },
       { en: "Shirt", ca: "Camisa", pronunciation: "kah-MEE-sah" },
       { en: "Trousers", ca: "Pantalons", pronunciation: "pahn-tah-LOHNS" },
       { en: "Dress", ca: "Vestit", pronunciation: "bes-TEET" }
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "M'agrada la camisa ___", blank: "blava", options: ["vermella", "blava", "negre", "blanc"], correctIndex: 1, translation: "I like the blue shirt" },
-        { sentence: "El vestit ___ és molt bonic", blank: "negre", options: ["blau", "verd", "negre", "blanc"], correctIndex: 2, translation: "The black dress is very nice" },
-        { sentence: "Voldria uns ___ nous", blank: "pantalons", options: ["camisa", "pantalons", "vestit", "blau"], correctIndex: 1, translation: "I would like new trousers" },
-        { sentence: "La porta és de color ___", blank: "vermell", options: ["vermell", "camisa", "vestit", "pantalons"], correctIndex: 0, translation: "The door is red" },
-        { sentence: "Tinc una camisa ___ i negra", blank: "blanca", options: ["verd", "blanca", "blava", "vermella"], correctIndex: 1, translation: "I have a white and black shirt" }
+        { sentence: "La camisa és ___", blank: "blava", options: ["vermell", "blava", "negre", "blanc"], correctIndex: 1, translation: "The shirt is blue", explanation: "'Blava' is the feminine form of 'blau'. Matches 'la camisa' (feminine)." },
+        { sentence: "El vestit és ___", blank: "negre", options: ["blau", "verda", "negre", "blanca"], correctIndex: 2, translation: "The dress is black", explanation: "'Negre' is masculine, matching 'el vestit'. Feminine would be 'negra'." },
+        { sentence: "Voldria uns ___ nous", blank: "pantalons", options: ["camisa", "pantalons", "vestit", "blau"], correctIndex: 1, translation: "I would like new trousers", explanation: "'Pantalons' = trousers. Always plural in Catalan, like in English." },
+        { sentence: "La porta és de color ___", blank: "vermell", options: ["vermell", "camisa", "vestit", "pantalons"], correctIndex: 0, translation: "The door is red", explanation: "'Vermell' = red. After 'de color', use the base masculine form." },
+        { sentence: "La camisa és ___ i negra", blank: "blanca", options: ["verd", "blanca", "blava", "vermella"], correctIndex: 1, translation: "The shirt is white and black", explanation: "'Blanca' = white (feminine). Both colours match 'camisa' (feminine)." }
       ],
       sentenceOrdering: [
-        { words: ["M'agrada", "la", "camisa", "blava"], correctOrder: "M'agrada la camisa blava", translation: "I like the blue shirt" },
-        { words: ["El", "vestit", "negre", "és", "bonic"], correctOrder: "El vestit negre és bonic", translation: "The black dress is nice" },
-        { words: ["Necessito", "uns", "pantalons", "nous"], correctOrder: "Necessito uns pantalons nous", translation: "I need new trousers" },
-        { words: ["De", "quin", "color", "és"], correctOrder: "De quin color és", translation: "What colour is it?" }
+        { grammarNote: "💡 Colours match gender: 'blau' → 'blava' for feminine nouns like 'camisa'.", words: ["La", "camisa", "és", "blava"], correctOrder: "La camisa és blava", translation: "The shirt is blue" },
+        { grammarNote: "💡 Adjectives go AFTER the noun in Catalan: 'vestit negre' (black dress), not 'negre vestit'.", words: ["El", "vestit", "negre", "és", "bonic"], correctOrder: "El vestit negre és bonic", translation: "The black dress is nice" },
+        { grammarNote: "💡 'Uns' = some (masculine plural). 'Nous' = new (plural). Pantalons is always plural.", words: ["Voldria", "uns", "pantalons", "nous"], correctOrder: "Voldria uns pantalons nous", translation: "I would like new trousers" },
+        { grammarNote: "💡 'De quin color és?' = What colour is it? A useful question for shopping.", words: ["De", "quin", "color", "és"], correctOrder: "De quin color és", translation: "What colour is it?" }
       ]
     }
   },
 
+  // LESSON 15 — Body & Health
+  // New patterns: "Em fa mal" (it hurts me) — taught as a fixed phrase
+  // Uses "Voldria" (from L3) and "On és" (from L4)
   {
     id: 15,
     title: "Body & Health",
@@ -353,33 +440,38 @@ export const lessons = [
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "Em fa mal el ___", blank: "cap", options: ["cap", "ull", "boca", "mà"], correctIndex: 0, translation: "My head hurts" },
-        { sentence: "Necessito veure el ___", blank: "metge", options: ["dolor", "medicament", "metge", "malalt"], correctIndex: 2, translation: "I need to see the doctor" },
-        { sentence: "Estic ___ des de ahir", blank: "malalt", options: ["content", "malalt", "cansat", "gran"], correctIndex: 1, translation: "I've been sick since yesterday" },
-        { sentence: "Tinc un ___ a la mà", blank: "dolor", options: ["cap", "dolor", "metge", "ull"], correctIndex: 1, translation: "I have a pain in my hand" },
-        { sentence: "Has pres el ___?", blank: "medicament", options: ["metge", "dolor", "cap", "medicament"], correctIndex: 3, translation: "Have you taken the medicine?" }
+        { sentence: "Em fa mal el ___", blank: "cap", options: ["cap", "ull", "boca", "mà"], correctIndex: 0, translation: "My head hurts", explanation: "'Cap' = head. 'Em fa mal el cap' is the standard way to say 'my head hurts'." },
+        { sentence: "Voldria veure el ___", blank: "metge", options: ["dolor", "medicament", "metge", "malalt"], correctIndex: 2, translation: "I would like to see the doctor", explanation: "'Metge' = doctor. Use 'voldria veure' for polite requests to see someone." },
+        { sentence: "On és la ___?", blank: "farmàcia", options: ["cap", "dolor", "farmàcia", "ull"], correctIndex: 2, translation: "Where is the pharmacy?", explanation: "'Farmàcia' = pharmacy. You learned this in Lesson 7 (Around Town)." },
+        { sentence: "Em fa mal la ___", blank: "mà", options: ["cap", "dolor", "metge", "mà"], correctIndex: 3, translation: "My hand hurts", explanation: "'Mà' = hand. Notice 'la mà' (feminine) vs 'el cap' (masculine)." },
+        { sentence: "Voldria un ___", blank: "medicament", options: ["metge", "dolor", "cap", "medicament"], correctIndex: 3, translation: "I would like a medicine", explanation: "'Medicament' = medicine. Use 'voldria' to ask politely at the pharmacy." }
       ],
       sentenceOrdering: [
-        { words: ["Em", "fa", "mal", "el", "cap"], correctOrder: "Em fa mal el cap", translation: "My head hurts" },
-        { words: ["Necessito", "veure", "el", "metge"], correctOrder: "Necessito veure el metge", translation: "I need to see the doctor" },
-        { words: ["Estic", "malalt", "des", "de", "ahir"], correctOrder: "Estic malalt des de ahir", translation: "I've been sick since yesterday" },
-        { words: ["On", "és", "la", "farmàcia"], correctOrder: "On és la farmàcia", translation: "Where is the pharmacy?" }
+        { grammarNote: "💡 'Em fa mal' = It hurts me. 'El cap' (head) is masculine, so we use 'el'.", words: ["Em", "fa", "mal", "el", "cap"], correctOrder: "Em fa mal el cap", translation: "My head hurts" },
+        { grammarNote: "💡 'Voldria veure' = I would like to see. 'Voldria' + verb is a polite request.", words: ["Voldria", "veure", "el", "metge"], correctOrder: "Voldria veure el metge", translation: "I would like to see the doctor" },
+        { grammarNote: "💡 You already know this pattern! 'On és la...?' — 'farmàcia' is feminine, so 'la'.", words: ["On", "és", "la", "farmàcia"], correctOrder: "On és la farmàcia", translation: "Where is the pharmacy?" },
+        { grammarNote: "💡 'La mà' (hand) is feminine. Compare: 'Em fa mal EL cap' vs 'Em fa mal LA mà'.", words: ["Em", "fa", "mal", "la", "mà"], correctOrder: "Em fa mal la mà", translation: "My hand hurts" }
       ]
     }
   },
 
   // ═══════════════════════════════════════════════════════════
   // MODULE 3 continued: LIVING (Lessons 16-20)
-  // Format: Intro → Flashcards → FILL-IN-THE-BLANK → SENTENCE ORDERING
+  // Lessons 16-17: Introduce "Tinc" (I have) and infinitive verbs
+  // Lesson 18: Formally teaches common verbs
+  // Lessons 19-20: Can use all verb forms from L18
   // ═══════════════════════════════════════════════════════════
 
+  // LESSON 16 — Work & Professions
+  // New patterns: "Tinc" (I have) — introduced as vocabulary item
+  // Uses: Voldria (L3), On és (L4), és (L11-15)
   {
     id: 16,
     title: "Work & Professions",
     module: "Living",
     stages: ['intro', 'flashcards', 'fillInTheBlank', 'sentenceOrdering'],
     words: [
-      { en: "Work", ca: "Feina", pronunciation: "FAY-nah" },
+      { en: "Work/Job", ca: "Feina", pronunciation: "FAY-nah" },
       { en: "Office", ca: "Oficina", pronunciation: "oh-fee-SEE-nah" },
       { en: "Boss", ca: "Cap", pronunciation: "KAHP" },
       { en: "Teacher", ca: "Professor", pronunciation: "proh-feh-SOR" },
@@ -390,21 +482,25 @@ export const lessons = [
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "Tinc una ___ a les deu", blank: "reunió", options: ["reunió", "feina", "oficina", "vacances"], correctIndex: 0, translation: "I have a meeting at ten" },
-        { sentence: "La meva ___ és interessant", blank: "feina", options: ["vacances", "feina", "oficina", "reunió"], correctIndex: 1, translation: "My work is interesting" },
-        { sentence: "El ___ és molt amable", blank: "cambrer", options: ["professor", "cap", "cambrer", "dependent"], correctIndex: 2, translation: "The waiter is very kind" },
-        { sentence: "Necessito unes ___", blank: "vacances", options: ["feina", "reunió", "oficina", "vacances"], correctIndex: 3, translation: "I need a holiday" },
-        { sentence: "L'___ és al centre", blank: "oficina", options: ["oficina", "feina", "reunió", "cap"], correctIndex: 0, translation: "The office is in the centre" }
+        { sentence: "La meva ___ és interessant", blank: "feina", options: ["vacances", "feina", "oficina", "reunió"], correctIndex: 1, translation: "My work is interesting", explanation: "'Feina' = work/job. 'La meva' = my (feminine, matching 'feina')." },
+        { sentence: "El ___ és molt amable", blank: "cambrer", options: ["professor", "cap", "cambrer", "dependent"], correctIndex: 2, translation: "The waiter is very kind", explanation: "'Cambrer' = waiter. The person who serves you at a restaurant." },
+        { sentence: "L'___ és al centre", blank: "oficina", options: ["oficina", "feina", "reunió", "cap"], correctIndex: 0, translation: "The office is in the centre", explanation: "'Oficina' = office. 'L'' because 'la' shortens before a vowel." },
+        { sentence: "Voldria unes ___", blank: "vacances", options: ["feina", "reunió", "oficina", "vacances"], correctIndex: 3, translation: "I would like a holiday", explanation: "'Vacances' = holidays. Always plural in Catalan." },
+        { sentence: "El ___ és molt bo", blank: "professor", options: ["professor", "cambrer", "dependent", "cap"], correctIndex: 0, translation: "The teacher is very good", explanation: "'Professor' = teacher. 'Bo' = good (masculine form)." }
       ],
       sentenceOrdering: [
-        { words: ["Tinc", "una", "reunió", "a", "les", "deu"], correctOrder: "Tinc una reunió a les deu", translation: "I have a meeting at ten" },
-        { words: ["La", "meva", "feina", "és", "interessant"], correctOrder: "La meva feina és interessant", translation: "My work is interesting" },
-        { words: ["Necessito", "unes", "vacances", "llargues"], correctOrder: "Necessito unes vacances llargues", translation: "I need a long holiday" },
-        { words: ["On", "treballes", "tu"], correctOrder: "On treballes tu", translation: "Where do you work?" }
+        { grammarNote: "💡 'La meva' = my (feminine). 'El meu' = my (masculine). Must match the noun's gender.", words: ["La", "meva", "feina", "és", "bona"], correctOrder: "La meva feina és bona", translation: "My work is good" },
+        { grammarNote: "💡 'L'oficina' — when 'la' meets a vowel, it shortens to 'l''. Same as l'habitació, l'escola.", words: ["On", "és", "l'oficina"], correctOrder: "On és l'oficina", translation: "Where is the office?" },
+        { grammarNote: "💡 'Unes' = some (feminine plural). 'Llargues' = long (feminine plural), matching 'vacances'.", words: ["Voldria", "unes", "vacances", "llargues"], correctOrder: "Voldria unes vacances llargues", translation: "I would like a long holiday" },
+        { grammarNote: "💡 'Molt' = very. Goes between 'és' and the adjective: és + molt + amable.", words: ["El", "cambrer", "és", "molt", "amable"], correctOrder: "El cambrer és molt amable", translation: "The waiter is very kind" }
       ]
     }
   },
 
+  // LESSON 17 — Hobbies & Free Time
+  // Introduces infinitive verbs (to read, to walk, etc.) as VOCABULARY
+  // Exercises use "M'agrada + infinitive" pattern (taught as fixed phrase)
+  // This bridges to Lesson 18 where verbs are formally taught
   {
     id: 17,
     title: "Hobbies & Free Time",
@@ -422,21 +518,25 @@ export const lessons = [
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "M'agrada ___ a la platja", blank: "nedar", options: ["nedar", "llegir", "cuinar", "cantar"], correctIndex: 0, translation: "I like swimming at the beach" },
-        { sentence: "Al cap de setmana m'agrada ___", blank: "cuinar", options: ["feina", "cuinar", "oficina", "reunió"], correctIndex: 1, translation: "At the weekend I like cooking" },
-        { sentence: "Vull ___ per tot el món", blank: "viatjar", options: ["caminar", "nedar", "viatjar", "llegir"], correctIndex: 2, translation: "I want to travel around the world" },
-        { sentence: "M'encanta escoltar ___", blank: "música", options: ["platja", "feina", "música", "casa"], correctIndex: 2, translation: "I love listening to music" },
-        { sentence: "Cada dia surto a ___", blank: "caminar", options: ["caminar", "nedar", "cantar", "llegir"], correctIndex: 0, translation: "Every day I go out to walk" }
+        { sentence: "M'agrada ___ a la platja", blank: "nedar", options: ["nedar", "llegir", "cuinar", "cantar"], correctIndex: 0, translation: "I like swimming at the beach", explanation: "'Nedar' = to swim. After 'M'agrada', use the verb in its base form." },
+        { sentence: "M'agrada ___ plats catalans", blank: "cuinar", options: ["nedar", "cuinar", "cantar", "llegir"], correctIndex: 1, translation: "I like cooking Catalan dishes", explanation: "'Cuinar' = to cook. Related to 'cuina' (kitchen) from Lesson 12." },
+        { sentence: "M'agrada ___ per la muntanya", blank: "caminar", options: ["caminar", "nedar", "cantar", "llegir"], correctIndex: 0, translation: "I like walking in the mountains", explanation: "'Caminar' = to walk. 'Per' = through/around." },
+        { sentence: "M'agrada escoltar ___", blank: "música", options: ["platja", "feina", "música", "casa"], correctIndex: 2, translation: "I like listening to music", explanation: "'Música' = music. 'Escoltar' = to listen to." },
+        { sentence: "M'agrada ___ molt!", blank: "viatjar", options: ["caminar", "nedar", "viatjar", "llegir"], correctIndex: 2, translation: "I like travelling a lot!", explanation: "'Viatjar' = to travel. 'Molt' = a lot, goes after the verb." }
       ],
       sentenceOrdering: [
-        { words: ["M'agrada", "nedar", "a", "la", "platja"], correctOrder: "M'agrada nedar a la platja", translation: "I like swimming at the beach" },
-        { words: ["Vull", "viatjar", "a", "Barcelona"], correctOrder: "Vull viatjar a Barcelona", translation: "I want to travel to Barcelona" },
-        { words: ["Cada", "dia", "llegeixo", "un", "llibre"], correctOrder: "Cada dia llegeixo un llibre", translation: "Every day I read a book" },
-        { words: ["M'encanta", "cuinar", "plats", "catalans"], correctOrder: "M'encanta cuinar plats catalans", translation: "I love cooking Catalan dishes" }
+        { grammarNote: "💡 'M'agrada' + verb = I like doing something. The verb stays in its base form.", words: ["M'agrada", "nedar", "a", "la", "platja"], correctOrder: "M'agrada nedar a la platja", translation: "I like swimming at the beach" },
+        { grammarNote: "💡 'Plats catalans' = Catalan dishes. Adjectives of nationality go after the noun.", words: ["M'agrada", "cuinar", "plats", "catalans"], correctOrder: "M'agrada cuinar plats catalans", translation: "I like cooking Catalan dishes" },
+        { grammarNote: "💡 'Un bon llibre' — 'bon' (good) is one of few adjectives that goes BEFORE the noun.", words: ["M'agrada", "llegir", "un", "bon", "llibre"], correctOrder: "M'agrada llegir un bon llibre", translation: "I like reading a good book" },
+        { grammarNote: "💡 'Per' = around/through. 'M'agrada caminar per Barcelona' = I like walking around Barcelona.", words: ["M'agrada", "caminar", "per", "Barcelona"], correctOrder: "M'agrada caminar per Barcelona", translation: "I like walking around Barcelona" }
       ]
     }
   },
 
+  // LESSON 18 — Common Verbs
+  // THE GATEWAY LESSON: Formally teaches verb forms
+  // After this lesson, all exercises can use these verbs freely
+  // Introduces: Vull (I want), Puc (I can), Tinc (I have), Sé (I know)
   {
     id: 18,
     title: "Common Verbs",
@@ -448,27 +548,30 @@ export const lessons = [
       { en: "To sleep", ca: "Dormir", pronunciation: "door-MEER" },
       { en: "To come", ca: "Venir", pronunciation: "beh-NEER" },
       { en: "To go", ca: "Anar", pronunciation: "ah-NAR" },
-      { en: "To want", ca: "Voler", pronunciation: "boh-LER" },
-      { en: "To be able", ca: "Poder", pronunciation: "poh-DER" },
-      { en: "To know", ca: "Saber", pronunciation: "sah-BER" }
+      { en: "To want (I want)", ca: "Voler (Vull)", pronunciation: "boh-LER (bool)" },
+      { en: "To be able (I can)", ca: "Poder (Puc)", pronunciation: "poh-DER (pook)" },
+      { en: "To know (I know)", ca: "Saber (Sé)", pronunciation: "sah-BER (seh)" }
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "Vull ___ a casa", blank: "anar", options: ["anar", "dormir", "menjar", "beure"], correctIndex: 0, translation: "I want to go home" },
-        { sentence: "No puc ___ avui", blank: "venir", options: ["saber", "poder", "venir", "anar"], correctIndex: 2, translation: "I can't come today" },
-        { sentence: "Vols ___ alguna cosa?", blank: "beure", options: ["dormir", "beure", "saber", "poder"], correctIndex: 1, translation: "Do you want to drink something?" },
-        { sentence: "Saps ___ en català?", blank: "parlar", options: ["menjar", "dormir", "anar", "parlar"], correctIndex: 3, translation: "Do you know how to speak Catalan?" },
-        { sentence: "Necessito ___ una mica", blank: "dormir", options: ["menjar", "dormir", "beure", "anar"], correctIndex: 1, translation: "I need to sleep a bit" }
+        { sentence: "Vull ___ a casa", blank: "anar", options: ["anar", "dormir", "menjar", "beure"], correctIndex: 0, translation: "I want to go home", explanation: "'Anar' = to go. 'Vull anar' = I want to go. 'A casa' = home." },
+        { sentence: "No puc ___ avui", blank: "venir", options: ["saber", "anar", "venir", "dormir"], correctIndex: 2, translation: "I can't come today", explanation: "'Venir' = to come. 'No puc' = I can't. 'No' makes it negative." },
+        { sentence: "Vull ___ alguna cosa", blank: "beure", options: ["dormir", "beure", "saber", "anar"], correctIndex: 1, translation: "I want to drink something", explanation: "'Beure' = to drink. 'Alguna cosa' = something." },
+        { sentence: "Vull ___ una mica", blank: "dormir", options: ["menjar", "dormir", "beure", "anar"], correctIndex: 1, translation: "I want to sleep a bit", explanation: "'Dormir' = to sleep. 'Una mica' = a bit/a little." },
+        { sentence: "Puc ___ alguna cosa?", blank: "menjar", options: ["menjar", "dormir", "anar", "venir"], correctIndex: 0, translation: "Can I eat something?", explanation: "'Menjar' = to eat. 'Puc' = I can, used for asking permission." }
       ],
       sentenceOrdering: [
-        { words: ["Vull", "anar", "a", "casa"], correctOrder: "Vull anar a casa", translation: "I want to go home" },
-        { words: ["Pots", "venir", "demà"], correctOrder: "Pots venir demà", translation: "Can you come tomorrow?" },
-        { words: ["Volem", "menjar", "alguna", "cosa"], correctOrder: "Volem menjar alguna cosa", translation: "We want to eat something" },
-        { words: ["No", "sé", "on", "és"], correctOrder: "No sé on és", translation: "I don't know where it is" }
+        { grammarNote: "💡 'Vull' = I want. Follow with a verb: Vull anar (I want to go), Vull menjar (I want to eat).", words: ["Vull", "anar", "a", "casa"], correctOrder: "Vull anar a casa", translation: "I want to go home" },
+        { grammarNote: "💡 'Puc' = I can. 'Puc venir' = I can come. Add time words at the end: demà (tomorrow).", words: ["Puc", "venir", "demà"], correctOrder: "Puc venir demà", translation: "I can come tomorrow" },
+        { grammarNote: "💡 'Alguna cosa' = something. Works just like English: Vull menjar alguna cosa.", words: ["Vull", "menjar", "alguna", "cosa"], correctOrder: "Vull menjar alguna cosa", translation: "I want to eat something" },
+        { grammarNote: "💡 'No sé' = I don't know. 'No' goes before the verb to make it negative.", words: ["No", "sé", "on", "és"], correctOrder: "No sé on és", translation: "I don't know where it is" }
       ]
     }
   },
 
+  // LESSON 19 — Describing People
+  // NOW safe to use: Tinc, Vull, Puc, Sé, és, són, M'agrada
+  // Light fixes only — verb usage is now justified
   {
     id: 19,
     title: "Describing People",
@@ -476,31 +579,34 @@ export const lessons = [
     stages: ['intro', 'flashcards', 'fillInTheBlank', 'sentenceOrdering'],
     words: [
       { en: "Tall", ca: "Alt", pronunciation: "AHLT" },
-      { en: "Short", ca: "Baix", pronunciation: "BAHSH" },
+      { en: "Short (height)", ca: "Baix", pronunciation: "BAHSH" },
       { en: "Young", ca: "Jove", pronunciation: "ZHOH-beh" },
-      { en: "Old", ca: "Vell", pronunciation: "BEL" },
-      { en: "Strong", ca: "Fort", pronunciation: "FORT" },
+      { en: "Old", ca: "Vell / Vella", pronunciation: "BEL / BEH-yah" },
+      { en: "Strong", ca: "Fort / Forta", pronunciation: "FORT / FOR-tah" },
       { en: "Kind", ca: "Amable", pronunciation: "ah-MAH-bleh" },
-      { en: "Funny", ca: "Divertit", pronunciation: "dee-ber-TEET" },
+      { en: "Funny", ca: "Divertit / Divertida", pronunciation: "dee-ber-TEET / dee-ber-TEE-dah" },
       { en: "Smart", ca: "Intel·ligent", pronunciation: "in-tel-lee-ZHEHN" }
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "El meu pare és molt ___", blank: "alt", options: ["alt", "baix", "jove", "petit"], correctIndex: 0, translation: "My father is very tall" },
-        { sentence: "La meva amiga és molt ___", blank: "divertida", options: ["vella", "divertida", "alta", "forta"], correctIndex: 1, translation: "My friend is very funny" },
-        { sentence: "La meva àvia és ___ però forta", blank: "vella", options: ["jove", "alta", "vella", "baixa"], correctIndex: 2, translation: "My grandmother is old but strong" },
-        { sentence: "El professor és molt ___", blank: "amable", options: ["baix", "trist", "amable", "dolent"], correctIndex: 2, translation: "The teacher is very kind" },
-        { sentence: "La nena és molt ___", blank: "intel·ligent", options: ["vella", "forta", "alta", "intel·ligent"], correctIndex: 3, translation: "The girl is very smart" }
+        { sentence: "El meu pare és molt ___", blank: "alt", options: ["alt", "baix", "jove", "petit"], correctIndex: 0, translation: "My father is very tall", explanation: "'Alt' = tall. The opposite is 'baix' (short)." },
+        { sentence: "La meva amiga és molt ___", blank: "divertida", options: ["vella", "divertida", "alta", "forta"], correctIndex: 1, translation: "My friend (f) is very funny", explanation: "'Divertida' = funny (feminine). Masculine would be 'divertit'." },
+        { sentence: "La meva àvia és ___ però forta", blank: "vella", options: ["jove", "alta", "vella", "baixa"], correctIndex: 2, translation: "My grandmother is old but strong", explanation: "'Vella' = old (feminine). 'Però' = but. 'Forta' = strong (feminine)." },
+        { sentence: "El professor és molt ___", blank: "amable", options: ["baix", "trist", "amable", "dolent"], correctIndex: 2, translation: "The teacher is very kind", explanation: "'Amable' = kind. This adjective stays the same for both genders." },
+        { sentence: "El meu amic és molt ___", blank: "intel·ligent", options: ["vell", "fort", "alt", "intel·ligent"], correctIndex: 3, translation: "My friend is very smart", explanation: "'Intel·ligent' = smart. Note the 'l·l' — a special Catalan letter!" }
       ],
       sentenceOrdering: [
-        { words: ["El", "meu", "pare", "és", "molt", "alt"], correctOrder: "El meu pare és molt alt", translation: "My father is very tall" },
-        { words: ["La", "meva", "amiga", "és", "divertida"], correctOrder: "La meva amiga és divertida", translation: "My friend is funny" },
-        { words: ["Som", "joves", "i", "forts"], correctOrder: "Som joves i forts", translation: "We are young and strong" },
-        { words: ["Com", "és", "el", "teu", "amic"], correctOrder: "Com és el teu amic", translation: "What is your friend like?" }
+        { grammarNote: "💡 Person + 'és' + adjective: 'El meu pare és alt'. Add 'molt' for emphasis.", words: ["El", "meu", "pare", "és", "molt", "alt"], correctOrder: "El meu pare és molt alt", translation: "My father is very tall" },
+        { grammarNote: "💡 'Divertida' is feminine, matching 'amiga'. Masculine would be 'divertit'.", words: ["La", "meva", "amiga", "és", "divertida"], correctOrder: "La meva amiga és divertida", translation: "My friend (f) is funny" },
+        { grammarNote: "💡 'Amable' stays the same for both genders — not all adjectives change!", words: ["El", "professor", "és", "molt", "amable"], correctOrder: "El professor és molt amable", translation: "The teacher is very kind" },
+        { grammarNote: "💡 'Com és...?' = What is... like? Use this to ask about someone's personality or appearance.", words: ["Com", "és", "el", "teu", "amic"], correctOrder: "Com és el teu amic", translation: "What is your friend like?" }
       ]
     }
   },
 
+  // LESSON 20 — At the Doctor's
+  // NOW safe to use: All verb forms from L18 + Tinc (I have) + Necessito (I need)
+  // "Tinc" formally introduced here, "Necessito" used as fixed phrase
   {
     id: 20,
     title: "At the Doctor's",
@@ -514,24 +620,25 @@ export const lessons = [
       { en: "Back", ca: "Esquena", pronunciation: "es-KEH-nah" },
       { en: "Allergy", ca: "Al·lèrgia", pronunciation: "ah-LER-zhee-ah" },
       { en: "Prescription", ca: "Recepta", pronunciation: "reh-SEP-tah" },
-      { en: "Rest", ca: "Descans", pronunciation: "des-KAHNS" }
+      { en: "I have (verb)", ca: "Tinc", pronunciation: "TEENK" }
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "Tinc una ___ amb el metge", blank: "cita", options: ["cita", "recepta", "febre", "tos"], correctIndex: 0, translation: "I have an appointment with the doctor" },
-        { sentence: "Tinc ___ i tos", blank: "febre", options: ["descans", "esquena", "febre", "cita"], correctIndex: 2, translation: "I have a fever and a cough" },
-        { sentence: "Em fa mal l'___", blank: "estómac", options: ["al·lèrgia", "estómac", "esquena", "recepta"], correctIndex: 1, translation: "My stomach hurts" },
-        { sentence: "Necessites ___ i beure aigua", blank: "descans", options: ["cita", "tos", "descans", "febre"], correctIndex: 2, translation: "You need rest and to drink water" },
-        { sentence: "Tens alguna ___?", blank: "al·lèrgia", options: ["febre", "cita", "recepta", "al·lèrgia"], correctIndex: 3, translation: "Do you have any allergy?" }
+        { sentence: "Tinc una ___ amb el metge", blank: "cita", options: ["cita", "recepta", "febre", "tos"], correctIndex: 0, translation: "I have an appointment with the doctor", explanation: "'Cita' = appointment. 'Tinc una cita' = I have an appointment." },
+        { sentence: "Tinc ___ i tos", blank: "febre", options: ["cita", "esquena", "febre", "recepta"], correctIndex: 2, translation: "I have a fever and a cough", explanation: "'Febre' = fever. Use 'Tinc' to describe symptoms: Tinc febre, Tinc tos." },
+        { sentence: "Em fa mal l'___", blank: "estómac", options: ["al·lèrgia", "estómac", "esquena", "recepta"], correctIndex: 1, translation: "My stomach hurts", explanation: "'Estómac' = stomach. 'L'' because 'el' shortens before a vowel." },
+        { sentence: "Em fa mal l'___", blank: "esquena", options: ["cita", "tos", "estómac", "esquena"], correctIndex: 3, translation: "My back hurts", explanation: "'Esquena' = back. Same pattern: 'Em fa mal' + body part." },
+        { sentence: "Tinc una ___", blank: "al·lèrgia", options: ["febre", "cita", "recepta", "al·lèrgia"], correctIndex: 3, translation: "I have an allergy", explanation: "'Al·lèrgia' = allergy. Note the 'l·l' — a Catalan spelling feature." }
       ],
       sentenceOrdering: [
-        { words: ["Tinc", "una", "cita", "amb", "el", "metge"], correctOrder: "Tinc una cita amb el metge", translation: "I have an appointment with the doctor" },
-        { words: ["Em", "fa", "mal", "l'esquena"], correctOrder: "Em fa mal l'esquena", translation: "My back hurts" },
-        { words: ["Necessito", "una", "recepta", "si", "us", "plau"], correctOrder: "Necessito una recepta si us plau", translation: "I need a prescription please" },
-        { words: ["Tinc", "febre", "des", "de", "ahir"], correctOrder: "Tinc febre des de ahir", translation: "I've had a fever since yesterday" }
+        { grammarNote: "💡 'Tinc' = I have. Use for appointments, symptoms, and possessions.", words: ["Tinc", "una", "cita", "amb", "el", "metge"], correctOrder: "Tinc una cita amb el metge", translation: "I have an appointment with the doctor" },
+        { grammarNote: "💡 'L'esquena' — 'la' shortens to 'l'' before a vowel. Same pattern as l'oficina.", words: ["Em", "fa", "mal", "l'esquena"], correctOrder: "Em fa mal l'esquena", translation: "My back hurts" },
+        { grammarNote: "💡 Combine what you've learned: 'Voldria' + item + 'si us plau'. A perfect polite request!", words: ["Voldria", "una", "recepta", "si", "us", "plau"], correctOrder: "Voldria una recepta si us plau", translation: "I would like a prescription please" },
+        { grammarNote: "💡 'I' = and. Connect symptoms: 'Tinc febre i tos' = I have a fever and a cough.", words: ["Tinc", "febre", "i", "tos"], correctOrder: "Tinc febre i tos", translation: "I have a fever and a cough" }
       ]
     }
   },
+
 
   // ═══════════════════════════════════════════════════════════
   // MODULE 4: SOCIAL (Lessons 21-25)
@@ -962,10 +1069,10 @@ export const lessons = [
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "Voldria un ___ de cabell", blank: "tall", options: ["tall", "llarg", "curt", "rentar"], correctIndex: 0, translation: "I would like a haircut" },
-        { sentence: "No massa ___  si us plau", blank: "curt", options: ["llarg", "curt", "cabell", "tenyir"], correctIndex: 1, translation: "Not too short please" },
-        { sentence: "Vols ___ el cabell també?", blank: "rentar", options: ["tenyir", "tall", "rentar", "llarg"], correctIndex: 2, translation: "Do you want to wash the hair too?" },
-        { sentence: "Tinc ___ a les quatre", blank: "hora", options: ["tall", "hora", "cabell", "serrell"], correctIndex: 1, translation: "I have an appointment at four" }
+        { sentence: "Voldria un ___ de cabell", blank: "tall", options: ["tall", "llarg", "curt", "rentar"], correctIndex: 0, translation: "I would like a haircut", explanation: "'Tall' = cut. 'Tall de cabell' is the standard phrase for a haircut."},
+        { sentence: "No massa ___  si us plau", blank: "curt", options: ["llarg", "curt", "cabell", "tenyir"], correctIndex: 1, translation: "Not too short please", explanation: "'Curt' = short. 'No massa curt' = not too short — a useful phrase!" },
+        { sentence: "Vols ___ el cabell també?", blank: "rentar", options: ["tenyir", "tall", "rentar", "llarg"], correctIndex: 2, translation: "Do you want to wash the hair too?", explanation: "'Rentar' = to wash. The hairdresser may ask 'Vols rentar?' before cutting." },
+        { sentence: "Tinc ___ a les quatre", blank: "hora", options: ["tall", "hora", "cabell", "serrell"], correctIndex: 1, translation: "I have an appointment at four", explanation: "'Hora' = appointment/time slot. 'Tinc hora' = I have an appointment." }
       ],
       miniConversation: [
         { speaker: "Hairdresser", text: "Bon dia! Què voldries avui?", isUserTurn: false, translation: "Good morning! What would you like today?" },
@@ -995,11 +1102,11 @@ export const lessons = [
     ],
     stageData: {
       sentenceOrdering: [
-        { words: ["On", "puc", "aparcar", "el", "cotxe"], correctOrder: "On puc aparcar el cotxe", translation: "Where can I park the car?" },
-        { words: ["Hi", "ha", "molt", "de", "trànsit", "avui"], correctOrder: "Hi ha molt de trànsit avui", translation: "There's a lot of traffic today" },
-        { words: ["Necessito", "posar", "gasolina"], correctOrder: "Necessito posar gasolina", translation: "I need to put in petrol" },
-        { words: ["L'autopista", "és", "més", "ràpida"], correctOrder: "L'autopista és més ràpida", translation: "The motorway is faster" },
-        { words: ["Condueix", "amb", "cura", "si", "us", "plau"], correctOrder: "Condueix amb cura si us plau", translation: "Drive carefully please" }
+        { words: ["On", "puc", "aparcar", "el", "cotxe"], correctOrder: "On puc aparcar el cotxe", translation: "Where can I park the car?", grammarNote: "💡 'On puc...?' = Where can I...? Combine 'on' (where) + 'puc' (I can) + verb." },
+        { words: ["Hi", "ha", "molt", "de", "trànsit", "avui"], correctOrder: "Hi ha molt de trànsit avui", translation: "There's a lot of traffic today" , grammarNote: "💡 'Hi ha' = there is/are. 'Hi ha molt de trànsit' = there's a lot of traffic." },
+        { words: ["Necessito", "posar", "gasolina"], correctOrder: "Necessito posar gasolina", translation: "I need to put in petrol" , grammarNote: "💡 'Necessito' + infinitive = I need to... Necessito posar, Necessito comprar." },
+        { words: ["L'autopista", "és", "més", "ràpida"], correctOrder: "L'autopista és més ràpida", translation: "The motorway is faster" , grammarNote: "💡 'Més ràpida' = faster. Comparative: 'més' + adjective + 'que' (than)." },
+        { words: ["Condueix", "amb", "cura", "si", "us", "plau"], correctOrder: "Condueix amb cura si us plau", translation: "Drive carefully please" , grammarNote: "💡 'Amb cura' = carefully. 'Condueix' is the imperative (command) form of 'conduir'." }
       ],
       errorCorrection: [
         { sentence: "On puedo aparcar el coche?", errorWordIndex: 1, options: ["puedo", "puc", "puec", "pod"], correctIndex: 1, translation: "Where can I park the car?", explanation: "'Puc' is 'I can' in Catalan. Also 'cotxe' not 'coche'" },
@@ -1034,11 +1141,11 @@ export const lessons = [
         { catalan: "Ho sento, estic ocupat aquell dia", english: "I'm sorry, I'm busy that day", pronunciation: "oh SEN-toh es-TEEK oh-koo-PAHT ah-KEYL DEE-ah" }
       ],
       fillInTheBlank: [
-        { sentence: "Voldria ___ una cita", blank: "demanar", options: ["demanar", "cancel·lar", "canviar", "ocupat"], correctIndex: 0, translation: "I would like to make an appointment" },
-        { sentence: "Estic ___ dimarts", blank: "ocupat", options: ["lliure", "ocupat", "content", "cansat"], correctIndex: 1, translation: "I'm busy on Tuesday" },
-        { sentence: "Puc ___ la cita?", blank: "canviar", options: ["demanar", "cancel·lar", "canviar", "lliure"], correctIndex: 2, translation: "Can I change the appointment?" },
-        { sentence: "Teniu alguna hora ___?", blank: "lliure", options: ["ocupat", "cita", "lliure", "punt"], correctIndex: 2, translation: "Do you have a free slot?" },
-        { sentence: "La cita és a les tres i ___", blank: "mitja", options: ["quart", "mitja", "punt", "hora"], correctIndex: 1, translation: "The appointment is at half past three" }
+        { sentence: "Voldria ___ una cita", blank: "demanar", options: ["demanar", "cancel·lar", "canviar", "ocupat"], correctIndex: 0, translation: "I would like to make an appointment", explanation: "'Demanar' = to ask for / to request. 'Demanar una cita' = make an appointment." },
+        { sentence: "Estic ___ dimarts", blank: "ocupat", options: ["lliure", "ocupat", "content", "cansat"], correctIndex: 1, translation: "I'm busy on Tuesday" , explanation: "'Ocupat' = busy/occupied. Opposite: 'lliure' (free/available)." },
+        { sentence: "Puc ___ la cita?", blank: "canviar", options: ["demanar", "cancel·lar", "canviar", "lliure"], correctIndex: 2, translation: "Can I change the appointment?" , explanation: "'Canviar' = to change. 'Cancel·lar' = to cancel. Know both!" },
+        { sentence: "Teniu alguna hora ___?", blank: "lliure", options: ["ocupat", "cita", "lliure", "punt"], correctIndex: 2, translation: "Do you have a free slot?", explanation: "'Lliure' = free (available). Not 'gratis' — that means free of charge." },
+        { sentence: "La cita és a les tres i ___", blank: "mitja", options: ["quart", "mitja", "punt", "hora"], correctIndex: 1, translation: "The appointment is at half past three", explanation: "'I mitja' = and a half. 'Les tres i mitja' = 3:30. 'I quart' = quarter past." }
       ],
       miniConversation: [
         { speaker: "Receptionist", text: "Clínica dental, bona tarda!", isUserTurn: false, translation: "Dental clinic, good afternoon!" },
@@ -1101,17 +1208,17 @@ export const lessons = [
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "Puc ___ aquesta camisa?", blank: "emprovar", options: ["emprovar", "tornar", "comprar", "rentar"], correctIndex: 0, translation: "Can I try on this shirt?" },
-        { sentence: "Quina ___ necessites?", blank: "talla", options: ["preu", "talla", "regal", "bossa"], correctIndex: 1, translation: "What size do you need?" },
-        { sentence: "Tenen ___ aquesta setmana", blank: "rebaixes", options: ["regal", "provador", "rebaixes", "preu"], correctIndex: 2, translation: "They have sales this week" },
-        { sentence: "Vull ___ un regal per la meva mare", blank: "comprar", options: ["tornar", "emprovar", "comprar", "rentar"], correctIndex: 2, translation: "I want to buy a gift for my mother" },
-        { sentence: "El ___ és molt barat", blank: "preu", options: ["talla", "provador", "regal", "preu"], correctIndex: 3, translation: "The price is very cheap" }
+        { sentence: "Puc ___ aquesta camisa?", blank: "emprovar", options: ["emprovar", "tornar", "comprar", "rentar"], correctIndex: 0, translation: "Can I try on this shirt?" , explanation: "'Emprovar' = to try on (clothes). Different from 'provar' (to taste/try food)."},
+        { sentence: "Quina ___ necessites?", blank: "talla", options: ["preu", "talla", "regal", "bossa"], correctIndex: 1, translation: "What size do you need?", explanation: "'Talla' = size (clothing). 'Quina talla?' = What size? Essential for shopping."},
+        { sentence: "Tenen ___ aquesta setmana", blank: "rebaixes", options: ["regal", "provador", "rebaixes", "preu"], correctIndex: 2, translation: "They have sales this week", explanation: "'Rebaixes' = sales/discounts. Big sales happen in January and July in Catalonia." },
+        { sentence: "Vull ___ un regal per la meva mare", blank: "comprar", options: ["tornar", "emprovar", "comprar", "rentar"], correctIndex: 2, translation: "I want to buy a gift for my mother", explanation: "'Comprar' = to buy. 'Regal' = gift. 'Comprar un regal' = buy a gift." },
+        { sentence: "El ___ és molt barat", blank: "preu", options: ["talla", "provador", "regal", "preu"], correctIndex: 3, translation: "The price is very cheap", explanation: "'Preu' = price. 'Barat' = cheap. 'Car' = expensive." }
       ],
       sentenceOrdering: [
-        { words: ["Puc", "emprovar", "aquesta", "camisa"], correctOrder: "Puc emprovar aquesta camisa", translation: "Can I try on this shirt?" },
-        { words: ["On", "és", "el", "provador"], correctOrder: "On és el provador", translation: "Where is the fitting room?" },
-        { words: ["Vull", "tornar", "aquesta", "camisa"], correctOrder: "Vull tornar aquesta camisa", translation: "I want to return this shirt" },
-        { words: ["El", "preu", "és", "molt", "barat"], correctOrder: "El preu és molt barat", translation: "The price is very cheap" }
+        { words: ["Puc", "emprovar", "aquesta", "camisa"], correctOrder: "Puc emprovar aquesta camisa", translation: "Can I try on this shirt?", grammarNote: "💡 'Puc + infinitive?' = Can I...? A polite way to ask permission in shops." },
+        { words: ["On", "és", "el", "provador"], correctOrder: "On és el provador", translation: "Where is the fitting room?", grammarNote: "💡 'On és...?' = Where is...? Works for any location: el provador, el bany, la sortida." },
+        { words: ["Vull", "tornar", "aquesta", "camisa"], correctOrder: "Vull tornar aquesta camisa", translation: "I want to return this shirt", grammarNote: "💡 'Vull tornar' = I want to return. Useful if something doesn't fit or is faulty." },
+        { words: ["El", "preu", "és", "molt", "barat"], correctOrder: "El preu és molt barat", translation: "The price is very cheap", grammarNote: "💡 'Molt barat' = very cheap. 'Massa car' = too expensive. 'Massa' = too (much)."}
       ],
       listenAndType: [
         { catalan: "Tenen una talla més gran?", english: "Do you have a bigger size?", pronunciation: "TEH-nehn OO-nah TAH-yah mehs GRAHN" },
@@ -1147,10 +1254,10 @@ export const lessons = [
         { speaker: "You", text: "", isUserTurn: true, options: ["Sí, què teniu de dolç?", "Adéu", "No m'agrada"], correctIndex: 0 }
       ],
       fillInTheBlank: [
-        { sentence: "El peix és molt ___", blank: "deliciós", options: ["salat", "picant", "deliciós", "dolç"], correctIndex: 2, translation: "The fish is very delicious" },
-        { sentence: "De ___ voldria l'amanida", blank: "primer", options: ["primer", "segon", "postres", "propina"], correctIndex: 0, translation: "For starter I'd like the salad" },
-        { sentence: "Això és massa ___!", blank: "picant", options: ["dolç", "salat", "picant", "deliciós"], correctIndex: 2, translation: "This is too spicy!" },
-        { sentence: "Voleu alguna cosa de ___?", blank: "postres", options: ["entrant", "plat", "postres", "propina"], correctIndex: 2, translation: "Would you like something for dessert?" }
+        { sentence: "El peix és molt ___", blank: "deliciós", options: ["salat", "picant", "deliciós", "dolç"], correctIndex: 2, translation: "The fish is very delicious",explanation: "'Deliciós' = delicious. Masculine form. Feminine: 'deliciosa'." },
+        { sentence: "De ___ voldria l'amanida", blank: "primer", options: ["primer", "segon", "postres", "propina"], correctIndex: 0, translation: "For starter I'd like the salad", explanation: "'De primer' = for starters. 'De segon' = for main. 'De postres' = for dessert."},
+        { sentence: "Això és massa ___!", blank: "picant", options: ["dolç", "salat", "picant", "deliciós"], correctIndex: 2, translation: "This is too spicy!", explanation: "'Picant' = spicy. 'Massa picant' = too spicy. Important for ordering food!" },
+        { sentence: "Voleu alguna cosa de ___?", blank: "postres", options: ["entrant", "plat", "postres", "propina"], correctIndex: 2, translation: "Would you like something for dessert?", explanation: "'Postres' = dessert. Always plural in Catalan. 'Voleu postres?' = Want dessert?" },
       ],
       listenAndType: [
         { catalan: "El compte, si us plau", english: "The bill, please", pronunciation: "ehl KOHM-teh see oos PLOW" },
@@ -1186,11 +1293,11 @@ export const lessons = [
         { speaker: "You", text: "", isUserTurn: true, options: ["Puc veure'l demà?", "Adéu", "No m'agrada"], correctIndex: 0 }
       ],
       sentenceOrdering: [
-        { words: ["Busco", "un", "pis", "moblat"], correctOrder: "Busco un pis moblat", translation: "I'm looking for a furnished flat" },
-        { words: ["Quant", "és", "el", "lloguer", "mensual"], correctOrder: "Quant és el lloguer mensual", translation: "How much is the monthly rent?" },
-        { words: ["Cal", "signar", "el", "contracte", "avui"], correctOrder: "Cal signar el contracte avui", translation: "We need to sign the contract today" },
-        { words: ["El", "pis", "té", "dues", "habitacions"], correctOrder: "El pis té dues habitacions", translation: "The flat has two bedrooms" },
-        { words: ["La", "fiança", "és", "d'un", "mes"], correctOrder: "La fiança és d'un mes", translation: "The deposit is one month" }
+        { words: ["Busco", "un", "pis", "moblat"], correctOrder: "Busco un pis moblat", translation: "I'm looking for a furnished flat" , grammarNote: "💡 'Busco' = I'm looking for. 'Moblat' = furnished. 'Sense mobles' = unfurnished." },
+        { words: ["Quant", "és", "el", "lloguer", "mensual"], correctOrder: "Quant és el lloguer mensual", translation: "How much is the monthly rent?", grammarNote: "💡 'Quant és...?' = How much is...? 'Mensual' = monthly. Used for recurring costs." },
+        { words: ["Cal", "signar", "el", "contracte", "avui"], correctOrder: "Cal signar el contracte avui", translation: "We need to sign the contract today", grammarNote: "💡 'Cal' = it's necessary / we need to. 'Cal signar' = we need to sign." },
+        { words: ["El", "pis", "té", "dues", "habitacions"], correctOrder: "El pis té dues habitacions", translation: "The flat has two bedrooms", grammarNote: "💡 'Té' = it has (from 'tenir'). 'El pis té dues habitacions' = The flat has two bedrooms." },
+        { words: ["La", "fiança", "és", "d'un", "mes"], correctOrder: "La fiança és d'un mes", translation: "The deposit is one month" , grammarNote: "💡 'D'un mes' = of one month. 'La fiança' = the deposit (rental security deposit)." }
       ]
     }
   },
@@ -1212,10 +1319,10 @@ export const lessons = [
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "Vull ___ un paquet a Anglaterra", blank: "enviar", options: ["enviar", "rebre", "obrir", "tancar"], correctIndex: 0, translation: "I want to send a package to England" },
-        { sentence: "Necessito un ___ per la carta", blank: "segell", options: ["paquet", "segell", "adreça", "codi"], correctIndex: 1, translation: "I need a stamp for the letter" },
-        { sentence: "L'___ és incorrecta", blank: "adreça", options: ["segell", "carta", "adreça", "paquet"], correctIndex: 2, translation: "The address is incorrect" },
-        { sentence: "Es pot enviar com a ___?", blank: "urgent", options: ["carta", "segell", "paquet", "urgent"], correctIndex: 3, translation: "Can it be sent as urgent?" }
+        { sentence: "Vull ___ un paquet a Anglaterra", blank: "enviar", options: ["enviar", "rebre", "obrir", "tancar"], correctIndex: 0, translation: "I want to send a package to England" , explanation: "'Enviar' = to send. 'Vull enviar' = I want to send. Works for letters and packages." },
+        { sentence: "Necessito un ___ per la carta", blank: "segell", options: ["paquet", "segell", "adreça", "codi"], correctIndex: 1, translation: "I need a stamp for the letter", explanation: "'Segell' = stamp. You need one for any letter. 'Necessito un segell' = I need a stamp." },
+        { sentence: "L'___ és incorrecta", blank: "adreça", options: ["segell", "carta", "adreça", "paquet"], correctIndex: 2, translation: "The address is incorrect" ,  explanation: "'Adreça' = address. Don't confuse with Spanish 'dirección'." },
+        { sentence: "Es pot enviar com a ___?", blank: "urgent", options: ["carta", "segell", "paquet", "urgent"], correctIndex: 3, translation: "Can it be sent as urgent?", explanation: "'Urgent' = urgent. Same word in English! 'Enviar com a urgent' = send as urgent." }
       ],
       listenAndType: [
         { catalan: "Vull enviar aquest paquet", english: "I want to send this package", pronunciation: "bool en-bee-AR ah-KEST pah-KEHT" },
@@ -1249,16 +1356,16 @@ export const lessons = [
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "Vaig al ___ cada dia", blank: "gimnàs", options: ["futbol", "gimnàs", "partit", "equip"], correctIndex: 1, translation: "I go to the gym every day" },
-        { sentence: "El Barça va ___ el partit!", blank: "guanyar", options: ["perdre", "córrer", "guanyar", "jugar"], correctIndex: 2, translation: "Barça won the match!" },
-        { sentence: "M'agrada ___ al matí", blank: "córrer", options: ["guanyar", "perdre", "córrer", "futbol"], correctIndex: 2, translation: "I like running in the morning" },
-        { sentence: "Fer esport és molt ___", blank: "saludable", options: ["cansat", "saludable", "dolent", "trist"], correctIndex: 1, translation: "Doing sport is very healthy" }
+        { sentence: "Vaig al ___ cada dia", blank: "gimnàs", options: ["futbol", "gimnàs", "partit", "equip"], correctIndex: 1, translation: "I go to the gym every day" , explanation: "'Gimnàs' = gym. 'Vaig al gimnàs' = I go to the gym. 'Cada dia' = every day." },
+        { sentence: "El Barça va ___ el partit!", blank: "guanyar", options: ["perdre", "córrer", "guanyar", "jugar"], correctIndex: 2, translation: "Barça won the match!" , explanation: "'Guanyar' = to win. 'Perdre' = to lose. 'Va guanyar' = won (past tense)." },
+        { sentence: "M'agrada ___ al matí", blank: "córrer", options: ["guanyar", "perdre", "córrer", "futbol"], correctIndex: 2, translation: "I like running in the morning" , explanation: "'Córrer' = to run. 'Al matí' = in the morning. Running is popular in Barcelona!" },
+        { sentence: "Fer esport és molt ___", blank: "saludable", options: ["cansat", "saludable", "dolent", "trist"], correctIndex: 1, translation: "Doing sport is very healthy" , explanation: "'Saludable' = healthy. 'Fer esport' = to do sport (NOT 'jugar esport')." }
       ],
       sentenceOrdering: [
-        { words: ["Vaig", "al", "gimnàs", "cada", "dia"], correctOrder: "Vaig al gimnàs cada dia", translation: "I go to the gym every day" },
-        { words: ["El", "partit", "és", "diumenge", "a", "les", "quatre"], correctOrder: "El partit és diumenge a les quatre", translation: "The match is Sunday at four" },
-        { words: ["M'agrada", "córrer", "per", "la", "platja"], correctOrder: "M'agrada córrer per la platja", translation: "I like running on the beach" },
-        { words: ["El", "meu", "equip", "va", "guanyar"], correctOrder: "El meu equip va guanyar", translation: "My team won" }
+        { words: ["Vaig", "al", "gimnàs", "cada", "dia"], correctOrder: "Vaig al gimnàs cada dia", translation: "I go to the gym every day" , grammarNote: "💡 'Vaig al' = I go to the. 'Cada dia' = every day. A very useful daily phrase." },
+        { words: ["El", "partit", "és", "diumenge", "a", "les", "quatre"], correctOrder: "El partit és diumenge a les quatre", translation: "The match is Sunday at four" , grammarNote: "💡 'A les quatre' = at four o'clock. Time goes at the end after 'a les' + hour." },
+        { words: ["M'agrada", "córrer", "per", "la", "platja"], correctOrder: "M'agrada córrer per la platja", translation: "I like running on the beach" , grammarNote: "💡 'M'agrada + infinitive' = I like to... M'agrada córrer = I like running." },
+        { words: ["El", "meu", "equip", "va", "guanyar"], correctOrder: "El meu equip va guanyar", translation: "My team won" , grammarNote: "💡 'Va guanyar' = won (he/she/it). Past tense: va + infinitive (like vaig but for he/she)." }
       ]
     }
   },
@@ -1339,10 +1446,10 @@ export const lessons = [
         { speaker: "You", text: "", isUserTurn: true, options: ["Sí, molt! Quan podria començar?", "Adéu", "No m'agrada"], correctIndex: 0 }
       ],
       sentenceOrdering: [
-        { words: ["Tinc", "experiència", "en", "aquest", "sector"], correctOrder: "Tinc experiència en aquest sector", translation: "I have experience in this sector" },
-        { words: ["Quin", "és", "el", "sou", "mensual"], correctOrder: "Quin és el sou mensual", translation: "What is the monthly salary?" },
-        { words: ["He", "enviat", "el", "meu", "currículum"], correctOrder: "He enviat el meu currículum", translation: "I have sent my CV" },
-        { words: ["Puc", "començar", "la", "setmana", "vinent"], correctOrder: "Puc començar la setmana vinent", translation: "I can start next week" }
+        { words: ["Tinc", "experiència", "en", "aquest", "sector"], correctOrder: "Tinc experiència en aquest sector", translation: "I have experience in this sector" , grammarNote: "💡 'Tinc experiència en...' = I have experience in... Essential for job interviews." },
+        { words: ["Quin", "és", "el", "sou", "mensual"], correctOrder: "Quin és el sou mensual", translation: "What is the monthly salary?" , grammarNote: "💡 'Quin és...?' = What is...? 'El sou mensual' = the monthly salary." },
+        { words: ["He", "enviat", "el", "meu", "currículum"], correctOrder: "He enviat el meu currículum", translation: "I have sent my CV" , grammarNote: "💡 'He enviat' = I have sent. Present perfect: he + past participle (enviat, fet, dit)." },
+        { words: ["Puc", "començar", "la", "setmana", "vinent"], correctOrder: "Puc començar la setmana vinent", translation: "I can start next week" , grammarNote: "💡 'La setmana vinent' = next week. 'Vinent' = coming/next. 'Passada' = last." }
       ]
     }
   },
@@ -1364,10 +1471,10 @@ export const lessons = [
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "La calefacció està ___", blank: "trencada", options: ["trencada", "arreglada", "nova", "urgent"], correctIndex: 0, translation: "The heating is broken" },
-        { sentence: "Necessitem un ___ urgent", blank: "llauner", options: ["electricista", "llauner", "metge", "cambrer"], correctIndex: 1, translation: "We need a plumber urgently" },
-        { sentence: "Pot ___ la gotera?", blank: "arreglar", options: ["trencar", "arreglar", "pintar", "obrir"], correctIndex: 1, translation: "Can you fix the leak?" },
-        { sentence: "Hi ha una ___ al bany", blank: "gotera", options: ["porta", "finestra", "gotera", "canonada"], correctIndex: 2, translation: "There is a leak in the bathroom" }
+        { sentence: "La calefacció està ___", blank: "trencada", options: ["trencada", "arreglada", "nova", "urgent"], correctIndex: 0, translation: "The heating is broken" , explanation: "'Trencada' = broken (feminine). Matches 'la calefacció'. Masculine: 'trencat'." },
+        { sentence: "Necessitem un ___ urgent", blank: "llauner", options: ["electricista", "llauner", "metge", "cambrer"], correctIndex: 1, translation: "We need a plumber urgently" , explanation: "'Llauner' = plumber. A key person when you have leaks ('gotera')!" },
+        { sentence: "Pot ___ la gotera?", blank: "arreglar", options: ["trencar", "arreglar", "pintar", "obrir"], correctIndex: 1, translation: "Can you fix the leak?", explanation: "'Arreglar' = to fix/repair. 'Pot arreglar...?' = Can you fix...?" },
+        { sentence: "Hi ha una ___ al bany", blank: "gotera", options: ["porta", "finestra", "gotera", "canonada"], correctIndex: 2, translation: "There is a leak in the bathroom" , explanation: "'Gotera' = leak (water dripping). 'Hi ha una gotera' = there's a leak." }
       ],
       miniConversation: [
         { speaker: "You", text: "Hola! Truco perquè tinc un problema al pis.", isUserTurn: false },
@@ -1398,11 +1505,11 @@ export const lessons = [
     ],
     stageData: {
       sentenceOrdering: [
-        { words: ["El", "vol", "surt", "a", "les", "set", "del", "matí"], correctOrder: "El vol surt a les set del matí", translation: "The flight departs at seven in the morning" },
-        { words: ["On", "puc", "recollir", "la", "maleta"], correctOrder: "On puc recollir la maleta", translation: "Where can I collect the suitcase?" },
-        { words: ["El", "vol", "té", "un", "retard", "d'una", "hora"], correctOrder: "El vol té un retard d'una hora", translation: "The flight has a one-hour delay" },
-        { words: ["Necessito", "veure", "el", "seu", "passaport"], correctOrder: "Necessito veure el seu passaport", translation: "I need to see your passport" },
-        { words: ["Ja", "hem", "arribat", "a", "Barcelona"], correctOrder: "Ja hem arribat a Barcelona", translation: "We have already arrived in Barcelona" }
+        { words: ["El", "vol", "surt", "a", "les", "set", "del", "matí"], correctOrder: "El vol surt a les set del matí", translation: "The flight departs at seven in the morning" , grammarNote: "💡 'Surt' = departs/leaves. 'A les set del matí' = at seven in the morning." },
+        { words: ["On", "puc", "recollir", "la", "maleta"], correctOrder: "On puc recollir la maleta", translation: "Where can I collect the suitcase?" , grammarNote: "💡 'On puc...?' = Where can I...? 'Recollir' = to collect/pick up." },
+        { words: ["El", "vol", "té", "un", "retard", "d'una", "hora"], correctOrder: "El vol té un retard d'una hora", translation: "The flight has a one-hour delay" , grammarNote: "💡 'Té un retard de...' = has a delay of... Useful at airports and train stations." },
+        { words: ["Necessito", "veure", "el", "seu", "passaport"], correctOrder: "Necessito veure el seu passaport", translation: "I need to see your passport" , grammarNote: "💡 'Necessito veure' = I need to see. 'El seu' = your (formal). Polite request." },
+        { words: ["Ja", "hem", "arribat", "a", "Barcelona"], correctOrder: "Ja hem arribat a Barcelona", translation: "We have already arrived in Barcelona" , grammarNote: "💡 'Ja' = already. 'Hem arribat' = we have arrived. 'Ja hem arribat' = we've already arrived." }
       ],
       listenAndType: [
         { catalan: "A quina porta embarquem?", english: "Which gate do we board at?", pronunciation: "ah KEE-nah POR-tah em-bar-KEHM" },
@@ -1445,10 +1552,10 @@ export const lessons = [
         { speaker: "You", text: "", isUserTurn: true, options: ["D'acord, gràcies per solucionar-ho", "Tinc febre", "No m'agrada"], correctIndex: 0 }
       ],
       fillInTheBlank: [
-        { sentence: "Voldria posar una ___", blank: "queixa", options: ["queixa", "problema", "carta", "pregunta"], correctIndex: 0, translation: "I would like to make a complaint" },
-        { sentence: "Això és ___!", blank: "inacceptable", options: ["perfecte", "bonic", "inacceptable", "interessant"], correctIndex: 2, translation: "This is unacceptable!" },
-        { sentence: "Vull parlar amb l'___", blank: "encarregat", options: ["electricista", "encarregat", "amic", "professor"], correctIndex: 1, translation: "I want to speak with the manager" },
-        { sentence: "Podeu ___ aquest problema?", blank: "solucionar", options: ["crear", "enviar", "solucionar", "perdre"], correctIndex: 2, translation: "Can you solve this problem?" }
+        { sentence: "Voldria posar una ___", blank: "queixa", options: ["queixa", "problema", "carta", "pregunta"], correctIndex: 0, translation: "I would like to make a complaint" , explanation: "'Queixa' = complaint. 'Posar una queixa' = to make a complaint." },
+        { sentence: "Això és ___!", blank: "inacceptable", options: ["perfecte", "bonic", "inacceptable", "interessant"], correctIndex: 2, translation: "This is unacceptable!" , explanation: "'Inacceptable' = unacceptable. A strong word for serious complaints." },
+        { sentence: "Vull parlar amb l'___", blank: "encarregat", options: ["electricista", "encarregat", "amic", "professor"], correctIndex: 1, translation: "I want to speak with the manager" , explanation: "'Encarregat' = manager (person in charge). 'Vull parlar amb l'encarregat' = powerful phrase." },
+        { sentence: "Podeu ___ aquest problema?", blank: "solucionar", options: ["crear", "enviar", "solucionar", "perdre"], correctIndex: 2, translation: "Can you solve this problem?" , explanation: "'Solucionar' = to solve/fix. 'Resoldre' also works. Both are useful for complaints." }
       ],
       listenAndType: [
         { catalan: "No estic satisfet amb el servei", english: "I'm not satisfied with the service", pronunciation: "noh es-TEEK sah-tees-FEHT ahm ehl ser-BAY" },
@@ -1484,11 +1591,11 @@ export const lessons = [
         { speaker: "You", text: "", isUserTurn: true, options: ["Salut! Per molts anys a tots!", "No m'agrada", "On és el bany?"], correctIndex: 0 }
       ],
       sentenceOrdering: [
-        { words: ["Felicitats", "pel", "teu", "aniversari!"], correctOrder: "Felicitats pel teu aniversari!", translation: "Congratulations on your birthday!" },
-        { words: ["Celebrem", "el", "Nadal", "en", "família"], correctOrder: "Celebrem el Nadal en família", translation: "We celebrate Christmas as a family" },
-        { words: ["Salut", "i", "bon", "any", "nou!"], correctOrder: "Salut i bon any nou!", translation: "Cheers and happy new year!" },
-        { words: ["T'he", "portat", "un", "regal", "molt", "especial"], correctOrder: "T'he portat un regal molt especial", translation: "I've brought you a very special gift" },
-        { words: ["El", "casament", "és", "al", "juny"], correctOrder: "El casament és al juny", translation: "The wedding is in June" }
+        { words: ["Felicitats", "pel", "teu", "aniversari!"], correctOrder: "Felicitats pel teu aniversari!", translation: "Congratulations on your birthday!" , grammarNote: "💡 'Felicitats!' = Congratulations! 'Pel' = per + el (for the). 'Pel teu aniversari' = for your birthday." },
+        { words: ["Celebrem", "el", "Nadal", "en", "família"], correctOrder: "Celebrem el Nadal en família", translation: "We celebrate Christmas as a family" , grammarNote: "💡 'En família' = as a family/with family. 'Celebrem' = we celebrate." },
+        { words: ["Salut", "i", "bon", "any", "nou!"], correctOrder: "Salut i bon any nou!", translation: "Cheers and happy new year!" , grammarNote: "💡 'Bon any nou!' = Happy new year! 'Salut' = Cheers! Used for toasts." },
+        { words: ["T'he", "portat", "un", "regal", "molt", "especial"], correctOrder: "T'he portat un regal molt especial", translation: "I've brought you a very special gift" , grammarNote: "💡 'T'he portat' = I've brought you. 'T'' = to you. 'He portat' = I have brought." },
+        { words: ["El", "casament", "és", "al", "juny"], correctOrder: "El casament és al juny", translation: "The wedding is in June" , grammarNote: "💡 'Al juny' = in June. 'Al' + month for when things happen." }
       ]
     }
   },
@@ -1516,10 +1623,10 @@ export const lessons = [
         { catalan: "L'economia catalana va bé", english: "The Catalan economy is doing well", pronunciation: "leh-koh-noh-MEE-ah kah-tah-LAH-nah bah BEH" }
       ],
       fillInTheBlank: [
-        { sentence: "Has llegit les ___ d'avui?", blank: "notícies", options: ["notícies", "diaris", "cartes", "paraules"], correctIndex: 0, translation: "Have you read today's news?" },
-        { sentence: "___ el govern, l'economia millora", blank: "Segons", options: ["Segons", "Perquè", "Encara", "Sempre"], correctIndex: 0, translation: "According to the government, the economy is improving" },
-        { sentence: "Les ___ són el mes vinent", blank: "eleccions", options: ["vacances", "festes", "eleccions", "notícies"], correctIndex: 2, translation: "The elections are next month" },
-        { sentence: "El ___ ambient necessita protecció", blank: "medi", options: ["gran", "medi", "bon", "nou"], correctIndex: 1, translation: "The environment needs protection" }
+        { sentence: "Has llegit les ___ d'avui?", blank: "notícies", options: ["notícies", "diaris", "cartes", "paraules"], correctIndex: 0, translation: "Have you read today's news?" , explanation: "'Notícies' = news. Always plural. 'Has llegit les notícies?' = Have you read the news?" },
+        { sentence: "___ el govern, l'economia millora", blank: "Segons", options: ["Segons", "Perquè", "Encara", "Sempre"], correctIndex: 0, translation: "According to the government, the economy is improving" , explanation: "'Segons' = according to. 'Segons el govern' = according to the government."},
+        { sentence: "Les ___ són el mes vinent", blank: "eleccions", options: ["vacances", "festes", "eleccions", "notícies"], correctIndex: 2, translation: "The elections are next month" , explanation: "'Eleccions' = elections. 'El mes vinent' = next month." },
+        { sentence: "El ___ ambient necessita protecció", blank: "medi", options: ["gran", "medi", "bon", "nou"], correctIndex: 1, translation: "The environment needs protection" , explanation: "'Medi ambient' = environment. Two words! 'Medi' = medium/environment." }
       ],
       errorCorrection: [
         { sentence: "Has leído las notícies?", errorWordIndex: 1, options: ["leído", "llegit", "leido", "legit"], correctIndex: 1, translation: "Have you read the news?", explanation: "'Llegit' is the past participle of 'llegir' in Catalan" },
@@ -1547,11 +1654,11 @@ export const lessons = [
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "Estic molt ___ per la festa!", blank: "emocionat", options: ["enfadat", "emocionat", "preocupat", "sol"], correctIndex: 1, translation: "I'm very excited about the party!" },
-        { sentence: "Estic ___ perquè tinc un examen", blank: "nerviós", options: ["orgullós", "agraït", "nerviós", "sorprès"], correctIndex: 2, translation: "I'm nervous because I have an exam" },
-        { sentence: "Em sento ___ per tot el que fas", blank: "agraït", options: ["enfadat", "sol", "sorprès", "agraït"], correctIndex: 3, translation: "I feel grateful for everything you do" },
-        { sentence: "No estiguis ___!", blank: "preocupat", options: ["orgullós", "preocupat", "emocionat", "agraït"], correctIndex: 1, translation: "Don't be worried!" },
-        { sentence: "Estic molt ___ dels meus fills", blank: "orgullós", options: ["nerviós", "enfadat", "orgullós", "sol"], correctIndex: 2, translation: "I'm very proud of my children" }
+        { sentence: "Estic molt ___ per la festa!", blank: "emocionat", options: ["enfadat", "emocionat", "preocupat", "sol"], correctIndex: 1, translation: "I'm very excited about the party!" , explanation: "'Emocionat' = excited. 'Estic molt emocionat' = I'm very excited." },
+        { sentence: "Estic ___ perquè tinc un examen", blank: "nerviós", options: ["orgullós", "agraït", "nerviós", "sorprès"], correctIndex: 2, translation: "I'm nervous because I have an exam" , explanation: "'Nerviós' = nervous. 'Examen' = exam. Common reason to be nervous!" },
+        { sentence: "Em sento ___ per tot el que fas", blank: "agraït", options: ["enfadat", "sol", "sorprès", "agraït"], correctIndex: 3, translation: "I feel grateful for everything you do" , explanation: "'Agraït' = grateful. 'Em sento agraït' = I feel grateful." },
+        { sentence: "No estiguis ___!", blank: "preocupat", options: ["orgullós", "preocupat", "emocionat", "agraït"], correctIndex: 1, translation: "Don't be worried!" , explanation: "'Preocupat' = worried. 'No estiguis preocupat' = Don't be worried (informal)." },
+        { sentence: "Estic molt ___ dels meus fills", blank: "orgullós", options: ["nerviós", "enfadat", "orgullós", "sol"], correctIndex: 2, translation: "I'm very proud of my children" , explanation: "'Orgullós' = proud. 'Dels meus fills' = of my children." }
       ],
       listenAndType: [
         { catalan: "Estic molt emocionat!", english: "I'm very excited!", pronunciation: "es-TEEK mohlt eh-moh-see-oh-NAHT" },
@@ -1594,10 +1701,10 @@ export const lessons = [
         { sentence: "Necessito relaxarme", errorWordIndex: 1, options: ["relaxarme", "relaxar-me", "relajarme", "relaxar"], correctIndex: 1, translation: "I need to relax", explanation: "In Catalan, reflexive pronouns use a hyphen: 'relaxar-me'" }
       ],
       sentenceOrdering: [
-        { words: ["Hauria", "de", "fer", "més", "exercici"], correctOrder: "Hauria de fer més exercici", translation: "I should do more exercise" },
-        { words: ["Respira", "profundament", "i", "relaxa't"], correctOrder: "Respira profundament i relaxa't", translation: "Breathe deeply and relax" },
-        { words: ["Els", "bons", "hàbits", "milloren", "el", "benestar"], correctOrder: "Els bons hàbits milloren el benestar", translation: "Good habits improve well-being" },
-        { words: ["L'estrès", "no", "és", "bo", "per", "la", "salut"], correctOrder: "L'estrès no és bo per la salut", translation: "Stress is not good for health" }
+        { words: ["Hauria", "de", "fer", "més", "exercici"], correctOrder: "Hauria de fer més exercici", translation: "I should do more exercise" , grammarNote: "💡 'Hauria de' = I should. 'Hauria de fer' = I should do. Polite suggestion form." },
+        { words: ["Respira", "profundament", "i", "relaxa't"], correctOrder: "Respira profundament i relaxa't", translation: "Breathe deeply and relax" , grammarNote: "💡 'Relaxa't' = relax (yourself). The apostrophe replaces 'te'. Imperative reflexive." },
+        { words: ["Els", "bons", "hàbits", "milloren", "el", "benestar"], correctOrder: "Els bons hàbits milloren el benestar", translation: "Good habits improve well-being" , grammarNote: "💡 'Els bons hàbits' = good habits. 'Milloren' = improve (they). Third person plural." },
+        { words: ["L'estrès", "no", "és", "bo", "per", "la", "salut"], correctOrder: "L'estrès no és bo per la salut", translation: "Stress is not good for health" , grammarNote: "💡 'No és bo per...' = it's not good for... 'La salut' = health." }
       ]
     }
   },
@@ -1619,10 +1726,10 @@ export const lessons = [
     ],
     stageData: {
       fillInTheBlank: [
-        { sentence: "El meu ___ és parlar català perfectament", blank: "objectiu", options: ["somni", "objectiu", "futur", "èxit"], correctIndex: 1, translation: "My goal is to speak Catalan perfectly" },
-        { sentence: "Vull ___ el meu català", blank: "millorar", options: ["perdre", "millorar", "oblidar", "tancar"], correctIndex: 1, translation: "I want to improve my Catalan" },
-        { sentence: "Espero ___ els meus somnis", blank: "aconseguir", options: ["perdre", "oblidar", "aconseguir", "tancar"], correctIndex: 2, translation: "I hope to achieve my dreams" },
-        { sentence: "El ___ és ple d'esperança", blank: "futur", options: ["passat", "futur", "present", "somni"], correctIndex: 1, translation: "The future is full of hope" }
+        { sentence: "El meu ___ és parlar català perfectament", blank: "objectiu", options: ["somni", "objectiu", "futur", "èxit"], correctIndex: 1, translation: "My goal is to speak Catalan perfectly" , explanation: "'Objectiu' = goal/objective. 'El meu objectiu' = my goal." },
+        { sentence: "Vull ___ el meu català", blank: "millorar", options: ["perdre", "millorar", "oblidar", "tancar"], correctIndex: 1, translation: "I want to improve my Catalan" , explanation: "'Millorar' = to improve. 'Vull millorar' = I want to improve." },
+        { sentence: "Espero ___ els meus somnis", blank: "aconseguir", options: ["perdre", "oblidar", "aconseguir", "tancar"], correctIndex: 2, translation: "I hope to achieve my dreams" , explanation: "'Aconseguir' = to achieve. 'Espero aconseguir' = I hope to achieve." },
+        { sentence: "El ___ és ple d'esperança", blank: "futur", options: ["passat", "futur", "present", "somni"], correctIndex: 1, translation: "The future is full of hope" , explanation: "'Futur' = future. 'Ple de' = full of. 'Esperança' = hope." }
       ],
       listenAndType: [
         { catalan: "Quin és el teu somni?", english: "What is your dream?", pronunciation: "keen ehs ehl TEH-oo SOHM-nee" },
@@ -1673,12 +1780,481 @@ export const lessons = [
         { catalan: "Per sempre serà casa meva", english: "It will be my home forever", pronunciation: "per SEM-preh seh-RAH KAH-sah MEH-bah" }
       ],
       sentenceOrdering: [
-        { words: ["Catalunya", "és", "la", "meva", "llar"], correctOrder: "Catalunya és la meva llar", translation: "Catalonia is my home" },
-        { words: ["Aprendre", "la", "llengua", "és", "important"], correctOrder: "Aprendre la llengua és important", translation: "Learning the language is important" },
-        { words: ["Em", "sento", "part", "d'aquesta", "cultura"], correctOrder: "Em sento part d'aquesta cultura", translation: "I feel part of this culture" },
-        { words: ["Gràcies", "per", "fer-me", "sentir", "benvingut"], correctOrder: "Gràcies per fer-me sentir benvingut", translation: "Thank you for making me feel welcome" }
+        { words: ["Catalunya", "és", "la", "meva", "llar"], correctOrder: "Catalunya és la meva llar", translation: "Catalonia is my home" , grammarNote: "💡 'La meva llar' = my home. 'Llar' is more emotional than 'casa' — it means 'home' not just 'house'." },
+        { words: ["Aprendre", "la", "llengua", "és", "important"], correctOrder: "Aprendre la llengua és important", translation: "Learning the language is important" , grammarNote: "💡 'Aprendre' = to learn. 'La llengua' = the language. 'Aprendre la llengua' = to learn the language." },
+        { words: ["Em", "sento", "part", "d'aquesta", "cultura"], correctOrder: "Em sento part d'aquesta cultura", translation: "I feel part of this culture" ,grammarNote: "💡 'Em sento part de...' = I feel part of... 'D'aquesta' = of this (feminine)." },
+        { words: ["Gràcies", "per", "fer-me", "sentir", "benvingut"], correctOrder: "Gràcies per fer-me sentir benvingut", translation: "Thank you for making me feel welcome" , grammarNote: "💡 'Fer-me sentir' = to make me feel. 'Benvingut' = welcome. A beautiful final sentence!" }
       ]
     }
-  }
+  },
+
+  // ═══════════════════════════════════════════════════════════
+// PART 1: NEW LESSONS
+// ═══════════════════════════════════════════════════════════
+
+
+// ─── LESSON 53: Numbers 11-20 ────────────────────────────
+// CRITICAL GAP: L2 teaches 1-10, nothing teaches 11-20
+// Position: Insert right after lesson 50 in array
+// ─────────────────────────────────────────────────────────
+
+  {
+    id: 53,
+    title: "Numbers 11-20",
+    module: "Foundations",
+    stages: ['intro', 'flashcards', 'match', 'quiz'],
+    words: [
+      { en: "Eleven", ca: "Onze", pronunciation: "OHN-zeh" },
+      { en: "Twelve", ca: "Dotze", pronunciation: "DOH-tzeh" },
+      { en: "Thirteen", ca: "Tretze", pronunciation: "TREH-tzeh" },
+      { en: "Fourteen", ca: "Catorze", pronunciation: "kah-TOR-zeh" },
+      { en: "Fifteen", ca: "Quinze", pronunciation: "KEEN-zeh" },
+      { en: "Sixteen", ca: "Setze", pronunciation: "SEH-tzeh" },
+      { en: "Seventeen", ca: "Disset", pronunciation: "dee-SEHT" },
+      { en: "Eighteen", ca: "Divuit", pronunciation: "dee-BWEET" },
+      { en: "Nineteen", ca: "Dinou", pronunciation: "dee-NOH-oo" },
+      { en: "Twenty", ca: "Vint", pronunciation: "BEENT" }
+    ]
+  },
+
+
+// ─── LESSON 54: Numbers & Counting (21-100) ─────────────
+
+  {
+    id: 54,
+    title: "Numbers & Counting",
+    module: "Foundations",
+    stages: ['intro', 'flashcards', 'fillInTheBlank', 'sentenceOrdering'],
+    words: [
+      { en: "Twenty-one", ca: "Vint-i-un", pronunciation: "been-tee-OON" },
+      { en: "Thirty", ca: "Trenta", pronunciation: "TREN-tah" },
+      { en: "Forty", ca: "Quaranta", pronunciation: "kwah-RAHN-tah" },
+      { en: "Fifty", ca: "Cinquanta", pronunciation: "seen-KWAHN-tah" },
+      { en: "Sixty", ca: "Seixanta", pronunciation: "shay-SHAHN-tah" },
+      { en: "Seventy", ca: "Setanta", pronunciation: "seh-TAHN-tah" },
+      { en: "Eighty", ca: "Vuitanta", pronunciation: "bwee-TAHN-tah" },
+      { en: "Ninety", ca: "Noranta", pronunciation: "noh-RAHN-tah" },
+      { en: "One hundred", ca: "Cent", pronunciation: "SEHN" },
+      { en: "One thousand", ca: "Mil", pronunciation: "MEEL" }
+    ],
+    stageData: {
+      fillInTheBlank: [
+        { sentence: "El pis costa ___ euros al mes", blank: "vuitanta", options: ["trenta", "vuitanta", "cent", "mil"], correctIndex: 1, translation: "The flat costs eighty euros a month", explanation: "'Vuitanta' = 80. Pattern: vuit (8) → vuitanta (80)." },
+        { sentence: "Tinc ___ anys", blank: "trenta", options: ["vint", "trenta", "quaranta", "cinquanta"], correctIndex: 1, translation: "I am thirty years old", explanation: "'Trenta' = 30. 'Tinc trenta anys' = I'm 30 years old." },
+        { sentence: "Hi ha ___ alumnes a la classe", blank: "vint-i-cinc", options: ["vint-i-cinc", "trenta-dos", "quaranta", "cent"], correctIndex: 0, translation: "There are twenty-five students in the class", explanation: "'Vint-i-cinc' = 25. Pattern: vint-i- + units (vint-i-un, vint-i-dos...)." },
+        { sentence: "Quant costa? ___ euros", blank: "Noranta", options: ["Noranta", "Seixanta", "Setanta", "Quaranta"], correctIndex: 0, translation: "How much does it cost? Ninety euros", explanation: "'Noranta' = 90. Pattern: nou (9) → noranta (90)." },
+        { sentence: "Barcelona té ___ barris", blank: "setanta-tres", options: ["quaranta", "cinquanta", "seixanta", "setanta-tres"], correctIndex: 3, translation: "Barcelona has seventy-three neighbourhoods", explanation: "'Setanta-tres' = 73. For 31-99: tens-units (trenta-cinc = 35)." }
+      ],
+      sentenceOrdering: [
+        { grammarNote: "💡 Numbers 21-29 use 'vint-i-' + unit: vint-i-un (21), vint-i-tres (23), vint-i-nou (29).", words: ["Tinc", "quaranta", "anys"], correctOrder: "Tinc quaranta anys", translation: "I am forty years old" },
+        { grammarNote: "💡 For 31-99: tens-units with hyphen. Trenta-cinc (35), seixanta-dos (62), noranta-vuit (98).", words: ["Són", "cinquanta", "euros", "si", "us", "plau"], correctOrder: "Són cinquanta euros si us plau", translation: "It's fifty euros please" },
+        { grammarNote: "💡 'Cent' = 100. 'Dos-cents' = 200. 'Tres-cents' = 300. 'Mil' = 1000.", words: ["El", "lloguer", "és", "vuit-cents", "euros"], correctOrder: "El lloguer és vuit-cents euros", translation: "The rent is eight hundred euros" },
+        { grammarNote: "💡 'Quants anys tens?' = How old are you? Answer: 'Tinc + number + anys'.", words: ["La", "casa", "costa", "tres-cents", "mil", "euros"], correctOrder: "La casa costa tres-cents mil euros", translation: "The house costs three hundred thousand euros" }
+      ]
+    }
+  },
+
+
+// ─── LESSON 55: Months & Calendar ───────────────────────
+
+  {
+    id: 55,
+    title: "Months & Calendar",
+    module: "Foundations",
+    stages: ['intro', 'flashcards', 'fillInTheBlank', 'sentenceOrdering'],
+    words: [
+      { en: "January", ca: "Gener", pronunciation: "zheh-NER" },
+      { en: "February", ca: "Febrer", pronunciation: "feh-BRER" },
+      { en: "March", ca: "Març", pronunciation: "MARS" },
+      { en: "April", ca: "Abril", pronunciation: "ah-BREEL" },
+      { en: "May", ca: "Maig", pronunciation: "MAHCH" },
+      { en: "June", ca: "Juny", pronunciation: "ZHOO-nyee" },
+      { en: "July", ca: "Juliol", pronunciation: "zhoo-lee-OHL" },
+      { en: "August", ca: "Agost", pronunciation: "ah-GOST" },
+      { en: "September", ca: "Setembre", pronunciation: "seh-TEM-breh" },
+      { en: "October", ca: "Octubre", pronunciation: "ook-TOO-breh" }
+    ],
+    stageData: {
+      fillInTheBlank: [
+        { sentence: "El meu aniversari és al ___", blank: "març", options: ["gener", "març", "juliol", "octubre"], correctIndex: 1, translation: "My birthday is in March", explanation: "'Març' = March. In Catalan, months are NOT capitalised." },
+        { sentence: "Fa molta calor al ___", blank: "juliol", options: ["gener", "abril", "juliol", "octubre"], correctIndex: 2, translation: "It's very hot in July", explanation: "'Juliol' = July. The hottest month in Catalonia!" },
+        { sentence: "La festa major és al ___", blank: "setembre", options: ["febrer", "maig", "setembre", "gener"], correctIndex: 2, translation: "The main festival is in September", explanation: "'Setembre' = September. La Mercè in Barcelona is late September." },
+        { sentence: "La neu arriba al ___", blank: "gener", options: ["gener", "juny", "agost", "maig"], correctIndex: 0, translation: "The snow arrives in January", explanation: "'Gener' = January. The coldest month in the Pyrenees." },
+        { sentence: "Les classes comencen al ___", blank: "setembre", options: ["juliol", "agost", "setembre", "juny"], correctIndex: 2, translation: "Classes start in September", explanation: "'Setembre' = September. The school year begins then." }
+      ],
+      sentenceOrdering: [
+        { grammarNote: "💡 'Al' + month: 'al gener' (in January), 'al juny' (in June). Months are lowercase in Catalan.", words: ["El", "casament", "és", "al", "juny"], correctOrder: "El casament és al juny", translation: "The wedding is in June" },
+        { grammarNote: "💡 'De...a...' for date ranges: 'de juny a setembre' = from June to September.", words: ["De", "juny", "a", "setembre", "fa", "calor"], correctOrder: "De juny a setembre fa calor", translation: "From June to September it's hot" },
+        { grammarNote: "💡 'Estem a...' = We are in... (current month). 'Quin mes és?' = What month is it?", words: ["Estem", "a", "febrer"], correctOrder: "Estem a febrer", translation: "We are in February" },
+        { grammarNote: "💡 'El primer de...' = The first of... Used for dates: 'el primer de gener' = January 1st.", words: ["El", "primer", "d'abril", "és", "demà"], correctOrder: "El primer d'abril és demà", translation: "The first of April is tomorrow" }
+      ]
+    }
+  },
+
+
+// ─── LESSON 56: Telling the Time ────────────────────────
+
+  {
+    id: 56,
+    title: "Telling the Time",
+    module: "Foundations",
+    stages: ['intro', 'flashcards', 'fillInTheBlank', 'listenAndType'],
+    words: [
+      { en: "What time is it?", ca: "Quina hora és?", pronunciation: "KEE-nah OH-rah EHS" },
+      { en: "It's one o'clock", ca: "És la una", pronunciation: "EHS lah OO-nah" },
+      { en: "It's two o'clock", ca: "Són les dues", pronunciation: "SOHN lehs DOO-ehs" },
+      { en: "Half past", ca: "I mitja", pronunciation: "ee MEE-jah" },
+      { en: "Quarter past", ca: "I quart", pronunciation: "ee KWART" },
+      { en: "Quarter to", ca: "Menys quart", pronunciation: "MEHNYS KWART" },
+      { en: "In the morning", ca: "Del matí", pronunciation: "dehl mah-TEE" },
+      { en: "In the afternoon", ca: "De la tarda", pronunciation: "deh lah TAR-dah" },
+      { en: "At night", ca: "De la nit", pronunciation: "deh lah NEET" },
+      { en: "Midday", ca: "Migdia", pronunciation: "meetch-DEE-ah" }
+    ],
+    stageData: {
+      fillInTheBlank: [
+        { sentence: "Quina ___ és?", blank: "hora", options: ["hora", "dia", "nit", "tarda"], correctIndex: 0, translation: "What time is it?", explanation: "'Quina hora és?' is the standard way to ask the time in Catalan." },
+        { sentence: "Són les tres i ___", blank: "mitja", options: ["quart", "mitja", "hora", "punt"], correctIndex: 1, translation: "It's half past three", explanation: "'I mitja' = and a half. Són les tres i mitja = 3:30." },
+        { sentence: "La reunió és a les cinc ___ quart", blank: "menys", options: ["i", "menys", "de", "amb"], correctIndex: 1, translation: "The meeting is at quarter to five", explanation: "'Menys quart' = minus a quarter = quarter to. 4:45." },
+        { sentence: "El tren surt a les vuit del ___", blank: "matí", options: ["matí", "tarda", "nit", "migdia"], correctIndex: 0, translation: "The train leaves at eight in the morning", explanation: "'Del matí' = in the morning. 'De la tarda' = in the afternoon." },
+        { sentence: "___ la una en punt", blank: "És", options: ["És", "Són", "Fa", "Tinc"], correctIndex: 0, translation: "It's exactly one o'clock", explanation: "'És' for 1 o'clock (singular). 'Són' for 2+ (plural). Key rule!" }
+      ],
+      listenAndType: [
+        { catalan: "Són les dues de la tarda", english: "It's two in the afternoon", pronunciation: "SOHN lehs DOO-ehs deh lah TAR-dah" },
+        { catalan: "El tren surt a les set i mitja", english: "The train leaves at half past seven", pronunciation: "ehl TREHN soort ah lehs SEHT ee MEE-jah" },
+        { catalan: "Quina hora és? Són les quatre", english: "What time is it? It's four o'clock", pronunciation: "KEE-nah OH-rah EHS SOHN lehs KWAH-treh" },
+        { catalan: "Dinem a la una del migdia", english: "We eat lunch at one", pronunciation: "dee-NEHM ah lah OO-nah dehl meetch-DEE-ah" }
+      ]
+    }
+  },
+
+
+// ─── LESSON 57: Talking About the Past ──────────────────
+
+  {
+    id: 57,
+    title: "Talking About the Past",
+    module: "Grammar",
+    stages: ['intro', 'flashcards', 'fillInTheBlank', 'sentenceOrdering'],
+    words: [
+      { en: "Yesterday", ca: "Ahir", pronunciation: "ah-EER" },
+      { en: "Last week", ca: "La setmana passada", pronunciation: "lah seh-MAH-nah pah-SAH-dah" },
+      { en: "Last year", ca: "L'any passat", pronunciation: "LAHN-yee pah-SAHT" },
+      { en: "I went", ca: "Vaig anar", pronunciation: "bahch ah-NAR" },
+      { en: "I ate", ca: "Vaig menjar", pronunciation: "bahch men-ZHAR" },
+      { en: "I saw", ca: "Vaig veure", pronunciation: "bahch BEH-oo-reh" },
+      { en: "I bought", ca: "Vaig comprar", pronunciation: "bahch kohm-PRAR" },
+      { en: "I did/made", ca: "Vaig fer", pronunciation: "bahch FER" }
+    ],
+    stageData: {
+      fillInTheBlank: [
+        { sentence: "Ahir ___ anar al mercat", blank: "vaig", options: ["vaig", "vull", "puc", "tinc"], correctIndex: 0, translation: "Yesterday I went to the market", explanation: "'Vaig + infinitive' is the past tense in Catalan. 'Vaig anar' = I went." },
+        { sentence: "Vaig ___ una paella deliciosa", blank: "menjar", options: ["anar", "menjar", "comprar", "veure"], correctIndex: 1, translation: "I ate a delicious paella", explanation: "'Vaig menjar' = I ate. The verb after 'vaig' stays in its base form." },
+        { sentence: "La setmana passada vaig ___ un cotxe", blank: "comprar", options: ["menjar", "veure", "comprar", "anar"], correctIndex: 2, translation: "Last week I bought a car", explanation: "'Vaig comprar' = I bought. 'La setmana passada' = last week." },
+        { sentence: "___ vaig veure el meu amic", blank: "Ahir", options: ["Demà", "Ahir", "Avui", "Sempre"], correctIndex: 1, translation: "Yesterday I saw my friend", explanation: "'Ahir' = yesterday. Time words usually go at the start or end." },
+        { sentence: "L'any passat vaig ___ un viatge a Andorra", blank: "fer", options: ["anar", "fer", "menjar", "veure"], correctIndex: 1, translation: "Last year I did a trip to Andorra", explanation: "'Vaig fer' = I did/made. 'Fer un viatge' = to take a trip." }
+      ],
+      sentenceOrdering: [
+        { grammarNote: "💡 Past tense: 'vaig' + infinitive. Vaig anar (I went), vaig menjar (I ate), vaig fer (I did).", words: ["Ahir", "vaig", "anar", "al", "cinema"], correctOrder: "Ahir vaig anar al cinema", translation: "Yesterday I went to the cinema" },
+        { grammarNote: "💡 'La setmana passada' = last week. Time phrases go at start or end of sentence.", words: ["Vaig", "comprar", "pa", "al", "mercat"], correctOrder: "Vaig comprar pa al mercat", translation: "I bought bread at the market" },
+        { grammarNote: "💡 All persons: vaig (I), vas (you), va (he/she), vam (we), vau (you pl.), van (they).", words: ["Vam", "anar", "a", "la", "platja", "junts"], correctOrder: "Vam anar a la platja junts", translation: "We went to the beach together" },
+        { grammarNote: "💡 The second verb NEVER changes form. Always infinitive: vaig FER, vaig ANAR, vaig VEURE.", words: ["L'any", "passat", "vaig", "fer", "un", "viatge"], correctOrder: "L'any passat vaig fer un viatge", translation: "Last year I did a trip" }
+      ]
+    }
+  },
+
+
+// ─── LESSON 58: Talking About the Future ────────────────
+
+  {
+    id: 58,
+    title: "Talking About the Future",
+    module: "Grammar",
+    stages: ['intro', 'flashcards', 'fillInTheBlank', 'listenAndType'],
+    words: [
+      { en: "I will go", ca: "Aniré", pronunciation: "ah-nee-REH" },
+      { en: "I will eat", ca: "Menjaré", pronunciation: "men-zhah-REH" },
+      { en: "I will do", ca: "Faré", pronunciation: "fah-REH" },
+      { en: "I will be", ca: "Seré", pronunciation: "seh-REH" },
+      { en: "I will have", ca: "Tindré", pronunciation: "teen-DREH" },
+      { en: "Next week", ca: "La setmana vinent", pronunciation: "lah seh-MAH-nah bee-NEHN" },
+      { en: "Next year", ca: "L'any vinent", pronunciation: "LAHN-yee bee-NEHN" },
+      { en: "Soon", ca: "Aviat", pronunciation: "ah-bee-AHT" }
+    ],
+    stageData: {
+      fillInTheBlank: [
+        { sentence: "Demà ___ a Barcelona", blank: "aniré", options: ["aniré", "vaig anar", "anar", "anava"], correctIndex: 0, translation: "Tomorrow I will go to Barcelona", explanation: "'Aniré' = I will go. Future = verb stem + -é. Anar → aniré." },
+        { sentence: "La setmana vinent ___ un pastís", blank: "faré", options: ["faig", "faré", "fer", "vaig fer"], correctIndex: 1, translation: "Next week I will make a cake", explanation: "'Faré' = I will do/make. Fer → faré. The -é ending = 'I will'." },
+        { sentence: "Aviat ___ més català!", blank: "parlaré", options: ["parlo", "parlar", "parlaré", "parlava"], correctIndex: 2, translation: "Soon I will speak more Catalan!", explanation: "'Parlaré' = I will speak. Parlar → parlaré. Regular -ar verbs add -é." },
+        { sentence: "L'any vinent ___ a Andorra", blank: "seré", options: ["sóc", "seré", "era", "ser"], correctIndex: 1, translation: "Next year I will be in Andorra", explanation: "'Seré' = I will be. Ser → seré." },
+        { sentence: "___ un cotxe nou aviat", blank: "Tindré", options: ["Tinc", "Tindré", "Tenir", "Tenia"], correctIndex: 1, translation: "I will have a new car soon", explanation: "'Tindré' = I will have. Tenir → tindré (irregular stem)." }
+      ],
+      listenAndType: [
+        { catalan: "Demà aniré al mercat", english: "Tomorrow I will go to the market", pronunciation: "deh-MAH ah-nee-REH ahl mer-KAHT" },
+        { catalan: "La setmana vinent faré una festa", english: "Next week I will have a party", pronunciation: "lah seh-MAH-nah bee-NEHN fah-REH OO-nah FEHS-tah" },
+        { catalan: "Aviat parlaré català perfectament!", english: "Soon I will speak Catalan perfectly!", pronunciation: "ah-bee-AHT par-lah-REH kah-tah-LAH per-fek-tah-MEHN" },
+        { catalan: "Seré molt content a Catalunya", english: "I will be very happy in Catalonia", pronunciation: "seh-REH mohlt kohn-TEHN ah kah-tah-LOO-nyah" }
+      ]
+    }
+  },
+
+
+// ─── LESSON 59: Comparisons ─────────────────────────────
+
+  {
+    id: 59,
+    title: "Comparisons",
+    module: "Grammar",
+    stages: ['intro', 'flashcards', 'fillInTheBlank', 'sentenceOrdering'],
+    words: [
+      { en: "More...than", ca: "Més...que", pronunciation: "MEHS...keh" },
+      { en: "Less...than", ca: "Menys...que", pronunciation: "MEHNYS...keh" },
+      { en: "As...as", ca: "Tan...com", pronunciation: "TAHN...kohm" },
+      { en: "The best", ca: "El millor", pronunciation: "ehl mee-YOR" },
+      { en: "The worst", ca: "El pitjor", pronunciation: "ehl pee-JZHOR" },
+      { en: "Bigger", ca: "Més gran", pronunciation: "mehs GRAHN" },
+      { en: "Smaller", ca: "Més petit", pronunciation: "mehs peh-TEET" },
+      { en: "The same", ca: "Igual", pronunciation: "ee-GWAHL" }
+    ],
+    stageData: {
+      fillInTheBlank: [
+        { sentence: "Barcelona és ___ gran que Girona", blank: "més", options: ["més", "menys", "tan", "igual"], correctIndex: 0, translation: "Barcelona is bigger than Girona", explanation: "'Més...que' = more...than. 'Més gran que' = bigger than." },
+        { sentence: "El metro és ___ ràpid que l'autobús", blank: "més", options: ["menys", "tan", "més", "igual"], correctIndex: 2, translation: "The metro is faster than the bus", explanation: "'Més ràpid que' = faster than. Adjective between 'més' and 'que'." },
+        { sentence: "El cafè és ___ bo com el te", blank: "tan", options: ["més", "menys", "tan", "molt"], correctIndex: 2, translation: "Coffee is as good as tea", explanation: "'Tan...com' = as...as. 'Tan bo com' = as good as." },
+        { sentence: "Aquesta és la ___ paella del món", blank: "millor", options: ["millor", "pitjor", "més", "menys"], correctIndex: 0, translation: "This is the best paella in the world", explanation: "'Millor' = best/better. Irregular: bo → millor (NOT 'més bo')." },
+        { sentence: "Avui fa ___ fred que ahir", blank: "menys", options: ["més", "menys", "tan", "molt"], correctIndex: 1, translation: "Today it's less cold than yesterday", explanation: "'Menys...que' = less...than. Less common but important." }
+      ],
+      sentenceOrdering: [
+        { grammarNote: "💡 'Més...que' = more than. Adjective between: 'més gran que' (bigger than), 'més alt que' (taller than).", words: ["Barcelona", "és", "més", "gran", "que", "Girona"], correctOrder: "Barcelona és més gran que Girona", translation: "Barcelona is bigger than Girona" },
+        { grammarNote: "💡 'Tan...com' = as...as. For equal comparisons: tan bonic com, tan ràpid com.", words: ["El", "català", "és", "tan", "bonic", "com", "l'italià"], correctOrder: "El català és tan bonic com l'italià", translation: "Catalan is as beautiful as Italian" },
+        { grammarNote: "💡 'Millor' = better/best. 'Pitjor' = worse/worst. Never say 'més bo' or 'més dolent'.", words: ["Aquesta", "és", "la", "millor", "pizza"], correctOrder: "Aquesta és la millor pizza", translation: "This is the best pizza" },
+        { grammarNote: "💡 'Menys...que' = less...than. 'Avui fa menys calor que ahir' = Today it's less hot than yesterday.", words: ["Avui", "fa", "menys", "fred", "que", "ahir"], correctOrder: "Avui fa menys fred que ahir", translation: "Today it's less cold than yesterday" }
+      ]
+    }
+  },
+
+
+// ─── LESSON 60: Asking Questions ────────────────────────
+
+  {
+    id: 60,
+    title: "Asking Questions",
+    module: "Grammar",
+    stages: ['intro', 'flashcards', 'fillInTheBlank', 'miniConversation'],
+    words: [
+      { en: "What?", ca: "Què?", pronunciation: "KEH" },
+      { en: "Who?", ca: "Qui?", pronunciation: "KEE" },
+      { en: "When?", ca: "Quan?", pronunciation: "KWAHN" },
+      { en: "Why?", ca: "Per què?", pronunciation: "per KEH" },
+      { en: "How?", ca: "Com?", pronunciation: "KOHM" },
+      { en: "Which?", ca: "Quin / Quina?", pronunciation: "KEEN / KEE-nah" },
+      { en: "How many?", ca: "Quants / Quantes?", pronunciation: "KWANTS / KWAHN-tehs" },
+      { en: "Because", ca: "Perquè", pronunciation: "per-KEH" }
+    ],
+    stageData: {
+      fillInTheBlank: [
+        { sentence: "___ fas aquí?", blank: "Què", options: ["Què", "Qui", "Quan", "Com"], correctIndex: 0, translation: "What are you doing here?", explanation: "'Què?' = What? Used for things and actions." },
+        { sentence: "___ és aquest senyor?", blank: "Qui", options: ["Què", "Qui", "Quan", "Com"], correctIndex: 1, translation: "Who is this man?", explanation: "'Qui?' = Who? Used for people." },
+        { sentence: "___ arribes?", blank: "Quan", options: ["Què", "Com", "Quan", "Per què"], correctIndex: 2, translation: "When do you arrive?", explanation: "'Quan?' = When? Used for time." },
+        { sentence: "___ estudies català?", blank: "Per què", options: ["Què", "Qui", "Com", "Per què"], correctIndex: 3, translation: "Why do you study Catalan?", explanation: "'Per què?' (2 words) = Why? 'Perquè' (1 word) = Because." },
+        { sentence: "___ persones hi ha?", blank: "Quantes", options: ["Quantes", "Quins", "Quan", "Com"], correctIndex: 0, translation: "How many people are there?", explanation: "'Quantes' = how many (feminine). 'Persones' is feminine." }
+      ],
+      miniConversation: [
+        { speaker: "New friend", text: "Hola! D'on ets?", isUserTurn: false, translation: "Hi! Where are you from?" },
+        { speaker: "You", text: "", isUserTurn: true, options: ["Sóc d'Anglaterra. I tu, d'on ets?", "No entenc", "Quant costa?"], correctIndex: 0 },
+        { speaker: "New friend", text: "De Girona! Quan vas arribar a Catalunya?", isUserTurn: false, translation: "From Girona! When did you arrive in Catalonia?" },
+        { speaker: "You", text: "", isUserTurn: true, options: ["Fa un any. Per què em preguntes?", "Tinc febre", "Adéu"], correctIndex: 0 },
+        { speaker: "New friend", text: "Perquè parles molt bé el català! Com l'has après?", isUserTurn: false, translation: "Because you speak Catalan very well! How did you learn it?" },
+        { speaker: "You", text: "", isUserTurn: true, options: ["Amb HolaCatalà i parlant amb gent com tu!", "No m'agrada", "On és el bany?"], correctIndex: 0 }
+      ]
+    }
+  },
+
+
+// ─── LESSON 61: Shopping for Groceries ──────────────────
+
+  {
+    id: 61,
+    title: "Shopping for Groceries",
+    module: "Practical Life",
+    stages: ['intro', 'listenAndType', 'miniConversation', 'errorCorrection'],
+    words: [
+      { en: "Olive oil", ca: "Oli d'oliva", pronunciation: "OH-lee DOH-lee-bah" },
+      { en: "Tomato", ca: "Tomàquet", pronunciation: "toh-MAH-keht" },
+      { en: "Onion", ca: "Ceba", pronunciation: "SEH-bah" },
+      { en: "Potato", ca: "Patata", pronunciation: "pah-TAH-tah" },
+      { en: "Apple", ca: "Poma", pronunciation: "POH-mah" },
+      { en: "Orange", ca: "Taronja", pronunciation: "tah-ROHN-zhah" },
+      { en: "Tin/Can", ca: "Llauna", pronunciation: "YOW-nah" },
+      { en: "Shopping list", ca: "Llista de la compra", pronunciation: "YEES-tah deh lah KOHM-prah" }
+    ],
+    stageData: {
+      listenAndType: [
+        { catalan: "Voldria mig quilo de tomàquets", english: "I would like half a kilo of tomatoes", pronunciation: "bol-DREE-ah meetch KEE-loh deh toh-MAH-kehts" },
+        { catalan: "On és l'oli d'oliva?", english: "Where is the olive oil?", pronunciation: "ohn EHS LOH-lee DOH-lee-bah" },
+        { catalan: "Necessito cebes i patates", english: "I need onions and potatoes", pronunciation: "neh-seh-SEE-toh SEH-behs ee pah-TAH-tehs" },
+        { catalan: "Les pomes estan de temporada", english: "The apples are in season", pronunciation: "lehs POH-mehs es-TAHN deh tem-poh-RAH-dah" }
+      ],
+      miniConversation: [
+        { speaker: "Shopkeeper", text: "Bon dia! Què voldria?", isUserTurn: false, translation: "Good morning! What would you like?" },
+        { speaker: "You", text: "", isUserTurn: true, options: ["Voldria un quilo de tomàquets i mig de cebes", "Un cafè si us plau", "On és el bany?"], correctIndex: 0 },
+        { speaker: "Shopkeeper", text: "Molt bé. Alguna cosa més?", isUserTurn: false, translation: "Very good. Anything else?" },
+        { speaker: "You", text: "", isUserTurn: true, options: ["Sí, un quilo de pomes i taronges", "No entenc", "Tinc febre"], correctIndex: 0 },
+        { speaker: "Shopkeeper", text: "Perfecte! Són set euros amb cinquanta.", isUserTurn: false, translation: "Perfect! It's seven euros fifty." },
+        { speaker: "You", text: "", isUserTurn: true, options: ["Aquí té. Moltes gràcies!", "És massa car", "Adéu"], correctIndex: 0 }
+      ],
+      errorCorrection: [
+        { sentence: "Necesito comprar tomates", errorWordIndex: 2, options: ["tomates", "tomàquets", "tomatas", "tomaques"], correctIndex: 1, translation: "I need to buy tomatoes", explanation: "'Tomàquets' is the Catalan word. 'Tomates' is Spanish." },
+        { sentence: "On és el aceite de oliva?", errorWordIndex: 2, options: ["aceite", "oli", "oile", "oliu"], correctIndex: 1, translation: "Where is the olive oil?", explanation: "'Oli' is 'oil' in Catalan. 'Aceite' is Spanish." },
+        { sentence: "Voldria un kilo de cebollas", errorWordIndex: 4, options: ["cebollas", "cebes", "ceboles", "cebas"], correctIndex: 1, translation: "I would like a kilo of onions", explanation: "'Cebes' is Catalan for onions. 'Cebollas' is Spanish." },
+        { sentence: "Les manzanas són bones", errorWordIndex: 1, options: ["manzanas", "pomes", "mançanes", "pommes"], correctIndex: 1, translation: "The apples are good", explanation: "'Pomes' is 'apples' in Catalan. 'Manzanas' is Spanish." }
+      ]
+    }
+  },
+
+
+// ─── LESSON 62: At the Airport ──────────────────────────
+
+  {
+    id: 62,
+    title: "At the Airport",
+    module: "Practical Life",
+    stages: ['intro', 'flashcards', 'listenAndType', 'miniConversation'],
+    words: [
+      { en: "Airport", ca: "Aeroport", pronunciation: "ah-eh-roh-PORT" },
+      { en: "Departure", ca: "Sortida", pronunciation: "sor-TEE-dah" },
+      { en: "Arrival", ca: "Arribada", pronunciation: "ah-ree-BAH-dah" },
+      { en: "Luggage", ca: "Equipatge", pronunciation: "eh-kee-PAH-jeh" },
+      { en: "Security", ca: "Seguretat", pronunciation: "seh-goo-reh-TAHT" },
+      { en: "Terminal", ca: "Terminal", pronunciation: "ter-mee-NAHL" },
+      { en: "To check in", ca: "Facturar", pronunciation: "fahk-too-RAR" },
+      { en: "Seat", ca: "Seient", pronunciation: "seh-ee-EHN" }
+    ],
+    stageData: {
+      listenAndType: [
+        { catalan: "On és la terminal dos?", english: "Where is terminal two?", pronunciation: "ohn EHS lah ter-mee-NAHL DOHS" },
+        { catalan: "Necessito facturar l'equipatge", english: "I need to check in the luggage", pronunciation: "neh-seh-SEE-toh fahk-too-RAR leh-kee-PAH-jeh" },
+        { catalan: "El vol té un retard de dues hores", english: "The flight has a two-hour delay", pronunciation: "ehl BOHL teh oon reh-TART deh DOO-ehs OH-rehs" },
+        { catalan: "Puc triar el seient?", english: "Can I choose the seat?", pronunciation: "POOK tree-AR ehl seh-ee-EHN" }
+      ],
+      miniConversation: [
+        { speaker: "Agent", text: "Bon dia! El passaport i la targeta d'embarcament, si us plau.", isUserTurn: false, translation: "Good morning! Passport and boarding pass, please." },
+        { speaker: "You", text: "", isUserTurn: true, options: ["Aquí té. Puc triar un seient de finestra?", "Voldria un cafè", "On és la platja?"], correctIndex: 0 },
+        { speaker: "Agent", text: "Sí, fila 15, seient A. Vol facturar equipatge?", isUserTurn: false, translation: "Yes, row 15, seat A. Do you want to check luggage?" },
+        { speaker: "You", text: "", isUserTurn: true, options: ["Sí, una maleta, si us plau", "No entenc", "Tinc febre"], correctIndex: 0 },
+        { speaker: "Agent", text: "Perfecte. Porta d'embarcament B22. Bon viatge!", isUserTurn: false, translation: "Perfect. Boarding gate B22. Have a good trip!" },
+        { speaker: "You", text: "", isUserTurn: true, options: ["Moltes gràcies! A quina hora embarquem?", "Adéu", "No m'agrada"], correctIndex: 0 }
+      ]
+    }
+  },
+
+
+// ─── LESSON 63: Daily Routine ───────────────────────────
+
+  {
+    id: 63,
+    title: "Daily Routine",
+    module: "Practical Life",
+    stages: ['intro', 'flashcards', 'fillInTheBlank', 'sentenceOrdering'],
+    words: [
+      { en: "To wake up", ca: "Despertar-se", pronunciation: "des-per-TAR-seh" },
+      { en: "To get up", ca: "Llevar-se", pronunciation: "yeh-BAR-seh" },
+      { en: "To shower", ca: "Dutxar-se", pronunciation: "doo-CHAR-seh" },
+      { en: "To get dressed", ca: "Vestir-se", pronunciation: "bes-TEER-seh" },
+      { en: "To have breakfast", ca: "Esmorzar", pronunciation: "ez-mor-SAR" },
+      { en: "To have lunch", ca: "Dinar", pronunciation: "dee-NAR" },
+      { en: "To have dinner", ca: "Sopar", pronunciation: "soh-PAR" },
+      { en: "To go to bed", ca: "Anar a dormir", pronunciation: "ah-NAR ah door-MEER" }
+    ],
+    stageData: {
+      fillInTheBlank: [
+        { sentence: "Em ___ a les set del matí", blank: "desperto", options: ["desperto", "dutxo", "vesteixo", "llevo"], correctIndex: 0, translation: "I wake up at seven in the morning", explanation: "'Em desperto' = I wake up. Reflexive: 'em' (myself) + verb." },
+        { sentence: "Després de dutxar-me, em ___", blank: "vesteixo", options: ["desperto", "dutxo", "vesteixo", "llevo"], correctIndex: 2, translation: "After showering, I get dressed", explanation: "'Em vesteixo' = I get dressed. Vestir-se → em vesteixo." },
+        { sentence: "___ a les vuit amb la família", blank: "Esmorzo", options: ["Dino", "Sopo", "Esmorzo", "Dormo"], correctIndex: 2, translation: "I have breakfast at eight with the family", explanation: "'Esmorzo' = I have breakfast. 'Esmorzar' = breakfast (noun & verb)." },
+        { sentence: "___ a les dues de la tarda", blank: "Dino", options: ["Esmorzo", "Dino", "Sopo", "Dormo"], correctIndex: 1, translation: "I have lunch at two in the afternoon", explanation: "'Dino' = I have lunch. Catalans eat lunch around 2pm!" },
+        { sentence: "Anem a ___ a les onze de la nit", blank: "dormir", options: ["esmorzar", "dinar", "sopar", "dormir"], correctIndex: 3, translation: "We go to bed at eleven at night", explanation: "'Anar a dormir' = to go to bed. Literally 'go to sleep'." }
+      ],
+      sentenceOrdering: [
+        { grammarNote: "💡 Reflexive verbs: 'em' (myself) before the verb. Em desperto, em dutxo, em vesteixo.", words: ["Em", "desperto", "a", "les", "set"], correctOrder: "Em desperto a les set", translation: "I wake up at seven" },
+        { grammarNote: "💡 'Després de' = after. Use infinitive: 'després d'esmorzar' = after breakfast.", words: ["Després", "d'esmorzar", "vaig", "a", "la", "feina"], correctOrder: "Després d'esmorzar vaig a la feina", translation: "After breakfast I go to work" },
+        { grammarNote: "💡 Meals: esmorzar (~8am), dinar (~2pm), sopar (~9pm). Very different schedule to UK!", words: ["Dinem", "a", "les", "dues", "de", "la", "tarda"], correctOrder: "Dinem a les dues de la tarda", translation: "We have lunch at two in the afternoon" },
+        { grammarNote: "💡 'Cada dia' = every day. Goes at start or end: 'Cada dia em dutxo' or 'Em dutxo cada dia'.", words: ["Cada", "dia", "em", "dutxo", "al", "matí"], correctOrder: "Cada dia em dutxo al matí", translation: "Every day I shower in the morning" }
+      ]
+    }
+  },
+
+
+// ─── LESSON 64: Andorra & the Pyrenees ──────────────────
+
+  {
+    id: 64,
+    title: "Andorra & the Pyrenees",
+    module: "Practical Life",
+    stages: ['intro', 'flashcards', 'listenAndType', 'miniConversation'],
+    words: [
+      { en: "Ski", ca: "Esquiar", pronunciation: "es-kee-AR" },
+      { en: "Ski resort", ca: "Estació d'esquí", pronunciation: "es-tah-see-OH des-KEE" },
+      { en: "Valley", ca: "Vall", pronunciation: "BAHL" },
+      { en: "Mountain pass", ca: "Coll", pronunciation: "KOHL" },
+      { en: "Hiking", ca: "Senderisme", pronunciation: "sen-deh-REES-meh" },
+      { en: "Refuge/Hut", ca: "Refugi", pronunciation: "reh-FOO-zhee" },
+      { en: "Border", ca: "Frontera", pronunciation: "fron-TEH-rah" },
+      { en: "Landscape", ca: "Paisatge", pronunciation: "pah-ee-SAH-jeh" }
+    ],
+    stageData: {
+      listenAndType: [
+        { catalan: "Anem a esquiar a Grandvalira", english: "Let's go skiing at Grandvalira", pronunciation: "ah-NEHM ah es-kee-AR ah grahn-bah-LEE-rah" },
+        { catalan: "El paisatge dels Pirineus és increïble", english: "The Pyrenees landscape is incredible", pronunciation: "ehl pah-ee-SAH-jeh dehls pee-ree-NEH-oos ehs een-kreh-EE-bleh" },
+        { catalan: "M'agrada fer senderisme a la muntanya", english: "I like hiking in the mountains", pronunciation: "mah-GRAH-dah fer sen-deh-REES-meh ah lah moon-TAH-nyah" },
+        { catalan: "La frontera amb França és a prop", english: "The border with France is nearby", pronunciation: "lah fron-TEH-rah ahm FRAHN-sah ehs ah PROHP" }
+      ],
+      miniConversation: [
+        { speaker: "Friend", text: "Vols venir a esquiar aquest cap de setmana?", isUserTurn: false, translation: "Do you want to come skiing this weekend?" },
+        { speaker: "You", text: "", isUserTurn: true, options: ["Sí, m'encantaria! A quina estació anem?", "No m'agrada la neu", "Quant costa?"], correctIndex: 0 },
+        { speaker: "Friend", text: "Grandvalira! Hi ha molta neu. Portes l'equipament?", isUserTurn: false, translation: "Grandvalira! There's a lot of snow. Do you have your gear?" },
+        { speaker: "You", text: "", isUserTurn: true, options: ["Sí, tinc esquís i botes. Sortim d'hora?", "No entenc", "Tinc febre"], correctIndex: 0 },
+        { speaker: "Friend", text: "A les vuit del matí. Després d'esquiar podem sopar a un refugi!", isUserTurn: false, translation: "At eight in the morning. After skiing we can eat dinner at a mountain hut!" },
+        { speaker: "You", text: "", isUserTurn: true, options: ["Genial! El paisatge dels Pirineus és increïble!", "Adéu", "No m'agrada"], correctIndex: 0 }
+      ]
+    }
+  },
+
+
+// ─── LESSON 65: Catalan Idioms & Expressions ────────────
+
+  {
+    id: 65,
+    title: "Catalan Expressions",
+    module: "Practical Life",
+    stages: ['intro', 'flashcards', 'fillInTheBlank', 'miniConversation'],
+    words: [
+      { en: "No worries!", ca: "No passa res!", pronunciation: "noh PAH-sah REHS" },
+      { en: "I agree", ca: "D'acord", pronunciation: "dah-KORD" },
+      { en: "Of course!", ca: "És clar!", pronunciation: "ehs KLAHR" },
+      { en: "It doesn't matter", ca: "Tant se val", pronunciation: "tahnt seh BAHL" },
+      { en: "Well done!", ca: "Molt bé!", pronunciation: "mohlt BEH" },
+      { en: "No idea", ca: "Ni idea", pronunciation: "nee ee-DEH-ah" },
+      { en: "Be careful!", ca: "Vés amb compte!", pronunciation: "BEHS ahm KOHM-teh" },
+      { en: "What a shame!", ca: "Quina llàstima!", pronunciation: "KEE-nah YAHS-tee-mah" }
+    ],
+    stageData: {
+      fillInTheBlank: [
+        { sentence: "He trencat un got! — ___!", blank: "No passa res", options: ["Molt bé", "No passa res", "Quina llàstima", "Vés amb compte"], correctIndex: 1, translation: "I broke a glass! — No worries!", explanation: "'No passa res' = No worries / It's nothing. The go-to reassuring phrase." },
+        { sentence: "Quedem a les cinc? — ___!", blank: "D'acord", options: ["Ni idea", "Tant se val", "D'acord", "Quina llàstima"], correctIndex: 2, translation: "Shall we meet at five? — OK!", explanation: "'D'acord' = OK / I agree. Used constantly in daily conversation." },
+        { sentence: "Saps on és el mercat? — ___", blank: "Ni idea", options: ["Molt bé", "D'acord", "És clar", "Ni idea"], correctIndex: 3, translation: "Do you know where the market is? — No idea", explanation: "'Ni idea' = Not a clue / No idea. Informal and very common." },
+        { sentence: "No poden venir a la festa. ___!", blank: "Quina llàstima", options: ["Molt bé", "D'acord", "No passa res", "Quina llàstima"], correctIndex: 3, translation: "They can't come to the party. What a shame!", explanation: "'Quina llàstima!' = What a shame! Express disappointment." },
+        { sentence: "Has aprovat l'examen? ___!", blank: "És clar", options: ["Ni idea", "És clar", "Tant se val", "Vés amb compte"], correctIndex: 1, translation: "Did you pass the exam? Of course!", explanation: "'És clar!' = Of course! / Obviously! Shows confidence." }
+      ],
+      miniConversation: [
+        { speaker: "Friend", text: "Ei! He suspès l'examen de conduir...", isUserTurn: false, translation: "Hey! I failed my driving test..." },
+        { speaker: "You", text: "", isUserTurn: true, options: ["Quina llàstima! Però no passa res, ho tornaràs a intentar", "Molt bé!", "D'acord"], correctIndex: 0 },
+        { speaker: "Friend", text: "Sí, tens raó. Potser el mes vinent.", isUserTurn: false, translation: "Yes, you're right. Maybe next month." },
+        { speaker: "You", text: "", isUserTurn: true, options: ["És clar! Segur que ho aconseguiràs!", "Ni idea", "Tant se val"], correctIndex: 0 },
+        { speaker: "Friend", text: "Gràcies! Ets un bon amic. Quedem dissabte?", isUserTurn: false, translation: "Thanks! You're a good friend. Shall we meet Saturday?" },
+        { speaker: "You", text: "", isUserTurn: true, options: ["D'acord! A les onze del matí?", "Quina llàstima", "Vés amb compte"], correctIndex: 0 }
+      ]
+    }
+  },
+
 
 ];
