@@ -620,6 +620,8 @@ export function ListenAndType({
             'border-gray-200 bg-white text-gray-800 focus:border-amber-400 focus:ring-2 focus:ring-amber-100'
           }`}
           autoComplete="off"
+autoCorrect="off"
+name="catalan-answer"
           autoCapitalize="off"
           spellCheck="false"
         />
