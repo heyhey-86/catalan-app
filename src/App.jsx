@@ -53,6 +53,82 @@ const LESSON_TIERS = [
 
 ];
 
+// Placement Test Questions
+const PLACEMENT_QUESTIONS = [
+  {
+    id: 1,
+    question: "What does 'Vull menjar' mean?",
+    options: ["I want to eat", "I am eating", "I have eaten", "I will eat"],
+    correct: 0,
+    level: "beginner"
+  },
+  {
+    id: 2,
+    question: "Conjugate 'tenir' (to have) for 'we': Nosaltres ___",
+    options: ["tenim", "teniu", "tenen", "tinc"],
+    correct: 0,
+    level: "beginner"
+  },
+  {
+    id: 3,
+    question: "Which means 'I was studying' (imperfect)?",
+    options: ["Vaig estudiar", "Estudiava", "Estudiaré", "He estudiat"],
+    correct: 1,
+    level: "intermediate"
+  },
+  {
+    id: 4,
+    question: "Complete: 'Si ___ temps, aniria' (If I had time, I would go)",
+    options: ["tinc", "tenia", "tingués", "tindré"],
+    correct: 2,
+    level: "advanced"
+  },
+  {
+    id: 5,
+    question: "What's the difference? 'Sortida' vs 'Èxit'",
+    options: ["Both mean exit", "Exit vs Success", "Success vs Failure", "Entry vs Exit"],
+    correct: 1,
+    level: "intermediate"
+  },
+  {
+    id: 6,
+    question: "How do you say 'It's raining cats and dogs' (idiomatically)?",
+    options: ["Plou molt", "Plou gats i gossos", "Plou a bots i barrals", "Està plovent"],
+    correct: 2,
+    level: "advanced"
+  },
+  {
+    id: 7,
+    question: "Formal 'you' pronoun in Catalan:",
+    options: ["Tu", "Vosté", "Vostè", "Vosaltres"],
+    correct: 2,
+    level: "intermediate"
+  },
+  {
+    id: 8,
+    question: "Complete with subjunctive: 'Dubto que ___ la veritat' (I doubt he knows the truth)",
+    options: ["sap", "sabia", "sàpiga", "sabrà"],
+    correct: 2,
+    level: "advanced"
+  },
+  {
+    id: 9,
+    question: "What does 'Estic refredat' mean?",
+    options: ["I am cold", "I have a cold", "I am constipated", "I am embarrassed"],
+    correct: 1,
+    level: "advanced"
+  },
+  {
+    id: 10,
+    question: "Passive voice: 'Catalan ___ spoken here'",
+    options: ["està", "es parla", "és parlat", "parlen"],
+    correct: 1,
+    level: "advanced"
+  }
+];
+
+
+
 // Helper: Get tier for a lesson ID
 const getTierForLesson = (lessonId) => {
   const tierObj = LESSON_TIERS.find(t => t.lessons.includes(lessonId));
@@ -194,6 +270,11 @@ const [streakCelebrationData, setStreakCelebrationData] = useState(null);
 const [showInstallPrompt, setShowInstallPrompt] = useState(false);
 const [deferredPrompt, setDeferredPrompt] = useState(null);
 const [installDontShowAgain, setInstallDontShowAgain] = useState(false);
+const [showPlacementTest, setShowPlacementTest] = useState(false);
+const [placementQuestionIndex, setPlacementQuestionIndex] = useState(0);
+const [placementAnswers, setPlacementAnswers] = useState([]);
+const [placementComplete, setPlacementComplete] = useState(false);
+const [placementSelectedAnswer, setPlacementSelectedAnswer] = useState(null);
 const [showStreakLost, setShowStreakLost] = useState(false);
 const [previousStreak, setPreviousStreak] = useState(0);
   const [reviewSessionWords, setReviewSessionWords] = useState([]);
@@ -1336,6 +1417,88 @@ const handleDismissInstall = () => {
   setInstallDontShowAgain(false);
 };
 
+const handlePlacementAnswer = (answerIndex) => {
+  // Show selection immediately
+  setPlacementSelectedAnswer(answerIndex);
+  
+  const newAnswers = [...placementAnswers, answerIndex];
+  setPlacementAnswers(newAnswers);
+  
+  // Add delay to show selection before moving to next question
+  setTimeout(() => {
+    setPlacementSelectedAnswer(null); // Clear selection for next question
+    
+    if (placementQuestionIndex < PLACEMENT_QUESTIONS.length - 1) {
+      // More questions
+      setPlacementQuestionIndex(placementQuestionIndex + 1);
+    } else {
+      // Test complete - calculate score
+      const correctCount = newAnswers.reduce((count, answer, idx) => {
+        return count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0);
+      }, 0);
+      
+      // Determine starting lesson based on score (STRICTER)
+      let startLesson = 1;
+      let skipLessons = [];
+      let highestTier = 1;
+      
+     if (correctCount >= 9) {
+  // Advanced: Start at L45
+  startLesson = 45;
+  skipLessons = Array.from({length: 44}, (_, i) => i + 1).concat([51, 52, 53, 54, 55, 56, 57, 58]);
+  highestTier = 17;
+} else if (correctCount >= 7) {
+  // Intermediate: Start at L25
+  startLesson = 25;
+  skipLessons = Array.from({length: 24}, (_, i) => i + 1).concat([51, 52, 53, 54]);
+  highestTier = 10;
+} else if (correctCount >= 4) {
+  // Beginner: Start at L11
+  startLesson = 11;
+  skipLessons = Array.from({length: 10}, (_, i) => i + 1).concat([51, 52, 53]);
+  highestTier = 4;
+}
+      
+      // Mark skipped lessons as complete AND unlock tiers
+      const newCompleted = [...completed, ...skipLessons];
+      const newScore = score + (skipLessons.length * 10);
+      
+      setCompleted(newCompleted);
+      setScore(newScore);
+      setUnlockedTier(Math.max(highestTier, unlockedTier));
+      
+      // Save to localStorage immediately
+      const existing = JSON.parse(localStorage.getItem('catalan_progress') || '{}');
+      existing.completed = newCompleted;
+      existing.score = newScore;
+      existing.unlockedTier = Math.max(highestTier, unlockedTier);
+      existing.placementTestTaken = true;
+      existing.placementScore = correctCount;
+      existing.startLesson = startLesson;
+      localStorage.setItem('catalan_progress', JSON.stringify(existing));
+      
+      setPlacementComplete(true);
+    }
+  }, 300);
+};
+
+const startPlacementTest = () => {
+  setShowPlacementTest(true);
+  setPlacementQuestionIndex(0);
+  setPlacementAnswers([]);
+  setPlacementComplete(false);
+};
+
+const skipPlacementTest = () => {
+  setShowPlacementTest(false);
+  setView('dashboard');
+};
+
+const finishPlacementTest = () => {
+  setShowPlacementTest(false);
+  setView('dashboard');
+};
+
 const handleQuizAnswer = (answer) => {
   console.log('handleQuizAnswer called!', { answer, quizIndex });
   const correct = quizWords[quizIndex];
@@ -1540,6 +1703,7 @@ const handleQuizAnswer = (answer) => {
               <button onClick={() => setOnboardingStep(1)} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all">
                 Let's Get Started →
               </button>
+              
               <p className="text-sm text-gray-500 mt-6">
                 Already have an account?{' '}
                 <button 
@@ -2721,7 +2885,31 @@ const handleQuizAnswer = (answer) => {
               </div>
             </div>
           );
+          
+
+
         })()}
+
+        {/* Placement Test CTA - Premium users who haven't taken it */}
+        {premium && !localStorage.getItem('catalan_progress')?.includes('placementTestTaken') && completed.length === 0 && (
+          <div
+            onClick={startPlacementTest}
+            className="bg-gradient-to-r from-purple-500 to-indigo-500 rounded-xl shadow-lg p-4 mb-4 sm:mb-6 cursor-pointer active:scale-95 transition-all"
+          >
+            <div className="flex items-center justify-between text-white">
+              <div className="flex items-center gap-3">
+                <div className="bg-white/20 rounded-full p-2">🎯</div>
+                <div>
+                  <div className="text-sm opacity-90">New to Catalan?</div>
+                  <div className="font-bold">Take Placement Test - Skip to Your Level</div>
+                </div>
+              </div>
+              <ArrowRight className="w-6 h-6" />
+            </div>
+          </div>
+        )}
+
+
         {/* Stats Cards - horizontal scroll on mobile */}
         <div className="flex sm:grid sm:grid-cols-3 gap-3 mb-4 sm:mb-6 overflow-x-auto pb-2 sm:pb-0 -mx-3 px-3 sm:mx-0 sm:px-0">
           {(() => {
@@ -2755,6 +2943,9 @@ const handleQuizAnswer = (answer) => {
     </div>
   );
 })()}
+
+
+
           <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-xl shadow-lg p-4 sm:p-6 text-white min-w-[140px] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
             <div className="flex items-center justify-between mb-2"><Calendar className="w-6 h-6 sm:w-8 sm:h-8" /><span className="text-2xl sm:text-3xl font-bold">{reviewStreak}</span></div>
             <div className="text-xs sm:text-sm opacity-90">Day Streak</div>
@@ -2956,6 +3147,10 @@ const handleQuizAnswer = (answer) => {
               <span className="text-xl">🏆</span>
               <span className="text-sm font-medium">Daily challenges & achievements</span>
             </div>
+            <div className="flex items-center gap-3 text-left">
+              <span className="text-xl">🎯</span>
+              <span className="text-sm font-medium">Placement test - skip to your level</span>
+            </div>
           </div>
         </div>
         
@@ -3107,6 +3302,104 @@ const handleQuizAnswer = (answer) => {
         />
         <span>Don't show this again</span>
       </label>
+    </div>
+  </div>
+)}
+
+{/* Placement Test Modal */}
+{showPlacementTest && !placementComplete && (
+  <div className="fixed inset-0 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center z-50 p-4">
+    <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 sm:p-8">
+      {/* Progress bar */}
+      <div className="mb-6">
+        <div className="flex justify-between text-sm text-gray-600 mb-2">
+          <span>Question {placementQuestionIndex + 1} of {PLACEMENT_QUESTIONS.length}</span>
+          <span>{Math.round(((placementQuestionIndex) / PLACEMENT_QUESTIONS.length) * 100)}% Complete</span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2">
+          <div 
+            className="bg-gradient-to-r from-blue-600 to-purple-600 h-2 rounded-full transition-all duration-300"
+            style={{ width: `${(placementQuestionIndex / PLACEMENT_QUESTIONS.length) * 100}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Question */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+          {PLACEMENT_QUESTIONS[placementQuestionIndex].question}
+        </h2>
+        
+        <div className="space-y-3">
+          {PLACEMENT_QUESTIONS[placementQuestionIndex].options.map((option, idx) => (
+            <button
+  key={idx}
+  onMouseDown={(e) => e.preventDefault()}
+  onClick={(e) => {
+    e.currentTarget.blur();
+    handlePlacementAnswer(idx);
+  }}
+  className={`w-full text-left p-4 rounded-xl border-2 transition-all font-medium ${
+    placementSelectedAnswer === idx
+      ? 'border-blue-500 bg-blue-50 text-blue-700'
+      : 'border-gray-200 active:border-blue-500 active:bg-blue-50 text-gray-700'
+  }`}
+>
+  {option}
+</button>
+          ))}
+        </div>
+      </div>
+
+      {/* Skip button */}
+      <button
+        onClick={skipPlacementTest}
+        className="w-full text-gray-500 text-sm py-2 hover:text-gray-700"
+      >
+        Skip test and start from the beginning
+      </button>
+    </div>
+  </div>
+)}
+
+{/* Placement Test Results Modal */}
+{showPlacementTest && placementComplete && (
+  <div className="fixed inset-0 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center z-50 p-4">
+    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8 text-center">
+      <div className="text-6xl mb-4">
+        {placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 9 ? '🌟' : 
+         placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 7 ? '🎯' : 
+         placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 4 ? '📚' : '🌱'}
+      </div>
+      
+      <h2 className="text-2xl font-bold mb-2">
+        {placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 9 ? 'Advanced Level!' : 
+         placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 7 ? 'Intermediate Level!' : 
+         placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 4 ? 'Beginner Level!' : 'Complete Beginner!'}
+      </h2>
+      
+      <p className="text-gray-600 mb-6">
+        You got {placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0)} out of {PLACEMENT_QUESTIONS.length} correct!
+      </p>
+
+      <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 mb-6">
+        <p className="text-sm text-gray-700">
+          {placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 9 
+            ? "Starting you at Lesson 45. You've skipped 44 lessons and earned 440 points!" 
+            : placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 7 
+            ? "Starting you at Lesson 25. You've skipped 24 lessons and earned 240 points!" 
+            : placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 4 
+            ? "Starting you at Lesson 11. You've skipped 10 lessons and earned 100 points!" 
+            : "Starting you at Lesson 1. Let's learn Catalan together!"}
+        </p>
+      </div>
+
+      <button
+        onClick={finishPlacementTest}
+        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:to-purple-700"
+      >
+        Start Learning! →
+      </button>
     </div>
   </div>
 )}
