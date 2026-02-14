@@ -2513,26 +2513,26 @@ const handleQuizAnswer = (answer) => {
                     
                     // Update streak when completing a lesson
                     const today = new Date().toDateString();
-                    console.log('🔍 Checking streak:', { today, lastReviewDate, reviewStreak });
+                    
                     if (lastReviewDate !== today) {
                       if (lastReviewDate) {
                         const lastDate = new Date(lastReviewDate);
                         const todayDate = new Date(today);
                         const diffDays = Math.ceil((todayDate - lastDate) / (1000 * 60 * 60 * 24));
-                        console.log('🔥 STREAK CHECK:', { today, lastReviewDate, reviewStreak });
+                        
                         
                         if (diffDays === 1) {
                           const newStreak = reviewStreak + 1;
-                          console.log('🎉 Streak increased to:', newStreak);
+                          
                           setReviewStreak(newStreak);
-                          console.log('🎉 CELEBRATION TRIGGERED!', newStreak);
+                          
                           
                           setStreakCelebrationData({
                             streak: newStreak,
                             isMilestone: [7, 14, 30, 50, 100].includes(newStreak)
                           });
                           setShowStreakCelebration(true);
-                          console.log('✅ Celebration modal should show now');
+                          
                           
                         } else if (diffDays > 1) {
                           setPreviousStreak(reviewStreak);
