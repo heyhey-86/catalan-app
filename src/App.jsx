@@ -1462,6 +1462,7 @@ const handleQuizAnswer = (answer) => {
                 <p className="text-gray-600 text-sm">We'll use this to personalize your experience</p>
               </div>
               <input
+              autoComplete="off"
                 type="text"
                 value={onboardingName}
                 onChange={(e) => setOnboardingName(e.target.value)}
@@ -1909,7 +1910,7 @@ const handleQuizAnswer = (answer) => {
                     <div>
                       <h3 className="text-base sm:text-lg text-gray-600 mb-2">Translate to Catalan:</h3>
                       <div className="text-xl sm:text-3xl font-bold mb-4 sm:mb-8 text-center py-4 sm:py-6 bg-blue-50 rounded-xl">{challengeItems[challengeCurrentIndex].en}</div>
-                      <input type="text" value={userInput} onChange={(e) => setUserInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleTranslateAnswer()} placeholder="Type your answer..." className="w-full p-3 sm:p-4 text-base sm:text-xl border-2 border-gray-200 rounded-xl mb-3 sm:mb-4 focus:border-orange-500 focus:outline-none" autoFocus />
+                      <input type="text" autoComplete="off" value={userInput} onChange={(e) => setUserInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleTranslateAnswer()} placeholder="Type your answer..." className="w-full p-3 sm:p-4 text-base sm:text-xl border-2 border-gray-200 rounded-xl mb-3 sm:mb-4 focus:border-orange-500 focus:outline-none" autoFocus />
                       <button onClick={handleTranslateAnswer} disabled={!userInput.trim()} className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-white py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg active:scale-95 transition-transform disabled:opacity-50">Check Answer</button>
                       {challengeFeedback && <div className={`mt-3 sm:mt-4 p-3 sm:p-4 rounded-xl text-center font-semibold text-sm sm:text-base ${challengeFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>{challengeFeedback}</div>}
                     </div>
