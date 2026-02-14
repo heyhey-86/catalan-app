@@ -2856,7 +2856,7 @@ const handleQuizAnswer = (answer) => {
           <div className="text-xs text-gray-500 mt-1">Cancel anytime</div>
         </div>
         
-        <a href="https://buy.stripe.com/test_4gM28s044cIP7o8f5VefC00" className="block w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition-all text-center">
+        <a href="https://buy.stripe.com/4gM28s044cIP7o8f5VefC00" className="block w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition-all text-center">
           Subscribe Now →
         </a>
         
