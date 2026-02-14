@@ -38,6 +38,19 @@ const LESSON_TIERS = [
   { tier: 20, lessons: [58, 59, 60] },
   { tier: 21, lessons: [61, 62, 63] },
   { tier: 22, lessons: [64, 65] },
+  { tier: 23, lessons: [66, 67, 68] },  // Review gate after L68
+  { tier: 24, lessons: [69, 70, 71] },
+  { tier: 25, lessons: [72, 73, 74] },  // Review gate after L74
+  { tier: 26, lessons: [75, 76, 77] },
+  { tier: 27, lessons: [78, 79, 80] },  // Review gate after L80
+  { tier: 28, lessons: [81, 82, 83] },
+  { tier: 29, lessons: [84, 85, 86] },  // Review gate after L86
+  { tier: 30, lessons: [87, 88, 89] },
+  { tier: 31, lessons: [90, 91, 92] },  // Review gate after L92
+  { tier: 32, lessons: [93, 94, 95] },
+  { tier: 33, lessons: [96, 97, 98] },  // Review gate after L98
+  { tier: 34, lessons: [99, 100] }
+
 ];
 
 // Helper: Get tier for a lesson ID

@@ -2255,5 +2255,1546 @@ export const lessons = [
     }
   },
 
+  // ─── LESSON 66: At the Pharmacy ────────────────────────────
+
+{
+  id: 66,
+  title: "At the Pharmacy",
+  module: "Intermediate",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Pharmacy", ca: "Farmàcia", pronunciation: "far-MAH-see-ah" },
+    { en: "Medicine", ca: "Medicament", pronunciation: "meh-dee-kah-MEHN" },
+    { en: "Prescription", ca: "Recepta", pronunciation: "reh-SEH-ptah" },
+    { en: "Pain", ca: "Dolor", pronunciation: "doh-LOR" },
+    { en: "Headache", ca: "Mal de cap", pronunciation: "mahl deh KAHP" },
+    { en: "Fever", ca: "Febre", pronunciation: "FEH-breh" },
+    { en: "Cough", ca: "Tos", pronunciation: "TOHS" },
+    { en: "Allergy", ca: "Al·lèrgia", pronunciation: "ah-LEHR-jee-ah" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Necessito un ___ per la tos", blank: "medicament", options: ["medicament", "recepta", "dolor", "febre"], correctIndex: 0, translation: "I need medicine for the cough", explanation: "'Medicament' = medicine. 'Necessito un medicament' = I need a medicine." },
+      { sentence: "Tinc ___ des d'ahir", blank: "febre", options: ["tos", "febre", "dolor", "farmàcia"], correctIndex: 1, translation: "I've had a fever since yesterday", explanation: "'Febre' = fever. 'Tinc febre' = I have a fever. 'Des d'ahir' = since yesterday." },
+      { sentence: "Em fa ___ el cap", blank: "mal", options: ["mal", "bé", "tos", "febre"], correctIndex: 0, translation: "My head hurts", explanation: "'Em fa mal el cap' = My head hurts (literally: it makes me pain the head). Common phrase for headache." },
+      { sentence: "Té ___?", blank: "recepta", options: ["recepta", "dolor", "tos", "cap"], correctIndex: 0, translation: "Do you have a prescription?", explanation: "'Recepta' = prescription. Pharmacists ask 'Té recepta?' before dispensing certain medicines." }
+    ],
+    listenAndType: [
+      { catalan: "On és la farmàcia més propera?", english: "Where is the nearest pharmacy?", pronunciation: "ohn ehs lah far-MAH-see-ah mehs proh-PEH-rah" },
+      { catalan: "Tinc mal de cap i febre", english: "I have a headache and fever", pronunciation: "TEEN-k mahl deh KAHP ee FEH-breh" },
+      { catalan: "Necessito alguna cosa per la tos", english: "I need something for the cough", pronunciation: "neh-seh-SEE-toh ahl-GOO-nah KOH-sah pehr lah TOHS" },
+      { catalan: "Sóc al·lèrgic a la penicil·lina", english: "I'm allergic to penicillin", pronunciation: "SOHK ah-LEHR-jeek ah lah peh-nee-see-LEE-nah" }
+    ],
+    errorCorrection: [
+      { sentence: "Necesito medicina para el dolor", errorWordIndex: 0, options: ["Necesito", "Necessito", "Necesit", "Need"], correctIndex: 1, translation: "I need medicine for the pain", explanation: "'Necessito' is Catalan. 'Necesito' is Spanish." },
+      { sentence: "Tengo fiebre desde ayer", errorWordIndex: 1, options: ["fiebre", "febre", "febra", "fever"], correctIndex: 1, translation: "I've had a fever since yesterday", explanation: "'Febre' is Catalan. 'Fiebre' is Spanish." },
+      { sentence: "Me duele la cabeza", errorWordIndex: 0, options: ["Me", "Em", "M'", "Me"], correctIndex: 1, translation: "My head hurts", explanation: "'Em fa mal' is Catalan. 'Me duele' is Spanish." },
+      { sentence: "Tienes receta?", errorWordIndex: 1, options: ["receta", "recepta", "recete", "receipt"], correctIndex: 1, translation: "Do you have a prescription?", explanation: "'Recepta' is Catalan. 'Receta' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Em fa mal' = it hurts me. Pattern: Em fa mal el/la + body part. Em fa mal l'esquena = my back hurts.", words: ["Em", "fa", "mal", "el", "cap"], correctOrder: "Em fa mal el cap", translation: "My head hurts" },
+      { grammarNote: "💡 'Tinc' + symptom is used for temporary conditions. Tinc febre, tinc tos, tinc fred (I'm cold).", words: ["Tinc", "tos", "i", "mal", "de", "coll"], correctOrder: "Tinc tos i mal de coll", translation: "I have a cough and sore throat" },
+      { grammarNote: "💡 'Sóc al·lèrgic/a' = I'm allergic. Add 'a' before allergen: Sóc al·lèrgic a la penicil·lina.", words: ["Sóc", "al·lèrgic", "als", "fruits", "secs"], correctOrder: "Sóc al·lèrgic als fruits secs", translation: "I'm allergic to nuts" }
+    ]
+  }
+},
+
+// ─── LESSON 67: At the Bank ────────────────────────────────
+
+{
+  id: 67,
+  title: "At the Bank",
+  module: "Intermediate",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Bank", ca: "Banc", pronunciation: "BAHNK" },
+    { en: "Account", ca: "Compte", pronunciation: "KOHM-teh" },
+    { en: "Card", ca: "Targeta", pronunciation: "tar-JEH-tah" },
+    { en: "Cash", ca: "Efectiu", pronunciation: "eh-fehk-TEE-oo" },
+    { en: "Transfer", ca: "Transferència", pronunciation: "trahns-feh-REHN-see-ah" },
+    { en: "ATM", ca: "Caixer automàtic", pronunciation: "kah-SHEH ow-toh-MAH-teek" },
+    { en: "PIN", ca: "Codi PIN", pronunciation: "KOH-dee PEEN" },
+    { en: "Balance", ca: "Saldo", pronunciation: "SAHL-doh" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Vull obrir un ___", blank: "compte", options: ["compte", "banc", "targeta", "efectiu"], correctIndex: 0, translation: "I want to open an account", explanation: "'Compte' = account. 'Obrir un compte' = open an account." },
+      { sentence: "Puc pagar amb ___?", blank: "targeta", options: ["efectiu", "targeta", "compte", "saldo"], correctIndex: 1, translation: "Can I pay with card?", explanation: "'Targeta' = card. 'Puc pagar amb targeta?' = Can I pay by card?" },
+      { sentence: "On hi ha un ___?", blank: "caixer automàtic", options: ["banc", "compte", "caixer automàtic", "saldo"], correctIndex: 2, translation: "Where is an ATM?", explanation: "'Caixer automàtic' = ATM (literally: automatic cashier)." },
+      { sentence: "Quin és el meu ___?", blank: "saldo", options: ["codi", "saldo", "banc", "efectiu"], correctIndex: 1, translation: "What is my balance?", explanation: "'Saldo' = balance. 'Quin és el meu saldo?' = What's my balance?" }
+    ],
+    listenAndType: [
+      { catalan: "Vull fer una transferència", english: "I want to make a transfer", pronunciation: "BOOL fehr OO-nah trahns-feh-REHN-see-ah" },
+      { catalan: "He oblidat el codi PIN", english: "I've forgotten the PIN code", pronunciation: "eh oh-blee-DAHT ehl KOH-dee PEEN" },
+      { catalan: "Necessito treure diners", english: "I need to withdraw money", pronunciation: "neh-seh-SEE-toh TREH-oo-reh dee-NEHRS" },
+      { catalan: "Quin és el saldo del meu compte?", english: "What is my account balance?", pronunciation: "KEEN ehs ehl SAHL-doh dehl MEH-oo KOHM-teh" }
+    ],
+    errorCorrection: [
+      { sentence: "Quiero abrir una cuenta", errorWordIndex: 0, options: ["Quiero", "Vull", "Vullo", "Want"], correctIndex: 1, translation: "I want to open an account", explanation: "'Vull' is Catalan (I want). 'Quiero' is Spanish." },
+      { sentence: "Puedo pagar con tarjeta?", errorWordIndex: 3, options: ["tarjeta", "targeta", "tarjet", "card"], correctIndex: 1, translation: "Can I pay with card?", explanation: "'Targeta' is Catalan. 'Tarjeta' is Spanish." },
+      { sentence: "Dónde está el cajero?", errorWordIndex: 0, options: ["Dónde", "On", "Donde", "Where"], correctIndex: 1, translation: "Where is the ATM?", explanation: "'On' is Catalan (where). 'Dónde' is Spanish." },
+      { sentence: "Necesito sacar dinero", errorWordIndex: 1, options: ["sacar", "treure", "sacar", "take"], correctIndex: 1, translation: "I need to withdraw money", explanation: "'Treure' is Catalan. 'Sacar' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Obrir' = to open. 'Vull obrir un compte' = I want to open an account. 'Tancar' = to close.", words: ["Vull", "obrir", "un", "compte", "bancari"], correctOrder: "Vull obrir un compte bancari", translation: "I want to open a bank account" },
+      { grammarNote: "💡 'Fer una transferència' = make a transfer. 'Fer un pagament' = make a payment.", words: ["Puc", "fer", "una", "transferència", "internacional"], correctOrder: "Puc fer una transferència internacional", translation: "Can I make an international transfer" },
+      { grammarNote: "💡 'Treure diners' = withdraw money (literally: take out money). 'Ingressar diners' = deposit money.", words: ["On", "puc", "treure", "diners"], correctOrder: "On puc treure diners", translation: "Where can I withdraw money" }
+    ]
+  }
+},
+
+// ─── LESSON 68: Emergencies ────────────────────────────────
+
+{
+  id: 68,
+  title: "Emergencies",
+  module: "Intermediate",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Help!", ca: "Ajuda!", pronunciation: "ah-JOO-dah" },
+    { en: "Emergency", ca: "Emergència", pronunciation: "eh-mehr-JEHN-see-ah" },
+    { en: "Police", ca: "Policia", pronunciation: "poh-lee-SEE-ah" },
+    { en: "Ambulance", ca: "Ambulància", pronunciation: "ahm-boo-LAHN-see-ah" },
+    { en: "Fire", ca: "Foc", pronunciation: "FOHK" },
+    { en: "Accident", ca: "Accident", pronunciation: "ahk-see-DEHN" },
+    { en: "Hospital", ca: "Hospital", pronunciation: "ohs-pee-TAHL" },
+    { en: "Danger", ca: "Perill", pronunciation: "peh-REEL" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Truqueu a la ___!", blank: "policia", options: ["policia", "ambulància", "hospital", "emergència"], correctIndex: 0, translation: "Call the police!", explanation: "'Policia' = police. 'Truqueu a...' = call... (formal/plural)." },
+      { sentence: "Hi ha un ___!", blank: "accident", options: ["foc", "accident", "perill", "hospital"], correctIndex: 1, translation: "There's an accident!", explanation: "'Accident' = accident. 'Hi ha un accident' = there's an accident." },
+      { sentence: "Necessito una ___!", blank: "ambulància", options: ["policia", "ambulància", "emergència", "hospital"], correctIndex: 1, translation: "I need an ambulance!", explanation: "'Ambulància' = ambulance. Emergency number in Catalonia: 112." },
+      { sentence: "On és l'___ més proper?", blank: "hospital", options: ["accident", "hospital", "policia", "perill"], correctIndex: 1, translation: "Where is the nearest hospital?", explanation: "'Hospital' = hospital. 'Més proper' = nearest/closest." }
+    ],
+    listenAndType: [
+      { catalan: "Ajuda! Hi ha un foc!", english: "Help! There's a fire!", pronunciation: "ah-JOO-dah! ee hah oon FOHK!" },
+      { catalan: "Necessito un metge urgent", english: "I need a doctor urgently", pronunciation: "neh-seh-SEE-toh oon MEHT-jeh oor-JEHN" },
+      { catalan: "Hi ha hagut un accident", english: "There has been an accident", pronunciation: "ee hah ah-GOOT oon ahk-see-DEHN" },
+      { catalan: "Truqueu al cent dotze", english: "Call one-one-two", pronunciation: "troo-KEH-oo ahl SEHN DOH-tzeh" }
+    ],
+    errorCorrection: [
+      { sentence: "Ayuda! Hay un incendio!", errorWordIndex: 0, options: ["Ayuda", "Ajuda", "Ayud", "Help"], correctIndex: 1, translation: "Help! There's a fire!", explanation: "'Ajuda' is Catalan. 'Ayuda' is Spanish." },
+      { sentence: "Llama a la ambulancia", errorWordIndex: 0, options: ["Llama", "Truqueu", "Truca", "Call"], correctIndex: 2, translation: "Call the ambulance", explanation: "'Truca' is Catalan (informal). 'Llama' is Spanish." },
+      { sentence: "Dónde está el hospital?", errorWordIndex: 0, options: ["Dónde", "On", "Donde", "Where"], correctIndex: 1, translation: "Where is the hospital?", explanation: "'On' is Catalan. 'Dónde' is Spanish." },
+      { sentence: "Necesito un doctor", errorWordIndex: 0, options: ["Necesito", "Necessito", "Necesit", "Need"], correctIndex: 1, translation: "I need a doctor", explanation: "'Necessito' is Catalan. 'Necesito' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Emergency number in Catalonia: 112 (cent dotze). Works for police, ambulance, fire.", words: ["Truqueu", "al", "cent", "dotze"], correctOrder: "Truqueu al cent dotze", translation: "Call one-one-two" },
+      { grammarNote: "💡 'Hi ha hagut' = there has been (past). 'Hi ha' = there is (present).", words: ["Hi", "ha", "hagut", "un", "accident", "de", "trànsit"], correctOrder: "Hi ha hagut un accident de trànsit", translation: "There has been a traffic accident" },
+      { grammarNote: "💡 'Urgent' = urgent. 'Necessito ajuda urgent' = I need urgent help.", words: ["Em", "trobo", "malament", "necessito", "ajuda"], correctOrder: "Em trobo malament necessito ajuda", translation: "I feel unwell I need help" }
+    ]
+  }
+},
+
+// ─── LESSON 69: Shopping for Clothes ────────────────────────
+
+{
+  id: 69,
+  title: "Shopping for Clothes",
+  module: "Intermediate",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Clothes", ca: "Roba", pronunciation: "ROH-bah" },
+    { en: "Size", ca: "Talla", pronunciation: "TAH-yah" },
+    { en: "Color", ca: "Color", pronunciation: "koh-LOR" },
+    { en: "To try on", ca: "Provar", pronunciation: "proh-BAR" },
+    { en: "Fitting room", ca: "Provador", pronunciation: "proh-bah-DOR" },
+    { en: "Expensive", ca: "Car", pronunciation: "KAR" },
+    { en: "Cheap", ca: "Barat", pronunciation: "bah-RAHT" },
+    { en: "Discount", ca: "Descompte", pronunciation: "dehs-KOHM-teh" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Quina ___ portes?", blank: "talla", options: ["talla", "color", "roba", "descompte"], correctIndex: 0, translation: "What size do you wear?", explanation: "'Talla' = size (for clothes). 'Quina talla portes?' = What size do you wear?" },
+      { sentence: "Puc ___ això?", blank: "provar", options: ["provar", "comprar", "portar", "vendre"], correctIndex: 0, translation: "Can I try this on?", explanation: "'Provar' = to try on. 'Puc provar?' = Can I try it on?" },
+      { sentence: "On és el ___?", blank: "provador", options: ["descompte", "provador", "color", "talla"], correctIndex: 1, translation: "Where is the fitting room?", explanation: "'Provador' = fitting room (from 'provar' = to try on)." },
+      { sentence: "És massa ___", blank: "car", options: ["barat", "car", "gran", "petit"], correctIndex: 1, translation: "It's too expensive", explanation: "'Car' = expensive. 'Barat' = cheap. 'És massa car' = It's too expensive." }
+    ],
+    listenAndType: [
+      { catalan: "Tinc això en talla petita?", english: "Do you have this in a small size?", pronunciation: "TEEN-k ah-SHOH ehn TAH-yah peh-TEE-tah" },
+      { catalan: "M'agrada aquest color", english: "I like this color", pronunciation: "mah-GRAH-dah ah-KESHT koh-LOR" },
+      { catalan: "Hi ha descompte?", english: "Is there a discount?", pronunciation: "ee hah dehs-KOHM-teh" },
+      { catalan: "Això em va bé", english: "This fits me well", pronunciation: "ah-SHOH ehm bah BEH" }
+    ],
+    errorCorrection: [
+      { sentence: "Qué talla llevas?", errorWordIndex: 0, options: ["Qué", "Quina", "Que", "What"], correctIndex: 1, translation: "What size do you wear?", explanation: "'Quina' is Catalan. 'Qué' is Spanish." },
+      { sentence: "Puedo probarme esto?", errorWordIndex: 1, options: ["probarme", "provar", "provar-me", "try"], correctIndex: 1, translation: "Can I try this on?", explanation: "'Puc provar això?' is Catalan. 'Puedo probarme' is Spanish." },
+      { sentence: "Dónde está el probador?", errorWordIndex: 0, options: ["Dónde", "On", "Donde", "Where"], correctIndex: 1, translation: "Where is the fitting room?", explanation: "'On' is Catalan. 'Dónde' is Spanish." },
+      { sentence: "Es muy caro", errorWordIndex: 1, options: ["muy", "massa", "molt", "very"], correctIndex: 1, translation: "It's very expensive", explanation: "'Massa' = too. 'Molt' = very. 'Muy' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Quina talla?' = What size? Sizes: petita (S), mitjana (M), gran (L), extragrande (XL).", words: ["Tinc", "això", "en", "talla", "gran"], correctOrder: "Tinc això en talla gran", translation: "Do you have this in a large size" },
+      { grammarNote: "💡 'Em va bé' = it fits me well. 'Em va petit/gran' = it's too small/big for me.", words: ["Això", "em", "va", "una", "mica", "gran"], correctOrder: "Això em va una mica gran", translation: "This is a bit big for me" },
+      { grammarNote: "💡 'M'agrada' = I like. Color options: negre (black), blanc (white), vermell (red), blau (blue), verd (green).", words: ["M'agrada", "en", "color", "blau"], correctOrder: "M'agrada en color blau", translation: "I like it in blue" }
+    ]
+  }
+},
+
+// ─── LESSON 70: Weather & Seasons ──────────────────────────
+
+{
+  id: 70,
+  title: "Weather & Seasons",
+  module: "Intermediate",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Weather", ca: "Temps", pronunciation: "TEHMS" },
+    { en: "Sun", ca: "Sol", pronunciation: "SOHL" },
+    { en: "Rain", ca: "Pluja", pronunciation: "PLOO-jah" },
+    { en: "Wind", ca: "Vent", pronunciation: "BEHN" },
+    { en: "Cold", ca: "Fred", pronunciation: "FREHT" },
+    { en: "Hot", ca: "Calor", pronunciation: "kah-LOR" },
+    { en: "Spring", ca: "Primavera", pronunciation: "pree-mah-BEH-rah" },
+    { en: "Summer", ca: "Estiu", pronunciation: "ehs-tee-OO" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Quin ___ fa avui?", blank: "temps", options: ["temps", "sol", "fred", "calor"], correctIndex: 0, translation: "What's the weather like today?", explanation: "'Temps' = weather/time. 'Quin temps fa?' = What's the weather like?" },
+      { sentence: "Fa molt ___", blank: "fred", options: ["sol", "fred", "vent", "pluja"], correctIndex: 1, translation: "It's very cold", explanation: "'Fred' = cold. 'Fa fred' = it's cold (literally: it makes cold)." },
+      { sentence: "Està ___", blank: "plovent", options: ["plovent", "nevada", "soleada", "ventosa"], correctIndex: 0, translation: "It's raining", explanation: "'Plovent' = raining. 'Està plovent' = it's raining. 'Plou' also means it rains." },
+      { sentence: "A l'___ fa calor", blank: "estiu", options: ["hivern", "primavera", "estiu", "tardor"], correctIndex: 2, translation: "In summer it's hot", explanation: "'Estiu' = summer. Seasons: primavera, estiu, tardor (autumn), hivern (winter)." }
+    ],
+    listenAndType: [
+      { catalan: "Avui fa bon temps", english: "Today the weather is nice", pronunciation: "ah-BOO-ee fah bohn TEHMS" },
+      { catalan: "Plou molt a Barcelona?", english: "Does it rain a lot in Barcelona?", pronunciation: "PLOH-oo MOHLT ah bar-seh-LOH-nah" },
+      { catalan: "M'agrada la primavera", english: "I like spring", pronunciation: "mah-GRAH-dah lah pree-mah-BEH-rah" },
+      { catalan: "Fa vent i fa fred", english: "It's windy and cold", pronunciation: "fah BEHN ee fah FREHT" }
+    ],
+    errorCorrection: [
+      { sentence: "Qué tiempo hace?", errorWordIndex: 1, options: ["tiempo", "temps", "tiempo", "weather"], correctIndex: 1, translation: "What's the weather like?", explanation: "'Temps' is Catalan. 'Tiempo' is Spanish." },
+      { sentence: "Hace mucho calor", errorWordIndex: 0, options: ["Hace", "Fa", "Fai", "Makes"], correctIndex: 1, translation: "It's very hot", explanation: "'Fa calor' is Catalan. 'Hace calor' is Spanish." },
+      { sentence: "Está lloviendo", errorWordIndex: 0, options: ["Está", "Està", "Esta", "Is"], correctIndex: 1, translation: "It's raining", explanation: "'Està plovent' is Catalan. 'Está lloviendo' is Spanish." },
+      { sentence: "Me gusta el verano", errorWordIndex: 2, options: ["verano", "estiu", "veran", "summer"], correctIndex: 1, translation: "I like summer", explanation: "'Estiu' is Catalan. 'Verano' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Weather verbs: 'Fa' + condition (fa fred, fa calor, fa vent, fa sol, fa mal temps).", words: ["Avui", "fa", "molt", "bon", "temps"], correctOrder: "Avui fa molt bon temps", translation: "Today the weather is very nice" },
+      { grammarNote: "💡 'Plou' = it rains. 'Neva' = it snows. 'Està plovent/nevant' = it's raining/snowing (progressive).", words: ["A", "l'hivern", "neva", "a", "la", "muntanya"], correctOrder: "A l'hivern neva a la muntanya", translation: "In winter it snows in the mountains" },
+      { grammarNote: "💡 Seasons with article: la primavera, l'estiu, la tardor, l'hivern. 'A la primavera' = in spring.", words: ["A", "la", "tardor", "els", "arbres", "perden", "les", "fulles"], correctOrder: "A la tardor els arbres perden les fulles", translation: "In autumn the trees lose their leaves" }
+    ]
+  }
+},
+
+// ─── LESSON 71: Sports & Exercise ──────────────────────────
+
+{
+  id: 71,
+  title: "Sports & Exercise",
+  module: "Intermediate",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Sport", ca: "Esport", pronunciation: "ehs-PORT" },
+    { en: "Football", ca: "Futbol", pronunciation: "FOOT-bohl" },
+    { en: "To run", ca: "Córrer", pronunciation: "KOH-rehr" },
+    { en: "To swim", ca: "Nedar", pronunciation: "neh-DAR" },
+    { en: "Gym", ca: "Gimnàs", pronunciation: "jeem-NAHS" },
+    { en: "Team", ca: "Equip", pronunciation: "eh-KEEP" },
+    { en: "Match", ca: "Partit", pronunciation: "par-TEET" },
+    { en: "To win", ca: "Guanyar", pronunciation: "gwahn-YAR" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "M'agrada jugar a ___", blank: "futbol", options: ["futbol", "bàsquet", "tennis", "natació"], correctIndex: 0, translation: "I like playing football", explanation: "'Futbol' = football/soccer. 'Jugar a futbol' = play football." },
+      { sentence: "Vaig al ___ cada dia", blank: "gimnàs", options: ["partit", "equip", "gimnàs", "esport"], correctIndex: 2, translation: "I go to the gym every day", explanation: "'Gimnàs' = gym. 'Vaig al gimnàs' = I go to the gym." },
+      { sentence: "El Barça va ___ el partit", blank: "guanyar", options: ["perdre", "guanyar", "jugar", "córrer"], correctIndex: 1, translation: "Barça won the match", explanation: "'Guanyar' = to win. 'Perdre' = to lose. 'Va guanyar' = won (past tense)." },
+      { sentence: "M'agrada ___ al parc", blank: "córrer", options: ["nedar", "córrer", "jugar", "guanyar"], correctIndex: 1, translation: "I like running in the park", explanation: "'Córrer' = to run. 'Nedar' = to swim." }
+    ],
+    listenAndType: [
+      { catalan: "Jugo a bàsquet cada dissabte", english: "I play basketball every Saturday", pronunciation: "JOO-goh ah BAHS-keht KAH-dah dee-SAH-teh" },
+      { catalan: "El partit és a les vuit", english: "The match is at eight o'clock", pronunciation: "ehl par-TEET ehs ah lehs BWEET" },
+      { catalan: "Faig exercici tres cops per setmana", english: "I exercise three times a week", pronunciation: "FAYCH eh-sehr-SEE-see TREHS KOHPS pehr seht-MAH-nah" },
+      { catalan: "Quin és el teu esport preferit?", english: "What's your favorite sport?", pronunciation: "KEEN ehs ehl TEH-oo ehs-PORT preh-feh-REET" }
+    ],
+    errorCorrection: [
+      { sentence: "Me gusta jugar al fútbol", errorWordIndex: 0, options: ["Me", "M'", "Ma", "I"], correctIndex: 1, translation: "I like playing football", explanation: "'M'agrada' is Catalan. 'Me gusta' is Spanish." },
+      { sentence: "Voy al gimnasio", errorWordIndex: 0, options: ["Voy", "Vaig", "Vo", "Go"], correctIndex: 1, translation: "I go to the gym", explanation: "'Vaig' is Catalan (I go). 'Voy' is Spanish." },
+      { sentence: "El equipo ganó el partido", errorWordIndex: 1, options: ["equipo", "equip", "equipe", "team"], correctIndex: 1, translation: "The team won the match", explanation: "'Equip' is Catalan. 'Equipo' is Spanish." },
+      { sentence: "Hago ejercicio cada día", errorWordIndex: 0, options: ["Hago", "Faig", "Fago", "Do"], correctIndex: 1, translation: "I exercise every day", explanation: "'Faig' is Catalan. 'Hago' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Sports use 'jugar a': jugar a futbol, jugar a bàsquet, jugar a tennis.", words: ["M'agrada", "jugar", "a", "tennis"], correctOrder: "M'agrada jugar a tennis", translation: "I like playing tennis" },
+      { grammarNote: "💡 'Fer esport' = to do sport. 'Fer exercici' = to exercise. Both use 'fer' (to do/make).", words: ["Faig", "esport", "cada", "matí"], correctOrder: "Faig esport cada matí", translation: "I do sport every morning" },
+      { grammarNote: "💡 'Copa' = cup/trophy. 'Campionat' = championship. 'Lliga' = league.", words: ["El", "Barça", "ha", "guanyat", "la", "lliga"], correctOrder: "El Barça ha guanyat la lliga", translation: "Barça has won the league" }
+    ]
+  }
+},
+
+// ─── LESSON 72: Technology & Internet ───────────────────────
+
+{
+  id: 72,
+  title: "Technology & Internet",
+  module: "Intermediate",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Computer", ca: "Ordinador", pronunciation: "or-dee-nah-DOR" },
+    { en: "Internet", ca: "Internet", pronunciation: "een-tehr-NEHT" },
+    { en: "WiFi", ca: "WiFi", pronunciation: "WEE-fee" },
+    { en: "Password", ca: "Contrasenya", pronunciation: "kohn-trah-SEH-nyah" },
+    { en: "Email", ca: "Correu electrònic", pronunciation: "koh-REH-oo eh-lehk-TROH-neek" },
+    { en: "App", ca: "Aplicació", pronunciation: "ah-plee-kah-see-OH" },
+    { en: "To download", ca: "Descarregar", pronunciation: "dehs-kah-reh-GAR" },
+    { en: "Screen", ca: "Pantalla", pronunciation: "pahn-TAH-yah" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Quin és el codi del ___?", blank: "WiFi", options: ["WiFi", "correu", "ordinador", "internet"], correctIndex: 0, translation: "What's the WiFi code?", explanation: "'WiFi' same in Catalan. 'Codi del WiFi' = WiFi password/code." },
+      { sentence: "He oblidat la ___", blank: "contrasenya", options: ["pantalla", "contrasenya", "aplicació", "internet"], correctIndex: 1, translation: "I've forgotten the password", explanation: "'Contrasenya' = password. 'He oblidat' = I've forgotten." },
+      { sentence: "Puc ___ aquesta aplicació?", blank: "descarregar", options: ["enviar", "descarregar", "obrir", "tancar"], correctIndex: 1, translation: "Can I download this app?", explanation: "'Descarregar' = to download. 'Pujar' = to upload." },
+      { sentence: "L'___ no funciona", blank: "ordinador", options: ["ordinador", "internet", "WiFi", "pantalla"], correctIndex: 0, translation: "The computer doesn't work", explanation: "'Ordinador' = computer. 'No funciona' = doesn't work." }
+    ],
+    listenAndType: [
+      { catalan: "Tens WiFi aquí?", english: "Do you have WiFi here?", pronunciation: "TEHNS WEE-fee ah-KEE" },
+      { catalan: "Quina és la teva adreça electrònica?", english: "What's your email address?", pronunciation: "KEE-nah ehs lah TEH-bah ah-DREH-sah eh-lehk-TROH-nee-kah" },
+      { catalan: "No puc connectar-me", english: "I can't connect", pronunciation: "noh POOK koh-nehk-TAR-meh" },
+      { catalan: "La bateria està baixa", english: "The battery is low", pronunciation: "lah bah-teh-REE-ah ehs-TAH BAH-ee-shah" }
+    ],
+    errorCorrection: [
+      { sentence: "Cuál es la contraseña del WiFi?", errorWordIndex: 0, options: ["Cuál", "Quin", "Cual", "What"], correctIndex: 1, translation: "What's the WiFi password?", explanation: "'Quin' is Catalan. 'Cuál' is Spanish." },
+      { sentence: "Puedo descargar esta app?", errorWordIndex: 0, options: ["Puedo", "Puc", "Pued", "Can"], correctIndex: 1, translation: "Can I download this app?", explanation: "'Puc' is Catalan. 'Puedo' is Spanish." },
+      { sentence: "El ordenador no funciona", errorWordIndex: 1, options: ["ordenador", "ordinador", "ordenador", "computer"], correctIndex: 1, translation: "The computer doesn't work", explanation: "'Ordinador' is Catalan. 'Ordenador' is Spanish." },
+      { sentence: "Mi correo es...", errorWordIndex: 1, options: ["correo", "correu", "corre", "email"], correctIndex: 1, translation: "My email is...", explanation: "'Correu' is Catalan. 'Correo' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Connectar-se' = to connect (reflexive). 'No puc connectar-me' = I can't connect.", words: ["No", "puc", "connectar-me", "a", "internet"], correctOrder: "No puc connectar-me a internet", translation: "I can't connect to the internet" },
+      { grammarNote: "💡 'Adreça electrònica' = email address. 'Correu electrònic' = email (the message).", words: ["Quina", "és", "la", "teva", "adreça", "electrònica"], correctOrder: "Quina és la teva adreça electrònica", translation: "What's your email address" },
+      { grammarNote: "💡 'Càrrega' = charge/battery. 'Carregar' = to charge. 'La bateria s'està carregant' = battery is charging.", words: ["He", "de", "carregar", "el", "mòbil"], correctOrder: "He de carregar el mòbil", translation: "I have to charge my phone" }
+    ]
+  }
+},
+
+// ─── LESSON 73: Housing & Apartments ────────────────────────
+
+{
+  id: 73,
+  title: "Housing & Apartments",
+  module: "Intermediate",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Apartment", ca: "Pis", pronunciation: "PEES" },
+    { en: "Rent", ca: "Lloguer", pronunciation: "yoh-GEHR" },
+    { en: "Landlord", ca: "Propietari", pronunciation: "proh-pee-eh-TAH-ree" },
+    { en: "Furnished", ca: "Moblat", pronunciation: "moh-BLAHT" },
+    { en: "Neighborhood", ca: "Barri", pronunciation: "BAH-ree" },
+    { en: "Bedroom", ca: "Habitació", pronunciation: "ah-bee-tah-see-OH" },
+    { en: "Kitchen", ca: "Cuina", pronunciation: "KWE-nah" },
+    { en: "Bathroom", ca: "Bany", pronunciation: "BAHN-yee" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Busco un ___ a Barcelona", blank: "pis", options: ["pis", "casa", "barri", "lloguer"], correctIndex: 0, translation: "I'm looking for an apartment in Barcelona", explanation: "'Pis' = apartment/flat. 'Casa' = house." },
+      { sentence: "Quant és el ___?", blank: "lloguer", options: ["pis", "lloguer", "barri", "propietari"], correctIndex: 1, translation: "How much is the rent?", explanation: "'Lloguer' = rent. 'Quant és el lloguer?' = How much is the rent?" },
+      { sentence: "El pis està ___?", blank: "moblat", options: ["moblat", "buit", "ocupat", "lliure"], correctIndex: 0, translation: "Is the apartment furnished?", explanation: "'Moblat' = furnished. 'Sense mobles' or 'buit' = unfurnished/empty." },
+      { sentence: "Quantes ___ té?", blank: "habitacions", options: ["cuines", "banys", "habitacions", "finestres"], correctIndex: 2, translation: "How many bedrooms does it have?", explanation: "'Habitacions' = bedrooms/rooms. Apartments described as: 1 habitació, 2 habitacions, etc." }
+    ],
+    listenAndType: [
+      { catalan: "El pis té dues habitacions", english: "The apartment has two bedrooms", pronunciation: "ehl PEES teh DOO-ehs ah-bee-tah-see-OHNS" },
+      { catalan: "M'agrada aquest barri", english: "I like this neighborhood", pronunciation: "mah-GRAH-dah ah-KESHT BAH-ree" },
+      { catalan: "Quan puc veure el pis?", english: "When can I see the apartment?", pronunciation: "KWAHN POOK BEH-oo-reh ehl PEES" },
+      { catalan: "Inclou els subministraments?", english: "Does it include utilities?", pronunciation: "een-KLOH-oo ehls soo-mee-nees-trah-MEHNS" }
+    ],
+    errorCorrection: [
+      { sentence: "Busco un piso en Barcelona", errorWordIndex: 2, options: ["piso", "pis", "piso", "apartment"], correctIndex: 1, translation: "I'm looking for an apartment in Barcelona", explanation: "'Pis' is Catalan. 'Piso' is Spanish." },
+      { sentence: "Cuánto es el alquiler?", errorWordIndex: 0, options: ["Cuánto", "Quant", "Cuanto", "How much"], correctIndex: 1, translation: "How much is the rent?", explanation: "'Quant' is Catalan. 'Cuánto' is Spanish." },
+      { sentence: "El piso está amueblado?", errorWordIndex: 2, options: ["amueblado", "moblat", "amueblat", "furnished"], correctIndex: 1, translation: "Is the apartment furnished?", explanation: "'Moblat' is Catalan. 'Amueblado' is Spanish." },
+      { sentence: "Tiene dos dormitorios", errorWordIndex: 2, options: ["dormitorios", "habitacions", "dormitoris", "bedrooms"], correctIndex: 1, translation: "It has two bedrooms", explanation: "'Habitacions' is Catalan. 'Dormitorios' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Llogar' = to rent. 'Llogar un pis' = rent an apartment. 'Lloguer' = rent (the noun).", words: ["Vull", "llogar", "un", "pis", "moblat"], correctOrder: "Vull llogar un pis moblat", translation: "I want to rent a furnished apartment" },
+      { grammarNote: "💡 Apartment features: 'amb terrassa' (with terrace), 'exterior' (facing street), 'interior' (facing courtyard).", words: ["El", "pis", "té", "balcó", "i", "ascensor"], correctOrder: "El pis té balcó i ascensor", translation: "The apartment has a balcony and elevator" },
+      { grammarNote: "💡 'Subministraments' = utilities (water, electricity, gas). 'Inclou' = it includes.", words: ["El", "lloguer", "inclou", "els", "subministraments"], correctOrder: "El lloguer inclou els subministraments", translation: "The rent includes utilities" }
+    ]
+  }
+},
+
+// ─── LESSON 74: Work & Office ──────────────────────────────
+
+{
+  id: 74,
+  title: "Work & Office",
+  module: "Intermediate",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Work", ca: "Feina", pronunciation: "FEH-ee-nah" },
+    { en: "Office", ca: "Oficina", pronunciation: "oh-fee-SEE-nah" },
+    { en: "Meeting", ca: "Reunió", pronunciation: "reh-oo-nee-OH" },
+    { en: "Boss", ca: "Cap", pronunciation: "KAHP" },
+    { en: "Colleague", ca: "Company", pronunciation: "kohm-PAHN-yee" },
+    { en: "Deadline", ca: "Data límit", pronunciation: "DAH-tah LEE-meet" },
+    { en: "Project", ca: "Projecte", pronunciation: "proh-JEHK-teh" },
+    { en: "Schedule", ca: "Horari", pronunciation: "oh-RAH-ree" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Tinc una ___ a les deu", blank: "reunió", options: ["feina", "reunió", "oficina", "projecte"], correctIndex: 1, translation: "I have a meeting at ten", explanation: "'Reunió' = meeting. 'Tinc una reunió' = I have a meeting." },
+      { sentence: "Quin és el teu ___?", blank: "horari", options: ["projecte", "horari", "cap", "company"], correctIndex: 1, translation: "What's your schedule?", explanation: "'Horari' = schedule/timetable. 'Horari de feina' = work schedule." },
+      { sentence: "El ___ és demà", blank: "projecte", options: ["horari", "projecte", "data límit", "reunió"], correctIndex: 1, translation: "The project is tomorrow", explanation: "'Projecte' = project. 'Data límit' = deadline." },
+      { sentence: "La meva ___ és a l'Eixample", blank: "oficina", options: ["feina", "oficina", "reunió", "cap"], correctIndex: 1, translation: "My office is in Eixample", explanation: "'Oficina' = office. L'Eixample is a Barcelona neighborhood." }
+    ],
+    listenAndType: [
+      { catalan: "Treballo en una empresa catalana", english: "I work at a Catalan company", pronunciation: "treh-BAH-yoh ehn OO-nah ehm-PREH-sah kah-tah-LAH-nah" },
+      { catalan: "El meu company és molt simpàtic", english: "My colleague is very nice", pronunciation: "ehl MEH-oo kohm-PAHN-yee ehs MOHLT seem-PAH-teek" },
+      { catalan: "Hem de lliurar el projecte divendres", english: "We have to deliver the project Friday", pronunciation: "EHM deh yee-oo-RAR ehl proh-JEHK-teh dee-BEHN-drehs" },
+      { catalan: "Quin horari tens?", english: "What schedule do you have?", pronunciation: "KEEN oh-RAH-ree TEHNS" }
+    ],
+    errorCorrection: [
+      { sentence: "Tengo una reunión", errorWordIndex: 0, options: ["Tengo", "Tinc", "Tenc", "Have"], correctIndex: 1, translation: "I have a meeting", explanation: "'Tinc' is Catalan. 'Tengo' is Spanish." },
+      { sentence: "Trabajo en una oficina", errorWordIndex: 0, options: ["Trabajo", "Treballo", "Traballo", "Work"], correctIndex: 1, translation: "I work in an office", explanation: "'Treballo' is Catalan. 'Trabajo' is Spanish." },
+      { sentence: "Mi jefe es muy bueno", errorWordIndex: 1, options: ["jefe", "cap", "jefe", "boss"], correctIndex: 1, translation: "My boss is very good", explanation: "'Cap' is Catalan (boss/head). 'Jefe' is Spanish." },
+      { sentence: "El proyecto es para mañana", errorWordIndex: 1, options: ["proyecto", "projecte", "proyecto", "project"], correctIndex: 1, translation: "The project is for tomorrow", explanation: "'Projecte' is Catalan. 'Proyecto' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Treballar' = to work. 'Treballo a...' = I work at... 'Treballo de...' = I work as...", words: ["Treballo", "de", "nou", "a", "cinc"], correctOrder: "Treballo de nou a cinc", translation: "I work from nine to five" },
+      { grammarNote: "💡 'Empresa' = company. 'Feina' = work/job. 'Lloc de feina' = workplace.", words: ["He", "de", "parlar", "amb", "el", "meu", "cap"], correctOrder: "He de parlar amb el meu cap", translation: "I have to speak with my boss" },
+      { grammarNote: "💡 'Lliurar' = to deliver/submit. 'Data límit' = deadline. 'A temps' = on time.", words: ["Hem", "acabat", "el", "projecte", "a", "temps"], correctOrder: "Hem acabat el projecte a temps", translation: "We finished the project on time" }
+    ]
+  }
+},
+
+// ─── LESSON 75: Travel & Transportation ─────────────────────
+
+{
+  id: 75,
+  title: "Travel & Transportation",
+  module: "Intermediate",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Trip", ca: "Viatge", pronunciation: "bee-AH-jeh" },
+    { en: "Train", ca: "Tren", pronunciation: "TREHN" },
+    { en: "Bus", ca: "Autobús", pronunciation: "ow-toh-BOOS" },
+    { en: "Metro", ca: "Metro", pronunciation: "MEH-troh" },
+    { en: "Ticket", ca: "Bitllet", pronunciation: "beet-YEH" },
+    { en: "Station", ca: "Estació", pronunciation: "ehs-tah-see-OH" },
+    { en: "Platform", ca: "Andana", pronunciation: "ahn-DAH-nah" },
+    { en: "Luggage", ca: "Equipatge", pronunciation: "eh-kee-PAH-jeh" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "On puc comprar un ___?", blank: "bitllet", options: ["tren", "bitllet", "metro", "viatge"], correctIndex: 1, translation: "Where can I buy a ticket?", explanation: "'Bitllet' = ticket. 'Comprar un bitllet' = buy a ticket." },
+      { sentence: "Quin ___ va a l'aeroport?", blank: "autobús", options: ["tren", "metro", "autobús", "taxi"], correctIndex: 2, translation: "Which bus goes to the airport?", explanation: "'Autobús' = bus. Aeroport = airport. Barcelona airport bus: Aerobús." },
+      { sentence: "On és l'___?", blank: "estació", options: ["andana", "estació", "equipatge", "bitllet"], correctIndex: 1, translation: "Where is the station?", explanation: "'Estació' = station. 'Estació de tren' = train station." },
+      { sentence: "De quina ___ surt el tren?", blank: "andana", options: ["estació", "andana", "línia", "metro"], correctIndex: 1, translation: "From which platform does the train leave?", explanation: "'Andana' = platform. 'Sortir' = to leave/depart." }
+    ],
+    listenAndType: [
+      { catalan: "A quina hora surt el tren?", english: "What time does the train leave?", pronunciation: "ah KEE-nah OH-rah SORT ehl TREHN" },
+      { catalan: "Vull un bitllet d'anada i tornada", english: "I want a return ticket", pronunciation: "BOOL oon beet-YEH dah-NAH-dah ee tor-NAH-dah" },
+      { catalan: "Hem de fer transbord?", english: "Do we have to change?", pronunciation: "EHM deh FEHR trahns-BORD" },
+      { catalan: "Quant triga el viatge?", english: "How long does the journey take?", pronunciation: "KWAHN TREE-gah ehl bee-AH-jeh" }
+    ],
+    errorCorrection: [
+      { sentence: "Dónde puedo comprar un billete?", errorWordIndex: 0, options: ["Dónde", "On", "Donde", "Where"], correctIndex: 1, translation: "Where can I buy a ticket?", explanation: "'On' is Catalan. 'Dónde' is Spanish." },
+      { sentence: "Qué autobús va al aeropuerto?", errorWordIndex: 0, options: ["Qué", "Quin", "Que", "Which"], correctIndex: 1, translation: "Which bus goes to the airport?", explanation: "'Quin' is Catalan. 'Qué' is Spanish." },
+      { sentence: "A qué hora sale el tren?", errorWordIndex: 3, options: ["sale", "surt", "sal", "leaves"], correctIndex: 1, translation: "What time does the train leave?", explanation: "'Surt' is Catalan. 'Sale' is Spanish." },
+      { sentence: "Tenemos que hacer transbordo?", errorWordIndex: 0, options: ["Tenemos", "Hem", "Tenim", "Have"], correctIndex: 1, translation: "Do we have to change?", explanation: "'Hem' is Catalan (we have). 'Tenemos' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Ticket types: 'anada' = one-way. 'anada i tornada' = return. 'Abonament' = pass/subscription.", words: ["Vull", "un", "bitllet", "d'anada", "i", "tornada"], correctOrder: "Vull un bitllet d'anada i tornada", translation: "I want a return ticket" },
+      { grammarNote: "💡 'Fer transbord' = to change (trains/buses). 'Transbord a...' = change at...", words: ["Has", "de", "fer", "transbord", "a", "Sants"], correctOrder: "Has de fer transbord a Sants", translation: "You have to change at Sants" },
+      { grammarNote: "💡 'Trigar' = to take time. 'Quant triga?' = How long does it take? 'Triga 20 minuts' = It takes 20 minutes.", words: ["El", "metro", "triga", "deu", "minuts"], correctOrder: "El metro triga deu minuts", translation: "The metro takes ten minutes" }
+    ]
+  }
+},
+
+// ─── LESSON 76: Past Tenses (Preterite vs Imperfect) ────────
+
+{
+  id: 76,
+  title: "Past Tenses",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "I was (temporary)", ca: "Estava", pronunciation: "ehs-TAH-bah" },
+    { en: "I was (permanent)", ca: "Era", pronunciation: "EH-rah" },
+    { en: "I went", ca: "Vaig anar", pronunciation: "BAYCH ah-NAR" },
+    { en: "I used to go", ca: "Anava", pronunciation: "ah-NAH-bah" },
+    { en: "I did", ca: "Vaig fer", pronunciation: "BAYCH FEHR" },
+    { en: "I used to do", ca: "Feia", pronunciation: "feh-EE-ah" },
+    { en: "Yesterday", ca: "Ahir", pronunciation: "ah-EER" },
+    { en: "Before", ca: "Abans", pronunciation: "ah-BAHNS" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "___ a Barcelona ahir", blank: "Vaig anar", options: ["Anava", "Vaig anar", "Aniré", "Vaig"], correctIndex: 1, translation: "I went to Barcelona yesterday", explanation: "'Vaig anar' = I went (completed action). Use for specific past events. 'Anava' = I used to go/was going." },
+      { sentence: "Quan ___ petit, jugava molt", blank: "era", options: ["estava", "era", "vaig ser", "sóc"], correctIndex: 1, translation: "When I was little, I used to play a lot", explanation: "'Era' = I was (permanent state). Use for descriptions in the past. 'Estava' = I was (temporary)." },
+      { sentence: "___ cansada després del viatge", blank: "Estava", options: ["Era", "Estava", "Vaig estar", "Sóc"], correctIndex: 1, translation: "I was tired after the trip", explanation: "'Estava' = I was (temporary condition). Tiredness is temporary, so use imperfect." },
+      { sentence: "___ els deures ahir al vespre", blank: "Vaig fer", options: ["Feia", "Vaig fer", "Faré", "Faig"], correctIndex: 1, translation: "I did homework yesterday evening", explanation: "'Vaig fer' = I did (completed). Specific time (ahir) = use preterite." }
+    ],
+    listenAndType: [
+      { catalan: "Abans vivia a Madrid", english: "I used to live in Madrid before", pronunciation: "ah-BAHNS bee-BEE-ah ah mah-DREED" },
+      { catalan: "Ahir vaig veure una pel·lícula", english: "Yesterday I saw a movie", pronunciation: "ah-EER BAYCH BEH-oo-reh OO-nah peh-LEE-koo-lah" },
+      { catalan: "Quan era jove, anava al gimnàs cada dia", english: "When I was young, I used to go to the gym every day", pronunciation: "KWAHN EH-rah JOH-beh ah-NAH-bah ahl jeem-NAHS KAH-dah DEE-ah" },
+      { catalan: "Estava plovent quan vaig sortir", english: "It was raining when I left", pronunciation: "ehs-TAH-bah ploh-BEHN KWAHN BAYCH sor-TEER" }
+    ],
+    errorCorrection: [
+      { sentence: "Ayer fui a Barcelona", errorWordIndex: 0, options: ["Ayer", "Ahir", "Ayer", "Yesterday"], correctIndex: 1, translation: "Yesterday I went to Barcelona", explanation: "'Ahir' is Catalan. 'Ayer' is Spanish." },
+      { sentence: "Cuando era pequeño jugaba mucho", errorWordIndex: 0, options: ["Cuando", "Quan", "Cuand", "When"], correctIndex: 1, translation: "When I was little I used to play a lot", explanation: "'Quan' is Catalan. 'Cuando' is Spanish." },
+      { sentence: "Estaba cansada después del viaje", errorWordIndex: 0, options: ["Estaba", "Estava", "Estab", "Was"], correctIndex: 1, translation: "I was tired after the trip", explanation: "'Estava' is Catalan. 'Estaba' is Spanish." },
+      { sentence: "Hice los deberes ayer", errorWordIndex: 0, options: ["Hice", "Vaig fer", "Feia", "Did"], correctIndex: 1, translation: "I did homework yesterday", explanation: "'Vaig fer' is Catalan preterite. 'Hice' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Preterite (specific completed actions): 'vaig' + infinitive. Vaig menjar = I ate, vaig veure = I saw.", words: ["Ahir", "vaig", "menjar", "al", "restaurant"], correctOrder: "Ahir vaig menjar al restaurant", translation: "Yesterday I ate at the restaurant" },
+      { grammarNote: "💡 Imperfect (habits, descriptions, ongoing): -ava/-ia endings. Menjava = I used to eat, vivia = I used to live.", words: ["Abans", "anava", "a", "l'escola", "caminant"], correctOrder: "Abans anava a l'escola caminant", translation: "I used to walk to school before" },
+      { grammarNote: "💡 Combined: Imperfect for background + Preterite for action. 'Estava' (background) + 'vaig' (action).", words: ["Estava", "estudiant", "quan", "em", "vas", "trucar"], correctOrder: "Estava estudiant quan em vas trucar", translation: "I was studying when you called me" }
+    ]
+  }
+},
+
+// ─── LESSON 77: Future Tense ───────────────────────────────
+
+{
+  id: 77,
+  title: "Future Tense",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "I will go", ca: "Aniré", pronunciation: "ah-nee-REH" },
+    { en: "I will do", ca: "Faré", pronunciation: "fah-REH" },
+    { en: "I will be", ca: "Seré", pronunciation: "seh-REH" },
+    { en: "I will have", ca: "Tindré", pronunciation: "teen-DREH" },
+    { en: "Tomorrow", ca: "Demà", pronunciation: "deh-MAH" },
+    { en: "Next week", ca: "La setmana que ve", pronunciation: "lah seht-MAH-nah keh BEH" },
+    { en: "Soon", ca: "Aviat", pronunciation: "ah-bee-AHT" },
+    { en: "Later", ca: "Més tard", pronunciation: "MEHS TARD" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Demà ___ a la platja", blank: "aniré", options: ["aniré", "vaig anar", "anava", "vaig"], correctIndex: 0, translation: "Tomorrow I will go to the beach", explanation: "'Aniré' = I will go. Future tense: infinitive + é/às/à/em/eu/an." },
+      { sentence: "___ els deures més tard", blank: "Faré", options: ["Feia", "Vaig fer", "Faré", "Faig"], correctIndex: 2, translation: "I will do homework later", explanation: "'Faré' = I will do. Regular future: fer → faré, parlar → parlaré." },
+      { sentence: "L'any que ve ___ vint anys", blank: "tindré", options: ["tinc", "tenia", "tindré", "vaig tenir"], correctIndex: 2, translation: "Next year I will be twenty", explanation: "'Tindré' = I will have. 'Tenir X anys' = to be X years old." },
+      { sentence: "Aviat ___ metge", blank: "seré", options: ["sóc", "era", "seré", "vaig ser"], correctIndex: 2, translation: "Soon I will be a doctor", explanation: "'Seré' = I will be. 'Ser' in future: seré, seràs, serà..." }
+    ],
+    listenAndType: [
+      { catalan: "Demà aniré al metge", english: "Tomorrow I will go to the doctor", pronunciation: "deh-MAH ah-nee-REH ahl MEHT-jeh" },
+      { catalan: "La setmana que ve començaré la feina nova", english: "Next week I will start the new job", pronunciation: "lah seht-MAH-nah keh BEH koh-mehn-sah-REH lah FEH-nah NOH-bah" },
+      { catalan: "Quan tindràs les vacances?", english: "When will you have vacation?", pronunciation: "KWAHN teen-DRAHS lehs bah-KAHN-sehs" },
+      { catalan: "Els estudiants faran l'examen divendres", english: "The students will take the exam Friday", pronunciation: "ehls ehs-too-dee-AHNS fah-RAHN lehk-SAH-mehn dee-BEHN-drehs" }
+    ],
+    errorCorrection: [
+      { sentence: "Mañana iré a la playa", errorWordIndex: 0, options: ["Mañana", "Demà", "Mañan", "Tomorrow"], correctIndex: 1, translation: "Tomorrow I will go to the beach", explanation: "'Demà' is Catalan. 'Mañana' is Spanish." },
+      { sentence: "Haré los deberes más tarde", errorWordIndex: 0, options: ["Haré", "Faré", "Fare", "Will do"], correctIndex: 1, translation: "I will do homework later", explanation: "'Faré' is Catalan. 'Haré' is Spanish." },
+      { sentence: "El año que viene tendré veinte años", errorWordIndex: 1, options: ["año", "any", "anyo", "year"], correctIndex: 1, translation: "Next year I will be twenty", explanation: "'Any' is Catalan. 'Año' is Spanish." },
+      { sentence: "Pronto seré médico", errorWordIndex: 0, options: ["Pronto", "Aviat", "Pront", "Soon"], correctIndex: 1, translation: "Soon I will be a doctor", explanation: "'Aviat' is Catalan. 'Pronto' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Future formation: infinitive + é/às/à/em/eu/an. Parlar → parlaré, menjar → menjaré, viure → viuré.", words: ["Demà", "estudiaré", "per", "l'examen"], correctOrder: "Demà estudiaré per l'examen", translation: "Tomorrow I will study for the exam" },
+      { grammarNote: "💡 Irregular futures: fer→faré, tenir→tindré, ser→seré, poder→podré, venir→vindré, dir→diré.", words: ["No", "podré", "venir", "a", "la", "festa"], correctOrder: "No podré venir a la festa", translation: "I won't be able to come to the party" },
+      { grammarNote: "💡 'Anar a' + infinitive also expresses near future. 'Vaig a estudiar' = I'm going to study.", words: ["Quant", "temps", "trigarà", "el", "viatge"], correctOrder: "Quant temps trigarà el viatge", translation: "How long will the journey take" }
+    ]
+  }
+},
+
+// ─── LESSON 78: Conditional Tense ──────────────────────────
+
+{
+  id: 78,
+  title: "Conditional Tense",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "I would go", ca: "Aniria", pronunciation: "ah-nee-REE-ah" },
+    { en: "I would like", ca: "M'agradaria", pronunciation: "mah-grah-dah-REE-ah" },
+    { en: "I would do", ca: "Faria", pronunciation: "fah-REE-ah" },
+    { en: "I would have", ca: "Tindria", pronunciation: "teen-DREE-ah" },
+    { en: "If I could", ca: "Si pogués", pronunciation: "see poh-GEHS" },
+    { en: "Maybe", ca: "Potser", pronunciation: "poht-SEHR" },
+    { en: "It would be", ca: "Seria", pronunciation: "seh-REE-ah" },
+    { en: "I should", ca: "Hauria de", pronunciation: "ow-REE-ah deh" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "___ viatjar pel món", blank: "M'agradaria", options: ["M'agrada", "M'agradaria", "M'agradarà", "M'agradava"], correctIndex: 1, translation: "I would like to travel the world", explanation: "'M'agradaria' = I would like. Polite way to express desires. Conditional: -ia/-ies/-ia/-íem/-íeu/-ien." },
+      { sentence: "Si pogués, ___ al concert", blank: "aniria", options: ["vaig", "anava", "aniré", "aniria"], correctIndex: 3, translation: "If I could, I would go to the concert", explanation: "'Aniria' = I would go. Conditional for hypothetical situations." },
+      { sentence: "___ més feina si tingués temps", blank: "Faria", options: ["Faig", "Feia", "Faré", "Faria"], correctIndex: 3, translation: "I would do more work if I had time", explanation: "'Faria' = I would do. 'Si tingués' = if I had (subjunctive)." },
+      { sentence: "___ estudiar més", blank: "Hauria de", options: ["He de", "Vaig", "Hauré de", "Hauria de"], correctIndex: 3, translation: "I should study more", explanation: "'Hauria de' = I should (conditional of 'haver de'). Softer than 'he de' (I have to)." }
+    ],
+    listenAndType: [
+      { catalan: "Seria genial anar a Andorra", english: "It would be great to go to Andorra", pronunciation: "seh-REE-ah jeh-nee-AHL ah-NAR ah ahn-DOH-rah" },
+      { catalan: "Potser podríem quedar demà", english: "Maybe we could meet tomorrow", pronunciation: "poht-SEHR poh-DREE-ehm keh-DAR deh-MAH" },
+      { catalan: "Què faries si guanyessis la loteria?", english: "What would you do if you won the lottery?", pronunciation: "KEH fah-REE-ehs see gwahn-YEH-sees lah loh-teh-REE-ah" },
+      { catalan: "M'agradaria aprendre més idiomes", english: "I would like to learn more languages", pronunciation: "mah-grah-dah-REE-ah ah-PREHN-dreh MEHS ee-dee-OH-mehs" }
+    ],
+    errorCorrection: [
+      { sentence: "Me gustaría viajar por el mundo", errorWordIndex: 1, options: ["gustaría", "agradaria", "gustari", "would like"], correctIndex: 1, translation: "I would like to travel the world", explanation: "'M'agradaria' is Catalan. 'Me gustaría' is Spanish." },
+      { sentence: "Si pudiera iría al concierto", errorWordIndex: 1, options: ["pudiera", "pogués", "pudier", "could"], correctIndex: 1, translation: "If I could I would go to the concert", explanation: "'Pogués' is Catalan subjunctive. 'Pudiera' is Spanish." },
+      { sentence: "Haría más trabajo si tuviera tiempo", errorWordIndex: 0, options: ["Haría", "Faria", "Hari", "Would do"], correctIndex: 1, translation: "I would do more work if I had time", explanation: "'Faria' is Catalan. 'Haría' is Spanish." },
+      { sentence: "Debería estudiar más", errorWordIndex: 0, options: ["Debería", "Hauria de", "Deberi", "Should"], correctIndex: 1, translation: "I should study more", explanation: "'Hauria de' is Catalan. 'Debería' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Conditional formation: infinitive + ia/ies/ia/íem/íeu/ien. Parlar → parlaria, menjar → menjaria.", words: ["M'agradaria", "viure", "a", "Barcelona"], correctOrder: "M'agradaria viure a Barcelona", translation: "I would like to live in Barcelona" },
+      { grammarNote: "💡 'Si' + imperfect subjunctive + conditional. Si tingués diners, compraria un pis (If I had money, I would buy an apartment).", words: ["Què", "faries", "si", "fossis", "ric"], correctOrder: "Què faries si fossis ric", translation: "What would you do if you were rich" },
+      { grammarNote: "💡 'Hauria de' = should (ought to). Softer advice than 'has de' (you have to). 'Podria' = could.", words: ["Hauria", "de", "trucar", "la", "meva", "mare"], correctOrder: "Hauria de trucar la meva mare", translation: "I should call my mother" }
+    ]
+  }
+},
+
+// ─── LESSON 79: Subjunctive Mood (Present) ──────────────────
+
+{
+  id: 79,
+  title: "Subjunctive Mood",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "I hope that", ca: "Espero que", pronunciation: "ehs-PEH-roh keh" },
+    { en: "I want you to", ca: "Vull que", pronunciation: "BOOL keh" },
+    { en: "It's important that", ca: "És important que", pronunciation: "ehs eem-por-TAHN keh" },
+    { en: "I doubt that", ca: "Dubto que", pronunciation: "DOOB-toh keh" },
+    { en: "It's possible that", ca: "És possible que", pronunciation: "ehs poh-SEE-bleh keh" },
+    { en: "Maybe", ca: "Potser", pronunciation: "poht-SEHR" },
+    { en: "Although", ca: "Tot i que", pronunciation: "toht ee keh" },
+    { en: "Unless", ca: "Tret que", pronunciation: "TREHT keh" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Espero que ___ bé", blank: "vagis", options: ["vas", "anaves", "vagis", "aniràs"], correctIndex: 2, translation: "I hope you're doing well", explanation: "'Vagis' = you go (subjunctive). After 'espero que' use subjunctive. Indicative 'vas' won't work." },
+      { sentence: "Vull que em ___", blank: "truquis", options: ["truques", "trucaràs", "truquis", "trucaves"], correctIndex: 2, translation: "I want you to call me", explanation: "'Truquis' = you call (subjunctive). After 'vull que' (I want that) use subjunctive." },
+      { sentence: "És important que ___ català", blank: "parlis", options: ["parles", "parlaves", "parlis", "parlaràs"], correctIndex: 2, translation: "It's important that you speak Catalan", explanation: "'Parlis' = you speak (subjunctive). Expressions of importance trigger subjunctive." },
+      { sentence: "Dubto que ___ demà", blank: "vingui", options: ["ve", "venia", "vingui", "vindrà"], correctIndex: 2, translation: "I doubt that he'll come tomorrow", explanation: "'Vingui' = he comes (subjunctive). Expressions of doubt use subjunctive." }
+    ],
+    listenAndType: [
+      { catalan: "Espero que tinguis un bon dia", english: "I hope you have a good day", pronunciation: "ehs-PEH-roh keh TEEN-gees oon bohn DEE-ah" },
+      { catalan: "És possible que plogui demà", english: "It's possible it will rain tomorrow", pronunciation: "ehs poh-SEE-bleh keh PLOH-ghee deh-MAH" },
+      { catalan: "No crec que sigui veritat", english: "I don't think it's true", pronunciation: "noh KREHK keh SEE-ghee beh-ree-TAHT" },
+      { catalan: "Vull que estudiem junts", english: "I want us to study together", pronunciation: "BOOL keh ehs-too-dee-EHM JOONTS" }
+    ],
+    errorCorrection: [
+      { sentence: "Espero que vas bien", errorWordIndex: 2, options: ["vas", "vagis", "va", "go"], correctIndex: 1, translation: "I hope you're doing well", explanation: "After 'espero que' need subjunctive 'vagis', not indicative 'vas'." },
+      { sentence: "Quiero que me llamas", errorWordIndex: 3, options: ["llamas", "truquis", "llames", "call"], correctIndex: 1, translation: "I want you to call me", explanation: "'Truquis' is Catalan subjunctive. 'Llamas' is Spanish indicative (wrong mood)." },
+      { sentence: "Es importante que hablas catalán", errorWordIndex: 3, options: ["hablas", "parlis", "hables", "speak"], correctIndex: 1, translation: "It's important that you speak Catalan", explanation: "'Parlis' is Catalan subjunctive. 'Hablas' is Spanish indicative." },
+      { sentence: "Dudo que viene mañana", errorWordIndex: 2, options: ["viene", "vingui", "venga", "comes"], correctIndex: 1, translation: "I doubt he'll come tomorrow", explanation: "'Vingui' is Catalan subjunctive. 'Viene' is Spanish indicative." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Subjunctive after: espero que, vull que, dubto que, és possible que, no crec que, abans que.", words: ["Espero", "que", "ho", "passis", "bé"], correctOrder: "Espero que ho passis bé", translation: "I hope you have a good time" },
+      { grammarNote: "💡 Present subjunctive: parli, parlis, parli, parlem, parleu, parlin. From 1st person present: parlo → parli.", words: ["Vull", "que", "vinguis", "a", "la", "festa"], correctOrder: "Vull que vinguis a la festa", translation: "I want you to come to the party" },
+      { grammarNote: "💡 'Tot i que' + subjunctive = even though (uncertainty). 'Tot i que' + indicative = although (certainty).", words: ["No", "crec", "que", "sigui", "una", "bona", "idea"], correctOrder: "No crec que sigui una bona idea", translation: "I don't think it's a good idea" }
+    ]
+  }
+},
+
+// ─── LESSON 80: Perfect Tenses ─────────────────────────────
+
+{
+  id: 80,
+  title: "Perfect Tenses",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "I have done", ca: "He fet", pronunciation: "eh FEHT" },
+    { en: "I have been", ca: "He estat", pronunciation: "eh ehs-TAHT" },
+    { en: "I have gone", ca: "He anat", pronunciation: "eh ah-NAHT" },
+    { en: "I have seen", ca: "He vist", pronunciation: "eh BEEST" },
+    { en: "Already", ca: "Ja", pronunciation: "JAH" },
+    { en: "Not yet", ca: "Encara no", pronunciation: "ehn-KAH-rah noh" },
+    { en: "Ever", ca: "Mai", pronunciation: "MAHY" },
+    { en: "Never", ca: "Mai", pronunciation: "MAHY" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "___ els deures", blank: "He fet", options: ["Vaig fer", "He fet", "Feia", "Faré"], correctIndex: 1, translation: "I have done homework", explanation: "'He fet' = I have done. Perfect tense: 'haver' + past participle. Use for recent past with present relevance." },
+      { sentence: "No ___ a Andorra", blank: "he anat", options: ["vaig anar", "he anat", "anava", "aniré"], correctIndex: 1, translation: "I haven't been to Andorra", explanation: "'He anat' = I have gone/been. Mai = ever/never. 'Mai he anat' = I've never been." },
+      { sentence: "Ja ___ aquesta pel·lícula", blank: "he vist", options: ["vaig veure", "he vist", "veia", "veuré"], correctIndex: 1, translation: "I've already seen this movie", explanation: "'He vist' = I have seen. 'Ja' = already. Perfect for experiences up to now." },
+      { sentence: "___ estat a Barcelona?", blank: "Has", options: ["Vas", "Has", "Ets", "Anaves"], correctIndex: 1, translation: "Have you been to Barcelona?", explanation: "'Has estat' = you have been. Question: 'Has' + past participle + subject?" }
+    ],
+    listenAndType: [
+      { catalan: "He viscut a Barcelona durant cinc anys", english: "I have lived in Barcelona for five years", pronunciation: "eh bees-KOOT ah bar-seh-LOH-nah doo-RAHNT SEEN-k AHN-yees" },
+      { catalan: "Encara no he acabat la feina", english: "I haven't finished work yet", pronunciation: "ehn-KAH-rah noh eh ah-kah-BAHT lah FEH-nah" },
+      { catalan: "Mai he menjat cargols", english: "I've never eaten snails", pronunciation: "MAHY eh mehn-JAHT kar-GOHLS" },
+      { catalan: "Ja has estat a la Sagrada Família?", english: "Have you been to the Sagrada Família yet?", pronunciation: "JAH ahs ehs-TAHT ah lah sah-GRAH-dah fah-MEE-lee-ah" }
+    ],
+    errorCorrection: [
+      { sentence: "He hecho los deberes", errorWordIndex: 1, options: ["hecho", "fet", "hech", "done"], correctIndex: 1, translation: "I have done homework", explanation: "'Fet' is Catalan past participle. 'Hecho' is Spanish." },
+      { sentence: "No he ido a Andorra", errorWordIndex: 2, options: ["ido", "anat", "id", "gone"], correctIndex: 1, translation: "I haven't been to Andorra", explanation: "'Anat' is Catalan past participle of 'anar'. 'Ido' is Spanish." },
+      { sentence: "Ya he visto esta película", errorWordIndex: 0, options: ["Ya", "Ja", "Ya", "Already"], correctIndex: 1, translation: "I've already seen this movie", explanation: "'Ja' is Catalan. 'Ya' is Spanish." },
+      { sentence: "Has estado en Barcelona?", errorWordIndex: 1, options: ["estado", "estat", "estad", "been"], correctIndex: 1, translation: "Have you been to Barcelona?", explanation: "'Estat' is Catalan past participle. 'Estado' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Perfect tense: haver (he/has/ha/hem/heu/han) + past participle (-at, -ut, -it). He parlat, has menjat, ha viscut.", words: ["He", "viscut", "aquí", "tota", "la", "vida"], correctOrder: "He viscut aquí tota la vida", translation: "I have lived here all my life" },
+      { grammarNote: "💡 Irregular participles: fer→fet, veure→vist, dir→dit, posar→post, escriure→escrit, obrir→obert.", words: ["Han", "obert", "un", "nou", "restaurant"], correctOrder: "Han obert un nou restaurant", translation: "They have opened a new restaurant" },
+      { grammarNote: "💡 'Ja' = already. 'Encara no' = not yet. 'Mai' = ever/never (with 'no' = never, without = ever in questions).", words: ["Encara", "no", "hem", "dinat"], correctOrder: "Encara no hem dinat", translation: "We haven't had lunch yet" }
+    ]
+  }
+},
+
+// ─── LESSON 81: Passive Voice ──────────────────────────────
+
+{
+  id: 81,
+  title: "Passive Voice",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "It is said", ca: "Es diu", pronunciation: "ehs DEE-oo" },
+    { en: "It is done", ca: "Es fa", pronunciation: "ehs FAH" },
+    { en: "It is known", ca: "Es coneix", pronunciation: "ehs koh-NAYSH" },
+    { en: "It was built", ca: "Va ser construït", pronunciation: "bah SEHR kohns-troo-EET" },
+    { en: "By", ca: "Per", pronunciation: "PEHR" },
+    { en: "It is believed", ca: "Es creu", pronunciation: "ehs KREH-oo" },
+    { en: "One can", ca: "Es pot", pronunciation: "ehs POHT" },
+    { en: "One must", ca: "S'ha de", pronunciation: "sah deh" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Aquí ___ català", blank: "es parla", options: ["es parla", "parlen", "parla", "parlant"], correctIndex: 0, translation: "Catalan is spoken here", explanation: "'Es parla' = it is spoken. Passive 'es' + 3rd person verb. Most common passive in Catalan." },
+      { sentence: "La casa ___ construïda el 1900", blank: "va ser", options: ["va ser", "és", "estava", "ha estat"], correctIndex: 0, translation: "The house was built in 1900", explanation: "'Va ser construïda' = was built. 'Ser' + past participle for passive (formal)." },
+      { sentence: "___ que plourà demà", blank: "Es diu", options: ["Diu", "Es diu", "Diuen", "Està dit"], correctIndex: 1, translation: "It is said it will rain tomorrow", explanation: "'Es diu' = it is said (literally: one says). Impersonal passive." },
+      { sentence: "El llibre fou escrit ___ Mercè Rodoreda", blank: "per", options: ["de", "per", "amb", "sense"], correctIndex: 1, translation: "The book was written by Mercè Rodoreda", explanation: "'Per' = by (agent in passive). Use after passive constructions." }
+    ],
+    listenAndType: [
+      { catalan: "Es ven aquest pis", english: "This apartment is for sale", pronunciation: "ehs BEHN ah-KESHT PEES" },
+      { catalan: "La Sagrada Família va ser dissenyada per Gaudí", english: "The Sagrada Família was designed by Gaudí", pronunciation: "lah sah-GRAH-dah fah-MEE-lee-ah bah SEHR dee-sehn-YAH-dah pehr gow-DEE" },
+      { catalan: "Es pot aparcar aquí?", english: "Can one park here?", pronunciation: "ehs POHT ah-par-KAR ah-KEE" },
+      { catalan: "S'ha de pagar abans d'entrar", english: "One must pay before entering", pronunciation: "sah deh pah-GAR ah-BAHNS dehn-TRAR" }
+    ],
+    errorCorrection: [
+      { sentence: "Aquí se habla catalán", errorWordIndex: 1, options: ["se", "es", "se", "one"], correctIndex: 1, translation: "Catalan is spoken here", explanation: "'Es parla' is Catalan impersonal. 'Se habla' is Spanish." },
+      { sentence: "La casa fue construida en 1900", errorWordIndex: 1, options: ["fue", "va ser", "fou", "was"], correctIndex: 1, translation: "The house was built in 1900", explanation: "'Va ser' is Catalan passive. 'Fue' is Spanish." },
+      { sentence: "Se dice que lloverá mañana", errorWordIndex: 0, options: ["Se", "Es", "Se", "It"], correctIndex: 1, translation: "It is said it will rain tomorrow", explanation: "'Es diu' is Catalan. 'Se dice' is Spanish." },
+      { sentence: "El libro fue escrito por Mercè Rodoreda", errorWordIndex: 1, options: ["fue", "va ser", "fou", "was"], correctIndex: 1, translation: "The book was written by Mercè Rodoreda", explanation: "'Va ser escrit' is Catalan. 'Fue escrito' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Impersonal 'es' + verb (most common passive): es parla, es fa, es pot, es diu, es creu, es ven.", words: ["Aquí", "es", "menja", "molt", "bé"], correctOrder: "Aquí es menja molt bé", translation: "One eats very well here" },
+      { grammarNote: "💡 'Ser' passive (formal): ser + past participle. El castell va ser construït, la carta fou escrita.", words: ["El", "monument", "va", "ser", "inaugurat", "ahir"], correctOrder: "El monument va ser inaugurat ahir", translation: "The monument was inaugurated yesterday" },
+      { grammarNote: "💡 'Es pot' = one can. 'S'ha de' = one must. 'Es diu' = it is said. 'Es creu' = it is believed.", words: ["No", "es", "pot", "fumar", "aquí"], correctOrder: "No es pot fumar aquí", translation: "One cannot smoke here" }
+    ]
+  }
+},
+
+// ─── LESSON 82: Comparatives & Superlatives ─────────────────
+
+{
+  id: 82,
+  title: "Comparatives & Superlatives",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "More than", ca: "Més que", pronunciation: "MEHS keh" },
+    { en: "Less than", ca: "Menys que", pronunciation: "MEHN-yees keh" },
+    { en: "As... as", ca: "Tan... com", pronunciation: "TAHN... KOHM" },
+    { en: "Better", ca: "Millor", pronunciation: "mee-YOR" },
+    { en: "Worse", ca: "Pitjor", pronunciation: "pee-JHOR" },
+    { en: "The best", ca: "El millor", pronunciation: "ehl mee-YOR" },
+    { en: "The worst", ca: "El pitjor", pronunciation: "ehl pee-JHOR" },
+    { en: "The most", ca: "El més", pronunciation: "ehl MEHS" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Barcelona és ___ gran que Girona", blank: "més", options: ["més", "menys", "tan", "el més"], correctIndex: 0, translation: "Barcelona is bigger than Girona", explanation: "'Més... que' = more... than. 'Més gran que' = bigger than." },
+      { sentence: "Aquest restaurant és ___ bo de la ciutat", blank: "el millor", options: ["millor", "el millor", "més bo", "el més bo"], correctIndex: 1, translation: "This restaurant is the best in the city", explanation: "'El millor' = the best (superlative). Don't use 'el més bo'." },
+      { sentence: "Sóc ___ alt com tu", blank: "tan", options: ["més", "menys", "tan", "el més"], correctIndex: 2, translation: "I'm as tall as you", explanation: "'Tan... com' = as... as (equality). 'Tan alt com' = as tall as." },
+      { sentence: "Avui fa ___ fred que ahir", blank: "menys", options: ["més", "menys", "tan", "el menys"], correctIndex: 1, translation: "Today it's less cold than yesterday", explanation: "'Menys... que' = less... than. 'Menys fred que' = less cold than." }
+    ],
+    listenAndType: [
+      { catalan: "El Barça és el millor equip del món", english: "Barça is the best team in the world", pronunciation: "ehl BAR-sah ehs ehl mee-YOR eh-KEEP dehl MOHN" },
+      { catalan: "Aquesta casa és més cara que l'altra", english: "This house is more expensive than the other", pronunciation: "ah-KEHS-tah KAH-sah ehs MEHS KAH-rah keh LAHL-trah" },
+      { catalan: "No sóc tan jove com abans", english: "I'm not as young as before", pronunciation: "noh SOHK tahn JOH-beh kohm ah-BAHNS" },
+      { catalan: "Aquest és el dia més llarg de l'any", english: "This is the longest day of the year", pronunciation: "ah-KESHT ehs ehl DEE-ah MEHS YARK deh LAHN-yee" }
+    ],
+    errorCorrection: [
+      { sentence: "Barcelona es más grande que Girona", errorWordIndex: 2, options: ["más", "més", "mas", "more"], correctIndex: 1, translation: "Barcelona is bigger than Girona", explanation: "'Més' is Catalan. 'Más' is Spanish." },
+      { sentence: "Este restaurante es el mejor de la ciudad", errorWordIndex: 3, options: ["mejor", "millor", "mejo", "best"], correctIndex: 1, translation: "This restaurant is the best in the city", explanation: "'Millor' is Catalan. 'Mejor' is Spanish." },
+      { sentence: "Soy tan alto como tú", errorWordIndex: 0, options: ["Soy", "Sóc", "So", "Am"], correctIndex: 1, translation: "I'm as tall as you", explanation: "'Sóc' is Catalan. 'Soy' is Spanish." },
+      { sentence: "Hoy hace menos frío que ayer", errorWordIndex: 2, options: ["menos", "menys", "meno", "less"], correctIndex: 1, translation: "Today it's less cold than yesterday", explanation: "'Menys' is Catalan. 'Menos' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Comparative: més/menys + adjective + que. Barcelona és més gran que Tarragona.", words: ["Aquest", "llibre", "és", "més", "interessant", "que", "l'altre"], correctOrder: "Aquest llibre és més interessant que l'altre", translation: "This book is more interesting than the other" },
+      { grammarNote: "💡 Superlative: el/la + més/menys + adjective + de. La casa més gran de la ciutat = the biggest house in the city.", words: ["És", "la", "platja", "més", "bonica", "de", "Catalunya"], correctOrder: "És la platja més bonica de Catalunya", translation: "It's the most beautiful beach in Catalonia" },
+      { grammarNote: "💡 Irregular: bon→millor (better), mal→pitjor (worse), gran→major (older/bigger), petit→menor (younger/smaller).", words: ["Aquest", "vi", "és", "pitjor", "que", "l'altre"], correctOrder: "Aquest vi és pitjor que l'altre", translation: "This wine is worse than the other" }
+    ]
+  }
+},
+
+// ─── LESSON 83: Reported Speech ────────────────────────────
+
+{
+  id: 83,
+  title: "Reported Speech",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "He said that", ca: "Va dir que", pronunciation: "bah DEER keh" },
+    { en: "She told me", ca: "Em va dir", pronunciation: "ehm bah DEER" },
+    { en: "They asked if", ca: "Van preguntar si", pronunciation: "bahn preh-goon-TAR see" },
+    { en: "He explained that", ca: "Va explicar que", pronunciation: "bah ehks-plee-KAR keh" },
+    { en: "She replied that", ca: "Va respondre que", pronunciation: "bah rehs-POHN-dreh keh" },
+    { en: "According to", ca: "Segons", pronunciation: "seh-GOHNS" },
+    { en: "It seems that", ca: "Sembla que", pronunciation: "SEHM-blah keh" },
+    { en: "I heard that", ca: "He sentit que", pronunciation: "eh sehn-TEET keh" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Em ___ que vindria", blank: "va dir", options: ["diu", "va dir", "dirà", "diria"], correctIndex: 1, translation: "He told me he would come", explanation: "'Va dir' = said/told (past). In reported speech, tense shifts back: 'vindré' → 'vindria'." },
+      { sentence: "Van ___ si volia anar", blank: "preguntar", options: ["dir", "preguntar", "respondre", "explicar"], correctIndex: 1, translation: "They asked if I wanted to go", explanation: "'Preguntar si' = to ask if/whether. For reported questions." },
+      { sentence: "___ la professora, l'examen és difícil", blank: "Segons", options: ["Diu", "Segons", "Per", "Amb"], correctIndex: 1, translation: "According to the teacher, the exam is difficult", explanation: "'Segons' = according to. Use to report information from a source." },
+      { sentence: "___ que plourà", blank: "Sembla", options: ["Diu", "Dir", "Sembla", "Segons"], correctIndex: 2, translation: "It seems it will rain", explanation: "'Sembla que' = it seems that. For reporting impressions/appearance." }
+    ],
+    listenAndType: [
+      { catalan: "Va dir que estava cansat", english: "He said he was tired", pronunciation: "bah DEER keh ehs-TAH-bah kahn-SAHT" },
+      { catalan: "Em van preguntar d'on era", english: "They asked me where I was from", pronunciation: "ehm bahn preh-goon-TAR DOHN EH-rah" },
+      { catalan: "Va explicar que no podia venir", english: "He explained that he couldn't come", pronunciation: "bah ehks-plee-KAR keh noh poh-DEE-ah beh-NEER" },
+      { catalan: "He sentit que han obert una botiga nova", english: "I heard they've opened a new shop", pronunciation: "eh sehn-TEET keh ahn oh-BEHRT OO-nah boh-TEE-gah NOH-bah" }
+    ],
+    errorCorrection: [
+      { sentence: "Me dijo que vendría", errorWordIndex: 0, options: ["Me", "Em", "Ma", "Me"], correctIndex: 1, translation: "He told me he would come", explanation: "'Em va dir' is Catalan. 'Me dijo' is Spanish." },
+      { sentence: "Preguntaron si quería ir", errorWordIndex: 0, options: ["Preguntaron", "Van preguntar", "Preguntaren", "Asked"], correctIndex: 1, translation: "They asked if I wanted to go", explanation: "'Van preguntar' is Catalan. 'Preguntaron' is Spanish." },
+      { sentence: "Según la profesora el examen es difícil", errorWordIndex: 0, options: ["Según", "Segons", "Segun", "According"], correctIndex: 1, translation: "According to the teacher the exam is difficult", explanation: "'Segons' is Catalan. 'Según' is Spanish." },
+      { sentence: "Parece que lloverá", errorWordIndex: 0, options: ["Parece", "Sembla", "Pareix", "Seems"], correctIndex: 1, translation: "It seems it will rain", explanation: "'Sembla' is Catalan. 'Parece' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Reported statements: 'Va dir que' + shift tense back. 'Vinc' → 'Va dir que venia'. 'Vindré' → 'Va dir que vindria'.", words: ["Va", "dir", "que", "estava", "ocupat"], correctOrder: "Va dir que estava ocupat", translation: "He said he was busy" },
+      { grammarNote: "💡 Reported questions: 'Va preguntar' + question word + statement order. Què fas? → Va preguntar què feia.", words: ["Em", "van", "preguntar", "com", "em", "deia"], correctOrder: "Em van preguntar com em deia", translation: "They asked me what my name was" },
+      { grammarNote: "💡 Yes/no questions use 'si': Vindràs? → Va preguntar si vindria. Commands: 'Va dir que' + subjunctive.", words: ["Va", "preguntar", "si", "tenia", "gana"], correctOrder: "Va preguntar si tenia gana", translation: "He asked if I was hungry" }
+    ]
+  }
+},
+
+// ─── LESSON 84: Idiomatic Expressions ──────────────────────
+
+{
+  id: 84,
+  title: "Idiomatic Expressions",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "It's raining cats and dogs", ca: "Plou a bots i barrals", pronunciation: "PLOH-oo ah BOHTS ee bah-RAHLS" },
+    { en: "To cost an arm and a leg", ca: "Costar un ull de la cara", pronunciation: "kohs-TAR oon OOY deh lah KAH-rah" },
+    { en: "To be on cloud nine", ca: "Estar al cel", pronunciation: "ehs-TAR ahl SEHL" },
+    { en: "To pull someone's leg", ca: "Prendre el pèl", pronunciation: "PREHN-dreh ehl PEHL" },
+    { en: "Piece of cake", ca: "Bufar i fer ampolles", pronunciation: "boo-FAR ee fehr ahm-POH-yehs" },
+    { en: "To be broke", ca: "No tenir ni cinc", pronunciation: "noh teh-NEER nee SEEN-k" },
+    { en: "To be fed up", ca: "Estar tip", pronunciation: "ehs-TAR TEEP" },
+    { en: "To get nervous", ca: "Posar-se nerviós", pronunciation: "poh-SAR-seh nehr-bee-OHS" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Avui plou ___", blank: "a bots i barrals", options: ["molt", "a bots i barrals", "força", "una mica"], correctIndex: 1, translation: "Today it's raining cats and dogs", explanation: "'Plou a bots i barrals' = it's raining heavily (literally: buckets and barrels)." },
+      { sentence: "Aquest cotxe costa ___", blank: "un ull de la cara", options: ["molt", "car", "un ull de la cara", "poc"], correctIndex: 2, translation: "This car costs an arm and a leg", explanation: "'Costar un ull de la cara' = very expensive (literally: cost an eye from the face)." },
+      { sentence: "Em prens ___?", blank: "el pèl", options: ["el peu", "el pèl", "la mà", "el cap"], correctIndex: 1, translation: "Are you pulling my leg?", explanation: "'Prendre el pèl' = to pull someone's leg/tease (literally: take the hair)." },
+      { sentence: "Estic ___ d'aquesta situació", blank: "tip", options: ["content", "tip", "cansat", "ocupat"], correctIndex: 1, translation: "I'm fed up with this situation", explanation: "'Estar tip' = to be fed up/had enough." }
+    ],
+    listenAndType: [
+      { catalan: "Això és bufar i fer ampolles", english: "That's a piece of cake", pronunciation: "ah-SHOH ehs boo-FAR ee fehr ahm-POH-yehs" },
+      { catalan: "Estic al cel amb aquesta notícia", english: "I'm over the moon with this news", pronunciation: "ehs-TEEK ahl SEHL ahm ah-KEHS-tah noh-TEE-see-ah" },
+      { catalan: "No tinc ni cinc aquests dies", english: "I'm completely broke these days", pronunciation: "noh TEEN-k nee SEEN-k ah-KESTS DEE-ehs" },
+      { catalan: "Em poso nerviós abans dels exàmens", english: "I get nervous before exams", pronunciation: "ehm POH-zoh nehr-bee-OHS ah-BAHNS dehls ehk-SAH-mehns" }
+    ],
+    errorCorrection: [
+      { sentence: "Hoy llueve a cántaros", errorWordIndex: 2, options: ["cántaros", "bots i barrals", "cantaros", "buckets"], correctIndex: 1, translation: "Today it's raining cats and dogs", explanation: "'Plou a bots i barrals' is Catalan idiom. 'Llueve a cántaros' is Spanish." },
+      { sentence: "Este coche cuesta un ojo de la cara", errorWordIndex: 3, options: ["ojo", "ull", "oj", "eye"], correctIndex: 1, translation: "This car costs an arm and a leg", explanation: "'Un ull de la cara' is Catalan. 'Un ojo de la cara' is Spanish." },
+      { sentence: "Me tomas el pelo?", errorWordIndex: 2, options: ["pelo", "pèl", "pel", "hair"], correctIndex: 1, translation: "Are you pulling my leg?", explanation: "'Prendre el pèl' is Catalan. 'Tomar el pelo' is Spanish." },
+      { sentence: "Estoy harto de esta situación", errorWordIndex: 1, options: ["harto", "tip", "hart", "fed up"], correctIndex: 1, translation: "I'm fed up with this situation", explanation: "'Estar tip' is Catalan. 'Estar harto' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Weather idioms: 'Plou a bots i barrals' = pouring rain. 'Fa un fred que pela' = freezing cold.", words: ["Plou", "tant", "que", "no", "es", "veu", "res"], correctOrder: "Plou tant que no es veu res", translation: "It's raining so much you can't see anything" },
+      { grammarNote: "💡 Money idioms: 'No tenir ni cinc' = broke. 'Costar un ull de la cara' = very expensive. 'Tirar la casa per la finestra' = spare no expense.", words: ["Aquest", "restaurant", "costa", "un", "ull", "de", "la", "cara"], correctOrder: "Aquest restaurant costa un ull de la cara", translation: "This restaurant costs an arm and a leg" },
+      { grammarNote: "💡 Emotion idioms: 'Estar al cel' = ecstatic. 'Estar tip' = fed up. 'Prendre el pèl' = tease/joke.", words: ["No", "em", "prenguis", "el", "pèl"], correctOrder: "No em prenguis el pèl", translation: "Don't pull my leg" }
+    ]
+  }
+},
+
+// ─── LESSON 85: Formal vs Informal Register ─────────────────
+
+{
+  id: 85,
+  title: "Formal vs Informal",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "You (formal)", ca: "Vostè", pronunciation: "bohs-TEH" },
+    { en: "You (plural formal)", ca: "Vostès", pronunciation: "bohs-TEHS" },
+    { en: "Could you (formal)", ca: "Podria", pronunciation: "poh-DREE-ah" },
+    { en: "Would you like", ca: "Li agradaria", pronunciation: "lee ah-grah-dah-REE-ah" },
+    { en: "Please (formal)", ca: "Si us plau", pronunciation: "see OOS PLOW" },
+    { en: "Excuse me (formal)", ca: "Perdoni", pronunciation: "pehr-DOH-nee" },
+    { en: "Thank you (formal)", ca: "Moltes gràcies", pronunciation: "MOHL-tehs GRAH-see-ehs" },
+    { en: "Sir/Madam", ca: "Senyor/Senyora", pronunciation: "sehn-YOR/sehn-YOH-rah" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "___ m'ajudar?", blank: "Podria", options: ["Pots", "Podria", "Podies", "Puguis"], correctIndex: 1, translation: "Could you help me? (formal)", explanation: "'Podria' = could you (formal, conditional). Use with 'vostè' for formal situations." },
+      { sentence: "___, on és el banc?", blank: "Perdoni", options: ["Perdona", "Perdoni", "Perdo", "Disculpa"], correctIndex: 1, translation: "Excuse me, where is the bank? (formal)", explanation: "'Perdoni' = excuse me (formal). 'Perdona' = informal. Use formal with strangers/elderly." },
+      { sentence: "Li ___ un cafè?", blank: "agradaria", options: ["agrada", "agradaria", "agradarà", "agradava"], correctIndex: 1, translation: "Would you like a coffee? (formal)", explanation: "'Li agradaria' = would you like (formal). 'T'agradaria' = informal." },
+      { sentence: "___ molt amable", blank: "És", options: ["Ets", "És", "Eres", "Està"], correctIndex: 1, translation: "You're very kind (formal)", explanation: "'És' goes with 'vostè'. 'Ets' goes with 'tu' (informal)." }
+    ],
+    listenAndType: [
+      { catalan: "Bon dia, senyor Martí", english: "Good morning, Mr. Martí", pronunciation: "bohn DEE-ah sehn-YOR mar-TEE" },
+      { catalan: "Vostè parla català molt bé", english: "You speak Catalan very well (formal)", pronunciation: "bohs-TEH PAR-lah kah-tah-LAH mohlt BEH" },
+      { catalan: "Podria repetir-ho si us plau?", english: "Could you repeat that please? (formal)", pronunciation: "poh-DREE-ah reh-peh-TEER-oh see OOS PLOW" },
+      { catalan: "Li puc oferir alguna cosa més?", english: "Can I offer you anything else? (formal)", pronunciation: "lee POOK oh-feh-REER ahl-GOO-nah KOH-sah MEHS" }
+    ],
+    errorCorrection: [
+      { sentence: "Tú hablas catalán muy bien", errorWordIndex: 0, options: ["Tú", "Vostè", "Tu", "You"], correctIndex: 1, translation: "You speak Catalan very well (formal)", explanation: "'Vostè parla' is formal Catalan. 'Tú hablas' is Spanish informal." },
+      { sentence: "Podrías ayudarme?", errorWordIndex: 0, options: ["Podrías", "Podria", "Podries", "Could"], correctIndex: 1, translation: "Could you help me? (formal)", explanation: "'Podria' is Catalan formal. 'Podrías' is Spanish informal." },
+      { sentence: "Disculpa dónde está el banco?", errorWordIndex: 0, options: ["Disculpa", "Perdoni", "Disculp", "Excuse"], correctIndex: 1, translation: "Excuse me where is the bank? (formal)", explanation: "'Perdoni' is Catalan formal. 'Disculpa' is Spanish informal." },
+      { sentence: "Te gustaría un café?", errorWordIndex: 0, options: ["Te", "Li", "T'", "You"], correctIndex: 1, translation: "Would you like a coffee? (formal)", explanation: "'Li agradaria' is Catalan formal. 'Te gustaría' is Spanish informal." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Vostè' (formal singular) + 3rd person verb. 'Tu' (informal) + 2nd person verb. Vostè parla vs Tu parles.", words: ["Vostè", "podria", "signar", "aquí", "si", "us", "plau"], correctOrder: "Vostè podria signar aquí si us plau", translation: "Could you sign here please (formal)" },
+      { grammarNote: "💡 Formal pronouns: li (to you), el/la (you, direct object), vostè (you, subject). Use in business, with strangers, elderly.", words: ["Li", "puc", "ajudar", "en", "alguna", "cosa"], correctOrder: "Li puc ajudar en alguna cosa", translation: "Can I help you with something (formal)" },
+      { grammarNote: "💡 Formal phrases: 'Perdoni' (excuse me), 'Moltes gràcies' (thank you), 'De res' (you're welcome), 'Bon dia, senyor/senyora'.", words: ["Moltes", "gràcies", "per", "la", "seva", "ajuda"], correctOrder: "Moltes gràcies per la seva ajuda", translation: "Thank you very much for your help (formal)" }
+    ]
+  }
+},
+
+// ─── LESSON 86: Business Meetings ───────────────────────────
+
+{
+  id: 86,
+  title: "Business Meetings",
+  module: "Professional",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Agenda", ca: "Ordre del dia", pronunciation: "OR-dreh dehl DEE-ah" },
+    { en: "To present", ca: "Presentar", pronunciation: "preh-zehn-TAR" },
+    { en: "Proposal", ca: "Proposta", pronunciation: "proh-POHS-tah" },
+    { en: "To agree", ca: "Estar d'acord", pronunciation: "ehs-TAR dah-KORD" },
+    { en: "Deadline", ca: "Data límit", pronunciation: "DAH-tah LEE-meet" },
+    { en: "Budget", ca: "Pressupost", pronunciation: "preh-soo-POHST" },
+    { en: "To postpone", ca: "Ajornar", pronunciation: "ah-jor-NAR" },
+    { en: "Minutes", ca: "Acta", pronunciation: "AHK-tah" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Quin és l'___ de la reunió?", blank: "ordre del dia", options: ["acta", "ordre del dia", "pressupost", "proposta"], correctIndex: 1, translation: "What's the meeting agenda?", explanation: "'Ordre del dia' = agenda (literally: order of the day). Essential for organized meetings." },
+      { sentence: "Hem de ___ la proposta", blank: "presentar", options: ["ajornar", "presentar", "estar", "fer"], correctIndex: 1, translation: "We have to present the proposal", explanation: "'Presentar' = to present. 'Presentar una proposta' = present a proposal." },
+      { sentence: "Estic ___ amb aquesta idea", blank: "d'acord", options: ["segur", "d'acord", "content", "ocupat"], correctIndex: 1, translation: "I agree with this idea", explanation: "'Estar d'acord' = to agree. 'No estic d'acord' = I disagree." },
+      { sentence: "Quin és el ___?", blank: "pressupost", options: ["cost", "pressupost", "preu", "import"], correctIndex: 1, translation: "What's the budget?", explanation: "'Pressupost' = budget. Important for project planning." }
+    ],
+    listenAndType: [
+      { catalan: "La reunió comença a les nou en punt", english: "The meeting starts at nine o'clock sharp", pronunciation: "lah reh-oo-nee-OH koh-MEHN-sah ah lehs NOH-oo ehn POONT" },
+      { catalan: "Qui prendrà l'acta de la reunió?", english: "Who will take the meeting minutes?", pronunciation: "kee prehn-DRAH LAHK-tah deh lah reh-oo-nee-OH" },
+      { catalan: "Hem d'ajornar la reunió fins divendres", english: "We have to postpone the meeting until Friday", pronunciation: "EHM dah-jor-NAR lah reh-oo-nee-OH feens dee-BEHN-drehs" },
+      { catalan: "La data límit és el 30 de març", english: "The deadline is March 30th", pronunciation: "lah DAH-tah LEE-meet ehs ehl TREHN-tah deh MARS" }
+    ],
+    errorCorrection: [
+      { sentence: "Cuál es el orden del día?", errorWordIndex: 2, options: ["orden", "ordre", "orde", "agenda"], correctIndex: 1, translation: "What's the agenda?", explanation: "'Ordre del dia' is Catalan. 'Orden del día' is Spanish." },
+      { sentence: "Tenemos que presentar la propuesta", errorWordIndex: 0, options: ["Tenemos", "Hem", "Tenim", "Have"], correctIndex: 1, translation: "We have to present the proposal", explanation: "'Hem de' is Catalan. 'Tenemos que' is Spanish." },
+      { sentence: "Estoy de acuerdo con esta idea", errorWordIndex: 1, options: ["de", "d'", "de", "of"], correctIndex: 1, translation: "I agree with this idea", explanation: "'Estic d'acord' is Catalan. 'Estoy de acuerdo' is Spanish." },
+      { sentence: "Cuál es el presupuesto?", errorWordIndex: 0, options: ["Cuál", "Quin", "Cual", "What"], correctIndex: 1, translation: "What's the budget?", explanation: "'Quin' is Catalan. 'Cuál' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Ordre del dia' = agenda. 'Punts a tractar' = items to discuss. 'Acta' = minutes (written record).", words: ["Passem", "al", "següent", "punt", "de", "l'ordre", "del", "dia"], correctOrder: "Passem al següent punt de l'ordre del dia", translation: "Let's move to the next agenda item" },
+      { grammarNote: "💡 'Estar d'acord' = agree. 'No estar d'acord' = disagree. 'Arribar a un acord' = reach an agreement.", words: ["Tots", "estem", "d'acord", "amb", "la", "proposta"], correctOrder: "Tots estem d'acord amb la proposta", translation: "We all agree with the proposal" },
+      { grammarNote: "💡 'Ajornar' = postpone. 'Avançar' = bring forward. 'Cancel·lar' = cancel.", words: ["Hem", "d'ajornar", "la", "reunió", "per", "motius", "personals"], correctOrder: "Hem d'ajornar la reunió per motius personals", translation: "We have to postpone the meeting for personal reasons" }
+    ]
+  }
+},
+
+// ─── LESSON 87: Email Writing ──────────────────────────────
+
+{
+  id: 87,
+  title: "Email Writing",
+  module: "Professional",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Subject line", ca: "Assumpte", pronunciation: "ah-SOOM-teh" },
+    { en: "Attached", ca: "Adjunt", pronunciation: "ahd-JOONT" },
+    { en: "To forward", ca: "Reenviar", pronunciation: "reh-ehn-bee-AR" },
+    { en: "To reply", ca: "Respondre", pronunciation: "rehs-POHN-dreh" },
+    { en: "Dear Sir/Madam", ca: "Benvolgut/da", pronunciation: "behn-bohl-GOOT/GOOT-dah" },
+    { en: "Best regards", ca: "Atentament", pronunciation: "ah-tehn-tah-MEHN" },
+    { en: "Urgent", ca: "Urgent", pronunciation: "oor-JEHN" },
+    { en: "Cordially", ca: "Cordialment", pronunciation: "kor-dee-ahl-MEHN" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Us envio el document ___", blank: "adjunt", options: ["urgent", "adjunt", "reenviat", "respondre"], correctIndex: 1, translation: "I'm sending you the attached document", explanation: "'Adjunt' = attached. 'Document adjunt' = attached document." },
+      { sentence: "Benvolgut senyor Martí, ___ la seva carta", blank: "en resposta a", options: ["per enviar", "en resposta a", "adjunt amb", "reenviar"], correctIndex: 1, translation: "Dear Mr. Martí, in response to your letter", explanation: "'En resposta a' = in response to. Common email opening." },
+      { sentence: "Puc ___ aquest correu?", blank: "reenviar", options: ["adjuntar", "reenviar", "respondre", "tancar"], correctIndex: 1, translation: "Can I forward this email?", explanation: "'Reenviar' = to forward. 'Reenviament' = forwarding." },
+      { sentence: "Salutacions cordials, ___", blank: "Atentament", options: ["Hola", "Adéu", "Atentament", "Gràcies"], correctIndex: 2, translation: "Kind regards, Sincerely", explanation: "'Atentament' = sincerely/best regards. Standard formal email closing." }
+    ],
+    listenAndType: [
+      { catalan: "Trobareu el fitxer adjunt", english: "You will find the attached file", pronunciation: "troh-bah-REH-oo ehl fee-TSHEHR ahd-JOONT" },
+      { catalan: "Quedo a l'espera de la vostra resposta", english: "I await your response", pronunciation: "KEH-doh ah lehs-PEH-rah deh lah BOHS-trah rehs-POHS-tah" },
+      { catalan: "Us agrairia una resposta ràpida", english: "I would appreciate a quick response", pronunciation: "oos ah-grah-ee-REE-ah OO-nah rehs-POHS-tah RAH-pee-dah" },
+      { catalan: "Necessito reenviar aquest correu urgent", english: "I need to forward this urgent email", pronunciation: "neh-seh-SEE-toh reh-ehn-bee-AR ah-KESHT koh-REH-oo oor-JEHN" }
+    ],
+    errorCorrection: [
+      { sentence: "Os envío el documento adjunto", errorWordIndex: 0, options: ["Os", "Us", "Vos", "You"], correctIndex: 1, translation: "I'm sending you the attached document", explanation: "'Us envio' is Catalan. 'Os envío' is Spanish." },
+      { sentence: "Estimado señor Martí", errorWordIndex: 0, options: ["Estimado", "Benvolgut", "Estimat", "Dear"], correctIndex: 1, translation: "Dear Mr. Martí", explanation: "'Benvolgut' is Catalan formal. 'Estimado' is Spanish." },
+      { sentence: "Puedo reenviar este correo?", errorWordIndex: 0, options: ["Puedo", "Puc", "Pued", "Can"], correctIndex: 1, translation: "Can I forward this email?", explanation: "'Puc' is Catalan. 'Puedo' is Spanish." },
+      { sentence: "Atentamente", errorWordIndex: 0, options: ["Atentamente", "Atentament", "Atentament", "Sincerely"], correctIndex: 1, translation: "Sincerely", explanation: "'Atentament' is Catalan. 'Atentamente' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Email openings: 'Benvolgut/da' (Dear), 'Hola + name' (informal), 'Bon dia' (Good morning).", words: ["Benvolguda", "senyora", "García", "en", "resposta", "a", "la", "seva", "consulta"], correctOrder: "Benvolguda senyora García en resposta a la seva consulta", translation: "Dear Mrs. García in response to your inquiry" },
+      { grammarNote: "💡 Email closings: 'Atentament' (formal), 'Cordialment' (cordially), 'Salutacions' (regards), 'Ben cordialment' (very cordially).", words: ["Quedo", "a", "l'espera", "de", "la", "vostra", "resposta"], correctOrder: "Quedo a l'espera de la vostra resposta", translation: "I await your response" },
+      { grammarNote: "💡 'Adjuntar' = attach. 'Reenviar' = forward. 'CC' = amb còpia. 'CCO' = còpia oculta (BCC).", words: ["Us", "adjunto", "el", "document", "sol·licitat"], correctOrder: "Us adjunto el document sol·licitat", translation: "I attach the requested document" }
+    ]
+  }
+},
+
+// ─── LESSON 88: Negotiations ────────────────────────────────
+
+{
+  id: 88,
+  title: "Negotiations",
+  module: "Professional",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "To negotiate", ca: "Negociar", pronunciation: "neh-goh-see-AR" },
+    { en: "Offer", ca: "Oferta", pronunciation: "oh-FEHR-tah" },
+    { en: "Contract", ca: "Contracte", pronunciation: "kohn-TRAHK-teh" },
+    { en: "Terms", ca: "Condicions", pronunciation: "kohn-dee-see-OHNS" },
+    { en: "Discount", ca: "Descompte", pronunciation: "dehs-KOHM-teh" },
+    { en: "To accept", ca: "Acceptar", pronunciation: "ahk-sehp-TAR" },
+    { en: "To reject", ca: "Rebutjar", pronunciation: "reh-boo-JAR" },
+    { en: "Compromise", ca: "Acord", pronunciation: "ah-KORD" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Quines són les ___ del contracte?", blank: "condicions", options: ["ofertes", "condicions", "descomptes", "acords"], correctIndex: 1, translation: "What are the contract terms?", explanation: "'Condicions' = terms/conditions. 'Condicions del contracte' = contract terms." },
+      { sentence: "Puc oferir un ___ del 10%", blank: "descompte", options: ["preu", "descompte", "contracte", "pagament"], correctIndex: 1, translation: "I can offer a 10% discount", explanation: "'Descompte' = discount. 'Fer un descompte' = give a discount." },
+      { sentence: "Vostès ___ la nostra proposta?", blank: "accepten", options: ["negocien", "accepten", "rebutgen", "ofereixen"], correctIndex: 1, translation: "Do you accept our proposal?", explanation: "'Acceptar' = to accept. 'Rebutjar' = to reject." },
+      { sentence: "Hem arribat a un ___", blank: "acord", options: ["contracte", "oferta", "acord", "preu"], correctIndex: 2, translation: "We've reached an agreement", explanation: "'Arribar a un acord' = reach an agreement/compromise." }
+    ],
+    listenAndType: [
+      { catalan: "Aquesta és la nostra millor oferta", english: "This is our best offer", pronunciation: "ah-KEHS-tah ehs lah NOHS-trah mee-YOR oh-FEHR-tah" },
+      { catalan: "Hem de revisar els termes del contracte", english: "We need to review the contract terms", pronunciation: "EHM deh reh-bee-ZAR ehls TEHR-mehs dehl kohn-TRAHK-teh" },
+      { catalan: "No podem acceptar aquestes condicions", english: "We cannot accept these conditions", pronunciation: "noh poh-DEHM ahk-sehp-TAR ah-KEHS-tehs kohn-dee-see-OHNS" },
+      { catalan: "Estem disposats a negociar el preu", english: "We are willing to negotiate the price", pronunciation: "ehs-TEHM dees-poh-ZAHTS ah neh-goh-see-AR ehl PREH-oo" }
+    ],
+    errorCorrection: [
+      { sentence: "Cuáles son las condiciones del contrato?", errorWordIndex: 0, options: ["Cuáles", "Quines", "Cuales", "What"], correctIndex: 1, translation: "What are the contract terms?", explanation: "'Quines' is Catalan. 'Cuáles' is Spanish." },
+      { sentence: "Puedo ofrecer un descuento del 10%", errorWordIndex: 3, options: ["descuento", "descompte", "descuent", "discount"], correctIndex: 1, translation: "I can offer a 10% discount", explanation: "'Descompte' is Catalan. 'Descuento' is Spanish." },
+      { sentence: "Ustedes aceptan nuestra propuesta?", errorWordIndex: 0, options: ["Ustedes", "Vostès", "Ustede", "You"], correctIndex: 1, translation: "Do you accept our proposal?", explanation: "'Vostès' is Catalan. 'Ustedes' is Spanish." },
+      { sentence: "Hemos llegado a un acuerdo", errorWordIndex: 1, options: ["llegado", "arribat", "llegad", "reached"], correctIndex: 1, translation: "We've reached an agreement", explanation: "'Hem arribat' is Catalan. 'Hemos llegado' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Negociar' = negotiate. 'Arribar a un acord' = reach agreement. 'Trencar les negociacions' = break off negotiations.", words: ["Estem", "negociant", "els", "termes", "del", "contracte"], correctOrder: "Estem negociant els termes del contracte", translation: "We are negotiating the contract terms" },
+      { grammarNote: "💡 'Acceptar' = accept. 'Rebutjar' = reject. 'Considerar' = consider. 'Contraoferta' = counteroffer.", words: ["No", "podem", "acceptar", "aquesta", "oferta"], correctOrder: "No podem acceptar aquesta oferta", translation: "We cannot accept this offer" },
+      { grammarNote: "💡 'Descompte' = discount. 'Preu final' = final price. 'Condicions de pagament' = payment terms.", words: ["Fem", "un", "descompte", "del", "quinze", "per", "cent"], correctOrder: "Fem un descompte del quinze per cent", translation: "We give a fifteen percent discount" }
+    ]
+  }
+},
+
+// ─── LESSON 89: Catalan Culture & Traditions ────────────────
+
+{
+  id: 89,
+  title: "Catalan Culture",
+  module: "Cultural",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Castellers (human towers)", ca: "Castellers", pronunciation: "kahs-teh-YEHRS" },
+    { en: "Sant Jordi (St. George's Day)", ca: "Sant Jordi", pronunciation: "sahnt JOR-dee" },
+    { en: "La Diada (National Day)", ca: "La Diada", pronunciation: "lah dee-AH-dah" },
+    { en: "Calçots", ca: "Calçots", pronunciation: "kahl-SOHTS" },
+    { en: "Sardana (traditional dance)", ca: "Sardana", pronunciation: "sar-DAH-nah" },
+    { en: "Caga Tió", ca: "Caga Tió", pronunciation: "KAH-gah tee-OH" },
+    { en: "Tradition", ca: "Tradició", pronunciation: "trah-dee-see-OH" },
+    { en: "Festival", ca: "Festa", pronunciation: "FEHS-tah" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Els ___ fan torres humanes", blank: "castellers", options: ["sardanes", "castellers", "calçots", "festives"], correctIndex: 1, translation: "The castellers make human towers", explanation: "'Castellers' = human tower builders. UNESCO World Heritage tradition from Catalonia." },
+      { sentence: "El 23 d'abril és ___", blank: "Sant Jordi", options: ["La Diada", "Sant Jordi", "Nadal", "Cap d'Any"], correctIndex: 1, translation: "April 23rd is Sant Jordi", explanation: "'Sant Jordi' = St. George's Day. Day of books and roses in Catalonia." },
+      { sentence: "Els ___ es mengen amb romesco", blank: "calçots", options: ["castellers", "calçots", "sardanes", "tradicions"], correctIndex: 1, translation: "Calçots are eaten with romesco sauce", explanation: "'Calçots' = spring onions. Traditional Catalan food, grilled and eaten in winter." },
+      { sentence: "La ___ és una dansa tradicional", blank: "sardana", options: ["festa", "sardana", "tradició", "diada"], correctIndex: 1, translation: "The sardana is a traditional dance", explanation: "'Sardana' = traditional Catalan circle dance, usually to live music." }
+    ],
+    listenAndType: [
+      { catalan: "La Diada és l'11 de setembre", english: "La Diada is September 11th", pronunciation: "lah dee-AH-dah ehs lohn-zeh deh seh-TEHM-breh" },
+      { catalan: "Per Sant Jordi es regalen roses i llibres", english: "For Sant Jordi roses and books are given", pronunciation: "pehr sahnt JOR-dee ehs reh-GAH-lehn ROH-zehs ee LYEE-brehs" },
+      { catalan: "Els castells poden tenir nou pisos", english: "The castells can be nine stories high", pronunciation: "ehls kahs-TEHYS POH-dehn teh-NEER NOH-oo PEE-sohs" },
+      { catalan: "El Caga Tió és una tradició de Nadal", english: "The Caga Tió is a Christmas tradition", pronunciation: "ehl KAH-gah tee-OH ehs OO-nah trah-dee-see-OH deh nah-DAHL" }
+    ],
+    errorCorrection: [
+      { sentence: "Los castellers hacen torres humanas", errorWordIndex: 0, options: ["Los", "Els", "Les", "The"], correctIndex: 1, translation: "The castellers make human towers", explanation: "'Els' is Catalan. 'Los' is Spanish." },
+      { sentence: "El 23 de abril es San Jorge", errorWordIndex: 4, options: ["San", "Sant", "San", "Saint"], correctIndex: 1, translation: "April 23rd is Sant Jordi", explanation: "'Sant Jordi' is Catalan. 'San Jorge' is Spanish." },
+      { sentence: "Los calçots se comen con romesco", errorWordIndex: 0, options: ["Los", "Els", "Les", "The"], correctIndex: 1, translation: "Calçots are eaten with romesco", explanation: "'Els calçots' is Catalan. 'Los calçots' is Spanish." },
+      { sentence: "La sardana es un baile tradicional", errorWordIndex: 3, options: ["baile", "dansa", "bail", "dance"], correctIndex: 1, translation: "The sardana is a traditional dance", explanation: "'Dansa' is Catalan. 'Baile' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Sant Jordi (April 23): Day of books and roses. Men give roses, women give books (traditionally).", words: ["Per", "Sant", "Jordi", "les", "Rambles", "es", "plen", "de", "parades"], correctOrder: "Per Sant Jordi les Rambles es plen de parades", translation: "For Sant Jordi the Ramblas fill with stalls" },
+      { grammarNote: "💡 Castellers: Human towers. 'Pinya' = base, 'Enxaneta' = child at top. From Tarragona region.", words: ["Els", "castells", "són", "Patrimoni", "de", "la", "Humanitat"], correctOrder: "Els castells són Patrimoni de la Humanitat", translation: "The castells are World Heritage" },
+      { grammarNote: "💡 La Diada (Sept 11): Catalan National Day. Commemorates loss of Barcelona in 1714.", words: ["L'onze", "de", "setembre", "és", "la", "Diada", "Nacional", "de", "Catalunya"], correctOrder: "L'onze de setembre és la Diada Nacional de Catalunya", translation: "September 11th is the National Day of Catalonia" }
+    ]
+  }
+},
+
+// ─── LESSON 90: Catalan Cuisine ────────────────────────────
+
+{
+  id: 90,
+  title: "Catalan Cuisine",
+  module: "Cultural",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Pa amb tomàquet", ca: "Pa amb tomàquet", pronunciation: "pah ahm toh-MAH-keht" },
+    { en: "Crema catalana", ca: "Crema catalana", pronunciation: "KREH-mah kah-tah-LAH-nah" },
+    { en: "Escudella", ca: "Escudella", pronunciation: "ehs-koo-DEH-yah" },
+    { en: "Butifarra", ca: "Butifarra", pronunciation: "boo-tee-FAH-rah" },
+    { en: "Suquet de peix", ca: "Suquet de peix", pronunciation: "soo-KEHT deh PAYSH" },
+    { en: "Fricandó", ca: "Fricandó", pronunciation: "free-kahn-DOH" },
+    { en: "Mel i mató", ca: "Mel i mató", pronunciation: "MEHL ee mah-TOH" },
+    { en: "Cava", ca: "Cava", pronunciation: "KAH-bah" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "El ___ és pa amb tomàquet i oli", blank: "pa amb tomàquet", options: ["cava", "pa amb tomàquet", "fricandó", "suquet"], correctIndex: 1, translation: "Pa amb tomàquet is bread with tomato and oil", explanation: "'Pa amb tomàquet' = bread with tomato. Essential Catalan dish, served with most meals." },
+      { sentence: "La ___ és un postres tradicional", blank: "crema catalana", options: ["butifarra", "escudella", "crema catalana", "mel i mató"], correctIndex: 2, translation: "Crema catalana is a traditional dessert", explanation: "'Crema catalana' = Catalan cream. Similar to crème brûlée but with different flavor." },
+      { sentence: "El ___ és vi escumós català", blank: "cava", options: ["vi", "cava", "licor", "cervesa"], correctIndex: 1, translation: "Cava is Catalan sparkling wine", explanation: "'Cava' = Catalan champagne-style wine. Mainly from Penedès region." },
+      { sentence: "La ___ és una salsitxa catalana", blank: "butifarra", options: ["butifarra", "escudella", "fricandó", "suquet"], correctIndex: 0, translation: "Butifarra is a Catalan sausage", explanation: "'Butifarra' = traditional Catalan sausage. Often grilled or in stews." }
+    ],
+    listenAndType: [
+      { catalan: "L'escudella és un plat d'hivern", english: "Escudella is a winter dish", pronunciation: "lehs-koo-DEH-yah ehs oon PLAHT dee-BEHRN" },
+      { catalan: "El suquet de peix és típic de la costa", english: "Suquet de peix is typical of the coast", pronunciation: "ehl soo-KEHT deh PAYSH ehs TEE-peek deh lah KOHS-tah" },
+      { catalan: "Mel i mató és un postres senzill i bo", english: "Mel i mató is a simple and good dessert", pronunciation: "MEHL ee mah-TOH ehs oon POHS-trehs sehn-ZEEL ee BOH" },
+      { catalan: "El fricandó es fa amb carn i bolets", english: "Fricandó is made with meat and mushrooms", pronunciation: "ehl free-kahn-DOH ehs FAH ahm KARN ee boh-LEHTS" }
+    ],
+    errorCorrection: [
+      { sentence: "El pan con tomate es muy bueno", errorWordIndex: 1, options: ["pan", "pa", "pan", "bread"], correctIndex: 1, translation: "Pa amb tomàquet is very good", explanation: "'Pa amb tomàquet' is Catalan. 'Pan con tomate' is Spanish." },
+      { sentence: "La crema catalana es un postre tradicional", errorWordIndex: 4, options: ["postre", "postres", "postre", "dessert"], correctIndex: 1, translation: "Crema catalana is a traditional dessert", explanation: "'Postres' is Catalan. 'Postre' is Spanish." },
+      { sentence: "El cava es vino espumoso catalán", errorWordIndex: 2, options: ["es", "és", "es", "is"], correctIndex: 1, translation: "Cava is Catalan sparkling wine", explanation: "'És' is Catalan. 'Es' is Spanish." },
+      { sentence: "La butifarra es una salchicha catalana", errorWordIndex: 3, options: ["salchicha", "salsitxa", "salchich", "sausage"], correctIndex: 1, translation: "Butifarra is a Catalan sausage", explanation: "'Salsitxa' is Catalan. 'Salchicha' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Pa amb tomàquet' is eaten with almost every meal in Catalonia. Rub tomato on toasted bread, add olive oil and salt.", words: ["El", "pa", "amb", "tomàquet", "és", "essencial", "a", "taula"], correctOrder: "El pa amb tomàquet és essencial a taula", translation: "Pa amb tomàquet is essential at the table" },
+      { grammarNote: "💡 Traditional dishes: escudella i carn d'olla (stew), suquet (fish stew), fricandó (veal with mushrooms).", words: ["L'escudella", "es", "menja", "per", "Nadal"], correctOrder: "L'escudella es menja per Nadal", translation: "Escudella is eaten at Christmas" },
+      { grammarNote: "💡 Desserts: crema catalana, mel i mató (honey with fresh cheese), panellets (All Saints' Day sweets).", words: ["La", "crema", "catalana", "es", "crema", "amb", "sucre"], correctOrder: "La crema catalana es crema amb sucre", translation: "Crema catalana is caramelized with sugar" }
+    ]
+  }
+},
+
+// ─── LESSON 91: Barcelona Neighborhoods ─────────────────────
+
+{
+  id: 91,
+  title: "Barcelona Neighborhoods",
+  module: "Cultural",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Eixample", ca: "L'Eixample", pronunciation: "lay-SHAHM-pleh" },
+    { en: "Gràcia", ca: "Gràcia", pronunciation: "GRAH-see-ah" },
+    { en: "El Born", ca: "El Born", pronunciation: "ehl BORN" },
+    { en: "Sarrià", ca: "Sarrià", pronunciation: "sah-ree-AH" },
+    { en: "Poble Sec", ca: "Poble Sec", pronunciation: "POH-bleh SEHK" },
+    { en: "Barceloneta", ca: "La Barceloneta", pronunciation: "lah bar-seh-loh-NEH-tah" },
+    { en: "Sant Antoni", ca: "Sant Antoni", pronunciation: "sahnt ahn-TOH-nee" },
+    { en: "Les Corts", ca: "Les Corts", pronunciation: "lehs KORTS" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "___ és el barri de Gaudí", blank: "L'Eixample", options: ["Gràcia", "L'Eixample", "El Born", "Sarrià"], correctIndex: 1, translation: "Eixample is Gaudí's neighborhood", explanation: "'L'Eixample' = The Extension. 19th century planned district, grid pattern, Gaudí's Sagrada Família." },
+      { sentence: "___ és un barri bohemi", blank: "Gràcia", options: ["L'Eixample", "Gràcia", "Les Corts", "Sarrià"], correctIndex: 1, translation: "Gràcia is a bohemian neighborhood", explanation: "'Gràcia' = bohemian district, narrow streets, plazas, local feel, Festa Major in August." },
+      { sentence: "___ és al costat de la platja", blank: "La Barceloneta", options: ["El Born", "Sarrià", "La Barceloneta", "Poble Sec"], correctIndex: 2, translation: "Barceloneta is next to the beach", explanation: "'La Barceloneta' = fishing district, beach access, seafood restaurants." },
+      { sentence: "___ és un barri medieval", blank: "El Born", options: ["L'Eixample", "Les Corts", "El Born", "Sant Antoni"], correctIndex: 2, translation: "El Born is a medieval neighborhood", explanation: "'El Born' = medieval quarter, narrow streets, Picasso Museum, Santa Maria del Mar church." }
+    ],
+    listenAndType: [
+      { catalan: "Visc a Sarrià, és un barri tranquil", english: "I live in Sarrià, it's a quiet neighborhood", pronunciation: "BEESK ah sah-ree-AH ehs oon BAH-ree trahn-KEEL" },
+      { catalan: "Sant Antoni té un mercat modernista", english: "Sant Antoni has a modernist market", pronunciation: "sahnt ahn-TOH-nee TEH oon mehr-KAHT moh-dehr-NEES-tah" },
+      { catalan: "Poble Sec està sota Montjuïc", english: "Poble Sec is below Montjuïc", pronunciation: "POH-bleh SEHK ehs-TAH SOH-tah mohn-joo-EEK" },
+      { catalan: "Les Corts és on hi ha el Camp Nou", english: "Les Corts is where Camp Nou is", pronunciation: "lehs KORTS ehs ohn ee hah ehl KAHMP NOH-oo" }
+    ],
+    errorCorrection: [
+      { sentence: "El Ensanche es el barrio de Gaudí", errorWordIndex: 1, options: ["Ensanche", "Eixample", "Ensanch", "Extension"], correctIndex: 1, translation: "Eixample is Gaudí's neighborhood", explanation: "'Eixample' is Catalan. 'Ensanche' is Spanish." },
+      { sentence: "Gracia es un barrio bohemio", errorWordIndex: 0, options: ["Gracia", "Gràcia", "Graci", "Gracia"], correctIndex: 1, translation: "Gràcia is a bohemian neighborhood", explanation: "'Gràcia' is Catalan spelling." },
+      { sentence: "La Barceloneta está al lado de la playa", errorWordIndex: 2, options: ["está", "és", "esta", "is"], correctIndex: 1, translation: "Barceloneta is next to the beach", explanation: "'És' is Catalan. 'Está' is Spanish." },
+      { sentence: "El Born es un barrio medieval", errorWordIndex: 3, options: ["barrio", "barri", "bario", "neighborhood"], correctIndex: 1, translation: "El Born is a medieval neighborhood", explanation: "'Barri' is Catalan. 'Barrio' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 L'Eixample: Planned 19th century district, grid pattern, chamfered corners (xamfrans), Gaudí buildings.", words: ["L'Eixample", "té", "les", "millors", "obres", "modernistes"], correctOrder: "L'Eixample té les millors obres modernistes", translation: "Eixample has the best modernist works" },
+      { grammarNote: "💡 Gràcia: Former independent town, absorbed 1897. Narrow streets, squares, local atmosphere, Festa Major.", words: ["Gràcia", "era", "un", "poble", "independent"], correctOrder: "Gràcia era un poble independent", translation: "Gràcia was an independent town" },
+      { grammarNote: "💡 El Born: Medieval center, artisan quarter, trendy bars, cultural center, Santa Maria del Mar basilica.", words: ["El", "Born", "és", "un", "barri", "de", "moda"], correctOrder: "El Born és un barri de moda", translation: "El Born is a trendy neighborhood" }
+    ]
+  }
+},
+
+// ─── LESSON 92: Catalan History ────────────────────────────
+
+{
+  id: 92,
+  title: "Catalan History",
+  module: "Cultural",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Middle Ages", ca: "Edat Mitjana", pronunciation: "eh-DAHT mee-JAH-nah" },
+    { en: "Crown of Aragon", ca: "Corona d'Aragó", pronunciation: "koh-ROH-nah dah-rah-GOH" },
+    { en: "War of Succession", ca: "Guerra de Successió", pronunciation: "GEH-rah deh sook-sehs-see-OH" },
+    { en: "Renaixença", ca: "Renaixença", pronunciation: "reh-nay-SHEHN-sah" },
+    { en: "Modernisme", ca: "Modernisme", pronunciation: "moh-dehr-NEES-meh" },
+    { en: "Autonomy", ca: "Autonomia", pronunciation: "ow-toh-noh-MEE-ah" },
+    { en: "Statute", ca: "Estatut", pronunciation: "ehs-tah-TOOT" },
+    { en: "Democracy", ca: "Democràcia", pronunciation: "deh-moh-KRAH-see-ah" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "La ___ va ser un període important", blank: "Corona d'Aragó", options: ["Corona d'Aragó", "Renaixença", "Edat Mitjana", "Guerra"], correctIndex: 0, translation: "The Crown of Aragon was an important period", explanation: "'Corona d'Aragó' = medieval confederation including Catalonia, Aragon, Valencia, Balearics, Naples, Sicily." },
+      { sentence: "La ___ va començar al segle XIX", blank: "Renaixença", options: ["Guerra", "Renaixença", "Autonomia", "Democràcia"], correctIndex: 1, translation: "The Renaixença began in the 19th century", explanation: "'Renaixença' = cultural/linguistic renaissance of Catalan culture in 1800s." },
+      { sentence: "El ___ va ser aprovat el 2006", blank: "Estatut", options: ["Modernisme", "Estatut", "Guerra", "Corona"], correctIndex: 1, translation: "The Statute was approved in 2006", explanation: "'Estatut d'Autonomia' = Statute of Autonomy. Legal framework for self-government." },
+      { sentence: "El ___ és un moviment arquitectònic", blank: "Modernisme", options: ["Renaixença", "Modernisme", "Estatut", "Corona"], correctIndex: 1, translation: "Modernisme is an architectural movement", explanation: "'Modernisme' = Catalan Art Nouveau. Gaudí, Domènech i Montaner, Puig i Cadafalch." }
+    ],
+    listenAndType: [
+      { catalan: "El 1714 Barcelona va perdre la guerra", english: "In 1714 Barcelona lost the war", pronunciation: "ehl MEEL seh-TEHNS kah-TOR-zeh bar-seh-LOH-nah bah PEHR-dreh lah GEH-rah" },
+      { catalan: "L'Estatut dona autonomia a Catalunya", english: "The Statute gives autonomy to Catalonia", pronunciation: "lehs-tah-TOOT DOH-nah ow-toh-noh-MEE-ah ah kah-tah-LOON-yah" },
+      { catalan: "La Renaixença va recuperar el català", english: "The Renaixença recovered Catalan", pronunciation: "lah reh-nay-SHEHN-sah bah reh-koo-peh-RAR ehl kah-tah-LAH" },
+      { catalan: "Gaudí és el màxim exponent del Modernisme", english: "Gaudí is the maximum exponent of Modernisme", pronunciation: "gow-DEE ehs ehl MAH-kseem ehks-poh-NEHN dehl moh-dehr-NEES-meh" }
+    ],
+    errorCorrection: [
+      { sentence: "La Corona de Aragón fue importante", errorWordIndex: 2, options: ["Aragón", "Aragó", "Aragon", "Aragon"], correctIndex: 1, translation: "The Crown of Aragon was important", explanation: "'Aragó' is Catalan. 'Aragón' is Spanish." },
+      { sentence: "La Renacimiento comenzó en el siglo XIX", errorWordIndex: 1, options: ["Renacimiento", "Renaixença", "Renaciment", "Renaissance"], correctIndex: 1, translation: "The Renaixença began in the 19th century", explanation: "'Renaixença' is Catalan. 'Renacimiento' is Spanish." },
+      { sentence: "El Estatuto fue aprobado en 2006", errorWordIndex: 1, options: ["Estatuto", "Estatut", "Estatut", "Statute"], correctIndex: 1, translation: "The Statute was approved in 2006", explanation: "'Estatut' is Catalan. 'Estatuto' is Spanish." },
+      { sentence: "El Modernismo es un movimiento arquitectónico", errorWordIndex: 1, options: ["Modernismo", "Modernisme", "Modernism", "Modernism"], correctIndex: 1, translation: "Modernisme is an architectural movement", explanation: "'Modernisme' is Catalan. 'Modernismo' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 1714: Barcelona falls to Bourbon forces. End of Catalan institutions. September 11th now national day (La Diada).", words: ["El", "1714", "Catalunya", "va", "perdre", "la", "independència"], correctOrder: "El 1714 Catalunya va perdre la independència", translation: "In 1714 Catalonia lost independence" },
+      { grammarNote: "💡 Renaixença (1800s): Cultural renaissance. Recovery of Catalan language and literature. Jacint Verdaguer, Àngel Guimerà.", words: ["La", "Renaixença", "va", "revitalitzar", "la", "llengua", "catalana"], correctOrder: "La Renaixença va revitalitzar la llengua catalana", translation: "The Renaixença revitalized the Catalan language" },
+      { grammarNote: "💡 Modernisme (1890-1910): Catalan Art Nouveau. Gaudí's Sagrada Família, Casa Batlló. Unique to Catalonia.", words: ["El", "Modernisme", "català", "és", "únic", "al", "món"], correctOrder: "El Modernisme català és únic al món", translation: "Catalan Modernisme is unique in the world" }
+    ]
+  }
+},
+
+// ─── LESSON 93: Expressing Opinions ─────────────────────────
+
+{
+  id: 93,
+  title: "Expressing Opinions",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "I think that", ca: "Crec que", pronunciation: "KREHK keh" },
+    { en: "In my opinion", ca: "Al meu parer", pronunciation: "ahl MEH-oo pah-REHR" },
+    { en: "I'm convinced", ca: "Estic convençut", pronunciation: "ehs-TEEK kohn-behn-SOOT" },
+    { en: "I disagree", ca: "No estic d'acord", pronunciation: "noh ehs-TEEK dah-KORD" },
+    { en: "It seems to me", ca: "Em sembla", pronunciation: "ehm SEHM-blah" },
+    { en: "Honestly", ca: "Sincerament", pronunciation: "seen-seh-rah-MEHN" },
+    { en: "Frankly", ca: "Francament", pronunciation: "frahn-kah-MEHN" },
+    { en: "Perhaps", ca: "Potser", pronunciation: "poht-SEHR" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "___ això és correcte", blank: "Crec que", options: ["Crec que", "Sé que", "Veig que", "Faig que"], correctIndex: 0, translation: "I think this is correct", explanation: "'Crec que' = I think that. Most common way to express opinion." },
+      { sentence: "___, hauríem d'esperar", blank: "Al meu parer", options: ["Crec", "Al meu parer", "Penso", "Sembla"], correctIndex: 1, translation: "In my opinion, we should wait", explanation: "'Al meu parer' = in my opinion (more formal than 'crec que')." },
+      { sentence: "___ aquesta és la millor opció", blank: "Em sembla", options: ["M'agrada", "Em sembla", "Em fa", "Em diu"], correctIndex: 1, translation: "It seems to me this is the best option", explanation: "'Em sembla' = it seems to me. Softer opinion than 'crec'." },
+      { sentence: "___, no tinc raó", blank: "Potser", options: ["Segur", "Potser", "Sempre", "Mai"], correctIndex: 1, translation: "Perhaps I'm wrong", explanation: "'Potser' = perhaps/maybe. Shows uncertainty or openness." }
+    ],
+    listenAndType: [
+      { catalan: "Al meu parer és massa car", english: "In my opinion it's too expensive", pronunciation: "ahl MEH-oo pah-REHR ehs MAH-sah KAR" },
+      { catalan: "Sincerament no m'agrada gens", english: "Honestly I don't like it at all", pronunciation: "seen-seh-rah-MEHN noh mah-GRAH-dah JEHNS" },
+      { catalan: "Estic totalment d'acord amb tu", english: "I totally agree with you", pronunciation: "ehs-TEEK toh-tahl-MEHN dah-KORD ahm TOO" },
+      { catalan: "Francament crec que t'equivoques", english: "Frankly I think you're wrong", pronunciation: "frahn-kah-MEHN KREHK keh teh-kee-BOH-kehs" }
+    ],
+    errorCorrection: [
+      { sentence: "Creo que esto es correcto", errorWordIndex: 0, options: ["Creo", "Crec", "Cre", "Think"], correctIndex: 1, translation: "I think this is correct", explanation: "'Crec' is Catalan. 'Creo' is Spanish." },
+      { sentence: "A mi parecer deberíamos esperar", errorWordIndex: 0, options: ["A", "Al", "A", "To"], correctIndex: 1, translation: "In my opinion we should wait", explanation: "'Al meu parer' is Catalan. 'A mi parecer' is Spanish." },
+      { sentence: "Me parece que esta es la mejor opción", errorWordIndex: 0, options: ["Me", "Em", "M'", "To me"], correctIndex: 1, translation: "It seems to me this is the best option", explanation: "'Em sembla' is Catalan. 'Me parece' is Spanish." },
+      { sentence: "Quizás no tengo razón", errorWordIndex: 0, options: ["Quizás", "Potser", "Quiza", "Perhaps"], correctIndex: 1, translation: "Perhaps I'm wrong", explanation: "'Potser' is Catalan. 'Quizás' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Crec que' = I think. 'Penso que' = I think (synonym). 'Opino que' = I believe. All + indicative.", words: ["Crec", "que", "tens", "tota", "la", "raó"], correctOrder: "Crec que tens tota la raó", translation: "I think you're absolutely right" },
+      { grammarNote: "💡 Disagreeing: 'No estic d'acord' = I disagree. 'No ho veig així' = I don't see it that way. 'M'equivoco?' = Am I wrong?", words: ["No", "estic", "d'acord", "amb", "aquesta", "proposta"], correctOrder: "No estic d'acord amb aquesta proposta", translation: "I don't agree with this proposal" },
+      { grammarNote: "💡 Strong opinions: 'Estic convençut' = I'm convinced. 'És evident' = it's evident. 'Està clar' = it's clear.", words: ["Estic", "convençut", "que", "és", "la", "millor", "solució"], correctOrder: "Estic convençut que és la millor solució", translation: "I'm convinced it's the best solution" }
+    ]
+  }
+},
+
+// ─── LESSON 94: Giving Advice ──────────────────────────────
+
+{
+  id: 94,
+  title: "Giving Advice",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "You should", ca: "Hauries de", pronunciation: "ow-REE-ehs deh" },
+    { en: "I recommend", ca: "Et recomano", pronunciation: "eht reh-koh-MAH-noh" },
+    { en: "It would be better", ca: "Seria millor", pronunciation: "seh-REE-ah mee-YOR" },
+    { en: "I suggest", ca: "Suggereixo", pronunciation: "soo-jeh-RAY-shoh" },
+    { en: "If I were you", ca: "Si jo fos tu", pronunciation: "see JOH fohs TOO" },
+    { en: "Why don't you", ca: "Per què no", pronunciation: "pehr KEH noh" },
+    { en: "You could", ca: "Podries", pronunciation: "poh-DREE-ehs" },
+    { en: "It's important that", ca: "És important que", pronunciation: "ehs eem-por-TAHN keh" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "___ anar al metge", blank: "Hauries de", options: ["Has de", "Hauries de", "Vols", "Pots"], correctIndex: 1, translation: "You should go to the doctor", explanation: "'Hauries de' = you should (softer advice). 'Has de' = you must (stronger)." },
+      { sentence: "___ visitar la Sagrada Família", blank: "Et recomano", options: ["Et dic", "Et recomano", "Et faig", "Et dono"], correctIndex: 1, translation: "I recommend you visit the Sagrada Família", explanation: "'Recomanar' = to recommend. Common for giving suggestions." },
+      { sentence: "___, parlaria amb ella", blank: "Si jo fos tu", options: ["Si vols", "Si pots", "Si jo fos tu", "Si tens"], correctIndex: 2, translation: "If I were you, I would talk to her", explanation: "'Si jo fos tu' = if I were you. Hypothetical advice." },
+      { sentence: "___ estudies més?", blank: "Per què no", options: ["Quan", "On", "Per què no", "Com"], correctIndex: 2, translation: "Why don't you study more?", explanation: "'Per què no' + verb = why don't you. Gentle suggestion." }
+    ],
+    listenAndType: [
+      { catalan: "Seria millor sortir ara mateix", english: "It would be better to leave right now", pronunciation: "seh-REE-ah mee-YOR sor-TEER AH-rah mah-TEYSH" },
+      { catalan: "Suggereixo que parlis amb el teu cap", english: "I suggest you talk with your boss", pronunciation: "soo-jeh-RAY-shoh keh PAR-lees ahm ehl TEH-oo KAHP" },
+      { catalan: "Podries provar una altra opció", english: "You could try another option", pronunciation: "poh-DREE-ehs proh-BAR OO-nah AHL-trah ohp-see-OH" },
+      { catalan: "És important que descensis bé", english: "It's important that you rest well", pronunciation: "ehs eem-por-TAHN keh dehs-kahn-SEES BEH" }
+    ],
+    errorCorrection: [
+      { sentence: "Deberías ir al médico", errorWordIndex: 0, options: ["Deberías", "Hauries", "Deberias", "Should"], correctIndex: 1, translation: "You should go to the doctor", explanation: "'Hauries de' is Catalan. 'Deberías' is Spanish." },
+      { sentence: "Te recomiendo visitar la Sagrada Familia", errorWordIndex: 0, options: ["Te", "Et", "T'", "You"], correctIndex: 1, translation: "I recommend you visit the Sagrada Família", explanation: "'Et recomano' is Catalan. 'Te recomiendo' is Spanish." },
+      { sentence: "Si yo fuera tú hablaría con ella", errorWordIndex: 2, options: ["fuera", "fos", "fuer", "were"], correctIndex: 1, translation: "If I were you I would talk to her", explanation: "'Si jo fos tu' is Catalan. 'Si yo fuera tú' is Spanish." },
+      { sentence: "Por qué no estudias más?", errorWordIndex: 0, options: ["Por", "Per", "Por", "Why"], correctIndex: 1, translation: "Why don't you study more?", explanation: "'Per què no' is Catalan. 'Por qué no' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Hauries de' = you should (conditional). Softer than 'has de' (you have to). For gentle advice.", words: ["Hauries", "de", "descansar", "una", "mica"], correctOrder: "Hauries de descansar una mica", translation: "You should rest a bit" },
+      { grammarNote: "💡 'Recomanar' = recommend. 'Aconsellar' = advise. 'Suggerir' = suggest. All similar meanings.", words: ["Et", "recomano", "que", "llegeixis", "aquest", "llibre"], correctOrder: "Et recomano que llegeixis aquest llibre", translation: "I recommend you read this book" },
+      { grammarNote: "💡 'Podries' = you could. 'Per què no' = why don't you. Both for suggestions without pressure.", words: ["Per", "què", "no", "preguntes", "al", "professor"], correctOrder: "Per què no preguntes al professor", translation: "Why don't you ask the teacher" }
+    ]
+  }
+},
+
+// ─── LESSON 95: Apologizing & Excusing ──────────────────────
+
+{
+  id: 95,
+  title: "Apologizing & Excusing",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "I'm sorry", ca: "Ho sento", pronunciation: "oh SEHN-toh" },
+    { en: "Excuse me", ca: "Perdoni", pronunciation: "pehr-DOH-nee" },
+    { en: "My apologies", ca: "Les meves disculpes", pronunciation: "lehs MEH-behs dees-KOOL-pehs" },
+    { en: "It's my fault", ca: "És culpa meva", pronunciation: "ehs KOOL-pah MEH-bah" },
+    { en: "I didn't mean to", ca: "No era la meva intenció", pronunciation: "noh EH-rah lah MEH-bah een-tehn-see-OH" },
+    { en: "I apologize", ca: "Em disculpo", pronunciation: "ehm dees-KOOL-poh" },
+    { en: "Forgive me", ca: "Perdona'm", pronunciation: "pehr-DOH-nahm" },
+    { en: "It won't happen again", ca: "No tornarà a passar", pronunciation: "noh tor-nah-RAH ah pah-SAR" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "___ arribar tard", blank: "Ho sento", options: ["Perdó", "Ho sento", "Disculpa", "Estic"], correctIndex: 1, translation: "I'm sorry for arriving late", explanation: "'Ho sento' = I'm sorry (literally: I feel it). Most common apology." },
+      { sentence: "___, és culpa meva", blank: "Em disculpo", options: ["Ho sento", "Em disculpo", "Perdona", "Estic"], correctIndex: 1, translation: "I apologize, it's my fault", explanation: "'Em disculpo' = I apologize. More formal than 'ho sento'." },
+      { sentence: "___ per haver-te fet esperar", blank: "Perdona'm", options: ["Perdó", "Perdona'm", "Ho sento", "Disculpa"], correctIndex: 1, translation: "Forgive me for making you wait", explanation: "'Perdona'm' = forgive me (informal). 'Perdoni'm' = formal." },
+      { sentence: "___ fer-ho", blank: "No era la meva intenció", options: ["Volia", "Pensava", "No era la meva intenció", "Vaig voler"], correctIndex: 2, translation: "I didn't mean to do it", explanation: "'No era la meva intenció' = it wasn't my intention. Shows lack of intent." }
+    ],
+    listenAndType: [
+      { catalan: "Ho sento molt per l'error", english: "I'm very sorry for the mistake", pronunciation: "oh SEHN-toh MOHLT pehr leh-ROHR" },
+      { catalan: "Les meves disculpes pel retard", english: "My apologies for the delay", pronunciation: "lehs MEH-behs dees-KOOL-pehs pehl reh-TARD" },
+      { catalan: "No tornarà a passar mai més", english: "It will never happen again", pronunciation: "noh tor-nah-RAH ah pah-SAR MAHY MEHS" },
+      { catalan: "És totalment culpa meva", english: "It's totally my fault", pronunciation: "ehs toh-tahl-MEHN KOOL-pah MEH-bah" }
+    ],
+    errorCorrection: [
+      { sentence: "Lo siento llegar tarde", errorWordIndex: 0, options: ["Lo", "Ho", "La", "It"], correctIndex: 1, translation: "I'm sorry for arriving late", explanation: "'Ho sento' is Catalan. 'Lo siento' is Spanish." },
+      { sentence: "Me disculpo es culpa mía", errorWordIndex: 0, options: ["Me", "Em", "M'", "Myself"], correctIndex: 1, translation: "I apologize it's my fault", explanation: "'Em disculpo' is Catalan. 'Me disculpo' is Spanish." },
+      { sentence: "Perdóname por haberte hecho esperar", errorWordIndex: 0, options: ["Perdóname", "Perdona'm", "Perdonam", "Forgive"], correctIndex: 1, translation: "Forgive me for making you wait", explanation: "'Perdona'm' is Catalan. 'Perdóname' is Spanish." },
+      { sentence: "No era mi intención hacerlo", errorWordIndex: 2, options: ["mi", "meva", "mi", "my"], correctIndex: 1, translation: "I didn't mean to do it", explanation: "'La meva intenció' is Catalan. 'Mi intención' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Ho sento' = I'm sorry (empathy). 'Perdona/perdoni' = forgive me/excuse me. 'Em disculpo' = I apologize (formal).", words: ["Ho", "sento", "molt", "per", "haver-te", "molestat"], correctOrder: "Ho sento molt per haver-te molestat", translation: "I'm very sorry for having bothered you" },
+      { grammarNote: "💡 Taking responsibility: 'És culpa meva' = it's my fault. 'Tinc la culpa' = I'm to blame. Accept mistake directly.", words: ["Reconec", "que", "m'he", "equivocat"], correctOrder: "Reconec que m'he equivocat", translation: "I recognize that I was wrong" },
+      { grammarNote: "💡 'No era la meva intenció' = I didn't mean to. Shows lack of malicious intent. 'No ho volia fer' = I didn't want to do it.", words: ["No", "tornarà", "a", "passar", "mai", "més"], correctOrder: "No tornarà a passar mai més", translation: "It will never happen again" }
+    ]
+  }
+},
+
+// CONTINUING WITH FINAL 5 LESSONS (96-100)...
+
+// ─── LESSON 96: Making Complaints ──────────────────────────
+
+{
+  id: 96,
+  title: "Making Complaints",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Complaint", ca: "Queixa", pronunciation: "KAY-shah" },
+    { en: "I'm not satisfied", ca: "No estic satisfet", pronunciation: "noh ehs-TEEK sah-tees-FEHT" },
+    { en: "This doesn't work", ca: "Això no funciona", pronunciation: "ah-SHOH noh foon-see-OH-nah" },
+    { en: "I want a refund", ca: "Vull un reemborsament", pronunciation: "BOOL oon reh-ehm-bor-sah-MEHN" },
+    { en: "This is unacceptable", ca: "Això és inacceptable", pronunciation: "ah-SHOH ehs ee-nahk-sehp-TAH-bleh" },
+    { en: "I expected better", ca: "Esperava millor", pronunciation: "ehs-peh-RAH-bah mee-YOR" },
+    { en: "Defective", ca: "Defectuós", pronunciation: "deh-fehk-too-OHS" },
+    { en: "Poor quality", ca: "Mala qualitat", pronunciation: "MAH-lah kwah-lee-TAHT" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Vull presentar una ___", blank: "queixa", options: ["pregunta", "queixa", "proposta", "oferta"], correctIndex: 1, translation: "I want to file a complaint", explanation: "'Queixa' = complaint. 'Presentar una queixa' = file a complaint." },
+      { sentence: "___ amb el servei", blank: "No estic satisfet", options: ["Estic content", "No estic satisfet", "M'agrada", "Està bé"], correctIndex: 1, translation: "I'm not satisfied with the service", explanation: "'No estic satisfet' = I'm not satisfied. For expressing dissatisfaction." },
+      { sentence: "Aquest producte és ___", blank: "defectuós", options: ["bo", "car", "defectuós", "nou"], correctIndex: 2, translation: "This product is defective", explanation: "'Defectuós' = defective/faulty. For broken or poor quality items." },
+      { sentence: "___ el que he pagat", blank: "Esperava millor", options: ["M'agrada", "Esperava millor", "Vull comprar", "Tinc"], correctIndex: 1, translation: "I expected better for what I paid", explanation: "'Esperava millor' = I expected better. Shows disappointment." }
+    ],
+    listenAndType: [
+      { catalan: "Això no és el que vaig demanar", english: "This isn't what I ordered", pronunciation: "ah-SHOH noh ehs ehl keh BAYCH deh-mah-NAR" },
+      { catalan: "Vull parlar amb el responsable", english: "I want to speak with the manager", pronunciation: "BOOL par-LAR ahm ehl rehs-pohn-SAH-bleh" },
+      { catalan: "La qualitat no és acceptable", english: "The quality is not acceptable", pronunciation: "lah kwah-lee-TAHT noh ehs ahk-sehp-TAH-bleh" },
+      { catalan: "Això no funciona correctament", english: "This doesn't work properly", pronunciation: "ah-SHOH noh foon-see-OH-nah koh-rehk-tah-MEHN" }
+    ],
+    errorCorrection: [
+      { sentence: "Quiero presentar una queja", errorWordIndex: 0, options: ["Quiero", "Vull", "Quier", "Want"], correctIndex: 1, translation: "I want to file a complaint", explanation: "'Vull' is Catalan. 'Quiero' is Spanish." },
+      { sentence: "No estoy satisfecho con el servicio", errorWordIndex: 1, options: ["estoy", "estic", "esto", "am"], correctIndex: 1, translation: "I'm not satisfied with the service", explanation: "'Estic' is Catalan. 'Estoy' is Spanish." },
+      { sentence: "Este producto es defectuoso", errorWordIndex: 0, options: ["Este", "Aquest", "Est", "This"], correctIndex: 1, translation: "This product is defective", explanation: "'Aquest' is Catalan. 'Este' is Spanish." },
+      { sentence: "Esperaba mejor por lo que he pagado", errorWordIndex: 0, options: ["Esperaba", "Esperava", "Esperab", "Expected"], correctIndex: 1, translation: "I expected better for what I paid", explanation: "'Esperava' is Catalan. 'Esperaba' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Presentar una queixa' = file a complaint. 'Full de reclamacions' = complaints form (required in all businesses).", words: ["Vull", "el", "full", "de", "reclamacions"], correctOrder: "Vull el full de reclamacions", translation: "I want the complaints form" },
+      { grammarNote: "💡 'Reemborsament' = refund. 'Canviar' = exchange. 'Reparar' = repair. Consumer rights in Catalonia.", words: ["Tinc", "dret", "a", "un", "reemborsament"], correctOrder: "Tinc dret a un reemborsament", translation: "I have a right to a refund" },
+      { grammarNote: "💡 'Això no és acceptable' = this isn't acceptable. 'No compleix les expectatives' = doesn't meet expectations.", words: ["Això", "no", "és", "el", "que", "vaig", "demanar"], correctOrder: "Això no és el que vaig demanar", translation: "This isn't what I ordered" }
+    ]
+  }
+},
+
+// ─── LESSON 97: Time Expressions (Advanced) ─────────────────
+
+{
+  id: 97,
+  title: "Time Expressions",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Meanwhile", ca: "Mentrestant", pronunciation: "mehn-trehs-TAHN" },
+    { en: "Previously", ca: "Prèviament", pronunciation: "PREH-bee-ah-mehn" },
+    { en: "Immediately", ca: "Immediatament", pronunciation: "ee-meh-dee-ah-tah-MEHN" },
+    { en: "Gradually", ca: "Gradualment", pronunciation: "grah-doo-ahl-MEHN" },
+    { en: "Simultaneously", ca: "Simultàniament", pronunciation: "see-mool-TAH-nee-ah-mehn" },
+    { en: "Eventually", ca: "Finalment", pronunciation: "fee-nahl-MEHN" },
+    { en: "Nowadays", ca: "Avui en dia", pronunciation: "ah-BOO-ee ehn DEE-ah" },
+    { en: "In the long run", ca: "A la llarga", pronunciation: "ah lah YAR-gah" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "___, les coses canvien", blank: "Gradualment", options: ["Ràpid", "Gradualment", "Ara", "Demà"], correctIndex: 1, translation: "Gradually, things change", explanation: "'Gradualment' = gradually. For slow, continuous change over time." },
+      { sentence: "___ vam arribar a un acord", blank: "Finalment", options: ["Primer", "Finalment", "Ara", "Després"], correctIndex: 1, translation: "Eventually we reached an agreement", explanation: "'Finalment' = finally/eventually. After a process or wait." },
+      { sentence: "___ la gent treballa des de casa", blank: "Avui en dia", options: ["Abans", "Ara", "Avui en dia", "Demà"], correctIndex: 2, translation: "Nowadays people work from home", explanation: "'Avui en dia' = nowadays/these days. Current time period." },
+      { sentence: "___ tot anirà bé", blank: "A la llarga", options: ["Ara", "Aviat", "A la llarga", "Després"], correctIndex: 2, translation: "In the long run everything will be fine", explanation: "'A la llarga' = in the long run. Over extended time." }
+    ],
+    listenAndType: [
+      { catalan: "Mentrestant vaig fer altres coses", english: "Meanwhile I did other things", pronunciation: "mehn-trehs-TAHN BAYCH fehr AHL-trehs KOH-zehs" },
+      { catalan: "Immediatament vaig trucar la policia", english: "I immediately called the police", pronunciation: "ee-meh-dee-ah-tah-MEHN BAYCH troo-KAR lah poh-lee-SEE-ah" },
+      { catalan: "Prèviament havíem parlat del tema", english: "Previously we had discussed the topic", pronunciation: "PREH-bee-ah-mehn ah-BEE-ehm par-LAHT dehl TEH-mah" },
+      { catalan: "Simultàniament van passar dues coses", english: "Simultaneously two things happened", pronunciation: "see-mool-TAH-nee-ah-mehn bahn pah-SAR DOO-ehs KOH-zehs" }
+    ],
+    errorCorrection: [
+      { sentence: "Gradualmente las cosas cambian", errorWordIndex: 0, options: ["Gradualmente", "Gradualment", "Gradual", "Gradually"], correctIndex: 1, translation: "Gradually things change", explanation: "'Gradualment' is Catalan. 'Gradualmente' is Spanish." },
+      { sentence: "Finalmente llegamos a un acuerdo", errorWordIndex: 0, options: ["Finalmente", "Finalment", "Final", "Finally"], correctIndex: 1, translation: "Eventually we reached an agreement", explanation: "'Finalment' is Catalan. 'Finalmente' is Spanish." },
+      { sentence: "Hoy en día la gente trabaja desde casa", errorWordIndex: 0, options: ["Hoy", "Avui", "Hoi", "Today"], correctIndex: 1, translation: "Nowadays people work from home", explanation: "'Avui en dia' is Catalan. 'Hoy en día' is Spanish." },
+      { sentence: "A la larga todo irá bien", errorWordIndex: 0, options: ["A", "A", "A", "To"], correctIndex: 1, translation: "In the long run everything will be fine", explanation: "'A la llarga' is Catalan. 'A la larga' is Spanish (similar but different spelling)." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 'Mentrestant' = meanwhile/in the meantime. 'Alhora' = at the same time. 'Simultàniament' = simultaneously.", words: ["Mentrestant", "jo", "esperava", "a", "fora"], correctOrder: "Mentrestant jo esperava a fora", translation: "Meanwhile I waited outside" },
+      { grammarNote: "💡 'Immediatament' = immediately. 'Instantàniament' = instantly. 'De seguida' = right away.", words: ["Ho", "vaig", "fer", "immediatament"], correctOrder: "Ho vaig fer immediatament", translation: "I did it immediately" },
+      { grammarNote: "💡 'A la llarga' = in the long run. 'Amb el temps' = with time. 'Al final' = in the end.", words: ["A", "la", "llarga", "tot", "s'arregla"], correctOrder: "A la llarga tot s'arregla", translation: "In the long run everything works out" }
+    ]
+  }
+},
+
+// ─── LESSON 98: Catalan Dialects & Variants ─────────────────
+
+{
+  id: 98,
+  title: "Catalan Dialects",
+  module: "Cultural",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Central Catalan", ca: "Català central", pronunciation: "kah-tah-LAH sehn-TRAHL" },
+    { en: "Valencian", ca: "Valencià", pronunciation: "bah-lehn-see-AH" },
+    { en: "Balearic", ca: "Balear", pronunciation: "bah-leh-AR" },
+    { en: "Northwestern", ca: "Nord-occidental", pronunciation: "nord-ohk-see-dehn-TAHL" },
+    { en: "Accent", ca: "Accent", pronunciation: "ahk-SEHN" },
+    { en: "Pronunciation", ca: "Pronunciació", pronunciation: "proh-noon-see-ah-see-OH" },
+    { en: "Variety", ca: "Varietat", pronunciation: "bah-ree-eh-TAHT" },
+    { en: "Dialect", ca: "Dialecte", pronunciation: "dee-ah-LEHK-teh" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "El ___ es parla a Barcelona", blank: "català central", options: ["valencià", "català central", "balear", "dialecte"], correctIndex: 1, translation: "Central Catalan is spoken in Barcelona", explanation: "'Català central' = Central Catalan. Standard variety, spoken in Barcelona and surrounding areas." },
+      { sentence: "El ___ és la varietat de les Illes Balears", blank: "balear", options: ["valencià", "central", "balear", "nord-occidental"], correctIndex: 2, translation: "Balearic is the variety of the Balearic Islands", explanation: "'Balear' = Balearic dialect. Spoken in Mallorca, Menorca, Ibiza, Formentera." },
+      { sentence: "A València parlen ___", blank: "valencià", options: ["català", "valencià", "balear", "castellà"], correctIndex: 1, translation: "In Valencia they speak Valencian", explanation: "'Valencià' = Valencian. Catalan variety spoken in Valencia region." },
+      { sentence: "Cada zona té un ___ diferent", blank: "accent", options: ["idioma", "accent", "valencià", "central"], correctIndex: 1, translation: "Each area has a different accent", explanation: "'Accent' = accent. Regional pronunciation differences within Catalan." }
+    ],
+    listenAndType: [
+      { catalan: "El català té diverses varietats dialectals", english: "Catalan has various dialectal varieties", pronunciation: "ehl kah-tah-LAH teh dee-BEHR-sehs bah-ree-eh-TAHTS dee-ah-lehk-TAHLS" },
+      { catalan: "La pronunciació canvia segons la regió", english: "Pronunciation changes according to region", pronunciation: "lah proh-noon-see-ah-see-OH KAHN-bee-ah seh-GOHNS lah reh-jee-OH" },
+      { catalan: "Tots els dialectes són igualment vàlids", english: "All dialects are equally valid", pronunciation: "TOHTS ehls dee-ah-LEHK-tehs sohn ee-gwahl-MEHN BAH-leeds" },
+      { catalan: "El vocabulari també varia una mica", english: "Vocabulary also varies a bit", pronunciation: "ehl boh-kah-boo-LAH-ree tahm-BEH bah-REE-ah OO-nah MEE-kah" }
+    ],
+    errorCorrection: [
+      { sentence: "El catalán central se habla en Barcelona", errorWordIndex: 1, options: ["catalán", "català", "catala", "Catalan"], correctIndex: 1, translation: "Central Catalan is spoken in Barcelona", explanation: "'Català' is Catalan. 'Catalán' is Spanish." },
+      { sentence: "El balear es la variedad de las Islas Baleares", errorWordIndex: 3, options: ["variedad", "varietat", "variet", "variety"], correctIndex: 1, translation: "Balearic is the variety of the Balearic Islands", explanation: "'Varietat' is Catalan. 'Variedad' is Spanish." },
+      { sentence: "En Valencia hablan valenciano", errorWordIndex: 0, options: ["En", "A", "En", "In"], correctIndex: 1, translation: "In Valencia they speak Valencian", explanation: "'A València' is Catalan. 'En Valencia' is Spanish." },
+      { sentence: "Cada zona tiene un acento diferente", errorWordIndex: 1, options: ["tiene", "té", "tien", "has"], correctIndex: 1, translation: "Each area has a different accent", explanation: "'Té' is Catalan. 'Tiene' is Spanish." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 Main dialects: Central (Barcelona), Northwestern (Lleida), Valencian (Valencia), Balearic (Islands). All mutually intelligible.", words: ["El", "català", "central", "és", "la", "varietat", "més", "parlada"], correctOrder: "El català central és la varietat més parlada", translation: "Central Catalan is the most spoken variety" },
+      { grammarNote: "💡 Differences: pronunciation (vowel reduction), vocabulary (taronja vs. or ange), grammar (articles: el vs. es).", words: ["La", "pronunciació", "varia", "segons", "el", "dialecte"], correctOrder: "La pronunciació varia segons el dialecte", translation: "Pronunciation varies according to dialect" },
+      { grammarNote: "💡 All varieties are official and equal. No 'correct' dialect. Balearic says 'es' for 'the', Central says 'el'.", words: ["Tots", "els", "dialectes", "catalans", "són", "vàlids"], correctOrder: "Tots els dialectes catalans són vàlids", translation: "All Catalan dialects are valid" }
+    ]
+  }
+},
+
+// ─── LESSON 99: False Friends (Catalan-Spanish) ─────────────
+
+{
+  id: 99,
+  title: "False Friends",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Exit (Catalan: sortida)", ca: "Sortida", pronunciation: "sor-TEE-dah" },
+    { en: "Success (Catalan: èxit)", ca: "Èxit", pronunciation: "EHK-seet" },
+    { en: "Salida = exit (Spanish, NOT Catalan)", ca: "⚠️ Salida (ESP)", pronunciation: "sah-LEE-dah" },
+    { en: "Constipated (Catalan: restrenyit)", ca: "Restrenyit", pronunciation: "rehs-trehn-YEET" },
+    { en: "Cold (illness) (Catalan: refredat)", ca: "Refredat", pronunciation: "reh-freh-DAHT" },
+    { en: "Embarrassed (Catalan: avergonyit)", ca: "Avergonyit", pronunciation: "ah-behr-goh-NYEET" },
+    { en: "Pregnant (Catalan: embarassada)", ca: "Embarassada", pronunciation: "ehm-bah-rah-SAH-dah" },
+    { en: "Library (Catalan: biblioteca)", ca: "Biblioteca", pronunciation: "bee-blee-oh-TEH-kah" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "On és la ___?", blank: "sortida", options: ["salida", "sortida", "èxit", "entrada"], correctIndex: 1, translation: "Where is the exit?", explanation: "'Sortida' = exit in Catalan. 'Salida' is Spanish. Don't confuse! 'Èxit' = success." },
+      { sentence: "Estic ___, tinc el nas tapat", blank: "refredat", options: ["constipat", "refredat", "malalt", "restrenyit"], correctIndex: 1, translation: "I have a cold, my nose is blocked", explanation: "'Refredat' = cold (illness). 'Constipat' is Spanish. DON'T say 'estic constipat' (means constipated!)." },
+      { sentence: "La seva dona està ___", blank: "embarassada", options: ["avergonyida", "embarassada", "confosa", "molesta"], correctIndex: 1, translation: "His wife is pregnant", explanation: "'Embarassada' = pregnant. 'Avergonyit' = embarrassed. Major false friend!" },
+      { sentence: "Vaig a la ___ a buscar llibres", blank: "biblioteca", options: ["llibreria", "biblioteca", "botiga", "tenda"], correctIndex: 1, translation: "I'm going to the library to look for books", explanation: "'Biblioteca' = library. 'Llibreria' = bookstore. Different meanings!" }
+    ],
+    listenAndType: [
+      { catalan: "El projecte ha estat un èxit", english: "The project has been a success", pronunciation: "ehl proh-JEHK-teh ah ehs-TAHT oon EHK-seet" },
+      { catalan: "Estic restrenyit des de fa dies", english: "I've been constipated for days", pronunciation: "ehs-TEEK rehs-trehn-YEET dehs deh FAH DEE-ehs" },
+      { catalan: "Em sento avergonyit per l'error", english: "I feel embarrassed about the mistake", pronunciation: "ehm SEHN-toh ah-behr-goh-NYEET pehr leh-ROHR" },
+      { catalan: "La sortida d'emergència està al fons", english: "The emergency exit is at the back", pronunciation: "lah sor-TEE-dah deh-mehr-JEHN-see-ah ehs-TAH ahl FOHNS" }
+    ],
+    errorCorrection: [
+      { sentence: "Dónde está la salida?", errorWordIndex: 3, options: ["salida", "sortida", "salid", "exit"], correctIndex: 1, translation: "Where is the exit?", explanation: "'Sortida' is Catalan for exit. 'Salida' is Spanish. Major false friend!" },
+      { sentence: "Estoy constipado tengo la nariz tapada", errorWordIndex: 1, options: ["constipado", "refredat", "constipad", "cold"], correctIndex: 1, translation: "I have a cold my nose is blocked", explanation: "'Refredat' = cold in Catalan. 'Constipat' means constipated! Embarrassing mistake." },
+      { sentence: "Su mujer está embarazada", errorWordIndex: 3, options: ["embarazada", "embarassada", "embarazad", "pregnant"], correctIndex: 1, translation: "His wife is pregnant", explanation: "'Embarassada' is Catalan for pregnant. Similar spelling to Spanish but Catalan has double 's'." },
+      { sentence: "Voy a la librería a buscar libros", errorWordIndex: 3, options: ["librería", "biblioteca", "libreri", "library"], correctIndex: 1, translation: "I'm going to the library to look for books", explanation: "'Biblioteca' = library. 'Llibreria' = bookstore (where you buy books)." }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 CRITICAL: 'Refredat' = cold. 'Constipat' = constipated. NEVER say 'estic constipat' if you have a cold!", words: ["Tinc", "un", "refredat", "terrible"], correctOrder: "Tinc un refredat terrible", translation: "I have a terrible cold" },
+      { grammarNote: "💡 'Embarassada' = pregnant. 'Avergonyit' = embarrassed. Don't mix these up in conversation!", words: ["Està", "embarassada", "de", "cinc", "mesos"], correctOrder: "Està embarassada de cinc mesos", translation: "She's five months pregnant" },
+      { grammarNote: "💡 'Sortida' = exit. 'Èxit' = success. 'Biblioteca' = library. 'Llibreria' = bookstore.", words: ["On", "és", "la", "sortida", "d'emergència"], correctOrder: "On és la sortida d'emergència", translation: "Where is the emergency exit" }
+    ]
+  }
+},
+
+// ─── LESSON 100: Review & Mastery ──────────────────────────
+
+{
+  id: 100,
+  title: "Catalan Mastery",
+  module: "Advanced",
+  stages: ['intro', 'fillInTheBlank', 'listenAndType', 'errorCorrection', 'sentenceOrdering'],
+  words: [
+    { en: "Fluently", ca: "Amb fluïdesa", pronunciation: "ahm floo-ee-DEH-sah" },
+    { en: "Native speaker", ca: "Parlant natiu", pronunciation: "par-LAHN nah-TEE-oo" },
+    { en: "To master", ca: "Dominar", pronunciation: "doh-mee-NAR" },
+    { en: "Bilingual", ca: "Bilingüe", pronunciation: "bee-leen-GWEH" },
+    { en: "Proficiency", ca: "Competència", pronunciation: "kohm-peh-TEHN-see-ah" },
+    { en: "To improve", ca: "Millorar", pronunciation: "mee-yoh-RAR" },
+    { en: "Practice", ca: "Pràctica", pronunciation: "PRAHK-tee-kah" },
+    { en: "Congratulations!", ca: "Felicitats!", pronunciation: "feh-lee-see-TAHTS" }
+  ],
+  stageData: {
+    fillInTheBlank: [
+      { sentence: "Ja parlo català ___", blank: "amb fluïdesa", options: ["bé", "amb fluïdesa", "una mica", "malament"], correctIndex: 1, translation: "I already speak Catalan fluently", explanation: "'Amb fluïdesa' = fluently. You've reached advanced proficiency!" },
+      { sentence: "Vull ___ el meu català", blank: "millorar", options: ["parlar", "millorar", "aprendre", "estudiar"], correctIndex: 1, translation: "I want to improve my Catalan", explanation: "'Millorar' = to improve. Learning is continuous!" },
+      { sentence: "Tinc una bona ___ en català", blank: "competència", options: ["idea", "competència", "pregunta", "resposta"], correctIndex: 1, translation: "I have good proficiency in Catalan", explanation: "'Competència' = proficiency/competence. Measure of language ability." },
+      { sentence: "La ___ fa el mestre", blank: "pràctica", options: ["teoria", "pràctica", "lectura", "gramàtica"], correctIndex: 1, translation: "Practice makes perfect", explanation: "'La pràctica fa el mestre' = practice makes the master (Catalan saying)." }
+    ],
+    listenAndType: [
+      { catalan: "Felicitats per completar tots els nivells!", english: "Congratulations on completing all levels!", pronunciation: "feh-lee-see-TAHTS pehr kohm-pleh-TAR TOHTS ehls nee-BEHLS" },
+      { catalan: "Ara pots mantenir converses complexes en català", english: "Now you can maintain complex conversations in Catalan", pronunciation: "AH-rah POHTS mahn-teh-NEER kohn-BEHR-sehs kohm-PLEHK-sehs ehn kah-tah-LAH" },
+      { catalan: "Has après des de zero fins a nivell avançat", english: "You've learned from zero to advanced level", pronunciation: "AHS ah-PREHS dehs deh ZEH-roh feens ah nee-BEHL ah-bahn-SAHT" },
+      { catalan: "Continua practicant i milloraràs cada dia", english: "Keep practicing and you'll improve every day", pronunciation: "kohn-TEE-noo-ah prahk-tee-KAHN ee mee-yoh-rah-RAHS KAH-dah DEE-ah" }
+    ],
+    errorCorrection: [
+      { sentence: "Ya hablo catalán con fluidez", errorWordIndex: 0, options: ["Ya", "Ja", "Ya", "Already"], correctIndex: 1, translation: "I already speak Catalan fluently", explanation: "'Ja' is Catalan. 'Ya' is Spanish. You know this now!" },
+      { sentence: "Quiero mejorar mi catalán", errorWordIndex: 0, options: ["Quiero", "Vull", "Quier", "Want"], correctIndex: 1, translation: "I want to improve my Catalan", explanation: "'Vull' is Catalan. After 100 lessons, this should be automatic!" },
+      { sentence: "Tengo buena competencia en catalán", errorWordIndex: 0, options: ["Tengo", "Tinc", "Teng", "Have"], correctIndex: 1, translation: "I have good proficiency in Catalan", explanation: "'Tinc' is Catalan. You've mastered this!" },
+      { sentence: "La práctica hace al maestro", errorWordIndex: 1, options: ["práctica", "pràctica", "practic", "practice"], correctIndex: 1, translation: "Practice makes perfect", explanation: "'Pràctica' is Catalan. Keep practicing!" }
+    ],
+    sentenceOrdering: [
+      { grammarNote: "💡 You've completed 100 lessons! From greetings to advanced grammar, culture, business, and idioms. Enhorabona!", words: ["Has", "completat", "cent", "lliçons", "de", "català"], correctOrder: "Has completat cent lliçons de català", translation: "You've completed one hundred Catalan lessons" },
+      { grammarNote: "💡 Keep learning: Read Catalan news, watch TV3, listen to Catalunya Ràdio, speak with natives. Immersion is key!", words: ["La", "millor", "manera", "d'aprendre", "és", "practicar"], correctOrder: "La millor manera d'aprendre és practicar", translation: "The best way to learn is to practice" },
+      { grammarNote: "💡 You can now: order food, negotiate business, discuss culture, express opinions, handle emergencies. Molt bé!", words: ["Ara", "pots", "viure", "i", "treballar", "en", "català"], correctOrder: "Ara pots viure i treballar en català", translation: "Now you can live and work in Catalan" }
+    ]
+  }
+},
 
 ];
