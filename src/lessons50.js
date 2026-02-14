@@ -270,6 +270,25 @@ export const lessons = [
       ]
     }
   },
+
+   {
+    id: 53,
+    title: "Numbers 11-20",
+    module: "Foundations",
+    stages: ['intro', 'flashcards', 'match', 'quiz'],
+    words: [
+      { en: "Eleven", ca: "Onze", pronunciation: "OHN-zeh" },
+      { en: "Twelve", ca: "Dotze", pronunciation: "DOH-tzeh" },
+      { en: "Thirteen", ca: "Tretze", pronunciation: "TREH-tzeh" },
+      { en: "Fourteen", ca: "Catorze", pronunciation: "kah-TOR-zeh" },
+      { en: "Fifteen", ca: "Quinze", pronunciation: "KEEN-zeh" },
+      { en: "Sixteen", ca: "Setze", pronunciation: "SEH-tzeh" },
+      { en: "Seventeen", ca: "Disset", pronunciation: "dee-SEHT" },
+      { en: "Eighteen", ca: "Divuit", pronunciation: "dee-BWEET" },
+      { en: "Nineteen", ca: "Dinou", pronunciation: "dee-NOH-oo" },
+      { en: "Twenty", ca: "Vint", pronunciation: "BEENT" }
+    ]
+  },
   
   // ═══════════════════════════════════════════════════════════
 // CORRECTED LESSONS 11-20
@@ -1798,24 +1817,7 @@ export const lessons = [
 // Position: Insert right after lesson 50 in array
 // ─────────────────────────────────────────────────────────
 
-  {
-    id: 53,
-    title: "Numbers 11-20",
-    module: "Foundations",
-    stages: ['intro', 'flashcards', 'match', 'quiz'],
-    words: [
-      { en: "Eleven", ca: "Onze", pronunciation: "OHN-zeh" },
-      { en: "Twelve", ca: "Dotze", pronunciation: "DOH-tzeh" },
-      { en: "Thirteen", ca: "Tretze", pronunciation: "TREH-tzeh" },
-      { en: "Fourteen", ca: "Catorze", pronunciation: "kah-TOR-zeh" },
-      { en: "Fifteen", ca: "Quinze", pronunciation: "KEEN-zeh" },
-      { en: "Sixteen", ca: "Setze", pronunciation: "SEH-tzeh" },
-      { en: "Seventeen", ca: "Disset", pronunciation: "dee-SEHT" },
-      { en: "Eighteen", ca: "Divuit", pronunciation: "dee-BWEET" },
-      { en: "Nineteen", ca: "Dinou", pronunciation: "dee-NOH-oo" },
-      { en: "Twenty", ca: "Vint", pronunciation: "BEENT" }
-    ]
-  },
+ 
 
 
 // ─── LESSON 54: Numbers & Counting (21-100) ─────────────
