@@ -658,6 +658,42 @@ export const lessons = [
     }
   },
 
+  // ─── LESSON 54: Numbers & Counting (21-100) ─────────────
+
+  {
+    id: 54,
+    title: "Numbers & Counting",
+    module: "Foundations",
+    stages: ['intro', 'flashcards', 'fillInTheBlank', 'sentenceOrdering'],
+    words: [
+      { en: "Twenty-one", ca: "Vint-i-un", pronunciation: "been-tee-OON" },
+      { en: "Thirty", ca: "Trenta", pronunciation: "TREN-tah" },
+      { en: "Forty", ca: "Quaranta", pronunciation: "kwah-RAHN-tah" },
+      { en: "Fifty", ca: "Cinquanta", pronunciation: "seen-KWAHN-tah" },
+      { en: "Sixty", ca: "Seixanta", pronunciation: "shay-SHAHN-tah" },
+      { en: "Seventy", ca: "Setanta", pronunciation: "seh-TAHN-tah" },
+      { en: "Eighty", ca: "Vuitanta", pronunciation: "bwee-TAHN-tah" },
+      { en: "Ninety", ca: "Noranta", pronunciation: "noh-RAHN-tah" },
+      { en: "One hundred", ca: "Cent", pronunciation: "SEHN" },
+      { en: "One thousand", ca: "Mil", pronunciation: "MEEL" }
+    ],
+    stageData: {
+      fillInTheBlank: [
+        { sentence: "El pis costa ___ euros al mes", blank: "vuitanta", options: ["trenta", "vuitanta", "cent", "mil"], correctIndex: 1, translation: "The flat costs eighty euros a month", explanation: "'Vuitanta' = 80. Pattern: vuit (8) → vuitanta (80)." },
+        { sentence: "Tinc ___ anys", blank: "trenta", options: ["vint", "trenta", "quaranta", "cinquanta"], correctIndex: 1, translation: "I am thirty years old", explanation: "'Trenta' = 30. 'Tinc trenta anys' = I'm 30 years old." },
+        { sentence: "Hi ha ___ alumnes a la classe", blank: "vint-i-cinc", options: ["vint-i-cinc", "trenta-dos", "quaranta", "cent"], correctIndex: 0, translation: "There are twenty-five students in the class", explanation: "'Vint-i-cinc' = 25. Pattern: vint-i- + units (vint-i-un, vint-i-dos...)." },
+        { sentence: "Quant costa? ___ euros", blank: "Noranta", options: ["Noranta", "Seixanta", "Setanta", "Quaranta"], correctIndex: 0, translation: "How much does it cost? Ninety euros", explanation: "'Noranta' = 90. Pattern: nou (9) → noranta (90)." },
+        { sentence: "Barcelona té ___ barris", blank: "setanta-tres", options: ["quaranta", "cinquanta", "seixanta", "setanta-tres"], correctIndex: 3, translation: "Barcelona has seventy-three neighbourhoods", explanation: "'Setanta-tres' = 73. For 31-99: tens-units (trenta-cinc = 35)." }
+      ],
+      sentenceOrdering: [
+        { grammarNote: "💡 Numbers 21-29 use 'vint-i-' + unit: vint-i-un (21), vint-i-tres (23), vint-i-nou (29).", words: ["Tinc", "quaranta", "anys"], correctOrder: "Tinc quaranta anys", translation: "I am forty years old" },
+        { grammarNote: "💡 For 31-99: tens-units with hyphen. Trenta-cinc (35), seixanta-dos (62), noranta-vuit (98).", words: ["Són", "cinquanta", "euros", "si", "us", "plau"], correctOrder: "Són cinquanta euros si us plau", translation: "It's fifty euros please" },
+        { grammarNote: "💡 'Cent' = 100. 'Dos-cents' = 200. 'Tres-cents' = 300. 'Mil' = 1000.", words: ["El", "lloguer", "és", "vuit-cents", "euros"], correctOrder: "El lloguer és vuit-cents euros", translation: "The rent is eight hundred euros" },
+        { grammarNote: "💡 'Quants anys tens?' = How old are you? Answer: 'Tinc + number + anys'.", words: ["La", "casa", "costa", "tres-cents", "mil", "euros"], correctOrder: "La casa costa tres-cents mil euros", translation: "The house costs three hundred thousand euros" }
+      ]
+    }
+  },
+
 
   // ═══════════════════════════════════════════════════════════
   // MODULE 4: SOCIAL (Lessons 21-25)
@@ -1816,45 +1852,6 @@ export const lessons = [
 // CRITICAL GAP: L2 teaches 1-10, nothing teaches 11-20
 // Position: Insert right after lesson 50 in array
 // ─────────────────────────────────────────────────────────
-
- 
-
-
-// ─── LESSON 54: Numbers & Counting (21-100) ─────────────
-
-  {
-    id: 54,
-    title: "Numbers & Counting",
-    module: "Foundations",
-    stages: ['intro', 'flashcards', 'fillInTheBlank', 'sentenceOrdering'],
-    words: [
-      { en: "Twenty-one", ca: "Vint-i-un", pronunciation: "been-tee-OON" },
-      { en: "Thirty", ca: "Trenta", pronunciation: "TREN-tah" },
-      { en: "Forty", ca: "Quaranta", pronunciation: "kwah-RAHN-tah" },
-      { en: "Fifty", ca: "Cinquanta", pronunciation: "seen-KWAHN-tah" },
-      { en: "Sixty", ca: "Seixanta", pronunciation: "shay-SHAHN-tah" },
-      { en: "Seventy", ca: "Setanta", pronunciation: "seh-TAHN-tah" },
-      { en: "Eighty", ca: "Vuitanta", pronunciation: "bwee-TAHN-tah" },
-      { en: "Ninety", ca: "Noranta", pronunciation: "noh-RAHN-tah" },
-      { en: "One hundred", ca: "Cent", pronunciation: "SEHN" },
-      { en: "One thousand", ca: "Mil", pronunciation: "MEEL" }
-    ],
-    stageData: {
-      fillInTheBlank: [
-        { sentence: "El pis costa ___ euros al mes", blank: "vuitanta", options: ["trenta", "vuitanta", "cent", "mil"], correctIndex: 1, translation: "The flat costs eighty euros a month", explanation: "'Vuitanta' = 80. Pattern: vuit (8) → vuitanta (80)." },
-        { sentence: "Tinc ___ anys", blank: "trenta", options: ["vint", "trenta", "quaranta", "cinquanta"], correctIndex: 1, translation: "I am thirty years old", explanation: "'Trenta' = 30. 'Tinc trenta anys' = I'm 30 years old." },
-        { sentence: "Hi ha ___ alumnes a la classe", blank: "vint-i-cinc", options: ["vint-i-cinc", "trenta-dos", "quaranta", "cent"], correctIndex: 0, translation: "There are twenty-five students in the class", explanation: "'Vint-i-cinc' = 25. Pattern: vint-i- + units (vint-i-un, vint-i-dos...)." },
-        { sentence: "Quant costa? ___ euros", blank: "Noranta", options: ["Noranta", "Seixanta", "Setanta", "Quaranta"], correctIndex: 0, translation: "How much does it cost? Ninety euros", explanation: "'Noranta' = 90. Pattern: nou (9) → noranta (90)." },
-        { sentence: "Barcelona té ___ barris", blank: "setanta-tres", options: ["quaranta", "cinquanta", "seixanta", "setanta-tres"], correctIndex: 3, translation: "Barcelona has seventy-three neighbourhoods", explanation: "'Setanta-tres' = 73. For 31-99: tens-units (trenta-cinc = 35)." }
-      ],
-      sentenceOrdering: [
-        { grammarNote: "💡 Numbers 21-29 use 'vint-i-' + unit: vint-i-un (21), vint-i-tres (23), vint-i-nou (29).", words: ["Tinc", "quaranta", "anys"], correctOrder: "Tinc quaranta anys", translation: "I am forty years old" },
-        { grammarNote: "💡 For 31-99: tens-units with hyphen. Trenta-cinc (35), seixanta-dos (62), noranta-vuit (98).", words: ["Són", "cinquanta", "euros", "si", "us", "plau"], correctOrder: "Són cinquanta euros si us plau", translation: "It's fifty euros please" },
-        { grammarNote: "💡 'Cent' = 100. 'Dos-cents' = 200. 'Tres-cents' = 300. 'Mil' = 1000.", words: ["El", "lloguer", "és", "vuit-cents", "euros"], correctOrder: "El lloguer és vuit-cents euros", translation: "The rent is eight hundred euros" },
-        { grammarNote: "💡 'Quants anys tens?' = How old are you? Answer: 'Tinc + number + anys'.", words: ["La", "casa", "costa", "tres-cents", "mil", "euros"], correctOrder: "La casa costa tres-cents mil euros", translation: "The house costs three hundred thousand euros" }
-      ]
-    }
-  },
 
 
 // ─── LESSON 55: Months & Calendar ───────────────────────

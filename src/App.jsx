@@ -19,26 +19,25 @@ const LESSON_TIERS = [
   { tier: 1, lessons: [1, 2, 3] },
   { tier: 2, lessons: [4, 5, 6] },
   { tier: 3, lessons: [7, 8, 9] },
-  { tier: 4, lessons: [10, 11, 12] },
-  { tier: 5, lessons: [13, 14, 15] },
-  { tier: 6, lessons: [16, 17, 18] },
-  { tier: 7, lessons: [19, 20, 21] },
-  { tier: 8, lessons: [22, 23, 24] },
-  { tier: 9, lessons: [25, 26, 27] },
-  { tier: 10, lessons: [28, 29, 30] },
-  { tier: 11, lessons: [31, 32, 33] },
-  { tier: 12, lessons: [34, 35, 36] },
-  { tier: 13, lessons: [37, 38, 39] },
-  { tier: 14, lessons: [40, 41, 42] },
-  { tier: 15, lessons: [43, 44, 45] },
-  { tier: 16, lessons: [46, 47, 48] },
-  { tier: 17, lessons: [49, 50] },
-  { tier: 18, lessons: [53, 54] },
-{ tier: 19, lessons: [55, 56] },
-{ tier: 20, lessons: [57, 58] },
-{ tier: 21, lessons: [59, 60] },
-{ tier: 22, lessons: [61, 62, 63] },
-{ tier: 23, lessons: [64, 65] },
+  { tier: 4, lessons: [10, 51, 52] },  // L10 + Bridge lessons
+  { tier: 5, lessons: [53, 11, 12] },  // Numbers 11-20 + L11-12
+  { tier: 6, lessons: [13, 14, 15] },
+  { tier: 7, lessons: [16, 17, 18] },
+  { tier: 8, lessons: [19, 20, 54] },  // L19-20 + Numbers 21-100
+  { tier: 9, lessons: [21, 22, 23] },
+  { tier: 10, lessons: [24, 25, 26] },
+  { tier: 11, lessons: [27, 28, 29] },
+  { tier: 12, lessons: [30, 31, 32] },
+  { tier: 13, lessons: [33, 34, 35] },
+  { tier: 14, lessons: [36, 37, 38] },
+  { tier: 15, lessons: [39, 40, 41] },
+  { tier: 16, lessons: [42, 43, 44] },
+  { tier: 17, lessons: [45, 46, 47] },
+  { tier: 18, lessons: [48, 49, 50] },
+  { tier: 19, lessons: [55, 56, 57] },
+  { tier: 20, lessons: [58, 59, 60] },
+  { tier: 21, lessons: [61, 62, 63] },
+  { tier: 22, lessons: [64, 65] },
 ];
 
 // Helper: Get tier for a lesson ID
@@ -176,6 +175,11 @@ function App() {
   const [reviewStreak, setReviewStreak] = useState(0);
   const [lastReviewDate, setLastReviewDate] = useState(null);
   const [reviewSessionActive, setReviewSessionActive] = useState(false);
+  const [lastStreakCelebrated, setLastStreakCelebrated] = useState(0);
+const [showStreakCelebration, setShowStreakCelebration] = useState(false);
+const [streakCelebrationData, setStreakCelebrationData] = useState(null);
+const [showStreakLost, setShowStreakLost] = useState(false);
+const [previousStreak, setPreviousStreak] = useState(0);
   const [reviewSessionWords, setReviewSessionWords] = useState([]);
   const [reviewSessionIndex, setReviewSessionIndex] = useState(0);
   const [reviewSessionScore, setReviewSessionScore] = useState(0);
@@ -2509,15 +2513,31 @@ const handleQuizAnswer = (answer) => {
                     
                     // Update streak when completing a lesson
                     const today = new Date().toDateString();
+                    console.log('🔍 Checking streak:', { today, lastReviewDate, reviewStreak });
                     if (lastReviewDate !== today) {
                       if (lastReviewDate) {
                         const lastDate = new Date(lastReviewDate);
                         const todayDate = new Date(today);
                         const diffDays = Math.ceil((todayDate - lastDate) / (1000 * 60 * 60 * 24));
+                        console.log('🔥 STREAK CHECK:', { today, lastReviewDate, reviewStreak });
+                        
                         if (diffDays === 1) {
-                          setReviewStreak(reviewStreak + 1);
-                        } else {
+                          const newStreak = reviewStreak + 1;
+                          console.log('🎉 Streak increased to:', newStreak);
+                          setReviewStreak(newStreak);
+                          console.log('🎉 CELEBRATION TRIGGERED!', newStreak);
+                          
+                          setStreakCelebrationData({
+                            streak: newStreak,
+                            isMilestone: [7, 14, 30, 50, 100].includes(newStreak)
+                          });
+                          setShowStreakCelebration(true);
+                          console.log('✅ Celebration modal should show now');
+                          
+                        } else if (diffDays > 1) {
+                          setPreviousStreak(reviewStreak);
                           setReviewStreak(1);
+                          setShowStreakLost(true);
                         }
                       } else {
                         setReviewStreak(1);
@@ -2525,15 +2545,8 @@ const handleQuizAnswer = (answer) => {
                       setLastReviewDate(today);
                     }
                   }
-                  // Show verify prompt after first lesson if not verified
-                  // DISABLED: Email confirmation is off. Enable when SMTP is set up.
-                  // if (authUser && !emailVerified && completed.length === 0) {
-                  //   setShowVerifyPrompt(true);
-                  // }
+                  
                   setView('home');
-                  setCurrentLesson(null);
-                  setQuizIndex(0);
-                  setLessonStage('intro');
                   setCurrentLesson(null);
                   setQuizIndex(0);
                   setLessonStage('intro');
@@ -2865,6 +2878,86 @@ const handleQuizAnswer = (answer) => {
     </div>
   </div>
 )}
+
+{/* Streak Celebration Modal */}
+{showStreakCelebration && streakCelebrationData && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    {streakCelebrationData.isMilestone && (
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-50">
+        {[...Array(50)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full animate-confetti"
+            style={{
+              width: '10px',
+              height: '10px',
+              left: `${Math.random() * 100}%`,
+              top: '-20px',
+              animationDelay: `${Math.random() * 0.5}s`,
+              animationDuration: `${2 + Math.random() * 2}s`,
+              backgroundColor: ['#FFD700', '#FF6B9D', '#4169E1', '#32CD32', '#FF69B4', '#00CED1'][Math.floor(Math.random() * 6)]
+            }}
+          />
+        ))}
+      </div>
+    )}
+    
+    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8 text-center relative z-10">
+      <div className="text-6xl mb-4">🔥</div>
+      <h2 className="text-3xl font-bold mb-2">
+        {streakCelebrationData.isMilestone ? `${streakCelebrationData.streak} Day Streak!` : `${streakCelebrationData.streak} Day Streak!`}
+      </h2>
+      <p className="text-gray-600 mb-6">
+        {streakCelebrationData.isMilestone 
+          ? "Incredible dedication! You're unstoppable! 🎉" 
+          : "Keep it up! Come back tomorrow!"}
+      </p>
+      
+      {streakCelebrationData.isMilestone && (
+        <div className="bg-gradient-to-r from-orange-100 to-red-100 rounded-xl p-4 mb-6">
+          <div className="flex items-center justify-center gap-3">
+            <span className="text-3xl">🏆</span>
+            <span className="text-xl font-bold text-orange-700">Milestone Achievement!</span>
+          </div>
+        </div>
+      )}
+      
+      <button 
+        onClick={() => setShowStreakCelebration(false)}
+        className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-4 rounded-xl font-bold text-lg"
+      >
+        Continue Learning →
+      </button>
+    </div>
+  </div>
+)}
+
+{/* Streak Lost Modal */}
+{showStreakLost && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8 text-center">
+      <div className="text-6xl mb-4">😔</div>
+      <h2 className="text-3xl font-bold mb-2">Streak Ended</h2>
+      <p className="text-gray-600 mb-6">
+        Your {previousStreak} day streak has ended, but that's okay!
+      </p>
+      
+      <div className="bg-blue-50 rounded-xl p-4 mb-6">
+        <p className="text-blue-800 font-medium">
+          Starting fresh today. Let's build an even longer streak! 💪
+        </p>
+      </div>
+      
+      <button 
+        onClick={() => setShowStreakLost(false)}
+        className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-4 rounded-xl font-bold text-lg"
+      >
+        Start New Streak →
+      </button>
+    </div>
+  </div>
+)}
+
 {/* Email Verification Prompt Modal */}
       {showVerifyPrompt && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowVerifyPrompt(false)}>
@@ -2880,6 +2973,8 @@ const handleQuizAnswer = (answer) => {
                   <strong>{authUser?.email}</strong>
                 </p>
               </div>
+
+              
 
               <button
                 onClick={async () => {
