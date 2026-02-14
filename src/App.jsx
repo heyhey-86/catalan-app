@@ -191,6 +191,9 @@ function App() {
   const [lastStreakCelebrated, setLastStreakCelebrated] = useState(0);
 const [showStreakCelebration, setShowStreakCelebration] = useState(false);
 const [streakCelebrationData, setStreakCelebrationData] = useState(null);
+const [showInstallPrompt, setShowInstallPrompt] = useState(false);
+const [deferredPrompt, setDeferredPrompt] = useState(null);
+const [installDontShowAgain, setInstallDontShowAgain] = useState(false);
 const [showStreakLost, setShowStreakLost] = useState(false);
 const [previousStreak, setPreviousStreak] = useState(0);
   const [reviewSessionWords, setReviewSessionWords] = useState([]);
@@ -277,6 +280,50 @@ const [selectedReviewGateAnswer, setSelectedReviewGateAnswer] = useState(null);
       }, 500);
     }
   }, [completed]);
+
+  // Detect if app can be installed (PWA)
+useEffect(() => {
+  const handleBeforeInstallPrompt = (e) => {
+    e.preventDefault();
+    setDeferredPrompt(e);
+  };
+
+  window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+  return () => {
+    window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  };
+}, []);
+
+// Show install prompt after 2 lessons (once per day)
+useEffect(() => {
+  const installData = JSON.parse(localStorage.getItem('hc_install_data') || '{}');
+  const hasOptedOut = installData.dontShowAgain;
+  const lastShown = installData.lastShown;
+  const today = new Date().toDateString();
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  
+  // Don't show if: opted out, already shown today, not mobile, or less than 2 lessons
+  if (hasOptedOut || lastShown === today || !isMobile || completed.length < 2) {
+    return;
+  }
+  
+  // Check if already installed (standalone mode)
+  const isInstalled = window.matchMedia('(display-mode: standalone)').matches || 
+                      window.navigator.standalone === true;
+  
+  if (!isInstalled && !showInstallPrompt) {
+    // Small delay so it doesn't interrupt lesson completion
+    setTimeout(() => {
+      setShowInstallPrompt(true);
+      // Update last shown date
+      localStorage.setItem('hc_install_data', JSON.stringify({
+        ...installData,
+        lastShown: today
+      }));
+    }, 1500);
+  }
+}, [completed]);
 
  useEffect(() => {
     if (user) {
@@ -1253,6 +1300,41 @@ useEffect(() => {
       }
     }
   };
+
+  const handleInstall = async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`Install prompt response: ${outcome}`);
+    setDeferredPrompt(null);
+  }
+  
+  // Save opt-out if checkbox was checked
+  if (installDontShowAgain) {
+    const installData = JSON.parse(localStorage.getItem('hc_install_data') || '{}');
+    localStorage.setItem('hc_install_data', JSON.stringify({
+      ...installData,
+      dontShowAgain: true
+    }));
+  }
+  
+  setShowInstallPrompt(false);
+  setInstallDontShowAgain(false);
+};
+
+const handleDismissInstall = () => {
+  // Save opt-out if checkbox was checked
+  if (installDontShowAgain) {
+    const installData = JSON.parse(localStorage.getItem('hc_install_data') || '{}');
+    localStorage.setItem('hc_install_data', JSON.stringify({
+      ...installData,
+      dontShowAgain: true
+    }));
+  }
+  
+  setShowInstallPrompt(false);
+  setInstallDontShowAgain(false);
+};
 
 const handleQuizAnswer = (answer) => {
   console.log('handleQuizAnswer called!', { answer, quizIndex });
@@ -2967,6 +3049,64 @@ const handleQuizAnswer = (answer) => {
       >
         Start New Streak →
       </button>
+    </div>
+  </div>
+)}
+
+{/* Install App Prompt - Shows daily after 2 lessons */}
+{showInstallPrompt && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8 text-center">
+      <div className="text-6xl mb-4">📱</div>
+      <h2 className="text-2xl font-bold mb-2">Install HolaCatalà</h2>
+      <p className="text-gray-600 mb-6">
+        Add HolaCatalà to your home screen for the best learning experience!
+      </p>
+      
+      <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 mb-6">
+        <div className="space-y-3 text-left">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">⚡</span>
+            <span className="text-sm font-medium">Launch instantly from your home screen</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">📱</span>
+            <span className="text-sm font-medium">App icon on your phone</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">🚀</span>
+            <span className="text-sm font-medium">Full screen experience</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">⭐</span>
+            <span className="text-sm font-medium">No browser distractions</span>
+          </div>
+        </div>
+      </div>
+      
+      <button 
+        onClick={handleInstall}
+        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg mb-3 hover:from-blue-700 hover:to-purple-700 transition-all"
+      >
+        Install Now
+      </button>
+      
+      <button 
+        onClick={handleDismissInstall}
+        className="w-full text-gray-500 py-3 text-sm mb-4 hover:text-gray-700"
+      >
+        Maybe Later
+      </button>
+      
+      <label className="flex items-center justify-center gap-2 text-sm text-gray-500 cursor-pointer">
+        <input 
+          type="checkbox" 
+          checked={installDontShowAgain}
+          onChange={(e) => setInstallDontShowAgain(e.target.checked)}
+          className="rounded"
+        />
+        <span>Don't show this again</span>
+      </label>
     </div>
   </div>
 )}
