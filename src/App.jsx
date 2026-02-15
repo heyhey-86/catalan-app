@@ -239,11 +239,11 @@ const getInitialState = () => {
   return { premium: false, reset: false };
 };
 
-// BETA EXPIRY - App stops working after this date
-const BETA_EXPIRY_DATE = new Date('2026-02-28');
-const isBetaExpired = () => {
+// LAUNCH DATE - App is locked until this date
+const LAUNCH_DATE = new Date('2026-02-22T00:00:00');
+const isBeforeLaunch = () => {
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') return false;
-  return new Date() > BETA_EXPIRY_DATE;
+  return new Date() < LAUNCH_DATE;
 };
 
 const INITIAL_STATE = getInitialState();
@@ -1692,7 +1692,7 @@ const handleQuizAnswer = (answer) => {
     return <Auth onAuthSuccess={handleAuthSuccess} existingLocalData={existingData} />;
   }
   // Beta expiry check - VIP testers bypass this
-  if (isBetaExpired() && !premium) {
+  if (isBeforeLaunch() && !premium) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
