@@ -249,6 +249,20 @@ const isBetaExpired = () => {
 const INITIAL_STATE = getInitialState();
 
 function App() {
+  // Event logging function
+  const logEvent = async (eventType, eventData = {}) => {
+    if (!authUser) return; // Only log for logged-in users
+    try {
+      await supabase.from('events').insert({
+        user_id: authUser.id,
+        event_type: eventType,
+        event_data: eventData
+      });
+    } catch (error) {
+      console.error('Event logging error:', error);
+    }
+  };
+
   const [view, setView] = useState('home');
   const [dashboardTab, setDashboardTab] = useState('lessons');
   const [user, setUser] = useState(null);
@@ -667,6 +681,8 @@ useEffect(() => {
     setShuffledCatalan([...lesson.words].sort(() => Math.random() - 0.5));
     setLessonCorrectAnswers(0); // RESET lesson tracking
     setLessonTotalQuestions(0); // RESET lesson tracking
+    logEvent('lesson_started', { lesson_id: lesson.id, lesson_title: lesson.title });
+
     setView('lesson');
   };
 
@@ -1311,6 +1327,8 @@ useEffect(() => {
           if (!completedConversations.includes(currentConversation.id)) {
             setCompletedConversations([...completedConversations, currentConversation.id]);
             setScore(s => s + 50);
+            logEvent('conversation_completed', { conversation_id: currentConversation.id, conversation_title: currentConversation.title });
+
           }
           setView('conversationComplete');
           setTimeout(() => {
@@ -2769,6 +2787,7 @@ const handleQuizAnswer = (answer) => {
                     setScore(score + 50);
                     const newWords = currentLesson.words.map(word => initializeWordForReview(word, currentLesson.id));
                     setWordHistory([...wordHistory, ...newWords]);
+                    logEvent('lesson_completed', { lesson_id: currentLesson.id, lesson_title: currentLesson.title, words_learned: newWords.length });
                     
                     // Update streak when completing a lesson
                     const today = new Date().toDateString();
