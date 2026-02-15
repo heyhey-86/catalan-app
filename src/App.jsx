@@ -3229,8 +3229,10 @@ const handleQuizAnswer = (answer) => {
       <div className="text-6xl mb-4">😔</div>
       <h2 className="text-3xl font-bold mb-2">Streak Ended</h2>
       <p className="text-gray-600 mb-6">
-        Your {previousStreak} day streak has ended, but that's okay!
-      </p>
+  {previousStreak > 0 
+    ? `Your daily streak has ended, but that's okay!`
+    : `You missed a day, but that's okay!`}
+</p>
       
       <div className="bg-blue-50 rounded-xl p-4 mb-6">
         <p className="text-blue-800 font-medium">
