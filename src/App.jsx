@@ -377,12 +377,12 @@ const [selectedReviewGateAnswer, setSelectedReviewGateAnswer] = useState(null);
   const nextLessonRef = useRef(null);
 
   useEffect(() => {
-    if (nextLessonRef.current) {
-      setTimeout(() => {
-        nextLessonRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 500);
-    }
-  }, [completed]);
+  if (view === 'home' && nextLessonRef.current) {
+    setTimeout(() => {
+      nextLessonRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 500);
+  }
+}, [view, completed]);
 
   // Detect if app can be installed (PWA)
 useEffect(() => {
@@ -3096,19 +3096,27 @@ const handleQuizAnswer = (answer) => {
           <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
             <h2 className="text-xl sm:text-2xl font-bold mb-4">Your Lessons</h2>
             <div className="space-y-2 sm:space-y-3">
-              {(() => { let foundNext = false; return LESSONS.map((lesson) => {
-  const lockStatus = isLessonLocked(lesson);
-  const isComplete = completed.includes(lesson.id);
+              {(() => { 
+  let foundNext = false;
+  let lockedShown = 0;
+  return LESSONS.map((lesson) => {
+    const lockStatus = isLessonLocked(lesson);
+    const isComplete = completed.includes(lesson.id);
+    if (!isComplete && lockStatus.locked) {
+      lockedShown++;
+      if (lockedShown > 4) return null;
+    }
+
   const lessonTier = getTierForLesson(lesson.id);
   const showReviewButton = shouldShowReviewGateButton(lessonTier) && LESSON_TIERS.find(t => t.tier === lessonTier)?.lessons[2] === lesson.id;
   const isNextLesson = !isComplete && !lockStatus.locked && !foundNext;
   if (isNextLesson) foundNext = true;
 
   return (
-    <div key={lesson.id} ref={isNextLesson ? nextLessonRef : null}>
+  <div key={lesson.id} ref={isNextLesson ? nextLessonRef : null} className={lockedShown === 4 ? 'max-h-10 overflow-hidden opacity-40' : ''}>
       <div 
         onClick={() => { if (lockStatus.locked && lockStatus.reason === 'premium') { setShowPaywall(true); } else if (lockStatus.locked && lockStatus.reason === 'daygate') { setShowPaywall(true); } else if (!lockStatus.locked) { startLesson(lesson); } }}
-        className={`border-2 rounded-lg p-4 transition-all ${lockStatus.locked ? 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-60' : isComplete ? 'border-green-500 bg-green-50 cursor-pointer hover:bg-green-100' : 'border-gray-200 hover:border-blue-400 hover:bg-blue-50 cursor-pointer'}`}
+        className={`border-2 rounded-lg p-4 transition-all ${lockStatus.locked && lockedShown === 3 ? 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-20' : lockStatus.locked ? 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-60' : isComplete ? 'border-green-500 bg-green-50 cursor-pointer hover:bg-green-100' : 'border-gray-200 hover:border-blue-400 hover:bg-blue-50 cursor-pointer'}`}
       >
         <div className="flex items-center justify-between">
           <div>
