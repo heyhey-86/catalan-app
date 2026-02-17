@@ -172,11 +172,19 @@ const isComprehensiveReviewPoint = (lessonId) => {
 
 // Premium activation tokens
 const PREMIUM_TOKENS = {
-  dev: 'HC_DEV_2026',           // Your personal testing token
-  paid: 'HC_PAID_2026',         // Stripe redirects here after payment
-  beta: 'HC_BETA_LIFE',         // 15 free-for-life beta testers
-  betaDiscount: 'HC_BETA_50',   // Other beta testers (paid via Stripe with 50% off)
-  betaExtended: 'HC_BETA_EXT_2026'  // Top 15 beta testers - extended access until Feb 14
+  dev: 'HC_DEV_2026',
+  paid: 'HC_PAID_2026',
+  beta: 'HC_BETA_LIFE',
+  betaDiscount: 'HC_BETA_50',
+  betaExtended: 'HC_BETA_EXT_2026'
+};
+
+// Free user testing token - bypasses launch lock but NOT paywall
+const FREE_TEST_TOKENS = ['HC_FREE_2026'];
+const isFreeTestToken = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get('activate') || urlParams.get('dev');
+  return FREE_TEST_TOKENS.includes(token);
 };
 
 // Obfuscated localStorage key for premium status
@@ -1679,7 +1687,7 @@ const handleQuizAnswer = (answer) => {
     return <Auth onAuthSuccess={handleAuthSuccess} existingLocalData={existingData} />;
   }
   // Beta expiry check - VIP testers bypass this
-  if (isBeforeLaunch() && !premium) {
+  if (isBeforeLaunch() && !premium && !isFreeTestToken()) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
@@ -1730,14 +1738,18 @@ const handleQuizAnswer = (answer) => {
                 <p className="text-gray-600 text-sm">We'll use this to personalize your experience</p>
               </div>
               <input
-              autoComplete="off"
-                type="text"
-                value={onboardingName}
-                onChange={(e) => setOnboardingName(e.target.value)}
-                placeholder="Enter your name..."
-                className="w-full p-4 text-lg border-2 border-gray-200 rounded-xl mb-4 focus:border-blue-500 focus:outline-none"
-                autoFocus
-              />
+  autoComplete="off"
+  autoCorrect="off"
+  autoCapitalize="words"
+  spellCheck="false"
+  name="learner-name"
+  type="text"
+  value={onboardingName}
+  onChange={(e) => setOnboardingName(e.target.value)}
+  placeholder="Enter your name..."
+  className="w-full p-4 text-lg border-2 border-gray-200 rounded-xl mb-4 focus:border-blue-500 focus:outline-none"
+  autoFocus
+/>
               <button onClick={() => setOnboardingStep(2)} className="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700">
                 Continue →
               </button>
