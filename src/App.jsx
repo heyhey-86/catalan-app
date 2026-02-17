@@ -744,32 +744,34 @@ useEffect(() => {
       setReviewGateFeedback(`Incorrecte. La resposta és: "${currentWord.ca}"`);
     }
     
-    setTimeout(() => {
-      if (reviewGateIndex < reviewGateWords.length - 1) {
-        const nextIndex = reviewGateIndex + 1;
-        setReviewGateIndex(nextIndex);
-        setReviewGateFeedback('');
-        setSelectedReviewGateAnswer(null);
-        
-        const nextWord = reviewGateWords[nextIndex];
-        const allTierWords = getWordsFromTier(reviewGateTier);
-        const otherWords = allTierWords.filter(w => w.ca !== nextWord.ca);
-        const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ca);
-        setReviewGateOptions([nextWord.ca, ...wrongAnswers].sort(() => Math.random() - 0.5));
-      } else {
-        const finalScore = isCorrect ? reviewGateScore + 1 : reviewGateScore;
-        const passThreshold = isComprehensiveReview ? 16 : 8;
-        const passed = finalScore >= passThreshold;
-        setReviewGateComplete(true);
-        setReviewGatePassed(passed);
-        
-        if (passed) {
-          setUnlockedTier(reviewGateTier + 1);
-          const pointsAwarded = isComprehensiveReview ? 200 : 100;
-          setScore(score + pointsAwarded);
-        }
+    if (isCorrect) {
+  setTimeout(() => {
+    if (reviewGateIndex < reviewGateWords.length - 1) {
+      const nextIndex = reviewGateIndex + 1;
+      setReviewGateIndex(nextIndex);
+      setReviewGateFeedback('');
+      setSelectedReviewGateAnswer(null);
+
+      const nextWord = reviewGateWords[nextIndex];
+      const allTierWords = getWordsFromTier(reviewGateTier);
+      const otherWords = allTierWords.filter(w => w.ca !== nextWord.ca);
+      const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ca);
+      setReviewGateOptions([nextWord.ca, ...wrongAnswers].sort(() => Math.random() - 0.5));
+    } else {
+      const finalScore = reviewGateScore + 1;
+      const passThreshold = isComprehensiveReview ? 16 : 8;
+      const passed = finalScore >= passThreshold;
+      setReviewGateComplete(true);
+      setReviewGatePassed(passed);
+
+      if (passed) {
+        setUnlockedTier(reviewGateTier + 1);
+        const pointsAwarded = isComprehensiveReview ? 200 : 100;
+        setScore(score + pointsAwarded);
       }
-    }, 1500);
+    }
+  }, 1500);
+}
   };
 
   const exitReviewGate = () => {
@@ -889,38 +891,28 @@ useEffect(() => {
       setReviewSessionFeedback(`Incorrecte. La resposta és: "${currentWord.ca}"`);
     }
     
-    setTimeout(() => {
-      if (reviewSessionIndex < reviewSessionWords.length - 1) {
-        const nextIndex = reviewSessionIndex + 1;
-        setReviewSessionIndex(nextIndex);
-        setReviewSessionFeedback('');
-        setSelectedReviewAnswer(null);
-        
-        const nextWord = reviewSessionWords[nextIndex];
-        const otherWords = wordHistory.filter(w => w.ca !== nextWord.ca);
-        const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ca);
-        setReviewSessionOptions([nextWord.ca, ...wrongAnswers].sort(() => Math.random() - 0.5));
-      } else {
-        // Session complete!
-        const finalScore = isCorrect ? reviewSessionScore + 1 : reviewSessionScore;
-        
-        setScore(score + finalScore * 5); // 5 points per correct answer
-        
-        // Increment daily counter using functional update (ensures correct value)
-        setDailyReviewsCompleted(prev => prev + 1);
-        
-        // Advance index to trigger congratulations screen
-        setReviewSessionIndex(reviewSessionWords.length);
-        setReviewSessionFeedback('');
-        setSelectedReviewAnswer(null);
-      
-        // Close session after 3 seconds
-        setTimeout(() => {
-          setReviewSessionActive(false);
-          setView('home');
-        }, 3000);
-      }
-    }, 3000);
+    if (isCorrect) {
+  setTimeout(() => {
+    if (reviewSessionIndex < reviewSessionWords.length - 1) {
+      const nextIndex = reviewSessionIndex + 1;
+      setReviewSessionIndex(nextIndex);
+      setReviewSessionFeedback('');
+      setSelectedReviewAnswer(null);
+
+      const nextWord = reviewSessionWords[nextIndex];
+      const otherWords = wordHistory.filter(w => w.ca !== nextWord.ca);
+      const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ca);
+      setReviewSessionOptions([nextWord.ca, ...wrongAnswers].sort(() => Math.random() - 0.5));
+    } else {
+      const finalScore = reviewSessionScore + 1;
+      setScore(score + finalScore * 5);
+      setDailyReviewsCompleted(prev => prev + 1);
+      setReviewSessionIndex(reviewSessionWords.length);
+      setReviewSessionFeedback('');
+      setSelectedReviewAnswer(null);
+    }
+  }, 1500);
+}
   };
 
   const exitReviewSession = () => {
@@ -1331,11 +1323,6 @@ useEffect(() => {
 
           }
           setView('conversationComplete');
-          setTimeout(() => {
-            setView('home');
-            setCurrentConversation(null);
-            setConversationTurnIndex(0);
-          }, 3000);
         }
       }, 1500);
     } else {
@@ -1716,7 +1703,7 @@ const handleQuizAnswer = (answer) => {
           {/* Step 0: Welcome */}
           {onboardingStep === 0 && (
             <div className="text-center">
-              <img src="./logo.png" alt="HolaCatalà" className="h-36 sm:h-44 w-auto mx-auto mb-3" />
+              <img src="./logo.png" alt="HolaCatalà" className="h-48 sm:h-56 w-auto mx-auto mb-3" />
               <p className="text-gray-600 mb-8">Learn Catalan the easy way. Perfect for expats in Barcelona, Catalonia & Andorra.</p>
               <button onClick={() => setOnboardingStep(1)} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all">
                 Let's Get Started →
@@ -1974,25 +1961,57 @@ const handleQuizAnswer = (answer) => {
                 </div>
                 
                 {reviewSessionFeedback && (
-                  <div className={`mt-4 p-4 rounded-xl text-center font-semibold ${reviewSessionFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                    {reviewSessionFeedback}
-                  </div>
-                )}
+  <div className={`mt-4 p-4 rounded-xl text-center font-semibold ${reviewSessionFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+    {reviewSessionFeedback}
+    {!reviewSessionFeedback.includes('Correcte') && (
+      <button
+        onClick={() => {
+          if (reviewSessionIndex < reviewSessionWords.length - 1) {
+            const nextIndex = reviewSessionIndex + 1;
+            setReviewSessionIndex(nextIndex);
+            setReviewSessionFeedback('');
+            setSelectedReviewAnswer(null);
+            const nextWord = reviewSessionWords[nextIndex];
+            const otherWords = wordHistory.filter(w => w.ca !== nextWord.ca);
+            const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ca);
+            setReviewSessionOptions([nextWord.ca, ...wrongAnswers].sort(() => Math.random() - 0.5));
+          } else {
+            const finalScore = reviewSessionScore;
+            setScore(score + finalScore * 5);
+            setDailyReviewsCompleted(prev => prev + 1);
+            setReviewSessionIndex(reviewSessionWords.length);
+            setReviewSessionFeedback('');
+            setSelectedReviewAnswer(null);
+          }
+        }}
+        className="mt-3 w-full bg-white text-gray-700 border-2 border-gray-300 px-6 py-2 rounded-xl font-semibold hover:bg-gray-50"
+      >
+        Next →
+      </button>
+    )}
+  </div>
+)}
               </div>
             </>
           ) : (
             <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 text-center">
-              <div className="text-6xl mb-4">🎉</div>
-              <h2 className="text-2xl sm:text-3xl font-bold mb-2">Review Complete!</h2>
-              <p className="text-gray-600 mb-6">You scored {reviewSessionScore}/{reviewSessionWords.length}</p>
-              <div className="bg-gradient-to-r from-blue-100 to-cyan-100 rounded-xl p-4 mb-6">
-                <div className="flex items-center justify-center gap-3">
-                  <span className="text-2xl">⭐</span>
-                  <span className="text-xl font-bold text-blue-700">+{reviewSessionScore * 5} Points!</span>
-                </div>
-              </div>
-              <p className="text-sm text-gray-500 mb-4">Come back tomorrow for more practice!</p>
-            </div>
+  <div className="flex justify-center mb-4">
+    <img src="./bubblesolo.png" alt="Celebration" className="h-40 sm:h-48 w-auto animate-bounce" />
+  </div>
+  <div className="text-2xl mb-2">🎉✨🎊</div>
+  <h2 className="text-2xl sm:text-3xl font-bold mb-2">Review Complete!</h2>
+  <p className="text-gray-600 mb-6">You scored {reviewSessionScore}/{reviewSessionWords.length}</p>
+  <div className="bg-gradient-to-r from-blue-100 to-cyan-100 rounded-xl p-4 mb-6">
+    <div className="flex items-center justify-center gap-3">
+      <span className="text-2xl">⭐</span>
+      <span className="text-xl font-bold text-blue-700">+{reviewSessionScore * 5} Points!</span>
+    </div>
+  </div>
+  <p className="text-sm text-gray-500 mb-4">Come back tomorrow for more practice!</p>
+  <button onClick={exitReviewSession} className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-4 rounded-xl font-bold text-lg">
+    Return to Dashboard →
+  </button>
+</div>
           )}
         </div>
       </div>
@@ -2071,17 +2090,47 @@ const handleQuizAnswer = (answer) => {
                 </div>
                 
                 {reviewGateFeedback && (
-                  <div className={`mt-4 p-4 rounded-xl text-center font-semibold ${reviewGateFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                    {reviewGateFeedback}
-                  </div>
-                )}
+  <div className={`mt-4 p-4 rounded-xl text-center font-semibold ${reviewGateFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+    {reviewGateFeedback}
+    {!reviewGateFeedback.includes('Correcte') && (
+      <button
+        onClick={() => {
+          if (reviewGateIndex < reviewGateWords.length - 1) {
+            const nextIndex = reviewGateIndex + 1;
+            setReviewGateIndex(nextIndex);
+            setReviewGateFeedback('');
+            setSelectedReviewGateAnswer(null);
+            const nextWord = reviewGateWords[nextIndex];
+            const allTierWords = getWordsFromTier(reviewGateTier);
+            const otherWords = allTierWords.filter(w => w.ca !== nextWord.ca);
+            const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ca);
+            setReviewGateOptions([nextWord.ca, ...wrongAnswers].sort(() => Math.random() - 0.5));
+          } else {
+  const passThreshold = isComprehensiveReview ? 16 : 8;
+  const passed = reviewGateScore >= passThreshold;
+  setReviewGateComplete(true);
+  setReviewGatePassed(passed);
+  if (passed) {
+    setUnlockedTier(reviewGateTier + 1);
+    const pointsAwarded = isComprehensiveReview ? 200 : 100;
+    setScore(score + pointsAwarded);
+  }
+}
+        }}
+        className="mt-3 w-full bg-white text-gray-700 border-2 border-gray-300 px-6 py-2 rounded-xl font-semibold hover:bg-gray-50"
+      >
+        Next →
+      </button>
+    )}
+  </div>
+)}
               </div>
             </>
           ) : (
             <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 text-center">
               {reviewGatePassed ? (
                 <div className="flex justify-center mb-4">
-                  <img src="./bubblesolo.png" alt="Celebration" className="h-24 sm:h-32 w-auto animate-bounce" />
+                  <img src="./bubblesolo.png" alt="Celebration" className="h-40 sm:h-48 w-auto animate-bounce" />
                 </div>
               ) : (
                 <div className="text-6xl mb-4">😔</div>
@@ -2091,7 +2140,7 @@ const handleQuizAnswer = (answer) => {
                 You scored {reviewGateScore}/{isComprehensiveReview ? 20 : 10}
                 {reviewGatePassed 
                   ? `. Lessons ${reviewGateTier * 3 + 1}-${reviewGateTier * 3 + 3} are now unlocked!` 
-                  : `. You need ${isComprehensiveReview ? '16/20' : '8/10'} to unlock the next lessons.`}
+                  : `. You need at least ${isComprehensiveReview ? '16/20' : '8/10'} to unlock the next lessons.`}
               </p>
               
               {reviewGatePassed ? (
@@ -2477,23 +2526,33 @@ const handleQuizAnswer = (answer) => {
 
           {/* Main content */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 text-center relative z-10 max-w-md">
-            <div className="flex justify-center mb-6">
-              <img 
-                src="./bubblesolo.png" 
-                alt="Celebration" 
-                className="h-32 w-auto animate-bounce"
-              />
-            </div>
-            <div className="text-5xl mb-4">🎉✨🎊</div>
-            <h2 className="text-3xl font-bold mb-2 text-gray-800">Conversation Complete!</h2>
-            <p className="text-gray-600 text-lg">Great job practicing! 🗣️</p>
-            
-            <div className="mt-6 bg-gradient-to-r from-green-100 to-teal-100 rounded-xl p-4">
-              <div className="flex items-center justify-center gap-3">
-                <span className="text-2xl">💬</span>
-                <span className="text-xl font-bold text-green-700">+65 Points!</span>
-              </div>
-            </div>
+            <div className="flex justify-center mb-2">
+  <img
+    src="./bubblesolo.png"
+    alt="Celebration"
+    className="h-40 w-auto animate-bounce"
+  />
+</div>
+<div className="text-3xl mb-2">🎉✨🎊</div>
+<h2 className="text-3xl font-bold mb-2 text-gray-800">Conversation Complete!</h2>
+<p className="text-gray-600 text-lg">Great job practicing! 🗣️</p>
+
+<div className="mt-4 bg-gradient-to-r from-green-100 to-teal-100 rounded-xl p-4 mb-4">
+  <div className="flex items-center justify-center gap-3">
+    <span className="text-2xl">💬</span>
+    <span className="text-xl font-bold text-green-700">+65 Points!</span>
+  </div>
+</div>
+<button
+  onClick={() => {
+    setView('home');
+    setCurrentConversation(null);
+    setConversationTurnIndex(0);
+  }}
+  className="w-full bg-gradient-to-r from-green-500 to-teal-500 text-white py-4 rounded-xl font-bold text-lg"
+>
+  Return to Dashboard →
+</button>
           </div>
         </div>
       </div>
@@ -2621,27 +2680,29 @@ const handleQuizAnswer = (answer) => {
                   ))}
                 </div>
                 {quizFeedback && (
-                  <div className={`mt-4 p-4 rounded-lg text-center font-semibold ${quizFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                    {quizFeedback}
-                    <button
-                      onClick={() => {
-                        if (quizIndex < quizWords.length - 1) {
-                          const nextIndex = quizIndex + 1;
-                          const correctAnswer = quizWords[nextIndex].ca;
-                          const wrongAnswers = quizWords.filter((_, i) => i !== nextIndex).map(w => w.ca).sort(() => Math.random() - 0.5).slice(0, 2);
-                          setQuizOptions([correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5));
-                          setQuizIndex(nextIndex);
-                          setQuizFeedback('');
-                        } else {
-                          nextStage();
-                        }
-                      }}
-                      className="mt-3 block w-full bg-white text-gray-700 border-2 border-gray-300 px-6 py-2 rounded-xl font-semibold hover:bg-gray-50 active:scale-95 transition-all"
-                    >
-                      Next →
-                    </button>
-                  </div>
-                )}
+  <div className={`mt-4 p-4 rounded-lg text-center font-semibold ${quizFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+    {quizFeedback}
+    {!quizFeedback.includes('Correcte') && (
+      <button
+        onClick={() => {
+          if (quizIndex < quizWords.length - 1) {
+            const nextIndex = quizIndex + 1;
+            const correctAnswer = quizWords[nextIndex].ca;
+            const wrongAnswers = quizWords.filter((_, i) => i !== nextIndex).map(w => w.ca).sort(() => Math.random() - 0.5).slice(0, 2);
+            setQuizOptions([correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5));
+            setQuizIndex(nextIndex);
+            setQuizFeedback('');
+          } else {
+            nextStage();
+          }
+        }}
+        className="mt-3 block w-full bg-white text-gray-700 border-2 border-gray-300 px-6 py-2 rounded-xl font-semibold hover:bg-gray-50 active:scale-95 transition-all"
+      >
+        Next →
+      </button>
+    )}
+  </div>
+)}
               </div>
             </div>
           )}
@@ -2769,7 +2830,7 @@ const handleQuizAnswer = (answer) => {
               </div>
 
               <div className="flex justify-center mb-4">
-                <img src="./bubblesolo.png" alt="Celebration" className="h-24 sm:h-32 w-auto animate-bounce" />
+                <img src="./bubblesolo.png" alt="Celebration" className="h-40 sm:h-48 w-auto animate-bounce" />
               </div>
               <div className="text-2xl mb-2">🎉✨🎊</div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-2">Lesson Complete!</h2>
