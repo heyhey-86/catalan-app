@@ -2429,11 +2429,12 @@ const handleQuizAnswer = (answer) => {
                 {challengeProgress < (currentChallenge.passingScore || currentChallenge.targetCount) ? "Not Quite!" : "Time's Up!"}
               </h2>
               <p className="text-gray-600 mb-6">
-                You got {challengeProgress} out of {currentChallenge.targetCount}. 
-                {currentChallenge.passingScore && challengeProgress < currentChallenge.passingScore && ` You need ${currentChallenge.passingScore} to pass.`}
-                {challengeProgress < 10 && " Learn more lessons to unlock more words!"}
-                {" "}Try again tomorrow!
-              </p>
+  You got {challengeProgress} out of {currentChallenge.targetCount}.
+  {currentChallenge.type === 'conversations' && challengeProgress < currentChallenge.targetCount && " Complete more conversations to reach the target!"}
+  {currentChallenge.type !== 'conversations' && currentChallenge.passingScore && challengeProgress < currentChallenge.passingScore && ` You need ${currentChallenge.passingScore} to pass.`}
+  {currentChallenge.type !== 'conversations' && challengeProgress < 10 && " Learn more lessons to unlock more words!"}
+  {" "}Try again tomorrow!
+</p>
               <button onClick={exitChallenge} className="w-full bg-gray-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-gray-700">Back to Dashboard</button>
             </div>
           )}
@@ -3188,7 +3189,7 @@ const handleQuizAnswer = (answer) => {
                       <span className="text-2xl sm:text-3xl">{conv.icon}</span>
                       <div className="flex-1 min-w-0">
                         <div className="font-semibold text-sm sm:text-base truncate">{conv.title}</div>
-                        {!unlocked && <div className="text-xs text-gray-500 mt-1">Complete lesson {conv.unlockAfterLesson} to unlock</div>}
+                        {!unlocked && <div className="text-xs text-gray-500 mt-1">{conv.unlockAfterLesson ? `Complete lesson ${conv.unlockAfterLesson} to unlock` : 'Complete more lessons to unlock'}</div>}
                       </div>
                       {!unlocked ? <Lock className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 flex-shrink-0" /> : isComplete ? <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" /> : null}
                     </div>

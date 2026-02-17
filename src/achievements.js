@@ -173,14 +173,14 @@ export const ACHIEVEMENTS = [
     points: 150
   },
   {
-    id: 'all_conversations',
-    title: 'Social Butterfly',
-    description: 'Complete all 10 conversations',
-    icon: '🦋',
-    category: 'Social',
-    condition: (data) => data.completedConversations.length >= 10,
-    points: 300
-  },
+  id: 'all_conversations',
+  title: 'Social Butterfly',
+  description: 'Complete 10 conversations',
+  icon: '🦋',
+  category: 'Social',
+  condition: (data) => data.completedConversations.length >= 10,
+  points: 300
+},
 
   // SPECIAL BADGES
   {
