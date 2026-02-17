@@ -361,13 +361,14 @@ const [lessonTotalQuestions, setLessonTotalQuestions] = useState(0);
   const [reviewGateScore, setReviewGateScore] = useState(0);
   const [reviewGateFeedback, setReviewGateFeedback] = useState('');
   const [reviewGateOptions, setReviewGateOptions] = useState([]);
-const [selectedReviewGateAnswer, setSelectedReviewGateAnswer] = useState(null);
+  const [selectedReviewGateAnswer, setSelectedReviewGateAnswer] = useState(null);
   const [reviewGateComplete, setReviewGateComplete] = useState(false);
   const [reviewGatePassed, setReviewGatePassed] = useState(false);
   const [isComprehensiveReview, setIsComprehensiveReview] = useState(false);
   const [showSaved, setShowSaved] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
   const [authUser, setAuthUser] = useState(null);
+  const [showNoAccountWarning, setShowNoAccountWarning] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [authLoading, setAuthLoading] = useState(true);
   const [syncStatus, setSyncStatus] = useState('');
@@ -631,10 +632,16 @@ useEffect(() => {
   };
 
   // Sign out function
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    setAuthUser(null);
-    // Don't clear local data - let them keep it for offline use
+const handleSignOut = async () => {
+  await supabase.auth.signOut();
+  setAuthUser(null);
+  // Clear all local progress on sign out
+  localStorage.removeItem('catalan_progress');
+  setCompleted([]);
+  setScore(0);
+  setWordHistory([]);
+  setReviewStreak(0);
+  setUser(null);
   };
 
   // Auto-save to cloud when progress changes (if logged in)
@@ -680,19 +687,20 @@ useEffect(() => {
   }, [view, currentChallenge, challengeStartTime, challengeCompleted, challengeFailed]);
 
   const startLesson = (lesson) => {
-    setCurrentLesson(lesson);
-    setLessonStage('intro');
-    setCurrentCardIndex(0);
-    setFlipped(false);
-    setMatchedPairs([]);
-    setSelectedPairs([]);
-    setShuffledCatalan([...lesson.words].sort(() => Math.random() - 0.5));
-    setLessonCorrectAnswers(0); // RESET lesson tracking
-    setLessonTotalQuestions(0); // RESET lesson tracking
-    logEvent('lesson_started', { lesson_id: lesson.id, lesson_title: lesson.title });
-
-    setView('lesson');
-  };
+  window.scrollTo(0, 0);
+  setCurrentLesson(lesson);
+  setLessonStage('intro');
+  setCurrentCardIndex(0);
+  setFlipped(false);
+  setMatchedPairs([]);
+  setSelectedPairs([]);
+  setShuffledCatalan([...lesson.words].sort(() => Math.random() - 0.5));
+  setLessonCorrectAnswers(0); // RESET lesson tracking
+  setLessonTotalQuestions(0); // RESET lesson tracking
+  logEvent('lesson_started', { lesson_id: lesson.id, lesson_title: lesson.title });
+  setShowNoAccountWarning(!authUser);
+  setView('lesson');
+};
 
   const handleLessonAnswer = (isCorrect) => {
     console.log('Answer tracked:', isCorrect);
@@ -1340,9 +1348,10 @@ useEffect(() => {
   };
 
   const nextStage = () => {
-    const stages = currentLesson.stages || ['intro', 'flashcards', 'match', 'quiz'];
-    const currentIndex = stages.indexOf(lessonStage);
-    const nextStageName = currentIndex < stages.length - 1 ? stages[currentIndex + 1] : 'complete';
+  window.scrollTo(0, 0);
+  const stages = currentLesson.stages || ['intro', 'flashcards', 'match', 'quiz'];
+  const currentIndex = stages.indexOf(lessonStage);
+  const nextStageName = currentIndex < stages.length - 1 ? stages[currentIndex + 1] : 'complete';
     
     // CHECK 70% BEFORE SHOWING COMPLETION SCREEN
     if (nextStageName === 'complete') {
@@ -2578,6 +2587,17 @@ const handleQuizAnswer = (answer) => {
         <nav className="bg-white shadow-sm p-3 sm:p-4 sticky top-0 z-40">
           <button onClick={() => setView('home')} className="flex items-center gap-1 sm:gap-2 text-gray-600 text-sm sm:text-base"><Home className="w-5 h-5" /> <span className="hidden sm:inline">Exit Lesson</span></button>
         </nav>
+        {showNoAccountWarning && (
+          <div className="bg-amber-50 border-b border-amber-200 p-3 text-center text-sm">
+            <span className="text-amber-800 font-medium">⚠️ Progress won't be saved! </span>
+            <button
+              onClick={() => { setView('home'); setShowAuth(true); }}
+              className="text-blue-600 font-semibold underline ml-1"
+            >
+              Create an account or log in to save your progress →
+            </button>
+          </div>
+        )}
         <div className="max-w-4xl mx-auto p-3 sm:p-4">
           <div className="bg-white rounded-lg p-3 sm:p-4 mb-4">
             <div className="flex justify-between text-xs sm:text-sm mb-2"><span className="font-semibold truncate mr-2">{currentLesson.title}</span><span className="text-gray-600 flex-shrink-0">{(() => { const s = currentLesson.stages || ['intro','flashcards','match','quiz']; return `${s.indexOf(lessonStage)+1}/${s.length}`; })()}</span></div>
