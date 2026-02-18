@@ -3181,7 +3181,7 @@ const handleQuizAnswer = (answer) => {
             <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">Practice real conversations in Catalan. Unlock scenarios by completing lessons!</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {[...CONVERSATIONS].sort((a, b) => a.unlockAfterLesson - b.unlockAfterLesson).map((conv) => {
-                const unlocked = completed.includes(conv.unlockAfterLesson);
+                const unlocked = completed.includes(conv.unlockAfterLesson || conv.unlocksAfter);
                 const isComplete = completedConversations.includes(conv.id);
                 return (
                   <div key={conv.id} onClick={() => { if (unlocked) { startConversation(conv); } else if (!premium) { setShowPaywall(true); } }} className={`border-2 rounded-lg p-3 sm:p-4 transition-all active:scale-98 ${!unlocked ? 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-60' : isComplete ? 'border-green-500 bg-green-50 cursor-pointer hover:bg-green-100' : 'border-gray-200 hover:border-green-400 hover:bg-green-50 cursor-pointer'}`}>
@@ -3189,7 +3189,7 @@ const handleQuizAnswer = (answer) => {
                       <span className="text-2xl sm:text-3xl">{conv.icon}</span>
                       <div className="flex-1 min-w-0">
                         <div className="font-semibold text-sm sm:text-base truncate">{conv.title}</div>
-                        {!unlocked && <div className="text-xs text-gray-500 mt-1">{conv.unlockAfterLesson ? `Complete lesson ${conv.unlockAfterLesson} to unlock` : 'Complete more lessons to unlock'}</div>}
+                        {!unlocked && <div className="text-xs text-gray-500 mt-1">Complete more lessons to unlock</div>}
                       </div>
                       {!unlocked ? <Lock className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 flex-shrink-0" /> : isComplete ? <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" /> : null}
                     </div>
