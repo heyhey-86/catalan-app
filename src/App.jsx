@@ -430,7 +430,7 @@ useEffect(() => {
 }, [completed]);
 
  useEffect(() => {
-    if (user) {
+    if (authUser && user) {
       const userData = { completed, score, premium, user, wordHistory, reviewStreak, lastReviewDate, completedConversations, challengeHistory, unlockedTier, dailyReviewsCompleted, lastDailyReviewDate, ...(premium ? { [PREMIUM_KEY]: PREMIUM_VALUE } : {}) };
 
       localStorage.setItem('catalan_progress', JSON.stringify(userData));
@@ -1720,7 +1720,7 @@ const handleQuizAnswer = (answer) => {
           {/* Step 0: Welcome */}
           {onboardingStep === 0 && (
             <div className="text-center">
-              <img src="./logo.png" alt="HolaCatalà" className="h-48 sm:h-56 w-auto mx-auto mb-3" />
+              <img src="./bubblesolo.png" alt="HolaCatalà" className="h-56 sm:h-64 w-auto mx-auto mb-3" />
               <p className="text-gray-600 mb-8">Learn Catalan the easy way. Perfect for expats in Barcelona, Catalonia & Andorra.</p>
               <button onClick={() => setOnboardingStep(1)} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all">
                 Let's Get Started →
