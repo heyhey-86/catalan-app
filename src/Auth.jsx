@@ -85,7 +85,7 @@ export default function Auth({ onAuthSuccess, existingLocalData, initialMode = '
     <div className="min-h-screen bg-gradient-to-b from-red-500 to-yellow-500 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <img src="./logo.png" alt="HolaCatalà" className="h-32 w-auto mx-auto mb-4" />
+          <img src="./bubblesolo.png" alt="HolaCatalà" className="h-56 w-auto mx-auto mb-4" />
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-6">
