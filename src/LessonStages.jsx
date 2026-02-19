@@ -589,12 +589,14 @@ export function ListenAndType({
       <div className="flex flex-col items-center mb-6">
         <button
           onClick={handlePlay}
+          onMouseDown={(e) => e.preventDefault()}
           className="w-24 h-24 rounded-full bg-amber-500 hover:bg-amber-600 active:scale-95 transition-all flex items-center justify-center shadow-lg"
         >
           <Volume2 className="w-10 h-10 text-white" />
         </button>
         <button
           onClick={() => playAudio(current.catalan, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID, 0.5)}
+          onMouseDown={(e) => e.preventDefault()}
           className="w-16 h-16 rounded-full bg-amber-400 hover:bg-amber-500 active:scale-95 transition-all flex items-center justify-center shadow-md mt-3"
           title="Play slowly"
         >
