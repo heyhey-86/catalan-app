@@ -717,11 +717,14 @@ export const lessons = [
     ],
     stageData: {
       listenAndType: [
-        { catalan: "Vols venir a la festa?", english: "Do you want to come to the party?", pronunciation: "bols beh-NEER ah lah FEHS-tah" },
-        { catalan: "Quedem aquest cap de setmana", english: "Let's meet this weekend", pronunciation: "keh-DEHM ah-KEST kahp deh seh-MAH-nah" },
-        { catalan: "Anem al cinema junts", english: "Let's go to the cinema together", pronunciation: "ah-NEHM ahl SEE-neh-mah ZHOONTS" },
-        { catalan: "Et convido a sopar", english: "I invite you to dinner", pronunciation: "eht kohn-BEE-doh ah soh-PAR" },
-        { catalan: "Aquesta nit sortim?", english: "Are we going out tonight?", pronunciation: "ah-KES-tah NEET sor-TEEM" }
+        { catalan: "Aquesta nit", english: "Tonight", pronunciation: "ah-KES-tah NEET" },
+        { catalan: "Cap de setmana", english: "Weekend", pronunciation: "kahp deh seh-MAH-nah" },
+        { catalan: "Festa", english: "Party", pronunciation: "FEHS-tah" },
+        { catalan: "Cinema", english: "Cinema", pronunciation: "SEE-neh-mah" },
+        { catalan: "Convidar", english: "To invite", pronunciation: "kohn-bee-DAR" },
+        { catalan: "Enviar", english: "To send", pronunciation: "en-bee-AR" },
+        { catalan: "Junts", english: "Together", pronunciation: "ZHOONTS" },
+        { catalan: "Diversió", english: "Fun", pronunciation: "dee-ber-see-OH" }
       ],
       miniConversation: [
         { speaker: "Anna", text: "Hola! Què fas aquest cap de setmana?", isUserTurn: false, translation: "Hi! What are you doing this weekend?" },
@@ -757,11 +760,14 @@ export const lessons = [
     ],
     stageData: {
       listenAndType: [
-        { catalan: "M'agrada molt Barcelona", english: "I really like Barcelona", pronunciation: "mah-GRAH-dah mohlt bar-seh-LOH-nah" },
-        { catalan: "Prefereixo el cafè amb llet", english: "I prefer coffee with milk", pronunciation: "preh-feh-RAY-shoh ehl kah-FEH ahm YEHT" },
-        { catalan: "Penso que és interessant", english: "I think it's interesting", pronunciation: "PEN-soh keh ehs in-teh-reh-SAHNT" },
-        { catalan: "La muntanya és millor que la platja", english: "The mountain is better than the beach", pronunciation: "lah moon-TAH-nyah ehs mee-YOR keh lah PLAH-jah" },
-        { catalan: "M'encanta viure aquí", english: "I love living here", pronunciation: "men-KAHN-tah BEE-oo-reh ah-KEE" }
+        { catalan: "M'agrada", english: "I like", pronunciation: "mah-GRAH-dah" },
+        { catalan: "M'encanta", english: "I love", pronunciation: "men-KAHN-tah" },
+        { catalan: "Prefereixo", english: "I prefer", pronunciation: "preh-feh-RAY-shoh" },
+        { catalan: "Penso", english: "I think", pronunciation: "PEN-soh" },
+        { catalan: "Millor", english: "Better", pronunciation: "mee-YOR" },
+        { catalan: "Pitjor", english: "Worse", pronunciation: "pee-JZHOR" },
+        { catalan: "Interessant", english: "Interesting", pronunciation: "in-teh-reh-SAHNT" },
+        { catalan: "Avorrit", english: "Boring", pronunciation: "ah-boh-RREET" }
       ],
       miniConversation: [
         { speaker: "Marc", text: "T'agrada viure a Catalunya?", isUserTurn: false, translation: "Do you like living in Catalonia?" },
@@ -797,11 +803,14 @@ export const lessons = [
     ],
     stageData: {
       listenAndType: [
-        { catalan: "Vull obrir un compte", english: "I want to open an account", pronunciation: "bool oh-BREER oon KOHM-teh" },
-        { catalan: "Puc pagar amb targeta?", english: "Can I pay by card?", pronunciation: "POOK pah-GAR ahm tar-ZHEH-tah" },
-        { catalan: "Necessito treure diners", english: "I need to withdraw money", pronunciation: "neh-seh-SEE-toh TREH-oo-reh dee-NEHS" },
-        { catalan: "On és el caixer automàtic?", english: "Where is the ATM?", pronunciation: "ohn ehs ehl kah-SHEHR ow-toh-MAH-teek" },
-        { catalan: "Voldria fer una transferència", english: "I would like to make a transfer", pronunciation: "bol-DREE-ah fehr OO-nah trans-feh-REN-see-ah" }
+        { catalan: "Diners", english: "Money", pronunciation: "dee-NEHS" },
+        { catalan: "Compte", english: "Account", pronunciation: "KOHM-teh" },
+        { catalan: "Targeta", english: "Card", pronunciation: "tar-ZHEH-tah" },
+        { catalan: "Efectiu", english: "Cash", pronunciation: "eh-fehk-TEE-oo" },
+        { catalan: "Pagar", english: "To pay", pronunciation: "pah-GAR" },
+        { catalan: "Treure", english: "To withdraw", pronunciation: "TREH-oo-reh" },
+        { catalan: "Transferència", english: "Transfer", pronunciation: "trans-feh-REN-see-ah" },
+        { catalan: "Rebut", english: "Receipt", pronunciation: "reh-BOOT" }
       ],
       miniConversation: [
         { speaker: "Banker", text: "Bon dia! En què puc ajudar-lo?", isUserTurn: false, translation: "Good morning! How can I help you?" },
@@ -837,11 +846,14 @@ export const lessons = [
     ],
     stageData: {
       listenAndType: [
-        { catalan: "Pots trucar-me demà?", english: "Can you call me tomorrow?", pronunciation: "potz troo-KAR-meh deh-MAH" },
-        { catalan: "No tinc bateria", english: "I don't have battery", pronunciation: "noh teenk bah-teh-REE-ah" },
-        { catalan: "Quina és la contrasenya del Wi-Fi?", english: "What is the Wi-Fi password?", pronunciation: "KEE-nah ehs lah kohn-trah-SEH-nyah del WEE-fee" },
-        { catalan: "T'envio un missatge", english: "I'll send you a message", pronunciation: "ten-BEE-oh oon mee-SAH-jeh" },
-        { catalan: "Necessito carregar el telèfon", english: "I need to charge the phone", pronunciation: "neh-seh-SEE-toh kah-reh-GAR ehl teh-LEH-fohn" }
+        { catalan: "Telèfon", english: "Phone", pronunciation: "teh-LEH-fohn" },
+        { catalan: "Missatge", english: "Message", pronunciation: "mee-SAH-jeh" },
+        { catalan: "Trucar", english: "To call", pronunciation: "troo-KAR" },
+        { catalan: "Internet", english: "Internet", pronunciation: "een-ter-NEHT" },
+        { catalan: "Contrasenya", english: "Password", pronunciation: "kohn-trah-SEH-nyah" },
+        { catalan: "Pantalla", english: "Screen", pronunciation: "pahn-TAH-yah" },
+        { catalan: "Carregar", english: "To charge", pronunciation: "kah-reh-GAR" },
+        { catalan: "Wi-Fi", english: "Wi-Fi", pronunciation: "WEE-fee" }
       ],
       miniConversation: [
         { speaker: "Friend", text: "Em pots donar la contrasenya del Wi-Fi?", isUserTurn: false, translation: "Can you give me the Wi-Fi password?" },
@@ -877,11 +889,14 @@ export const lessons = [
     ],
     stageData: {
       listenAndType: [
-        { catalan: "Socors! Necessito ajuda!", english: "Help! I need help!", pronunciation: "soh-KOHRS neh-seh-SEE-toh ah-ZHOO-dah" },
-        { catalan: "Truqueu a la policia!", english: "Call the police!", pronunciation: "troo-KEH-oo ah lah poh-lee-SEE-ah" },
-        { catalan: "M'han robat la cartera", english: "My wallet has been stolen", pronunciation: "mahn roh-BAHT lah kahr-TEH-rah" },
-        { catalan: "Estic perdut, on sóc?", english: "I'm lost, where am I?", pronunciation: "es-TEEK per-DOOT ohn SOHK" },
-        { catalan: "Hi ha un foc!", english: "There's a fire!", pronunciation: "ee ah oon FOHK" }
+        { catalan: "Emergència", english: "Emergency", pronunciation: "eh-mer-ZHEN-see-ah" },
+        { catalan: "Policia", english: "Police", pronunciation: "poh-lee-SEE-ah" },
+        { catalan: "Foc", english: "Fire", pronunciation: "FOHK" },
+        { catalan: "Ambulància", english: "Ambulance", pronunciation: "ahm-boo-LAHN-see-ah" },
+        { catalan: "Perill", english: "Danger", pronunciation: "peh-REEL" },
+        { catalan: "Perdut", english: "Lost", pronunciation: "per-DOOT" },
+        { catalan: "Robat", english: "Stolen", pronunciation: "roh-BAHT" },
+        { catalan: "Socors!", english: "Help!", pronunciation: "soh-KOHRS" }
       ],
       miniConversation: [
         { speaker: "You", text: "Perdoni! Necessito ajuda!", isUserTurn: false, noAudio: true },
@@ -918,11 +933,14 @@ export const lessons = [
     ],
     stageData: {
       listenAndType: [
-        { catalan: "Voldria reservar una habitació", english: "I would like to book a room", pronunciation: "bol-DREE-ah reh-ser-BAR OO-nah ah-bee-tah-see-OH" },
-        { catalan: "Per a dues nits, si us plau", english: "For two nights, please", pronunciation: "pehr ah DOO-ehs NEETS see oos PLOW" },
-        { catalan: "Teniu habitacions disponibles?", english: "Do you have rooms available?", pronunciation: "teh-NEE-oo ah-bee-tah-see-OHNS dees-poh-NEE-blehs" },
-        { catalan: "A quina hora és la sortida?", english: "What time is check-out?", pronunciation: "ah KEE-nah OH-rah ehs lah sor-TEE-dah" },
-        { catalan: "Puc tenir la clau, si us plau?", english: "Can I have the key, please?", pronunciation: "POOK teh-NEER lah KLOW see oos PLOW" }
+        { catalan: "Reservar", english: "To book", pronunciation: "reh-ser-BAR" },
+        { catalan: "Habitació", english: "Room", pronunciation: "ah-bee-tah-see-OH" },
+        { catalan: "Nit", english: "Night", pronunciation: "NEET" },
+        { catalan: "Clau", english: "Key", pronunciation: "KLOW" },
+        { catalan: "Disponible", english: "Available", pronunciation: "dees-poh-NEE-bleh" },
+        { catalan: "Ple", english: "Full", pronunciation: "PLEH" },
+        { catalan: "Entrada", english: "Check-in", pronunciation: "en-TRAH-dah" },
+        { catalan: "Sortida", english: "Check-out", pronunciation: "sor-TEE-dah" }
       ],
       miniConversation: [
         { speaker: "Receptionist", text: "Bona tarda! Benvingut a l'Hotel Catalunya.", isUserTurn: false, translation: "Good afternoon! Welcome to Hotel Catalunya." },
@@ -958,11 +976,14 @@ export const lessons = [
     ],
     stageData: {
       listenAndType: [
-        { catalan: "La festa major és al setembre", english: "The main festival is in September", pronunciation: "lah FEHS-tah mah-ZHOR ehs ahl seh-TEM-breh" },
-        { catalan: "Els castells són impressionants", english: "The human towers are impressive", pronunciation: "ehls kahs-TEHLS sohn eem-preh-see-oh-NAHNTS" },
-        { catalan: "Avui celebrem la diada!", english: "Today we celebrate the national day!", pronunciation: "ah-BOO-ee seh-leh-BREHM lah dee-AH-dah" },
-        { catalan: "M'encanta la sardana", english: "I love the sardana (traditional dance)", pronunciation: "men-KAHN-tah lah sar-DAH-nah" },
-        { catalan: "Hi haurà focs artificials a les deu", english: "There will be fireworks at ten", pronunciation: "ee ow-RAH FOHKS ar-tee-fee-see-AHLS ah lehs DEH-oo" }
+        { catalan: "Festa major", english: "Festival", pronunciation: "FEHS-tah mah-ZHOR" },
+        { catalan: "Ball", english: "Dance", pronunciation: "BAHL" },
+        { catalan: "Castell", english: "Castle (human tower)", pronunciation: "kahs-TEHL" },
+        { catalan: "Sant", english: "Saint", pronunciation: "SAHNT" },
+        { catalan: "Tradició", english: "Tradition", pronunciation: "trah-dee-see-OH" },
+        { catalan: "Música", english: "Music", pronunciation: "MOO-zee-kah" },
+        { catalan: "Celebrar", english: "To celebrate", pronunciation: "seh-leh-BRAR" },
+        { catalan: "Focs artificials", english: "Fireworks", pronunciation: "FOHKS ar-tee-fee-see-AHLS" }
       ],
       miniConversation: [
         { speaker: "Local", text: "Has vist els castells alguna vegada?", isUserTurn: false, translation: "Have you seen the human towers?" },
@@ -998,11 +1019,14 @@ export const lessons = [
     ],
     stageData: {
       listenAndType: [
-        { catalan: "La vista des de la muntanya és preciosa", english: "The view from the mountain is beautiful", pronunciation: "lah BEES-tah dehs deh lah moon-TAH-nyah ehs preh-see-OH-sah" },
-        { catalan: "Anem a caminar pel bosc", english: "Let's walk through the forest", pronunciation: "ah-NEHM ah kah-mee-NAR pehl BOHSK" },
-        { catalan: "El riu passa pel mig del poble", english: "The river passes through the middle of the village", pronunciation: "ehl REE-oo PAH-sah pehl meetch dehl POH-bleh" },
-        { catalan: "Hi ha un llac molt bonic aquí a prop", english: "There is a very nice lake near here", pronunciation: "ee ah oon YAHK mohlt boh-NEEK ah-KEE ah PROHP" },
-        { catalan: "M'agrada el mar a l'estiu", english: "I like the sea in summer", pronunciation: "mah-GRAH-dah ehl MAR ah les-TEE-oo" }
+        { catalan: "Muntanya", english: "Mountain", pronunciation: "moon-TAH-nyah" },
+        { catalan: "Mar", english: "Sea", pronunciation: "MAR" },
+        { catalan: "Riu", english: "River", pronunciation: "REE-oo" },
+        { catalan: "Arbre", english: "Tree", pronunciation: "AR-breh" },
+        { catalan: "Camí", english: "Path", pronunciation: "kah-MEE" },
+        { catalan: "Llac", english: "Lake", pronunciation: "YAHK" },
+        { catalan: "Bosc", english: "Forest", pronunciation: "BOHSK" },
+        { catalan: "Vista", english: "View", pronunciation: "BEES-tah" }
       ],
       miniConversation: [
         { speaker: "Guide", text: "Bon dia! Avui farem una ruta per la muntanya.", isUserTurn: false, translation: "Good morning! Today we'll do a mountain route." },
@@ -1038,11 +1062,14 @@ export const lessons = [
     ],
     stageData: {
       listenAndType: [
-        { catalan: "Gira a l'esquerra a la cantonada", english: "Turn left at the corner", pronunciation: "ZHEE-rah ah les-KEH-rah ah lah kahn-toh-NAH-dah" },
-        { catalan: "Segueix tot recte fins al semàfor", english: "Go straight ahead to the traffic light", pronunciation: "seh-GAYSH toht REK-teh feens ahl seh-MAH-for" },
-        { catalan: "Està al costat del banc", english: "It's next to the bank", pronunciation: "es-TAH ahl kos-TAHT dehl BAHNK" },
-        { catalan: "La farmàcia és davant de l'església", english: "The pharmacy is in front of the church", pronunciation: "lah far-MAH-see-ah ehs dah-BAHN deh lez-GLEH-zee-ah" },
-        { catalan: "No és lluny, està a prop", english: "It's not far, it's near", pronunciation: "noh ehs YOON-yee es-TAH ah PROHP" }
+        { catalan: "Tot recte", english: "Straight ahead", pronunciation: "toht REK-teh" },
+        { catalan: "Gira", english: "Turn", pronunciation: "ZHEE-rah" },
+        { catalan: "Cantonada", english: "Corner", pronunciation: "kahn-toh-NAH-dah" },
+        { catalan: "Encreuament", english: "Crossing", pronunciation: "en-kreh-oo-ah-MEHN" },
+        { catalan: "A prop", english: "Near", pronunciation: "ah PROHP" },
+        { catalan: "Lluny", english: "Far", pronunciation: "YOON-yee" },
+        { catalan: "Al costat de", english: "Next to", pronunciation: "ahl kos-TAHT deh" },
+        { catalan: "Davant de", english: "In front of", pronunciation: "dah-BAHN deh" }
       ],
       miniConversation: [
         { speaker: "You", text: "Perdoni, on és la plaça Catalunya?", isUserTurn: false },
@@ -1078,7 +1105,15 @@ export const lessons = [
       { en: "To learn", ca: "Aprendre", pronunciation: "ah-PREN-dreh" }
     ],
     stageData: {
-      listenAndType: [
+     listenAndType: [
+        { catalan: "Llengua", english: "Language", pronunciation: "YEHN-gwah" },
+        { catalan: "Parlar", english: "To speak", pronunciation: "par-LAR" },
+        { catalan: "Entendre", english: "To understand", pronunciation: "en-TEN-dreh" },
+        { catalan: "Paraula", english: "Word", pronunciation: "pah-RAH-oo-lah" },
+        { catalan: "Frase", english: "Sentence", pronunciation: "FRAH-zeh" },
+        { catalan: "Diferent", english: "Different", pronunciation: "dee-feh-REHN" },
+        { catalan: "Similar", english: "Similar", pronunciation: "see-mee-LAR" },
+        { catalan: "Aprendre", english: "To learn", pronunciation: "ah-PREN-dreh" },
         { catalan: "Estic aprenent català", english: "I am learning Catalan", pronunciation: "es-TEEK ah-preh-NEHN kah-tah-LAH" },
         { catalan: "El català i el castellà són similars", english: "Catalan and Spanish are similar", pronunciation: "ehl kah-tah-LAH ee ehl kahs-teh-YAH sohn see-mee-LAHRS" },
         { catalan: "Pots parlar més a poc a poc?", english: "Can you speak more slowly?", pronunciation: "pohts par-LAR mehs ah POHK ah POHK" },
@@ -1189,6 +1224,14 @@ export const lessons = [
     ],
     stageData: {
       listenAndType: [
+        { catalan: "Cita", english: "Appointment", pronunciation: "SEE-tah" },
+        { catalan: "Lliure", english: "Free/Available", pronunciation: "YEE-oo-reh" },
+        { catalan: "Ocupat", english: "Busy", pronunciation: "oh-koo-PAHT" },
+        { catalan: "Cancel·lar", english: "To cancel", pronunciation: "kahn-seh-LAR" },
+        { catalan: "Canviar", english: "To change", pronunciation: "kahn-bee-AR" },
+        { catalan: "En punt", english: "O'clock", pronunciation: "en POONT" },
+        { catalan: "I mitja", english: "Half past", pronunciation: "ee MEE-jah" },
+        { catalan: "I quart", english: "Quarter past", pronunciation: "ee KWART" },
         { catalan: "Voldria demanar una cita", english: "I would like to make an appointment", pronunciation: "bol-DREE-ah deh-mah-NAR OO-nah SEE-tah" },
         { catalan: "Teniu alguna hora lliure?", english: "Do you have a free slot?", pronunciation: "teh-NEE-oo ahl-GOO-nah OH-rah YEE-oo-reh" },
         { catalan: "Puc canviar la cita de demà?", english: "Can I change tomorrow's appointment?", pronunciation: "POOK kahn-bee-AR lah SEE-tah deh deh-MAH" },
@@ -1276,6 +1319,14 @@ export const lessons = [
         { words: ["El", "preu", "és", "molt", "barat"], correctOrder: "El preu és molt barat", translation: "The price is very cheap", grammarNote: "💡 'Molt barat' = very cheap. 'Massa car' = too expensive. 'Massa' = too (much)."}
       ],
       listenAndType: [
+        { catalan: "Rebaixes", english: "Sale/Discount", pronunciation: "reh-BAH-shehs" },
+        { catalan: "Talla", english: "Size", pronunciation: "TAH-yah" },
+        { catalan: "Emprovar", english: "To try on", pronunciation: "em-proh-BAR" },
+        { catalan: "Provador", english: "Fitting room", pronunciation: "proh-bah-DOR" },
+        { catalan: "Preu", english: "Price", pronunciation: "PREH-oo" },
+        { catalan: "Barat", english: "Cheap", pronunciation: "bah-RAHT" },
+        { catalan: "Tornar", english: "To return", pronunciation: "tor-NAR" },
+        { catalan: "Regal", english: "Gift", pronunciation: "reh-GAHL" },
         { catalan: "Tenen una talla més gran?", english: "Do you have a bigger size?", pronunciation: "TEH-nehn OO-nah TAH-yah mehs GRAHN" },
         { catalan: "Busco un regal per al meu amic", english: "I'm looking for a gift for my friend", pronunciation: "BOOS-koh oon reh-GAHL pehr ahl MEH-oo ah-MEEK" },
         { catalan: "Puc pagar amb targeta?", english: "Can I pay by card?", pronunciation: "POOK pah-GAR ahm tar-ZHEH-tah" },
@@ -1315,6 +1366,14 @@ export const lessons = [
         { sentence: "Voleu alguna cosa de ___?", blank: "postres", options: ["entrant", "plat", "postres", "propina"], correctIndex: 2, translation: "Would you like something for dessert?", explanation: "'Postres' = dessert. Always plural in Catalan. 'Voleu postres?' = Want dessert?" },
       ],
       listenAndType: [
+        { catalan: "Entrant", english: "Starter", pronunciation: "en-TRAHNT" },
+        { catalan: "Plat principal", english: "Main course", pronunciation: "PLAHT preen-see-PAHL" },
+        { catalan: "Postres", english: "Dessert", pronunciation: "POHS-trehs" },
+        { catalan: "Picant", english: "Spicy", pronunciation: "pee-KAHNT" },
+        { catalan: "Dolç", english: "Sweet", pronunciation: "DOHLS" },
+        { catalan: "Salat", english: "Salty", pronunciation: "sah-LAHT" },
+        { catalan: "Propina", english: "Tip", pronunciation: "proh-PEE-nah" },
+        { catalan: "Deliciós", english: "Delicious", pronunciation: "deh-lee-see-OHS" },
         { catalan: "El compte, si us plau", english: "The bill, please", pronunciation: "ehl KOHM-teh see oos PLOW" },
         { catalan: "Tot estava molt deliciós", english: "Everything was very delicious", pronunciation: "toht es-TAH-bah mohlt deh-lee-see-OHS" },
         { catalan: "Puc deixar propina?", english: "Can I leave a tip?", pronunciation: "POOK deh-SHAR proh-PEE-nah" },
@@ -1380,6 +1439,14 @@ export const lessons = [
         { sentence: "Es pot enviar com a ___?", blank: "urgent", options: ["carta", "segell", "paquet", "urgent"], correctIndex: 3, translation: "Can it be sent as urgent?", explanation: "'Urgent' = urgent. Same word in English! 'Enviar com a urgent' = send as urgent." }
       ],
       listenAndType: [
+        { catalan: "Carta", english: "Letter", pronunciation: "KAR-tah" },
+        { catalan: "Paquet", english: "Package", pronunciation: "pah-KEHT" },
+        { catalan: "Segell", english: "Stamp", pronunciation: "seh-ZHEYL" },
+        { catalan: "Enviar", english: "To send", pronunciation: "en-bee-AR" },
+        { catalan: "Adreça", english: "Address", pronunciation: "ah-DREH-sah" },
+        { catalan: "Codi postal", english: "Postcode", pronunciation: "KOH-dee pohs-TAHL" },
+        { catalan: "Urgent", english: "Urgent", pronunciation: "oor-ZHEHN" },
+        { catalan: "Seguiment", english: "Tracking", pronunciation: "seh-ghee-MEHN" },
         { catalan: "Vull enviar aquest paquet", english: "I want to send this package", pronunciation: "bool en-bee-AR ah-KEST pah-KEHT" },
         { catalan: "Quant costa enviar una carta?", english: "How much does it cost to send a letter?", pronunciation: "kwahnt KOHS-tah en-bee-AR OO-nah KAR-tah" },
         { catalan: "Necessito un segell per Andorra", english: "I need a stamp for Andorra", pronunciation: "neh-seh-SEE-toh oon seh-ZHEYL pehr ahn-DOH-rah" },
@@ -1442,6 +1509,14 @@ export const lessons = [
     ],
     stageData: {
       listenAndType: [
+        { catalan: "Senyor/Senyora", english: "Sir/Madam", pronunciation: "seh-NYOR / seh-NYOH-rah" },
+        { catalan: "Faci el favor", english: "Please (formal)", pronunciation: "FAH-see ehl fah-BOR" },
+        { catalan: "Podria?", english: "Could you?", pronunciation: "poh-DREE-ah" },
+        { catalan: "Cita prèvia", english: "Appointment", pronunciation: "SEE-tah PREH-bee-ah" },
+        { catalan: "Formulari", english: "Form", pronunciation: "for-moo-LAH-ree" },
+        { catalan: "Document d'identitat", english: "ID card", pronunciation: "doh-koo-MEHN dee-den-tee-TAHT" },
+        { catalan: "Omplir", english: "To fill in", pronunciation: "ohm-PLEER" },
+        { catalan: "Signatura", english: "Signature", pronunciation: "seeg-nah-TOO-rah" },
         { catalan: "Bon dia, tinc cita prèvia", english: "Good morning, I have an appointment", pronunciation: "bon DEE-ah TEENK SEE-tah PREH-bee-ah" },
         { catalan: "Podria omplir aquest formulari?", english: "Could you fill in this form?", pronunciation: "poh-DREE-ah ohm-PLEER ah-KEST for-moo-LAH-ree" },
         { catalan: "Necessito el seu document d'identitat", english: "I need your ID card", pronunciation: "neh-seh-SEE-toh ehl SEH-oo doh-koo-MEHN dee-den-tee-TAHT" },
