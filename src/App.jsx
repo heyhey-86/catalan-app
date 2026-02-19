@@ -1701,7 +1701,7 @@ const handleQuizAnswer = (answer) => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
-          <img src="./logo.png" alt="HolaCatalà" className="h-32 w-auto mx-auto mb-4" />
+         <img src="./bubblesolo.png" alt="HolaCatalà" className="h-56 w-auto mx-auto mb-4" />
           <h1 className="text-2xl font-bold mb-2">We're Launching Soon! 🚀</h1>
           <p className="text-gray-600 mb-6">Thank you for being a beta tester! We're putting the finishing touches on HolaCatalà and launching very soon!</p>
           <p className="text-gray-600 mb-6">Check your email on launch day for your special beta tester discount!</p>
