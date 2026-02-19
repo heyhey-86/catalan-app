@@ -547,7 +547,8 @@ useEffect(() => {
       .from('user_progress')
       .upsert({
         user_id: userId,
-        progress_data: progressData
+        progress_data: progressData,
+        is_premium: premium
       }, {
         onConflict: 'user_id'
       });
