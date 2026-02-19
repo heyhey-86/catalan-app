@@ -522,6 +522,7 @@ export function ListenAndType({
   const handlePlay = () => {
     playAudio(current.catalan, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID);
     setHasPlayed(true);
+    setTimeout(() => { if (inputRef.current) inputRef.current.focus(); }, 100);
   };
 
   const handleCheck = () => {
