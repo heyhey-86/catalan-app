@@ -1562,6 +1562,10 @@ export const lessons = [
     ],
     stageData: {
       listenAndType: [
+        { catalan: "Tinc experiència", english: "I have experience", pronunciation: "TEENK eks-peh-ree-EN-see-ah" },
+        { catalan: "Horari de treball", english: "Work schedule", pronunciation: "oh-RAH-ree deh treh-BAHL" },
+        { catalan: "Lloc de treball", english: "Position/Workplace", pronunciation: "YOHK deh treh-BAHL" },
+        { catalan: "Punt fort", english: "Strength", pronunciation: "poont FORT" },
         { catalan: "Tinc cinc anys d'experiència", english: "I have five years of experience", pronunciation: "TEENK SEENK AHNYS deks-peh-ree-EN-see-ah" },
         { catalan: "Quin és l'horari de treball?", english: "What is the work schedule?", pronunciation: "keen ehs loh-RAH-ree deh treh-BAHL" },
         { catalan: "He sol·licitat el lloc de treball", english: "I have applied for the position", pronunciation: "eh sohl-lee-see-TAHT ehl YOHK deh treh-BAHL" },
@@ -1642,6 +1646,10 @@ export const lessons = [
         { words: ["Ja", "hem", "arribat", "a", "Barcelona"], correctOrder: "Ja hem arribat a Barcelona", translation: "We have already arrived in Barcelona" , grammarNote: "💡 'Ja' = already. 'Hem arribat' = we have arrived. 'Ja hem arribat' = we've already arrived." }
       ],
       listenAndType: [
+        { catalan: "El meu vol", english: "My flight", pronunciation: "ehl MEH-oo BOHL" },
+        { catalan: "Vol té retard", english: "Flight is delayed", pronunciation: "BOHL teh reh-TART" },
+        { catalan: "La maleta", english: "The suitcase", pronunciation: "lah mah-LEH-tah" },
+        { catalan: "Porta d'embarcament", english: "Boarding gate", pronunciation: "POR-tah dem-bar-kah-MEHN" },
         { catalan: "A quina porta embarquem?", english: "Which gate do we board at?", pronunciation: "ah KEE-nah POR-tah em-bar-KEHM" },
         { catalan: "El meu vol té retard", english: "My flight is delayed", pronunciation: "ehl MEH-oo BOHL teh reh-TART" },
         { catalan: "Quant de temps falta per arribar?", english: "How much time until we arrive?", pronunciation: "kwahnt deh TEHMS FAHL-tah pehr ah-rree-BAR" },
@@ -1688,11 +1696,15 @@ export const lessons = [
         { sentence: "Podeu ___ aquest problema?", blank: "solucionar", options: ["crear", "enviar", "solucionar", "perdre"], correctIndex: 2, translation: "Can you solve this problem?" , explanation: "'Solucionar' = to solve/fix. 'Resoldre' also works. Both are useful for complaints." }
       ],
       listenAndType: [
+        { catalan: "Una queixa", english: "A complaint", pronunciation: "OO-nah KAY-shah" },
+        { catalan: "Resoldre el problema", english: "Solve the problem", pronunciation: "reh-SOHL-dreh ehl proh-BLEH-mah" },
+        { catalan: "L'encarregat", english: "The manager", pronunciation: "len-kah-rreh-GAHT" },
+        { catalan: "Un reemborsament", english: "A refund", pronunciation: "oon reh-em-bor-sah-MEHN" },
         { catalan: "No estic satisfet amb el servei", english: "I'm not satisfied with the service", pronunciation: "noh es-TEEK sah-tees-FEHT ahm ehl ser-BAY" },
         { catalan: "Voldria un reemborsament si us plau", english: "I would like a refund please", pronunciation: "bol-DREE-ah oon reh-em-bor-sah-MEHN see oos PLOW" },
         { catalan: "Quan podeu resoldre el problema?", english: "When can you solve the problem?", pronunciation: "kwahn poh-DEH-oo reh-SOHL-dreh ehl proh-BLEH-mah" },
         { catalan: "Disculpin les molèsties", english: "Sorry for the inconvenience", pronunciation: "dees-KOOL-peen lehs moh-LES-tee-ehs" }
-      ]
+      ],
     }
   },
 
@@ -1747,6 +1759,10 @@ export const lessons = [
     ],
     stageData: {
       listenAndType: [
+        { catalan: "Les notícies", english: "The news", pronunciation: "lehs noh-TEE-see-ehs" },
+        { catalan: "El medi ambient", english: "The environment", pronunciation: "ehl MEH-dee ahm-bee-EHN" },
+        { catalan: "Les eleccions", english: "The elections", pronunciation: "lehs eh-lehk-see-OHNS" },
+        { catalan: "L'economia catalana", english: "The Catalan economy", pronunciation: "leh-koh-noh-MEE-ah kah-tah-LAH-nah" },
         { catalan: "Has llegit les notícies d'avui?", english: "Have you read today's news?", pronunciation: "ahz yeh-ZHEET lehs noh-TEE-see-ehs dah-BOO-ee" },
         { catalan: "Segons el diari, les eleccions són al març", english: "According to the newspaper, elections are in March", pronunciation: "seh-GOHNS ehl dee-AH-ree lehs eh-lehk-see-OHNS sohn ahl MARS" },
         { catalan: "El medi ambient és molt important", english: "The environment is very important", pronunciation: "ehl MEH-dee ahm-bee-EHN ehs mohlt eem-por-TAHNT" },
@@ -1791,6 +1807,10 @@ export const lessons = [
         { sentence: "Estic molt ___ dels meus fills", blank: "orgullós", options: ["nerviós", "enfadat", "orgullós", "sol"], correctIndex: 2, translation: "I'm very proud of my children" , explanation: "'Orgullós' = proud. 'Dels meus fills' = of my children." }
       ],
       listenAndType: [
+        { catalan: "Molt emocionat", english: "Very excited", pronunciation: "mohlt eh-moh-see-oh-NAHT" },
+        { catalan: "Estic preocupat", english: "I'm worried", pronunciation: "es-TEEK preh-oh-koo-PAHT" },
+        { catalan: "Em sento sol", english: "I feel lonely", pronunciation: "em SEN-toh SOHL" },
+        { catalan: "Molt orgullós", english: "Very proud", pronunciation: "mohlt or-goo-YOHS" },
         { catalan: "Estic molt emocionat!", english: "I'm very excited!", pronunciation: "es-TEEK mohlt eh-moh-see-oh-NAHT" },
         { catalan: "No estiguis preocupat", english: "Don't be worried", pronunciation: "noh es-TEE-gees preh-oh-koo-PAHT" },
         { catalan: "Em sento sol de vegades", english: "I feel lonely sometimes", pronunciation: "em SEN-toh SOHL deh beh-GAH-dehs" },
@@ -1862,6 +1882,9 @@ export const lessons = [
         { sentence: "El ___ és ple d'esperança", blank: "futur", options: ["passat", "futur", "present", "somni"], correctIndex: 1, translation: "The future is full of hope" , explanation: "'Futur' = future. 'Ple de' = full of. 'Esperança' = hope." }
       ],
       listenAndType: [
+        { catalan: "El meu somni", english: "My dream", pronunciation: "ehl MEH-oo SOHM-nee" },
+        { catalan: "El meu objectiu", english: "My goal", pronunciation: "ehl MEH-oo ohb-zhek-TEE-oo" },
+        { catalan: "Millorar el català", english: "Improve the Catalan", pronunciation: "mee-yoh-RAR ehl kah-tah-LAH" },
         { catalan: "Quin és el teu somni?", english: "What is your dream?", pronunciation: "keen ehs ehl TEH-oo SOHM-nee" },
         { catalan: "Vull millorar el meu català", english: "I want to improve my Catalan", pronunciation: "bool mee-yoh-RAR ehl MEH-oo kah-tah-LAH" },
         { catalan: "Tinc molts objectius per aquest any", english: "I have many goals for this year", pronunciation: "TEENK mohlts ohb-zhek-TEE-oos pehr ah-KEST AH-nyee" },
@@ -1903,6 +1926,9 @@ export const lessons = [
         { speaker: "You", text: "", isUserTurn: true, options: ["Gràcies! Catalunya és la meva llar ara.", "Quant costa?", "On és el bany?"], correctIndex: 0 }
       ],
       listenAndType: [
+        { catalan: "La meva llar", english: "My home", pronunciation: "lah MEH-bah YAHR" },
+        { catalan: "La cultura catalana", english: "Catalan culture", pronunciation: "lah kool-TOO-rah kah-tah-LAH-nah" },
+        { catalan: "Em sento benvingut", english: "I feel welcome", pronunciation: "em SEN-toh ben-been-GOOT" },
         { catalan: "Catalunya és la meva llar", english: "Catalonia is my home", pronunciation: "kah-tah-LOO-nyah ehs lah MEH-bah YAHR" },
         { catalan: "M'encanta la cultura catalana", english: "I love Catalan culture", pronunciation: "men-KAHN-tah lah kool-TOO-rah kah-tah-LAH-nah" },
         { catalan: "Aprendre català m'ha ajudat a integrar-me", english: "Learning Catalan has helped me integrate", pronunciation: "ah-PREN-dreh kah-tah-LAH mah ah-zhoo-DAHT ah in-teh-GRAR-meh" },
@@ -1994,6 +2020,10 @@ export const lessons = [
         { sentence: "___ la una en punt", blank: "És", options: ["És", "Són", "Fa", "Tinc"], correctIndex: 0, translation: "It's exactly one o'clock", explanation: "'És' for 1 o'clock (singular). 'Són' for 2+ (plural). Key rule!" }
       ],
       listenAndType: [
+        { catalan: "Quina hora és?", english: "What time is it?", pronunciation: "KEE-nah OH-rah EHS" },
+        { catalan: "Són les dues", english: "It's two o'clock", pronunciation: "SOHN lehs DOO-ehs" },
+        { catalan: "I mitja", english: "Half past", pronunciation: "ee MEE-jah" },
+        { catalan: "Del matí", english: "In the morning", pronunciation: "dehl mah-TEE" },
         { catalan: "Són les dues de la tarda", english: "It's two in the afternoon", pronunciation: "SOHN lehs DOO-ehs deh lah TAR-dah" },
         { catalan: "El tren surt a les set i mitja", english: "The train leaves at half past seven", pronunciation: "ehl TREHN soort ah lehs SEHT ee MEE-jah" },
         { catalan: "Quina hora és? Són les quatre", english: "What time is it? It's four o'clock", pronunciation: "KEE-nah OH-rah EHS SOHN lehs KWAH-treh" },
@@ -2064,6 +2094,9 @@ export const lessons = [
         { sentence: "___ un cotxe nou aviat", blank: "Tindré", options: ["Tinc", "Tindré", "Tenir", "Tenia"], correctIndex: 1, translation: "I will have a new car soon", explanation: "'Tindré' = I will have. Tenir → tindré (irregular stem)." }
       ],
       listenAndType: [
+        { catalan: "Demà aniré", english: "Tomorrow I will go", pronunciation: "deh-MAH ah-nee-REH" },
+        { catalan: "La setmana vinent", english: "Next week", pronunciation: "lah seh-MAH-nah bee-NEHN" },
+        { catalan: "Aviat parlaré", english: "Soon I will speak", pronunciation: "ah-bee-AHT par-lah-REH" },
         { catalan: "Demà aniré al mercat", english: "Tomorrow I will go to the market", pronunciation: "deh-MAH ah-nee-REH ahl mer-KAHT" },
         { catalan: "La setmana vinent faré una festa", english: "Next week I will have a party", pronunciation: "lah seh-MAH-nah bee-NEHN fah-REH OO-nah FEHS-tah" },
         { catalan: "Aviat parlaré català perfectament!", english: "Soon I will speak Catalan perfectly!", pronunciation: "ah-bee-AHT par-lah-REH kah-tah-LAH per-fek-tah-MEHN" },
