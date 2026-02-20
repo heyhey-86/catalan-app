@@ -1132,7 +1132,7 @@ export const lessons = [
         { sentence: "Estoy aprendiendo català", errorWordIndex: 0, options: ["Estoy", "Estic", "Esto", "Sóc"], correctIndex: 1, translation: "I am learning Catalan", explanation: "'Estic' is 'I am' (temporary) in Catalan. 'Estoy' is Spanish." },
         { sentence: "Puedes hablar más lentament?", errorWordIndex: 0, options: ["Puedes", "Pots", "Podes", "Pot"], correctIndex: 1, translation: "Can you speak more slowly?", explanation: "'Pots' is the informal 'you can' in Catalan. 'Puedes' is Spanish." },
         { sentence: "Entendo una mica de català", errorWordIndex: 0, options: ["Entendo", "Entenc", "Entendo", "Entiendo"], correctIndex: 1, translation: "I understand a little Catalan", explanation: "'Entenc' is 'I understand' in Catalan" },
-        { sentence: "La idioma catalana és molt bonica", errorWordIndex: 0, options: ["La", "L'", "El", "Les"], correctIndex: 0, translation: "The Catalan language is very beautiful", explanation: "This is actually correct! 'Idioma' is masculine in Catalan but 'llengua' is feminine." }
+        { sentence: "La idioma catalana és molt bonica", errorWordIndex: 0, options: ["La", "L'", "El", "Les"], correctIndex: 1, translation: "The Catalan language is very beautiful", explanation: "This is actually correct! 'Idioma' is masculine in Catalan but 'llengua' is feminine." }
       ]
     }
   },
