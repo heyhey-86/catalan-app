@@ -226,6 +226,7 @@ const getInitialState = () => {
     if (providedToken === PREMIUM_TOKENS.beta && new Date() > new Date('2026-03-15')) { return { premium: false, reset: false }; }
     storePremium();
     window.history.replaceState({}, '', window.location.pathname);
+    if (providedToken === PREMIUM_TOKENS.paid) { localStorage.setItem('hc_pending_conversion', 'true'); }
     return { premium: true, reset: false };
   }
   
@@ -432,6 +433,7 @@ useEffect(() => {
 
  useEffect(() => {
     if (authUser && user) {
+      if (localStorage.getItem('hc_pending_conversion') === 'true') { logEvent('premium_activated', { source: 'stripe' }); localStorage.removeItem('hc_pending_conversion'); }
       const userData = { completed, score, premium, user, wordHistory, reviewStreak, lastReviewDate, completedConversations, challengeHistory, unlockedTier, dailyReviewsCompleted, lastDailyReviewDate, ...(premium ? { [PREMIUM_KEY]: PREMIUM_VALUE } : {}) };
 
       localStorage.setItem('catalan_progress', JSON.stringify(userData));
