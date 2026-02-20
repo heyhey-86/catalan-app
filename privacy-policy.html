@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy – HolaCatalà</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #C1121F;
+      --gold: #E9C46A;
+      --navy: #1B2A41;
+      --cream: #FDF8F2;
+      --warm-grey: #6B6560;
+      --light-border: #E8E0D5;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--navy);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: white;
+    }
+
+    header .brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      letter-spacing: -0.3px;
+    }
+
+    header .brand span {
+      color: var(--gold);
+    }
+
+    .hero {
+      background: var(--navy);
+      padding: 60px 40px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: var(--cream);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(32px, 5vw, 52px);
+      color: white;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 em {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .hero p {
+      color: rgba(255,255,255,0.65);
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+    }
+
+    .last-updated {
+      display: inline-block;
+      background: var(--light-border);
+      color: var(--warm-grey);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 48px;
+    }
+
+    .intro-box {
+      background: white;
+      border-left: 4px solid var(--red);
+      border-radius: 0 12px 12px 0;
+      padding: 24px 28px;
+      margin-bottom: 56px;
+      font-size: 15px;
+      color: var(--warm-grey);
+      line-height: 1.75;
+    }
+
+    .intro-box strong {
+      color: var(--navy);
+    }
+
+    section {
+      margin-bottom: 52px;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: var(--navy);
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--light-border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2 .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      background: var(--red);
+      color: white;
+      border-radius: 50%;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: #3D3530;
+    }
+
+    ul {
+      list-style: none;
+      margin: 16px 0 16px 0;
+    }
+
+    ul li {
+      padding: 8px 0 8px 24px;
+      position: relative;
+      color: #3D3530;
+      border-bottom: 1px solid var(--light-border);
+      font-size: 15px;
+    }
+
+    ul li:last-child { border-bottom: none; }
+
+    ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--light-border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-top: 20px;
+    }
+
+    .card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 14px;
+      margin-bottom: 0;
+      color: var(--warm-grey);
+    }
+
+    .card .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      background: #F0EBE4;
+      color: var(--warm-grey);
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+
+    .rights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .right-card {
+      background: white;
+      border: 1px solid var(--light-border);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+
+    .right-card .icon {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .right-card h4 {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .right-card p {
+      font-size: 12px;
+      color: var(--warm-grey);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .contact-box {
+      background: var(--navy);
+      color: white;
+      border-radius: 16px;
+      padding: 36px 32px;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .contact-box h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      color: white;
+      border: none;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .contact-box p {
+      color: rgba(255,255,255,0.65);
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+
+    .contact-box a {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 12px 28px;
+      border-radius: 100px;
+      text-decoration: none;
+    }
+
+    .contact-box .address {
+      margin-top: 20px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.6;
+    }
+
+    footer {
+      background: white;
+      border-top: 1px solid var(--light-border);
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--warm-grey);
+      margin: 0;
+    }
+
+    footer a {
+      color: var(--red);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 20px 20px; }
+      .hero { padding: 48px 24px 70px; }
+      .container { padding: 48px 20px 80px; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-mark">H</div>
+    <div class="brand">Hola<span>Català</span></div>
+  </header>
+
+  <div class="hero">
+    <h1>Privacy <em>Policy</em></h1>
+    <p>How we collect, use, and protect your information</p>
+  </div>
+
+  <div class="container">
+
+    <div class="last-updated">Last updated: February 20, 2026</div>
+
+    <div class="intro-box">
+      <strong>Plain English summary:</strong> HolaCatalà is a small, independent Catalan learning app. We collect only what we need to make the app work — your email to create an account, and your learning progress to save it across devices. We don't sell your data. We don't show ads. We use a small number of trusted third-party services (listed below) to run the app. You can delete your account and data at any time by emailing us.
+    </div>
+
+    <section>
+      <h2><span class="num">1</span> Who We Are</h2>
+      <p>HolaCatalà is operated as an independent application by its founder, based in les Escaldes, Escaldes-Engordany, Andorra.</p>
+      <p><strong>Contact:</strong> aprencatalaapp@gmail.com<br/>
+      <strong>Website:</strong> holacatala.com<br/>
+      <strong>Location:</strong> les Escaldes, Escaldes-Engordany, AD</p>
+      <p>Andorra has an adequacy agreement with the European Union, and our data practices comply with the Andorran Law on the Protection of Personal Data (LQPD) and are aligned with the European General Data Protection Regulation (GDPR).</p>
+    </section>
+
+    <section>
+      <h2><span class="num">2</span> What Data We Collect</h2>
+      <p>We collect only what is necessary to provide the service.</p>
+      <ul>
+        <li><strong>Email address</strong> — when you create an account. Used for login and to contact you about the service.</li>
+        <li><strong>Password</strong> — stored securely as a hashed value via Supabase Auth. We never see your plain-text password.</li>
+        <li><strong>Learning progress</strong> — lessons completed, streak, points, achievements, word review history. Stored locally on your device and optionally synced to our database when you are signed in.</li>
+        <li><strong>Usage events</strong> — actions like lesson_started, lesson_completed, conversation_completed. Logged only when you are signed in. Used to understand how the app is being used and to improve it.</li>
+        <li><strong>Premium status</strong> — whether your account has an active subscription.</li>
+        <li><strong>Device and browser type</strong> — collected automatically by our hosting provider (Vercel) for security and performance purposes.</li>
+      </ul>
+      <p>We do not collect your name unless you choose to enter it. We do not collect your location, phone number, or any sensitive personal information.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">3</span> How We Use Your Data</h2>
+      <ul>
+        <li>To create and manage your account</li>
+        <li>To save and sync your learning progress across devices</li>
+        <li>To process your subscription payment via Stripe</li>
+        <li>To understand how the app is used so we can improve it</li>
+        <li>To contact you about important updates to the service</li>
+        <li>To respond to your support requests</li>
+      </ul>
+      <p>We do not use your data for advertising. We do not sell your data to third parties. We do not share your data with any third party except those listed in Section 4 below, and only to the extent necessary to run the service.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">4</span> Third-Party Services</h2>
+      <p>We use the following trusted third-party services to operate HolaCatalà. Each has its own privacy policy.</p>
+
+      <div class="card">
+        <div class="tag">Database & Authentication</div>
+        <h3>Supabase</h3>
+        <p>Stores your account information (email, hashed password) and learning progress data. Hosted on AWS infrastructure in the EU. Privacy policy: supabase.com/privacy</p>
+      </div>
+
+      <div class="card">
+        <div class="tag">Payments</div>
+        <h3>Stripe</h3>
+        <p>Processes all subscription payments. We never see or store your payment card details — they go directly to Stripe. Stripe is PCI-DSS compliant. Privacy policy: stripe.com/privacy</p>
+      </div>
+
+      <div class="card">
+        <div class="tag">Audio Pronunciation</div>
+        <h3>ElevenLabs</h3>
+        <p>Generates spoken audio for vocabulary and exercises. Text from lessons is sent to ElevenLabs to produce audio. No personal data is shared. Privacy policy: elevenlabs.io/privacy</p>
+      </div>
+
+      <div class="card">
+        <div class="tag">Hosting</div>
+        <h3>Vercel</h3>
+        <p>Hosts the HolaCatalà web application. Vercel collects standard server logs including IP addresses for security and performance. Privacy policy: vercel.com/legal/privacy-policy</p>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="num">5</span> Cookies and Local Storage</h2>
+      <p>HolaCatalà uses your browser's <strong>localStorage</strong> (not traditional cookies) to save your learning progress locally on your device. This is essential to the functioning of the app — without it, your progress cannot be saved between sessions.</p>
+      <p>We do not use advertising cookies, tracking cookies, or any analytics cookies. Supabase Auth uses a session token stored in localStorage to keep you logged in.</p>
+      <p>You can clear your localStorage at any time through your browser settings, which will reset your local progress. Your cloud-synced progress (if you are signed in) will remain safe in our database.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">6</span> Data Retention</h2>
+      <p>We retain your account data for as long as your account is active. If you request deletion of your account, we will delete your email address, learning progress, and usage data from our systems within 30 days.</p>
+      <p>Stripe retains payment records for tax and legal compliance purposes in accordance with their own retention policies.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">7</span> Your Rights</h2>
+      <p>Under GDPR and Andorran data protection law, you have the following rights:</p>
+
+      <div class="rights-grid">
+        <div class="right-card">
+          <div class="icon">👁</div>
+          <h4>Right to Access</h4>
+          <p>Request a copy of all personal data we hold about you.</p>
+        </div>
+        <div class="right-card">
+          <div class="icon">✏️</div>
+          <h4>Right to Rectification</h4>
+          <p>Ask us to correct inaccurate personal data.</p>
+        </div>
+        <div class="right-card">
+          <div class="icon">🗑</div>
+          <h4>Right to Erasure</h4>
+          <p>Request deletion of your personal data ("right to be forgotten").</p>
+        </div>
+        <div class="right-card">
+          <div class="icon">📦</div>
+          <h4>Right to Portability</h4>
+          <p>Request your data in a portable, machine-readable format.</p>
+        </div>
+        <div class="right-card">
+          <div class="icon">🚫</div>
+          <h4>Right to Object</h4>
+          <p>Object to processing of your data in certain circumstances.</p>
+        </div>
+        <div class="right-card">
+          <div class="icon">⏸</div>
+          <h4>Right to Restrict</h4>
+          <p>Ask us to pause processing of your data while a complaint is investigated.</p>
+        </div>
+      </div>
+
+      <p style="margin-top: 24px;">To exercise any of these rights, email us at <strong>aprencatalaapp@gmail.com</strong>. We will respond within 30 days.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">8</span> Children's Privacy</h2>
+      <p>HolaCatalà is not directed at children under the age of 16. We do not knowingly collect personal data from anyone under 16. If you believe a child under 16 has provided us with personal data, please contact us and we will delete it promptly.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">9</span> Security</h2>
+      <p>We take reasonable technical and organisational measures to protect your personal data against unauthorised access, loss, or disclosure. These include encrypted connections (HTTPS/SSL) for all data in transit, hashed password storage, and access controls on our database.</p>
+      <p>No method of transmission or storage is 100% secure. If you believe your data has been compromised, please contact us immediately.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">10</span> Marketing Communications</h2>
+      <p>If you signed up on our waiting list or as a beta tester, you may receive occasional emails about HolaCatalà — including the launch announcement and important product updates. These emails are sent manually from aprencatalaapp@gmail.com.</p>
+      <p>To unsubscribe from marketing emails, simply reply to any email with "unsubscribe" in the subject or body, and we will remove you from future communications. Transactional emails related to your account (e.g. payment receipts, password resets) cannot be opted out of.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">11</span> Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last updated" date at the top of this page. For material changes, we will notify users by email. Continued use of HolaCatalà after changes constitutes acceptance of the updated policy.</p>
+    </section>
+
+    <div class="contact-box">
+      <h2>Questions or Requests?</h2>
+      <p>We're a small, independent app and we take your privacy seriously.<br/>Email us — we respond personally.</p>
+      <a href="mailto:aprencatalaapp@gmail.com">aprencatalaapp@gmail.com</a>
+      <div class="address">
+        HolaCatalà Learning<br/>
+        les Escaldes, Escaldes-Engordany<br/>
+        Andorra (AD)
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2026 HolaCatalà. All rights reserved.</p>
+    <a href="https://holacatala.com">← Back to HolaCatalà</a>
+  </footer>
+
+</body>
+</html>

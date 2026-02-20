@@ -223,6 +223,7 @@ const getInitialState = () => {
   const providedToken = activateToken || devToken;
   
   if (providedToken && validTokens.includes(providedToken)) {
+    if (providedToken === PREMIUM_TOKENS.beta && new Date() > new Date('2026-03-15')) { return { premium: false, reset: false }; }
     storePremium();
     window.history.replaceState({}, '', window.location.pathname);
     return { premium: true, reset: false };
@@ -3597,3 +3598,4 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
