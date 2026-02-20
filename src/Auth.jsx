@@ -231,6 +231,7 @@ export default function Auth({ onAuthSuccess, existingLocalData, initialMode = '
         >
           Continue without account (progress won't sync)
         </button>
+      <p className="mt-4 text-center text-white/40 text-xs">By using HolaCatalà you agree to our <a href="/privacy-policy.html" target="_blank" className="underline hover:text-white/70">Privacy Policy</a></p>
       </div>
     </div>
   );
