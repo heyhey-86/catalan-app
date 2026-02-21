@@ -47,16 +47,18 @@ async function setUserPremium(userId, isPremium, serviceKey, expiresAt = null) {
     updated_at: new Date().toISOString(),
     premium_expires_at: expiresAt
   };
-  await fetch(`${SUPABASE_URL}/rest/v1/user_progress?user_id=eq.${userId}`, {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/user_progress?user_id=eq.${userId}`, {
     method: 'PATCH',
     headers: {
       'apikey': serviceKey,
       'Authorization': `Bearer ${serviceKey}`,
       'Content-Type': 'application/json',
-      'Prefer': 'return=minimal'
+      'Prefer': 'return=representation'
     },
     body: JSON.stringify(update)
   });
+  const text = await res.text();
+  console.log('Supabase PATCH status:', res.status, 'body:', text);
 }
 
 async function storePendingPremium(email, serviceKey) {
@@ -129,3 +131,5 @@ export default async function handler(req, res) {
 
   res.json({ received: true });
 }
+
+
