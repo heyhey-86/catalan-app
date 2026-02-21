@@ -563,7 +563,7 @@ useEffect(() => {
       .upsert({
         user_id: userId,
         progress_data: progressData,
-        is_premium: premium
+        // is_premium managed by webhook only
       }, {
         onConflict: 'user_id'
       });
@@ -597,7 +597,7 @@ useEffect(() => {
       if (p.user) setUser(p.user);
       if (p.completed) setCompleted(p.completed);
       if (p.score) setScore(p.score);
-      if (p.premium) setPremium(p.premium);
+      // is_premium managed by webhook only - do not load from progress_data
       if (p.wordHistory) setWordHistory(p.wordHistory);
       if (p.completedConversations) setCompletedConversations(p.completedConversations);
       if (p.challengeHistory) setChallengeHistory(p.challengeHistory);
@@ -3632,6 +3632,8 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
+
 
 
 
