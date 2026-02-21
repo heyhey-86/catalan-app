@@ -1,4 +1,4 @@
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 const SUPABASE_URL = 'https://djkdbvcymouywxhwmlrf.supabase.co';
 
@@ -54,9 +54,9 @@ async function setUserPremium(userId, isPremium, serviceKey) {
   });
 }
 
-module.exports.config = { api: { bodyParser: false } };
+export const config = { api: { bodyParser: false } };
 
-module.exports.default = async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
   const STRIPE_KEY = process.env.STRIPE_SECRET_KEY;
@@ -102,4 +102,4 @@ module.exports.default = async function handler(req, res) {
   }
 
   res.json({ received: true });
-};
+}

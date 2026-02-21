@@ -2958,7 +2958,7 @@ const handleQuizAnswer = (answer) => {
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow-sm border-b sticky top-0 z-40">
         <div className="max-w-6xl mx-auto px-3 sm:px-4 py-3 flex justify-between items-center">
-          <div onClick={handleSecretTap} onTouchEnd={handleSecretTap} className="flex items-center gap-2 cursor-pointer select-none">
+          <div className="flex items-center gap-2">
             <img src="./bubble.png" alt="HolaCatalà" className="h-9 sm:h-11 w-auto" />
             <span className="text-xl sm:text-2xl font-bold text-blue-600">HolaCatalà</span>
           </div>
@@ -3600,6 +3600,7 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
 
 
 
