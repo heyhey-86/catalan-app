@@ -2595,7 +2595,7 @@ const handleQuizAnswer = (answer) => {
         <nav className="bg-white shadow-sm p-3 sm:p-4 sticky top-0 z-40">
           <button onClick={() => setView('home')} className="flex items-center gap-1 sm:gap-2 text-gray-600 text-sm sm:text-base"><Home className="w-5 h-5" /> <span className="hidden sm:inline">Exit Lesson</span></button>
         </nav>
-        {showNoAccountWarning && (
+        {!authUser && (
           <div className="bg-amber-50 border-b border-amber-200 p-3 text-center text-sm">
             <span className="text-amber-800 font-medium">⚠️ Progress won't be saved! </span>
             <button
@@ -3034,7 +3034,7 @@ const handleQuizAnswer = (answer) => {
   const todayChallenge = getTodayChallenge();
   const canDoChallenge = !(
     (todayChallenge.type === 'conversations' && completedConversations.length < 3) ||
-    (todayChallenge.type === 'review' && wordHistory.length < 15)
+    (todayChallenge.type === 'review' && wordHistory.length < 15) || (todayChallenge.type === 'match' && completed.length < 3)
   );
   const attemptedToday = wasChallengeAttemptedToday();
   
@@ -3600,6 +3600,8 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
+
 
 
 
