@@ -3054,7 +3054,7 @@ const handleQuizAnswer = (answer) => {
           <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">✓ Done!</div> :
           <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">✗ Try tomorrow</div>
       ) : !canDoChallenge ? (
-        <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">Complete 3 conversations first →</div>
+        <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">Complete more to unlock →</div>
       ) : (
         <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">+{todayChallenge.points} pts →</div>
       )}
@@ -3600,6 +3600,7 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
 
 
 
