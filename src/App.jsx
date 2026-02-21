@@ -173,7 +173,7 @@ const isComprehensiveReviewPoint = (lessonId) => {
 // Premium activation tokens
 const PREMIUM_TOKENS = {
   dev: 'HC_DEV_2026',
-  paid: 'HC_PAID_2026',
+  
   beta: 'HC_BETA_LIFE',
   betaDiscount: 'HC_BETA_50',
   betaExtended: 'HC_BETA_EXT_2026'
@@ -3600,6 +3600,7 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
 
 
 
