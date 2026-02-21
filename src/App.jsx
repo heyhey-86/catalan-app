@@ -253,7 +253,7 @@ const getInitialState = () => {
 const LAUNCH_DATE = new Date('2026-02-22T00:00:00');
 const isBeforeLaunch = () => {
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') return false;
-  return new Date() < LAUNCH_DATE;
+  return false;
 };
 
 const INITIAL_STATE = getInitialState();
@@ -3600,6 +3600,7 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
 
 
 
