@@ -437,7 +437,8 @@ useEffect(() => {
     const checkPremiumStatus = async () => {
       console.log('checkPremiumStatus running, authUser:', authUser?.id);
       if (!authUser) return;
-      const { data } = await supabase.from('user_progress').select('is_premium, premium_expires_at').eq('user_id', authUser.id).single();
+      const { data, error } = await supabase.from('user_progress').select('is_premium, premium_expires_at').eq('user_id', authUser.id).single();
+      console.log('query data:', data, 'error:', error);
       if (data) {
         console.log('data.is_premium:', data.is_premium, 'expires:', data.premium_expires_at, 'now:', new Date().toISOString());
         const expired = data.premium_expires_at && new Date(data.premium_expires_at) < new Date();
@@ -699,7 +700,8 @@ const handleSignOut = async () => {
     const checkPremiumStatus = async () => {
       console.log('checkPremiumStatus running, authUser:', authUser?.id);
       if (!authUser) return;
-      const { data } = await supabase.from('user_progress').select('is_premium, premium_expires_at').eq('user_id', authUser.id).single();
+      const { data, error } = await supabase.from('user_progress').select('is_premium, premium_expires_at').eq('user_id', authUser.id).single();
+      console.log('query data:', data, 'error:', error);
       if (data) {
         console.log('data.is_premium:', data.is_premium, 'expires:', data.premium_expires_at, 'now:', new Date().toISOString());
         const expired = data.premium_expires_at && new Date(data.premium_expires_at) < new Date();
@@ -3687,6 +3689,7 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
 
 
 
