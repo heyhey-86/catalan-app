@@ -432,6 +432,27 @@ useEffect(() => {
   }
 }, [completed]);
 
+  // Periodic premium check every 30 minutes
+  useEffect(() => {
+    const checkPremiumStatus = async () => {
+      if (!authUser) return;
+      const { data } = await supabase.from('user_progress').select('is_premium, premium_expires_at').eq('user_id', authUser.id).single();
+      if (data) {
+        const expired = data.premium_expires_at && new Date(data.premium_expires_at) < new Date();
+        const isPremium = data.is_premium && !expired;
+        setPremium(isPremium);
+        if (expired) {
+          await supabase.from('user_progress').update({ is_premium: false, premium_expires_at: null }).eq('user_id', authUser.id);
+        }
+      }
+    };
+    checkPremiumStatus();
+    const interval = setInterval(checkPremiumStatus, 30 * 60 * 1000);
+    const onVisible = () => { if (!document.hidden) checkPremiumStatus(); };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => { clearInterval(interval); document.removeEventListener('visibilitychange', onVisible); };
+  }, [authUser]);
+
   // Detect payment success redirect
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -628,6 +649,13 @@ useEffect(() => {
       .single();
 
     if (cloudData?.is_premium !== undefined) { setPremium(cloudData.is_premium); }
+    // Check pending_premium for users who paid before creating account
+    const { data: pendingData } = await supabase.from('pending_premium').select('email').eq('email', authUserData.email?.toLowerCase()).single();
+    if (pendingData) {
+      await supabase.from('user_progress').update({ is_premium: true }).eq('user_id', authUserData.id);
+      await supabase.from('pending_premium').delete().eq('email', authUserData.email?.toLowerCase());
+      setPremium(true);
+    }
     if (cloudData?.progress_data && cloudData.progress_data.completed?.length > 0) {
       // User has existing cloud progress - load it
       await loadProgressFromCloud(authUserData.id);
@@ -636,7 +664,7 @@ useEffect(() => {
       setUser(existingLocalData.user || { name: authUserData.user_metadata?.name || 'Learner' });
       if (existingLocalData.completed) setCompleted(existingLocalData.completed);
       if (existingLocalData.score) setScore(existingLocalData.score);
-      if (existingLocalData.premium) setPremium(existingLocalData.premium);
+      // is_premium managed by webhook only
       if (existingLocalData.wordHistory) setWordHistory(existingLocalData.wordHistory);
       if (existingLocalData.completedConversations) setCompletedConversations(existingLocalData.completedConversations);
       if (existingLocalData.challengeHistory) setChallengeHistory(existingLocalData.challengeHistory);
@@ -663,7 +691,28 @@ const handleSignOut = async () => {
   };
 
   // Auto-save to cloud when progress changes (if logged in)
-   // Detect payment success redirect
+   // Periodic premium check every 30 minutes
+  useEffect(() => {
+    const checkPremiumStatus = async () => {
+      if (!authUser) return;
+      const { data } = await supabase.from('user_progress').select('is_premium, premium_expires_at').eq('user_id', authUser.id).single();
+      if (data) {
+        const expired = data.premium_expires_at && new Date(data.premium_expires_at) < new Date();
+        const isPremium = data.is_premium && !expired;
+        setPremium(isPremium);
+        if (expired) {
+          await supabase.from('user_progress').update({ is_premium: false, premium_expires_at: null }).eq('user_id', authUser.id);
+        }
+      }
+    };
+    checkPremiumStatus();
+    const interval = setInterval(checkPremiumStatus, 30 * 60 * 1000);
+    const onVisible = () => { if (!document.hidden) checkPremiumStatus(); };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => { clearInterval(interval); document.removeEventListener('visibilitychange', onVisible); };
+  }, [authUser]);
+
+  // Detect payment success redirect
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('payment') === 'success') {
@@ -3632,6 +3681,9 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
+
+
 
 
 

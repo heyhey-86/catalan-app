@@ -41,7 +41,12 @@ async function getUserByEmail(email, serviceKey) {
   return (data.users || []).find(u => u.email?.toLowerCase() === email.toLowerCase());
 }
 
-async function setUserPremium(userId, isPremium, serviceKey) {
+async function setUserPremium(userId, isPremium, serviceKey, expiresAt = null) {
+  const update = {
+    is_premium: isPremium,
+    updated_at: new Date().toISOString(),
+    premium_expires_at: expiresAt
+  };
   await fetch(`${SUPABASE_URL}/rest/v1/user_progress?user_id=eq.${userId}`, {
     method: 'PATCH',
     headers: {
@@ -50,7 +55,20 @@ async function setUserPremium(userId, isPremium, serviceKey) {
       'Content-Type': 'application/json',
       'Prefer': 'return=minimal'
     },
-    body: JSON.stringify({ is_premium: isPremium, updated_at: new Date().toISOString() })
+    body: JSON.stringify(update)
+  });
+}
+
+async function storePendingPremium(email, serviceKey) {
+  await fetch(`${SUPABASE_URL}/rest/v1/pending_premium`, {
+    method: 'POST',
+    headers: {
+      'apikey': serviceKey,
+      'Authorization': `Bearer ${serviceKey}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates'
+    },
+    body: JSON.stringify({ email: email.toLowerCase(), created_at: new Date().toISOString() })
   });
 }
 
@@ -76,28 +94,36 @@ export default async function handler(req, res) {
 
   let email = null;
   let isPremium = null;
+  let expiresAt = null;
 
-  if (event.type === 'checkout.session.completed') {
-    email = event.data.object.customer_email || event.data.object.customer_details?.email;
-    isPremium = true;
-  } else if (event.type === 'invoice.payment_succeeded') {
+  if (event.type === 'invoice.payment_succeeded') {
     email = await getEmailFromCustomer(event.data.object.customer, STRIPE_KEY);
     isPremium = true;
+    // Access valid until end of this billing period
+    const periodEnd = event.data.object.lines?.data?.[0]?.period?.end;
+    expiresAt = periodEnd ? new Date(periodEnd * 1000).toISOString() : null;
   } else if (event.type === 'customer.subscription.deleted') {
     email = await getEmailFromCustomer(event.data.object.customer, STRIPE_KEY);
-    isPremium = false;
+    // Keep premium until end of already-paid period
+    const periodEnd = event.data.object.current_period_end;
+    expiresAt = periodEnd ? new Date(periodEnd * 1000).toISOString() : null;
+    isPremium = expiresAt && new Date(expiresAt) > new Date() ? true : false;
+    console.log(`Subscription cancelled - access until: ${expiresAt}`);
   } else if (event.type === 'invoice.payment_failed') {
     email = await getEmailFromCustomer(event.data.object.customer, STRIPE_KEY);
     isPremium = false;
+    expiresAt = null;
   }
 
   if (email && isPremium !== null) {
     const user = await getUserByEmail(email, SERVICE_KEY);
     if (user) {
-      await setUserPremium(user.id, isPremium, SERVICE_KEY);
-      console.log(`Set is_premium=${isPremium} for ${email}`);
+      await setUserPremium(user.id, isPremium, SERVICE_KEY, expiresAt);
+      console.log(`Set is_premium=${isPremium} expires=${expiresAt} for ${email}`);
     } else {
-      console.log(`No user found for email: ${email}`);
+      // No account yet - store email for when they create one
+      await storePendingPremium(email, SERVICE_KEY);
+      console.log(`No user found - stored pending premium for ${email}`);
     }
   }
 
