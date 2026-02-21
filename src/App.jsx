@@ -171,6 +171,11 @@ const isComprehensiveReviewPoint = (lessonId) => {
 };
 
 // Premium activation tokens
+// Redirect old vercel URL to production
+if (window.location.hostname.includes('vercel.app')) {
+  window.location.replace('https://holacatala.com' + window.location.search);
+}
+
 const PREMIUM_TOKENS = {
   dev: 'HC_DEV_2026',
   
@@ -3687,6 +3692,7 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
 
 
 
