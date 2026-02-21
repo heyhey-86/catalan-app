@@ -369,6 +369,7 @@ const [lessonTotalQuestions, setLessonTotalQuestions] = useState(0);
   const [isComprehensiveReview, setIsComprehensiveReview] = useState(false);
   const [showSaved, setShowSaved] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
+  const [showPaymentSuccess, setShowPaymentSuccess] = useState(false);
   const [authUser, setAuthUser] = useState(null);
   const [showNoAccountWarning, setShowNoAccountWarning] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
@@ -430,6 +431,15 @@ useEffect(() => {
     }, 1500);
   }
 }, [completed]);
+
+  // Detect payment success redirect
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('payment') === 'success') {
+      setShowPaymentSuccess(true);
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
 
  useEffect(() => {
     if (authUser && user) {
@@ -572,7 +582,7 @@ useEffect(() => {
 
     const { data, error } = await supabase
       .from('user_progress')
-      .select('progress_data')
+      .select('progress_data, is_premium')
       .eq('user_id', userId)
       .single();
 
@@ -612,10 +622,11 @@ useEffect(() => {
     // Check if user has cloud data
     const { data: cloudData } = await supabase
       .from('user_progress')
-      .select('progress_data')
+      .select('progress_data, is_premium')
       .eq('user_id', authUserData.id)
       .single();
 
+    if (cloudData?.is_premium !== undefined) { setPremium(cloudData.is_premium); }
     if (cloudData?.progress_data && cloudData.progress_data.completed?.length > 0) {
       // User has existing cloud progress - load it
       await loadProgressFromCloud(authUserData.id);
@@ -651,7 +662,16 @@ const handleSignOut = async () => {
   };
 
   // Auto-save to cloud when progress changes (if logged in)
+   // Detect payment success redirect
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('payment') === 'success') {
+      setShowPaymentSuccess(true);
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
+
+ useEffect(() => {
     if (authUser && user) {
       const timeoutId = setTimeout(() => {
         saveProgressToCloud(authUser.id);
@@ -3294,6 +3314,17 @@ const handleQuizAnswer = (answer) => {
     </div>
   </div>
 )}
+{showPaymentSuccess && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center">
+      <div className="text-5xl mb-4"></div>
+      <h2 className="text-2xl font-bold mb-2">Payment Successful!</h2>
+      <p className="text-gray-600 mb-6">To activate your premium, log in or create an account with the same email you used to pay.</p>
+      <button onClick={() => { setShowPaymentSuccess(false); setShowAuth(true); }} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg mb-3">Log In / Create Account</button>
+      <button onClick={() => setShowPaymentSuccess(false)} className="w-full text-gray-500 py-2 text-sm">I already have an account</button>
+    </div>
+  </div>
+)}
 
 {/* Streak Celebration Modal */}
 {showStreakCelebration && streakCelebrationData && (
@@ -3600,6 +3631,15 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
 
 
 
