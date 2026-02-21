@@ -591,6 +591,7 @@ useEffect(() => {
       return;
     }
 
+    if (data?.is_premium !== undefined) { setPremium(data.is_premium); }
     if (data?.progress_data) {
       const p = data.progress_data;
       if (p.user) setUser(p.user);
@@ -3631,6 +3632,7 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
 
 
 
