@@ -439,8 +439,10 @@ useEffect(() => {
       if (!authUser) return;
       const { data } = await supabase.from('user_progress').select('is_premium, premium_expires_at').eq('user_id', authUser.id).single();
       if (data) {
+        console.log('data.is_premium:', data.is_premium, 'expires:', data.premium_expires_at, 'now:', new Date().toISOString());
         const expired = data.premium_expires_at && new Date(data.premium_expires_at) < new Date();
         const isPremium = data.is_premium && !expired;
+        console.log('expired:', expired, 'isPremium:', isPremium);
         setPremium(isPremium);
         if (expired) {
           await supabase.from('user_progress').update({ is_premium: false, premium_expires_at: null }).eq('user_id', authUser.id);
@@ -699,8 +701,10 @@ const handleSignOut = async () => {
       if (!authUser) return;
       const { data } = await supabase.from('user_progress').select('is_premium, premium_expires_at').eq('user_id', authUser.id).single();
       if (data) {
+        console.log('data.is_premium:', data.is_premium, 'expires:', data.premium_expires_at, 'now:', new Date().toISOString());
         const expired = data.premium_expires_at && new Date(data.premium_expires_at) < new Date();
         const isPremium = data.is_premium && !expired;
+        console.log('expired:', expired, 'isPremium:', isPremium);
         setPremium(isPremium);
         if (expired) {
           await supabase.from('user_progress').update({ is_premium: false, premium_expires_at: null }).eq('user_id', authUser.id);
@@ -3683,6 +3687,7 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
 
 
 
