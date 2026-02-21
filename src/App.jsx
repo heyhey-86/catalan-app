@@ -435,6 +435,7 @@ useEffect(() => {
   // Periodic premium check every 30 minutes
   useEffect(() => {
     const checkPremiumStatus = async () => {
+      console.log('checkPremiumStatus running, authUser:', authUser?.id);
       if (!authUser) return;
       const { data } = await supabase.from('user_progress').select('is_premium, premium_expires_at').eq('user_id', authUser.id).single();
       if (data) {
@@ -694,6 +695,7 @@ const handleSignOut = async () => {
    // Periodic premium check every 30 minutes
   useEffect(() => {
     const checkPremiumStatus = async () => {
+      console.log('checkPremiumStatus running, authUser:', authUser?.id);
       if (!authUser) return;
       const { data } = await supabase.from('user_progress').select('is_premium, premium_expires_at').eq('user_id', authUser.id).single();
       if (data) {
@@ -3681,6 +3683,7 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
 
 
 
