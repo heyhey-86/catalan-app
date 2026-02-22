@@ -139,10 +139,10 @@ export const CHALLENGES = [
     id: 7,
     type: CHALLENGE_TYPES.CONVERSATIONS,
     title: "Social Butterfly",
-    description: "Complete 5 conversations perfectly",
+    description: "Complete 4 conversations perfectly",
     icon: "🦋",
     timeLimit: null,
-    targetCount: 5,
+    targetCount: 4,
     points: 200,
     difficulty: "Hard"
   }
@@ -200,3 +200,5 @@ export const getTimeUntilNextChallenge = () => {
   
   return { hours, minutes, total: diff };
 };
+
+
