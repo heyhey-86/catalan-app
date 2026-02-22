@@ -3114,7 +3114,7 @@ const handleQuizAnswer = (answer) => {
           {(() => {
   const todayChallenge = getTodayChallenge();
   const canDoChallenge = !(
-    (todayChallenge.type === 'conversations' && completedConversations.length < 3) ||
+    (todayChallenge.type === 'conversations' && completedConversations.length < 4) ||
     (todayChallenge.type === 'review' && wordHistory.length < 15) || (todayChallenge.type === 'match' && completed.length < 3)
   );
   const attemptedToday = wasChallengeAttemptedToday();
@@ -3692,6 +3692,7 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
 
 
 
