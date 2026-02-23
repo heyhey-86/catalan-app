@@ -1713,6 +1713,18 @@ const handleQuizAnswer = (answer) => {
 
   // Audio cache to ensure consistent pronunciation
   const audioCache = useRef({});
+const audioMapping = useRef(null);
+const loadAudioMapping = async () => {
+  if (!audioMapping.current) {
+    try {
+      const res = await fetch('/audio/mapping.json');
+      audioMapping.current = await res.json();
+    } catch (e) {
+      audioMapping.current = {};
+    }
+  }
+  return audioMapping.current;
+};
 
   // Text-to-speech for Catalan words using ElevenLabs
   const speakWord = async (text, slow = false) => {
@@ -1725,6 +1737,15 @@ const handleQuizAnswer = (answer) => {
         return;
       }
 
+      const mapping = await loadAudioMapping();
+      const hash = mapping[text];
+      if (hash) {
+        const audio = new Audio(`/audio/${hash}.mp3`);
+        audio.playbackRate = slow ? 0.5 : 1.0;
+        audioCache.current[text] = `/audio/${hash}.mp3`;
+        audio.play();
+        return;
+      }
       const response = await fetch('https://api.elevenlabs.io/v1/text-to-speech/AxFLn9byyiDbMn5fmyqu', {
         method: 'POST',
         headers: {
