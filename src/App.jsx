@@ -1497,6 +1497,18 @@ const handleSignOut = async () => {
     const { outcome } = await deferredPrompt.userChoice;
     console.log(`Install prompt response: ${outcome}`);
     setDeferredPrompt(null);
+  } else {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isEdge = /Edg\//.test(navigator.userAgent);
+    let msg = '';
+    if (isIOS) {
+      msg = "Tap the Share button at the bottom of Safari, then tap 'Add to Home Screen'";
+    } else if (isEdge) {
+      msg = "Tap the three-dot menu in Edge, then tap 'Add to phone' or 'Install app'";
+    } else {
+      msg = "To install, open HolaCatalà in Chrome, tap the three-dot menu, then tap 'Add to Home Screen'";
+    }
+    alert(msg);
   }
   
   // Save opt-out if checkbox was checked
