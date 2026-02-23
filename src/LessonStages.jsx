@@ -63,6 +63,7 @@ const normalizeText = (text) => {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/[.,!?¿¡;:'"()]/g, '')
+    .replace(/·/g, '')
     .trim()
     .replace(/\s+/g, ' ');
 };
@@ -1127,3 +1128,4 @@ export function ErrorCorrection({
     </div>
   );
 }
+

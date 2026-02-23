@@ -1200,7 +1200,7 @@ export const lessons = [
       ],
       errorCorrection: [
         { sentence: "On puedo aparcar el coche?", errorWordIndex: 1, options: ["puedo", "puc", "puec", "pod"], correctIndex: 1, translation: "Where can I park the car?", explanation: "'Puc' is 'I can' in Catalan. Also 'cotxe' not 'coche'" },
-        { sentence: "El cotxe necessita gasolina", errorWordIndex: 0, options: ["El", "El", "El", "El"], correctIndex: 0, translation: "The car needs petrol", explanation: "This sentence is actually correct!" },
+        { sentence: "El coche necessita gasolina", errorWordIndex: 1, options: ["coche", "cotxe", "cotxi", "cotxo"], correctIndex: 1, translation: "The car needs petrol", explanation: "Catalan uses 'cotxe' for car, not the Spanish 'coche'." },
         { sentence: "Hi ha mucho trànsit avui", errorWordIndex: 2, options: ["mucho", "molt", "muy", "molte"], correctIndex: 1, translation: "There's a lot of traffic today", explanation: "'Molt' means 'a lot' in Catalan. 'Mucho' is Spanish." },
         { sentence: "La carrettera és molt llarga", errorWordIndex: 1, options: ["carrettera", "carretera", "carettera", "caretera"], correctIndex: 1, translation: "The road is very long", explanation: "'Carretera' has one T, not two" }
       ]
@@ -3906,3 +3906,4 @@ export const lessons = [
 },
 
 ];
+
