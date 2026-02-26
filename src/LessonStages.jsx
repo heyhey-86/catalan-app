@@ -68,13 +68,13 @@ const normalizeText = (text) => {
     .replace(/\s+/g, ' ');
 };
 
-const ReportButton = ({ lessonTitle, questionText }) => {
+export const ReportButton = ({ lessonTitle, questionText }) => {
   const subject = encodeURIComponent('Report: ' + (lessonTitle || 'Unknown'));
   const body = encodeURIComponent('Question: ' + (questionText || '') + '\n\nMy issue: ');
   return (
         <a
       href={'mailto:aprencatalaapp@gmail.com?subject=' + subject + '&body=' + body}
-      className="flex items-center justify-center text-xs text-gray-400 hover:text-gray-600 mt-3"
+      className="flex items-center justify-center w-full text-center text-xs text-gray-400 hover:text-gray-600 mt-3 mx-auto"
     >
       🚩 Report incorrect
     </a>
@@ -247,9 +247,7 @@ export function FillInTheBlank({
           </button>
         </div>
       )}
-      {isCorrect !== null && (
-        <ReportButton lessonTitle={lessonTitle} questionText={current.sentence} />
-      )}
+      <ReportButton lessonTitle={lessonTitle} questionText={current.sentence} />
     </div>
   );
 }
@@ -479,9 +477,7 @@ export function SentenceOrdering({
           </button>
         </div>
       )}
-      {isCorrect !== null && (
-        <ReportButton lessonTitle={lessonTitle} questionText={current.translation} />
-      )}
+      <ReportButton lessonTitle={lessonTitle} questionText={current.translation} />
     </div>
   );
 }
@@ -678,9 +674,7 @@ name="catalan-answer"
           </button>
         </div>
       )}
-      {isCorrect !== null && (
-        <ReportButton lessonTitle={lessonTitle} questionText={current.english} />
-      )}
+      <ReportButton lessonTitle={lessonTitle} questionText={current.english} />
     </div>
   );
 }
@@ -901,9 +895,7 @@ if (idx === correctIdx) {
           )}
         </div>
       )}
-      {isCorrect !== null && (
-        <ReportButton lessonTitle={lessonTitle} questionText={currentTurnData?.text || ''} />
-      )}
+      <ReportButton lessonTitle={lessonTitle} questionText={currentTurnData?.text || ''} />
     </div>
   );
 }
@@ -1122,9 +1114,7 @@ export function ErrorCorrection({
           </button>
         </div>
       )}
-      {isCorrect !== null && (
-        <ReportButton lessonTitle={lessonTitle} questionText={current.sentence} />
-      )}
+      <ReportButton lessonTitle={lessonTitle} questionText={current.sentence} />
     </div>
   );
 }

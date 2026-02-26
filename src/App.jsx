@@ -4,7 +4,7 @@ import Auth from './Auth.jsx';
 import { CheckCircle, Lock, Award, Home, User, ArrowRight, RotateCw, BookOpen, Calendar, TrendingUp, MessageCircle, Clock, X, Trophy, Star, Volume2 } from 'lucide-react';
 import { getWordsToReview, updateWordReview, initializeWordForReview } from './reviewSystem.js';
 import { CONVERSATIONS } from './conversations.js';
-import { FillInTheBlank, SentenceOrdering, ListenAndType, MiniConversation, ErrorCorrection } from './LessonStages.jsx';
+import { FillInTheBlank, SentenceOrdering, ListenAndType, MiniConversation, ErrorCorrection, ReportButton } from './LessonStages.jsx';
 import { lessons as lessons50 } from './lessons50.js';
 import { getTodayChallenge, wasChallengeCompletedToday, getChallengeStreak, getTimeUntilNextChallenge, CHALLENGE_TYPES } from './challenges.js';
 import { ACHIEVEMENTS, getUnlockedAchievements, getNewlyUnlocked, getAchievementProgress, getAchievementsByCategory } from './achievements.js';
@@ -799,7 +799,7 @@ const handleSignOut = async () => {
 
  const startConversation = (conversation) => {
   setCurrentConversation(conversation);
-  const firstUserTurn = conversation.turns.findIndex(turn => turn.speaker === 'user');
+  const firstUserTurn = conversation.turns.findIndex(turn => turn.speaker === 'user'); console.log('turns:', JSON.stringify(conversation.turns.slice(0,3))); console.log('firstUserTurn:', firstUserTurn);
   setConversationTurnIndex(firstUserTurn);
   setUserSentence([]);
   setConversationFeedback('');
@@ -2726,6 +2726,7 @@ const handleQuizAnswer = (answer) => {
                 ))}
               </div>
               <button onClick={nextStage} className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center justify-center gap-2">Continue to Practice <ArrowRight className="w-5 h-5" /></button>
+              <ReportButton lessonTitle={currentLesson.title} questionText="Word list" />
             </div>
           )}
 
@@ -2761,6 +2762,7 @@ const handleQuizAnswer = (answer) => {
                     <button onClick={nextStage} className="px-3 sm:px-6 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 text-sm sm:text-base">Done</button>
                   )}
                 </div>
+              <div className="flex justify-center mt-3"><ReportButton lessonTitle={currentLesson.title} questionText={currentLesson.words[currentCardIndex]?.en} /></div>
               </div>
             </div>
           )}
@@ -2781,6 +2783,7 @@ const handleQuizAnswer = (answer) => {
                     <button key={i} onClick={() => handleMatchClick(word, 'ca')} disabled={matchedPairs.includes(word.ca)} className={`w-full p-2 sm:p-4 rounded-lg font-semibold transition-all text-sm sm:text-base ${matchedPairs.includes(word.ca) ? 'bg-green-100 text-green-800 opacity-50' : selectedPairs.some(p => p.word === word && p.type === 'ca') ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200 active:bg-gray-300'}`}>{word.ca}</button>
                   ))}
                 </div>
+            <div className="col-span-2 w-full text-center mt-3"><ReportButton lessonTitle={currentLesson.title} questionText="Match the pairs" /></div>
               </div>
               {matchedPairs.length === currentLesson.words.length && (
                 <div className="mt-6 sm:mt-8 text-center">
@@ -2812,6 +2815,7 @@ const handleQuizAnswer = (answer) => {
                     <button key={i} onClick={() => handleQuizAnswer(option)} disabled={quizFeedback !== ''} className={`w-full p-4 rounded-lg font-semibold transition-all text-left disabled:opacity-75 focus:outline-none focus:bg-gray-100 active:bg-blue-200 ${quizFeedback && option === quizWords[quizIndex]?.ca ? 'bg-green-200' : quizFeedback ? 'bg-gray-100' : 'bg-gray-100'}`}>{option}</button>
                   ))}
                 </div>
+                <ReportButton lessonTitle={currentLesson.title} questionText={quizWords[quizIndex]?.en} />
                 {quizFeedback && (
   <div className={`mt-4 p-4 rounded-lg text-center font-semibold ${quizFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
     {quizFeedback}
@@ -3278,7 +3282,7 @@ const handleQuizAnswer = (answer) => {
             <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4">Conversation Practice</h2>
             <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">Practice real conversations in Catalan. Unlock scenarios by completing lessons!</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-              {[...CONVERSATIONS].sort((a, b) => a.unlockAfterLesson - b.unlockAfterLesson).map((conv) => {
+              {[...CONVERSATIONS].sort((a, b) => { const aUnlocked = completed.includes(a.unlockAfterLesson) ? 0 : 1; const bUnlocked = completed.includes(b.unlockAfterLesson) ? 0 : 1; if (aUnlocked !== bUnlocked) return aUnlocked - bUnlocked; return a.unlockAfterLesson - b.unlockAfterLesson; }).map((conv) => {
                 const unlocked = completed.includes(conv.unlockAfterLesson || conv.unlocksAfter);
                 const isComplete = completedConversations.includes(conv.id);
                 return (

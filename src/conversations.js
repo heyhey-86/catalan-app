@@ -1741,104 +1741,116 @@ export const CONVERSATIONS = [
 // ─── CONVERSATION 26: First Date ───────────────────────────
 {
   id: 26,
-  title: "💕 First Date",
-  unlocksAfter: 50,
+  icon: "💕",
+
+  title: "First Date",
+  unlockAfterLesson: 50,
   difficulty: "intermediate",
   turns: [
-    { speaker: "you", text: "Hola! Estic content de conèixer-te finalment.", translation: "Hi! I'm happy to finally meet you.", options: [] },
-    { speaker: "date", text: "Hola! Jo també. Aquest restaurant sembla molt acollidor.", translation: "Hi! Me too. This restaurant looks very cozy.", options: [] },
-    { speaker: "you", text: "", translation: "What do you like to do in your free time?", options: ["Què t'agrada fer en el teu temps lliure?", "On vius?", "Tens germans?"] },
-    { speaker: "date", text: "M'encanta llegir i anar a la platja. I tu?", translation: "I love reading and going to the beach. And you?", options: [] },
-    { speaker: "you", text: "", translation: "I like hiking and trying new restaurants.", options: ["M'agrada fer excursions i provar restaurants nous.", "No faig gaire.", "Treballo molt."] },
-    { speaker: "date", text: "Genial! Hauríem d'anar a fer una excursió junts algun dia.", translation: "Great! We should go hiking together someday.", options: [] },
-    { speaker: "you", text: "", translation: "I'd love to! Would you like to order?", options: ["M'encantaria! Vols demanar?", "Potser algun dia.", "Ja veurem."] },
-    { speaker: "date", text: "Sí, el suquet de peix té molt bona pinta.", translation: "Yes, the fish stew looks really good.", options: [] }
+    { speaker: "narrator", text: "Hola! Estic content de conèixer-te finalment.", english: "Hi! I'm happy to finally meet you." },
+    { speaker: "date", text: "Hola! Jo també. Aquest restaurant sembla molt acollidor.", english: "Hi! Me too. This restaurant looks very cozy.", options: [] },
+    { speaker: "user", prompt: "What do you like to do in your free time?", wordBank: ["temps","t'agrada","fer","Què","en","lliure","teu","el"], correctSentence: "Què t'agrada fer en el teu temps lliure" },
+    { speaker: "date", text: "M'encanta llegir i anar a la platja. I tu?", english: "I love reading and going to the beach. And you?", options: [] },
+    { speaker: "user", prompt: "I like hiking and trying new restaurants.", wordBank: ["M'agrada","provar","excursions","i","restaurants","nous","fer"], correctSentence: "M'agrada fer excursions i provar restaurants nous" },
+    { speaker: "date", text: "Genial! Hauríem d'anar a fer una excursió junts algun dia.", english: "Great! We should go hiking together someday.", options: [] },
+    { speaker: "user", prompt: "I'd love to! Would you like to order?", wordBank: ["M'encantaria","Vols","demanar"], correctSentence: "M'encantaria Vols demanar" },
+    { speaker: "date", text: "Sí, el suquet de peix té molt bona pinta.", english: "Yes, the fish stew looks really good.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 27: Job Interview ────────────────────────
 {
   id: 27,
-  title: "💼 Job Interview",
-  unlocksAfter: 51,
+  icon: "💼",
+
+  title: "Job Interview: Advanced",
+  unlockAfterLesson: 51,
   difficulty: "advanced",
   turns: [
-    { speaker: "interviewer", text: "Bon dia! Siè's i posa't còmode/a.", translation: "Good morning! Sit down and make yourself comfortable.", options: [] },
-    { speaker: "you", text: "", translation: "Good morning. Thank you for the opportunity.", options: ["Bon dia. Gràcies per l'oportunitat.", "Hola.", "Estic nerviós/a."] },
-    { speaker: "interviewer", text: "Explica'm una mica sobre la teva experiència professional.", translation: "Tell me a bit about your professional experience.", options: [] },
-    { speaker: "you", text: "", translation: "I've worked in marketing for five years.", options: ["He treballat en màrqueting durant cinc anys.", "No tinc gaire experiència.", "Sóc molt bo/a."] },
-    { speaker: "interviewer", text: "I per què vols treballar amb nosaltres?", translation: "And why do you want to work with us?", options: [] },
-    { speaker: "you", text: "", translation: "Your company is a leader in innovation.", options: ["La vostra empresa és líder en innovació.", "Necessito feina.", "Està a prop de casa."] },
-    { speaker: "interviewer", text: "Molt bé. Quines són les teves expectatives salarials?", translation: "Very good. What are your salary expectations?", options: [] },
-    { speaker: "you", text: "", translation: "I'm flexible, but I'd like to discuss based on the full package.", options: ["Sóc flexible, però m'agradaria discutir-ho segons el paquet complet.", "Vull molt diners.", "No ho sé."] }
+    { speaker: "interviewer", text: "Bon dia! Siè's i posa't còmode/a.", english: "Good morning! Sit down and make yourself comfortable.", options: [] },
+    { speaker: "user", prompt: "Good morning. Thank you for the opportunity.", wordBank: ["Bon","Gràcies","per","l'oportunitat","dia"], correctSentence: "Bon dia Gràcies per l'oportunitat" },
+    { speaker: "interviewer", text: "Explica'm una mica sobre la teva experiència professional.", english: "Tell me a bit about your professional experience.", options: [] },
+    { speaker: "user", prompt: "I've worked in marketing for five years.", wordBank: ["en","treballat","anys","cinc","He","durant","màrqueting"], correctSentence: "He treballat en màrqueting durant cinc anys" },
+    { speaker: "interviewer", text: "I per què vols treballar amb nosaltres?", english: "And why do you want to work with us?", options: [] },
+    { speaker: "user", prompt: "Your company is a leader in innovation.", wordBank: ["en","líder","és","empresa","vostra","La","innovació"], correctSentence: "La vostra empresa és líder en innovació" },
+    { speaker: "interviewer", text: "Molt bé. Quines són les teves expectatives salarials?", english: "Very good. What are your salary expectations?", options: [] },
+    { speaker: "user", prompt: "I'm flexible, but I'd like to discuss based on the full package.", wordBank: ["m'agradaria","Sóc","segons","flexible","complet","paquet","discutir-ho","el","però"], correctSentence: "Sóc flexible però m'agradaria discutir-ho segons el paquet complet" }
   ]
 },
 
 // ─── CONVERSATION 28: At the Barber/Hairdresser ────────────
 {
   id: 28,
-  title: "✂️ At the Barber",
-  unlocksAfter: 53,
+  icon: "✂",
+
+  title: "️ At the Barber",
+  unlockAfterLesson: 53,
   difficulty: "intermediate",
   turns: [
-    { speaker: "barber", text: "Hola! Què vols fer avui?", translation: "Hi! What would you like to do today?", options: [] },
-    { speaker: "you", text: "", translation: "I'd like a trim, please.", options: ["Voldria un retoc, si us plau.", "Talla-ho tot.", "No ho sé."] },
-    { speaker: "barber", text: "Quant de llarg vols deixar-ho?", translation: "How long do you want to leave it?", options: [] },
-    { speaker: "you", text: "", translation: "Just a few centimeters shorter.", options: ["Només uns centímetres més curt.", "Molt curt.", "Com tu vulguis."] },
-    { speaker: "barber", text: "Vol que et faci la barba també?", translation: "Would you like me to do your beard too?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, just shape it a bit.", options: ["Sí, només arregla-la una mica.", "No, gràcies.", "Afeita-la del tot."] },
-    { speaker: "barber", text: "Perfecte. Ara mateix començo.", translation: "Perfect. I'll start right now.", options: [] }
+    { speaker: "barber", text: "Hola! Què vols fer avui?", english: "Hi! What would you like to do today?", options: [] },
+    { speaker: "user", prompt: "I'd like a trim, please.", wordBank: ["Voldria","un","us","plau","retoc","si"], correctSentence: "Voldria un retoc si us plau" },
+    { speaker: "barber", text: "Quant de llarg vols deixar-ho?", english: "How long do you want to leave it?", options: [] },
+    { speaker: "user", prompt: "Just a few centimeters shorter.", wordBank: ["més","curt","Només","uns","centímetres"], correctSentence: "Només uns centímetres més curt" },
+    { speaker: "barber", text: "Vol que et faci la barba també?", english: "Would you like me to do your beard too?", options: [] },
+    { speaker: "user", prompt: "Yes, just shape it a bit.", wordBank: ["Sí","només","una","mica","arregla-la"], correctSentence: "Sí només arregla-la una mica" },
+    { speaker: "barber", text: "Perfecte. Ara mateix començo.", english: "Perfect. I'll start right now.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 29: Making Travel Plans ──────────────────
 {
   id: 29,
-  title: "✈️ Making Travel Plans",
-  unlocksAfter: 54,
+  icon: "✈",
+
+  title: "️ Making Travel Plans",
+  unlockAfterLesson: 54,
   difficulty: "intermediate",
   turns: [
-    { speaker: "friend", text: "Hola! Estem pensant en anar a Menorca aquest estiu. T'animes?", translation: "Hi! We're thinking of going to Menorca this summer. Want to join?", options: [] },
-    { speaker: "you", text: "", translation: "That sounds great! When are you thinking?", options: ["Sona genial! Quan ho tens pensat?", "No puc.", "Ja veuré."] },
-    { speaker: "friend", text: "Al juliol, dues setmanes. Llogaríem una casa a la costa.", translation: "In July, two weeks. We'd rent a house on the coast.", options: [] },
-    { speaker: "you", text: "", translation: "How much would it cost per person?", options: ["Quant costaria per persona?", "És massa car.", "Perfecte."] },
-    { speaker: "friend", text: "Uns cinc-cents euros tot inclòs. Vols que et reservem plaça?", translation: "About five hundred euros all included. Should we reserve a spot for you?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, count me in!", options: ["Sí, compta amb mi!", "Ho he de pensar.", "No gràcies."] },
-    { speaker: "friend", text: "Genial! T'enviaré tots els detalls per correu.", translation: "Great! I'll send you all the details by email.", options: [] }
+    { speaker: "friend", text: "Hola! Estem pensant en anar a Menorca aquest estiu. T'animes?", english: "Hi! We're thinking of going to Menorca this summer. Want to join?", options: [] },
+    { speaker: "user", prompt: "That sounds great! When are you thinking?", wordBank: ["tens","ho","pensat","Quan","genial","Sona"], correctSentence: "Sona genial Quan ho tens pensat" },
+    { speaker: "friend", text: "Al juliol, dues setmanes. Llogaríem una casa a la costa.", english: "In July, two weeks. We'd rent a house on the coast.", options: [] },
+    { speaker: "user", prompt: "How much would it cost per person?", wordBank: ["Quant","costaria","per","persona"], correctSentence: "Quant costaria per persona" },
+    { speaker: "friend", text: "Uns cinc-cents euros tot inclòs. Vols que et reservem plaça?", english: "About five hundred euros all included. Should we reserve a spot for you?", options: [] },
+    { speaker: "user", prompt: "Yes, count me in!", wordBank: ["mi","compta","amb","Sí"], correctSentence: "Sí compta amb mi" },
+    { speaker: "friend", text: "Genial! T'enviaré tots els detalls per correu.", english: "Great! I'll send you all the details by email.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 30: Reporting a Problem to Landlord ──────
 {
   id: 30,
-  title: "🏠 Landlord Problem",
-  unlocksAfter: 55,
+  icon: "🏠",
+
+  title: "Landlord Problem",
+  unlockAfterLesson: 55,
   difficulty: "intermediate",
   turns: [
-    { speaker: "you", text: "", translation: "Hello, I have a problem with the heating.", options: ["Hola, tinc un problema amb la calefacció.", "Hola.", "Tot va bé."] },
-    { speaker: "landlord", text: "Hola! Què passa exactament?", translation: "Hi! What's happening exactly?", options: [] },
-    { speaker: "you", text: "", translation: "It hasn't been working for three days.", options: ["Fa tres dies que no funciona.", "No escalfa gaire.", "Està bé."] },
-    { speaker: "landlord", text: "Això és greu. Trucaré el tècnic avui mateix.", translation: "That's serious. I'll call the technician today.", options: [] },
-    { speaker: "you", text: "", translation: "Thank you. When can they come?", options: ["Gràcies. Quan pot venir?", "Perfecte.", "D'acord."] },
-    { speaker: "landlord", text: "Demà al matí entre les 9 i les 12. Et sembla bé?", translation: "Tomorrow morning between 9 and 12. Is that okay?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, I'll be home. Thank you.", options: ["Sí, seré a casa. Gràcies.", "No puc.", "Potser."] }
+    { speaker: "user", prompt: "Hello, I have a problem with the heating.", wordBank: ["Hola","tinc","amb","problema","un","la","calefacció"], correctSentence: "Hola tinc un problema amb la calefacció" },
+    { speaker: "landlord", text: "Hola! Què passa exactament?", english: "Hi! What's happening exactly?", options: [] },
+    { speaker: "user", prompt: "It hasn't been working for three days.", wordBank: ["Fa","que","funciona","tres","dies","no"], correctSentence: "Fa tres dies que no funciona" },
+    { speaker: "landlord", text: "Això és greu. Trucaré el tècnic avui mateix.", english: "That's serious. I'll call the technician today.", options: [] },
+    { speaker: "user", prompt: "Thank you. When can they come?", wordBank: ["venir","Quan","Gràcies","pot"], correctSentence: "Gràcies Quan pot venir" },
+    { speaker: "landlord", text: "Demà al matí entre les 9 i les 12. Et sembla bé?", english: "Tomorrow morning between 9 and 12. Is that okay?", options: [] },
+    { speaker: "user", prompt: "Yes, I'll be home. Thank you.", wordBank: ["casa","a","Sí","Gràcies","seré"], correctSentence: "Sí seré a casa Gràcies" }
   ]
 },
 
 // ─── CONVERSATION 31: At the Gym (Personal Trainer) ────────
 {
   id: 31,
-  title: "💪 Personal Trainer",
-  unlocksAfter: 56,
+  icon: "💪",
+
+  title: "Personal Trainer",
+  unlockAfterLesson: 56,
   difficulty: "intermediate",
   turns: [
-    { speaker: "trainer", text: "Hola! Vols que et faci una rutina personalitzada?", translation: "Hi! Would you like me to make you a personalized routine?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, I want to improve my endurance.", options: ["Sí, vull millorar la meva resistència.", "No gràcies.", "No ho sé."] },
-    { speaker: "trainer", text: "Quants cops per setmana pots entrenar?", translation: "How many times per week can you train?", options: [] },
-    { speaker: "you", text: "", translation: "Three or four times.", options: ["Tres o quatre cops.", "Cada dia.", "Un cop."] },
-    { speaker: "trainer", text: "Perfecte. Combinarem cardio amb peses. Tens alguna lesió?", translation: "Perfect. We'll combine cardio with weights. Do you have any injuries?", options: [] },
-    { speaker: "you", text: "", translation: "No, I'm in good shape.", options: ["No, estic en bona forma.", "Em fa mal el genoll.", "Sí, algunes."] },
-    { speaker: "trainer", text: "Molt bé! Començarem dimarts que ve.", translation: "Very good! We'll start next Tuesday.", options: [] }
+    { speaker: "trainer", text: "Hola! Vols que et faci una rutina personalitzada?", english: "Hi! Would you like me to make you a personalized routine?", options: [] },
+    { speaker: "user", prompt: "Yes, I want to improve my endurance.", wordBank: ["millorar","vull","la","meva","Sí","resistència"], correctSentence: "Sí vull millorar la meva resistència" },
+    { speaker: "trainer", text: "Quants cops per setmana pots entrenar?", english: "How many times per week can you train?", options: [] },
+    { speaker: "user", prompt: "Three or four times.", wordBank: ["cops","o","Tres","quatre"], correctSentence: "Tres o quatre cops" },
+    { speaker: "trainer", text: "Perfecte. Combinarem cardio amb peses. Tens alguna lesió?", english: "Perfect. We'll combine cardio with weights. Do you have any injuries?", options: [] },
+    { speaker: "user", prompt: "No, I'm in good shape.", wordBank: ["forma","bona","estic","No","en"], correctSentence: "No estic en bona forma" },
+    { speaker: "trainer", text: "Molt bé! Començarem dimarts que ve.", english: "Very good! We'll start next Tuesday.", options: [] }
   ]
 },
 
@@ -1847,417 +1859,465 @@ export const CONVERSATIONS = [
 // ─── CONVERSATION 32: Emergency at Hospital ────────────────
 {
   id: 32,
-  title: "🏥 Hospital Emergency",
-  unlocksAfter: 57,
+  icon: "🏥",
+
+  title: "Hospital Emergency",
+  unlockAfterLesson: 57,
   difficulty: "advanced",
   turns: [
-    { speaker: "nurse", text: "Bona tarda. Què li passa?", translation: "Good afternoon. What's wrong?", options: [] },
-    { speaker: "you", text: "", translation: "I fell and I think I broke my ankle.", options: ["M'he caigut i crec que m'he trencat el turmell.", "Em fa mal.", "Estic bé."] },
-    { speaker: "nurse", text: "D'acord. Pot caminar o necessita cadira de rodes?", translation: "Okay. Can you walk or do you need a wheelchair?", options: [] },
-    { speaker: "you", text: "", translation: "I need a wheelchair, please.", options: ["Necessito cadira de rodes, si us plau.", "Puc caminar.", "No sé."] },
-    { speaker: "nurse", text: "Ara mateix. Té la targeta sanitària?", translation: "Right away. Do you have your health card?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, here it is.", options: ["Sí, aquí la té.", "No, l'he oblidat.", "No en tinc."] },
-    { speaker: "nurse", text: "Gràcies. El metge el veurà en breu.", translation: "Thank you. The doctor will see you shortly.", options: [] }
+    { speaker: "nurse", text: "Bona tarda. Què li passa?", english: "Good afternoon. What's wrong?", options: [] },
+    { speaker: "user", prompt: "I fell and I think I broke my ankle.", wordBank: ["M'he","m'he","i","turmell","crec","el","que","caigut","trencat"], correctSentence: "M'he caigut i crec que m'he trencat el turmell" },
+    { speaker: "nurse", text: "D'acord. Pot caminar o necessita cadira de rodes?", english: "Okay. Can you walk or do you need a wheelchair?", options: [] },
+    { speaker: "user", prompt: "I need a wheelchair, please.", wordBank: ["si","cadira","Necessito","plau","rodes","us","de"], correctSentence: "Necessito cadira de rodes si us plau" },
+    { speaker: "nurse", text: "Ara mateix. Té la targeta sanitària?", english: "Right away. Do you have your health card?", options: [] },
+    { speaker: "user", prompt: "Yes, here it is.", wordBank: ["té","Sí","aquí","la"], correctSentence: "Sí aquí la té" },
+    { speaker: "nurse", text: "Gràcies. El metge el veurà en breu.", english: "Thank you. The doctor will see you shortly.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 33: Negotiating Salary ───────────────────
 {
   id: 33,
-  title: "💰 Salary Negotiation",
-  unlocksAfter: 58,
+  icon: "💰",
+
+  title: "Salary Negotiation",
+  unlockAfterLesson: 58,
   difficulty: "advanced",
   turns: [
-    { speaker: "boss", text: "Volia parlar amb tu sobre el teu sou.", translation: "I wanted to talk to you about your salary.", options: [] },
-    { speaker: "you", text: "", translation: "Thank you. I also wanted to discuss this.", options: ["Gràcies. Jo també ho volia comentar.", "D'acord.", "Sí."] },
-    { speaker: "boss", text: "Crec que mereixies un augment. Què et semblaria un 5%?", translation: "I think you deserve a raise. What would you think about 5%?", options: [] },
-    { speaker: "you", text: "", translation: "I appreciate it, but I was hoping for 10%.", options: ["Ho agraeixo, però esperava un 10%.", "Perfecte.", "És massa poc."] },
-    { speaker: "boss", text: "És molt. Pots justificar-ho?", translation: "That's a lot. Can you justify it?", options: [] },
-    { speaker: "you", text: "", translation: "I've increased sales by 30% this year.", options: ["He augmentat les vendes un 30% aquest any.", "Treballo molt.", "Ho mereixo."] },
-    { speaker: "boss", text: "Tens raó. Et puc oferir un 8%. Et sembla bé?", translation: "You're right. I can offer you 8%. Does that work?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, I accept. Thank you.", options: ["Sí, accepto. Gràcies.", "Vull més.", "Ho pensaré."] }
+    { speaker: "boss", text: "Volia parlar amb tu sobre el teu sou.", english: "I wanted to talk to you about your salary.", options: [] },
+    { speaker: "user", prompt: "Thank you. I also wanted to discuss this.", wordBank: ["volia","Jo","comentar","ho","Gràcies","també"], correctSentence: "Gràcies Jo també ho volia comentar" },
+    { speaker: "boss", text: "Crec que mereixies un augment. Què et semblaria un 5%?", english: "I think you deserve a raise. What would you think about 5%?", options: [] },
+    { speaker: "user", prompt: "I appreciate it, but I was hoping for 10%.", wordBank: ["Ho","agraeixo","però","esperava","un","10%"], correctSentence: "Ho agraeixo però esperava un 10%" },
+    { speaker: "boss", text: "És molt. Pots justificar-ho?", english: "That's a lot. Can you justify it?", options: [] },
+    { speaker: "user", prompt: "I've increased sales by 30% this year.", wordBank: ["les","30%","aquest","any","augmentat","un","He","vendes"], correctSentence: "He augmentat les vendes un 30% aquest any" },
+    { speaker: "boss", text: "Tens raó. Et puc oferir un 8%. Et sembla bé?", english: "You're right. I can offer you 8%. Does that work?", options: [] },
+    { speaker: "user", prompt: "Yes, I accept. Thank you.", wordBank: ["Sí","accepto","Gràcies"], correctSentence: "Sí accepto Gràcies" }
   ]
 },
 
 // ─── CONVERSATION 34: Booking a Hotel Room ─────────────────
 {
   id: 34,
-  title: "🏨 Hotel Booking",
-  unlocksAfter: 59,
+  icon: "🏨",
+
+  title: "Hotel Booking",
+  unlockAfterLesson: 59,
   difficulty: "intermediate",
   turns: [
-    { speaker: "receptionist", text: "Bon dia! En què puc ajudar-lo?", translation: "Good morning! How can I help you?", options: [] },
-    { speaker: "you", text: "", translation: "I'd like to book a double room for three nights.", options: ["Voldria reservar una habitació doble per tres nits.", "Vull una habitació.", "Tinc una reserva."] },
-    { speaker: "receptionist", text: "Quines dates, si us plau?", translation: "What dates, please?", options: [] },
-    { speaker: "you", text: "", translation: "From the 15th to the 18th of March.", options: ["Del 15 al 18 de març.", "Aquest cap de setmana.", "No ho sé."] },
-    { speaker: "receptionist", text: "Perfecte. Amb vistes al mar o al carrer?", translation: "Perfect. With sea view or street view?", options: [] },
-    { speaker: "you", text: "", translation: "Sea view, please. How much is it?", options: ["Vistes al mar, si us plau. Quant costa?", "El més barat.", "M'és igual."] },
-    { speaker: "receptionist", text: "120 euros per nit, amb esmorzar inclòs.", translation: "120 euros per night, with breakfast included.", options: [] },
-    { speaker: "you", text: "", translation: "Perfect, I'll take it.", options: ["Perfecte, la reservo.", "És massa car.", "Ho penso."] }
+    { speaker: "receptionist", text: "Bon dia! En què puc ajudar-lo?", english: "Good morning! How can I help you?", options: [] },
+    { speaker: "user", prompt: "I'd like to book a double room for three nights.", wordBank: ["una","nits","doble","reservar","tres","per","habitació","Voldria"], correctSentence: "Voldria reservar una habitació doble per tres nits" },
+    { speaker: "receptionist", text: "Quines dates, si us plau?", english: "What dates, please?", options: [] },
+    { speaker: "user", prompt: "From the 15th to the 18th of March.", wordBank: ["de","Del","15","al","març","18"], correctSentence: "Del 15 al 18 de març" },
+    { speaker: "receptionist", text: "Perfecte. Amb vistes al mar o al carrer?", english: "Perfect. With sea view or street view?", options: [] },
+    { speaker: "user", prompt: "Sea view, please. How much is it?", wordBank: ["us","si","plau","Quant","mar","al","Vistes","costa"], correctSentence: "Vistes al mar si us plau Quant costa" },
+    { speaker: "receptionist", text: "120 euros per nit, amb esmorzar inclòs.", english: "120 euros per night, with breakfast included.", options: [] },
+    { speaker: "user", prompt: "Perfect, I'll take it.", wordBank: ["Perfecte","la","reservo"], correctSentence: "Perfecte la reservo" }
   ]
 },
 
 // ─── CONVERSATION 35: Meeting the In-Laws ──────────────────
 {
   id: 35,
-  title: "👨‍👩‍👧 Meeting In-Laws",
-  unlocksAfter: 60,
+  icon: "👨",
+
+  title: "‍👩‍👧 Meeting In-Laws",
+  unlockAfterLesson: 60,
   difficulty: "intermediate",
   turns: [
-    { speaker: "mother_in_law", text: "Hola! Passa, passa! Estem molt contents de conèixer-te.", translation: "Hi! Come in, come in! We're very happy to meet you.", options: [] },
-    { speaker: "you", text: "", translation: "Thank you for inviting me. Your home is beautiful.", options: ["Gràcies per convidar-me. La vostra casa és preciosa.", "Hola.", "Gràcies."] },
-    { speaker: "mother_in_law", text: "Molt amable! Seu-te. T'agradaria beure alguna cosa?", translation: "Very kind! Sit down. Would you like to drink something?", options: [] },
-    { speaker: "you", text: "", translation: "Water, please. Thank you.", options: ["Aigua, si us plau. Gràcies.", "Res, gràcies.", "Un vi."] },
-    { speaker: "father_in_law", text: "La nostra filla ens ha parlat molt bé de tu. A què et dediques?", translation: "Our daughter has spoken very well of you. What do you do?", options: [] },
-    { speaker: "you", text: "", translation: "I work in technology as a developer.", options: ["Treballo en tecnologia com a desenvolupador.", "Treballo.", "Faig coses."] },
-    { speaker: "father_in_law", text: "Interessant! El dinar ja està gairebé llest.", translation: "Interesting! Lunch is almost ready.", options: [] }
+    { speaker: "mother_in_law", text: "Hola! Passa, passa! Estem molt contents de conèixer-te.", english: "Hi! Come in, come in! We're very happy to meet you.", options: [] },
+    { speaker: "user", prompt: "Thank you for inviting me. Your home is beautiful.", wordBank: ["vostra","convidar-me","per","La","és","preciosa","Gràcies","casa"], correctSentence: "Gràcies per convidar-me La vostra casa és preciosa" },
+    { speaker: "mother_in_law", text: "Molt amable! Seu-te. T'agradaria beure alguna cosa?", english: "Very kind! Sit down. Would you like to drink something?", options: [] },
+    { speaker: "user", prompt: "Water, please. Thank you.", wordBank: ["si","plau","Aigua","Gràcies","us"], correctSentence: "Aigua si us plau Gràcies" },
+    { speaker: "father_in_law", text: "La nostra filla ens ha parlat molt bé de tu. A què et dediques?", english: "Our daughter has spoken very well of you. What do you do?", options: [] },
+    { speaker: "user", prompt: "I work in technology as a developer.", wordBank: ["Treballo","en","tecnologia","desenvolupador","com","a"], correctSentence: "Treballo en tecnologia com a desenvolupador" },
+    { speaker: "father_in_law", text: "Interessant! El dinar ja està gairebé llest.", english: "Interesting! Lunch is almost ready.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 36: At the Mechanic ──────────────────────
 {
   id: 36,
-  title: "🔧 Car Mechanic",
-  unlocksAfter: 61,
+  icon: "🔧",
+
+  title: "Car Mechanic",
+  unlockAfterLesson: 61,
   difficulty: "intermediate",
   turns: [
-    { speaker: "mechanic", text: "Hola! Què li passa al cotxe?", translation: "Hi! What's wrong with the car?", options: [] },
-    { speaker: "you", text: "", translation: "It makes a strange noise when I brake.", options: ["Fa un soroll estrany quan freno.", "No funciona.", "No ho sé."] },
-    { speaker: "mechanic", text: "D'acord. Quan va començar?", translation: "Okay. When did it start?", options: [] },
-    { speaker: "you", text: "", translation: "About a week ago.", options: ["Fa una setmana més o menys.", "Ahir.", "Fa temps."] },
-    { speaker: "mechanic", text: "Sembla que són les pastilles de fre. Hauré de mirar-ho.", translation: "It sounds like brake pads. I'll have to check it.", options: [] },
-    { speaker: "you", text: "", translation: "How long will it take?", options: ["Quant de temps trigarà?", "És urgent.", "D'acord."] },
-    { speaker: "mechanic", text: "Un parell d'hores. El puc deixar aquí?", translation: "A couple of hours. Can you leave it here?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, I'll come back at 5.", options: ["Sí, tornaré a les 5.", "No puc.", "Esperaré."] }
+    { speaker: "mechanic", text: "Hola! Què li passa al cotxe?", english: "Hi! What's wrong with the car?", options: [] },
+    { speaker: "user", prompt: "It makes a strange noise when I brake.", wordBank: ["Fa","un","soroll","freno","quan","estrany"], correctSentence: "Fa un soroll estrany quan freno" },
+    { speaker: "mechanic", text: "D'acord. Quan va començar?", english: "Okay. When did it start?", options: [] },
+    { speaker: "user", prompt: "About a week ago.", wordBank: ["setmana","o","una","menys","Fa","més"], correctSentence: "Fa una setmana més o menys" },
+    { speaker: "mechanic", text: "Sembla que són les pastilles de fre. Hauré de mirar-ho.", english: "It sounds like brake pads. I'll have to check it.", options: [] },
+    { speaker: "user", prompt: "How long will it take?", wordBank: ["Quant","de","temps","trigarà"], correctSentence: "Quant de temps trigarà" },
+    { speaker: "mechanic", text: "Un parell d'hores. El puc deixar aquí?", english: "A couple of hours. Can you leave it here?", options: [] },
+    { speaker: "user", prompt: "Yes, I'll come back at 5.", wordBank: ["5","les","a","tornaré","Sí"], correctSentence: "Sí tornaré a les 5" }
   ]
 },
 
 // ─── CONVERSATION 37: Wine Tasting ─────────────────────────
 {
   id: 37,
-  title: "🍷 Wine Tasting",
-  unlocksAfter: 62,
+  icon: "🍷",
+
+  title: "Wine Tasting",
+  unlockAfterLesson: 62,
   difficulty: "advanced",
   turns: [
-    { speaker: "sommelier", text: "Benvinguts a la nostra bodega! Avui tastarem cinc vins del Penedès.", translation: "Welcome to our winery! Today we'll taste five Penedès wines.", options: [] },
-    { speaker: "you", text: "", translation: "Great! I don't know much about wine.", options: ["Genial! No sé gaire de vins.", "Perfecte.", "Sóc expert."] },
-    { speaker: "sommelier", text: "No et preocupis. Començarem amb un blanc jove.", translation: "Don't worry. We'll start with a young white.", options: [] },
-    { speaker: "you", text: "", translation: "What grapes does it have?", options: ["Quins raïms té?", "M'agrada.", "És bo?"] },
-    { speaker: "sommelier", text: "Xarel·lo i macabeu. És fresc i lleuger. Què en penses?", translation: "Xarel·lo and macabeu. It's fresh and light. What do you think?", options: [] },
-    { speaker: "you", text: "", translation: "It's very smooth. I like it.", options: ["És molt suau. M'agrada.", "No m'agrada.", "Està bé."] },
-    { speaker: "sommelier", text: "Ara provarem un negre més corpulent.", translation: "Now we'll try a fuller-bodied red.", options: [] }
+    { speaker: "sommelier", text: "Benvinguts a la nostra bodega! Avui tastarem cinc vins del Penedès.", english: "Welcome to our winery! Today we'll taste five Penedès wines.", options: [] },
+    { speaker: "user", prompt: "Great! I don't know much about wine.", wordBank: ["Genial","gaire","No","sé","de","vins"], correctSentence: "Genial No sé gaire de vins" },
+    { speaker: "sommelier", text: "No et preocupis. Començarem amb un blanc jove.", english: "Don't worry. We'll start with a young white.", options: [] },
+    { speaker: "user", prompt: "What grapes does it have?", wordBank: ["Quins","raïms","té"], correctSentence: "Quins raïms té" },
+    { speaker: "sommelier", text: "Xarel·lo i macabeu. És fresc i lleuger. Què en penses?", english: "Xarel·lo and macabeu. It's fresh and light. What do you think?", options: [] },
+    { speaker: "user", prompt: "It's very smooth. I like it.", wordBank: ["És","molt","M'agrada","suau"], correctSentence: "És molt suau M'agrada" },
+    { speaker: "sommelier", text: "Ara provarem un negre més corpulent.", english: "Now we'll try a fuller-bodied red.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 38: Networking Event ─────────────────────
 {
   id: 38,
-  title: "🤝 Networking Event",
-  unlocksAfter: 63,
+  icon: "🤝",
+
+  title: "Networking Event",
+  unlockAfterLesson: 63,
   difficulty: "advanced",
   turns: [
-    { speaker: "professional", text: "Hola! No ens coneixem, oi? Sóc en Marc.", translation: "Hi! We don't know each other, right? I'm Marc.", options: [] },
-    { speaker: "you", text: "", translation: "Nice to meet you. I'm [name]. What do you do?", options: ["Encantat/da. Sóc [nom]. A què et dediques?", "Hola.", "Sí, ens coneixem."] },
-    { speaker: "professional", text: "Sóc consultor de màrqueting digital. I tu?", translation: "I'm a digital marketing consultant. And you?", options: [] },
-    { speaker: "you", text: "", translation: "I work in software development.", options: ["Treballo en desenvolupament de programari.", "També faig màrqueting.", "No treballo."] },
-    { speaker: "professional", text: "Interessant! Busquem algú per desenvolupar una app. T'interessaria?", translation: "Interesting! We're looking for someone to develop an app. Would you be interested?", options: [] },
-    { speaker: "you", text: "", translation: "Definitely. Can we exchange cards?", options: ["Definitivament. Podem intercanviar targetes?", "Potser.", "No gràcies."] },
-    { speaker: "professional", text: "Clar! T'enviaré un correu demà amb els detalls.", translation: "Of course! I'll send you an email tomorrow with details.", options: [] }
+    { speaker: "professional", text: "Hola! No ens coneixem, oi? Sóc en Marc.", english: "Hi! We don't know each other, right? I'm Marc.", options: [] },
+    { speaker: "user", prompt: "Nice to meet you. I'm [name]. What do you do?", wordBank: ["Encantat/da.","et","Sóc","[nom].","ens","Hola.","què","Sí,","dediques?","A","coneixem."], correctSentence: "Encantat/da. Sóc [nom]. A què et dediques?" },
+    { speaker: "professional", text: "Sóc consultor de màrqueting digital. I tu?", english: "I'm a digital marketing consultant. And you?", options: [] },
+    { speaker: "user", prompt: "I work in software development.", wordBank: ["desenvolupament","Treballo","en","de","programari"], correctSentence: "Treballo en desenvolupament de programari" },
+    { speaker: "professional", text: "Interessant! Busquem algú per desenvolupar una app. T'interessaria?", english: "Interesting! We're looking for someone to develop an app. Would you be interested?", options: [] },
+    { speaker: "user", prompt: "Definitely. Can we exchange cards?", wordBank: ["Definitivament","targetes","intercanviar","Podem"], correctSentence: "Definitivament Podem intercanviar targetes" },
+    { speaker: "professional", text: "Clar! T'enviaré un correu demà amb els detalls.", english: "Of course! I'll send you an email tomorrow with details.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 39: Discussing Politics (Careful) ────────
 {
   id: 39,
-  title: "🗳️ Political Discussion",
-  unlocksAfter: 64,
+  icon: "🗳",
+
+  title: "️ Political Discussion",
+  unlockAfterLesson: 64,
   difficulty: "advanced",
   turns: [
-    { speaker: "friend", text: "Què opines sobre les últimes eleccions?", translation: "What do you think about the recent elections?", options: [] },
-    { speaker: "you", text: "", translation: "It's a complicated topic. I prefer not to discuss it.", options: ["És un tema complicat. Prefereixo no discutir-ho.", "No m'interessa.", "Tinc una opinió clara."] },
-    { speaker: "friend", text: "Entenc. Però creus que les coses milloraran?", translation: "I understand. But do you think things will improve?", options: [] },
-    { speaker: "you", text: "", translation: "I hope so. We need stability.", options: ["Això espero. Necessitem estabilitat.", "No ho crec.", "Segur que sí."] },
-    { speaker: "friend", text: "Tens raó. Canviem de tema. T'agrada el futbol?", translation: "You're right. Let's change the subject. Do you like football?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, I follow Barça.", options: ["Sí, segueixo el Barça.", "No m'agrada.", "Una mica."] },
-    { speaker: "friend", text: "Jo també! Van jugar molt bé diumenge passat.", translation: "Me too! They played very well last Sunday.", options: [] }
+    { speaker: "friend", text: "Què opines sobre les últimes eleccions?", english: "What do you think about the recent elections?", options: [] },
+    { speaker: "user", prompt: "It's a complicated topic. I prefer not to discuss it.", wordBank: ["És","discutir-ho","un","Prefereixo","tema","complicat","no"], correctSentence: "És un tema complicat Prefereixo no discutir-ho" },
+    { speaker: "friend", text: "Entenc. Però creus que les coses milloraran?", english: "I understand. But do you think things will improve?", options: [] },
+    { speaker: "user", prompt: "I hope so. We need stability.", wordBank: ["estabilitat","espero","Això","Necessitem"], correctSentence: "Això espero Necessitem estabilitat" },
+    { speaker: "friend", text: "Tens raó. Canviem de tema. T'agrada el futbol?", english: "You're right. Let's change the subject. Do you like football?", options: [] },
+    { speaker: "user", prompt: "Yes, I follow Barça.", wordBank: ["Barça","el","segueixo","Sí"], correctSentence: "Sí segueixo el Barça" },
+    { speaker: "friend", text: "Jo també! Van jugar molt bé diumenge passat.", english: "Me too! They played very well last Sunday.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 40: Complaining About Neighbors ──────────
 {
   id: 40,
-  title: "🔊 Noisy Neighbors",
-  unlocksAfter: 65,
+  icon: "🔊",
+
+  title: "Noisy Neighbors",
+  unlockAfterLesson: 65,
   difficulty: "intermediate",
   turns: [
-    { speaker: "you", text: "", translation: "Excuse me, can I speak with you for a moment?", options: ["Perdoni, puc parlar amb vostè un moment?", "Hola.", "Tinc un problema."] },
-    { speaker: "neighbor", text: "Sí, clar. Què passa?", translation: "Yes, of course. What's wrong?", options: [] },
-    { speaker: "you", text: "", translation: "The music is very loud at night.", options: ["La música està molt alta a la nit.", "Fas molt soroll.", "M'agrada la música."] },
-    { speaker: "neighbor", text: "Oh, ho sento molt! No sabia que es sentia tant.", translation: "Oh, I'm very sorry! I didn't know it was so loud.", options: [] },
-    { speaker: "you", text: "", translation: "Could you lower the volume after 11 pm?", options: ["Podria abaixar el volum després de les 11?", "Cal·lat!", "Gràcies."] },
-    { speaker: "neighbor", text: "Per descomptat. Tinc tota la raó. No tornarà a passar.", translation: "Of course. You're absolutely right. It won't happen again.", options: [] },
-    { speaker: "you", text: "", translation: "Thank you for understanding.", options: ["Gràcies per la comprensió.", "D'acord.", "Bé."] }
+    { speaker: "user", prompt: "Excuse me, can I speak with you for a moment?", wordBank: ["moment","amb","parlar","vostè","un","puc","Perdoni"], correctSentence: "Perdoni puc parlar amb vostè un moment" },
+    { speaker: "neighbor", text: "Sí, clar. Què passa?", english: "Yes, of course. What's wrong?", options: [] },
+    { speaker: "user", prompt: "The music is very loud at night.", wordBank: ["nit","a","alta","La","música","la","està","molt"], correctSentence: "La música està molt alta a la nit" },
+    { speaker: "neighbor", text: "Oh, ho sento molt! No sabia que es sentia tant.", english: "Oh, I'm very sorry! I didn't know it was so loud.", options: [] },
+    { speaker: "user", prompt: "Could you lower the volume after 11 pm?", wordBank: ["Podria","les","abaixar","11","el","volum","després","de"], correctSentence: "Podria abaixar el volum després de les 11" },
+    { speaker: "neighbor", text: "Per descomptat. Tinc tota la raó. No tornarà a passar.", english: "Of course. You're absolutely right. It won't happen again.", options: [] },
+    { speaker: "user", prompt: "Thank you for understanding.", wordBank: ["Gràcies","per","comprensió","la"], correctSentence: "Gràcies per la comprensió" }
   ]
 },
 
 // ─── CONVERSATION 41: At a Catalan Festival ────────────────
 {
   id: 41,
-  title: "🎉 La Mercè Festival",
-  unlocksAfter: 66,
+  icon: "🎉",
+
+  title: "La Mercè Festival",
+  unlockAfterLesson: 66,
   difficulty: "intermediate",
   turns: [
-    { speaker: "local", text: "És el teu primer any a la Mercè?", translation: "Is this your first year at La Mercè?", options: [] },
-    { speaker: "you", text: "", translation: "Yes! What should I see?", options: ["Sí! Què hauria de veure?", "No, ja hi he estat.", "Què és?"] },
-    { speaker: "local", text: "Definitivament els castells a la plaça Sant Jaume. Són impressionants!", translation: "Definitely the castells at Plaça Sant Jaume. They're impressive!", options: [] },
-    { speaker: "you", text: "", translation: "What time do they start?", options: ["A quina hora comencen?", "On és?", "Genial!"] },
-    { speaker: "local", text: "A les sis de la tarda. També hi ha correfoc a les deu.", translation: "At six in the evening. There's also correfoc at ten.", options: [] },
-    { speaker: "you", text: "", translation: "What's correfoc?", options: ["Què és el correfoc?", "Sona perillós.", "Hi aniré."] },
-    { speaker: "local", text: "Gent disfressada de dimonis amb focs artificials. És molt divertit!", translation: "People dressed as devils with fireworks. It's very fun!", options: [] },
-    { speaker: "you", text: "", translation: "That sounds amazing!", options: ["Sona increïble!", "Tinc por.", "Potser hi vaig."] }
+    { speaker: "local", text: "És el teu primer any a la Mercè?", english: "Is this your first year at La Mercè?", options: [] },
+    { speaker: "user", prompt: "Yes! What should I see?", wordBank: ["hauria","Què","Sí","veure","de"], correctSentence: "Sí Què hauria de veure" },
+    { speaker: "local", text: "Definitivament els castells a la plaça Sant Jaume. Són impressionants!", english: "Definitely the castells at Plaça Sant Jaume. They're impressive!", options: [] },
+    { speaker: "user", prompt: "What time do they start?", wordBank: ["comencen","hora","quina","A"], correctSentence: "A quina hora comencen" },
+    { speaker: "local", text: "A les sis de la tarda. També hi ha correfoc a les deu.", english: "At six in the evening. There's also correfoc at ten.", options: [] },
+    { speaker: "user", prompt: "What's correfoc?", wordBank: ["Què","el","és","correfoc"], correctSentence: "Què és el correfoc" },
+    { speaker: "local", text: "Gent disfressada de dimonis amb focs artificials. És molt divertit!", english: "People dressed as devils with fireworks. It's very fun!", options: [] },
+    { speaker: "user", prompt: "That sounds amazing!", wordBank: ["increïble","Sona"], correctSentence: "Sona increïble" }
   ]
 },
 
 // ─── CONVERSATION 42: Buying Property ──────────────────────
 {
   id: 42,
-  title: "🏡 Property Viewing",
-  unlocksAfter: 67,
+  icon: "🏡",
+
+  title: "Property Viewing",
+  unlockAfterLesson: 67,
   difficulty: "advanced",
   turns: [
-    { speaker: "agent", text: "Benvingut! Aquest és el pis. Com pot veure, té molt de llum natural.", translation: "Welcome! This is the apartment. As you can see, it has lots of natural light.", options: [] },
-    { speaker: "you", text: "", translation: "It's very nice. How many square meters is it?", options: ["És molt maco. Quants metres quadrats té?", "M'agrada.", "És car?"] },
-    { speaker: "agent", text: "Noranta metres quadrats. Tres habitacions i dos banys.", translation: "Ninety square meters. Three bedrooms and two bathrooms.", options: [] },
-    { speaker: "you", text: "", translation: "Are the building fees included?", options: ["Les despeses de comunitat estan incloses?", "Quant costa?", "Hi ha ascensor?"] },
-    { speaker: "agent", text: "No, són 80 euros al mes. Inclou aigua i manteniment.", translation: "No, they're 80 euros per month. Includes water and maintenance.", options: [] },
-    { speaker: "you", text: "", translation: "Is the price negotiable?", options: ["El preu és negociable?", "És massa car.", "Ho compro."] },
-    { speaker: "agent", text: "Hi ha una mica de marge. Faci'm una oferta.", translation: "There's a bit of room. Make me an offer.", options: [] }
+    { speaker: "agent", text: "Benvingut! Aquest és el pis. Com pot veure, té molt de llum natural.", english: "Welcome! This is the apartment. As you can see, it has lots of natural light.", options: [] },
+    { speaker: "user", prompt: "It's very nice. How many square meters is it?", wordBank: ["És","molt","maco","metres","Quants","quadrats","té"], correctSentence: "És molt maco Quants metres quadrats té" },
+    { speaker: "agent", text: "Noranta metres quadrats. Tres habitacions i dos banys.", english: "Ninety square meters. Three bedrooms and two bathrooms.", options: [] },
+    { speaker: "user", prompt: "Are the building fees included?", wordBank: ["comunitat","incloses","Les","de","despeses","estan"], correctSentence: "Les despeses de comunitat estan incloses" },
+    { speaker: "agent", text: "No, són 80 euros al mes. Inclou aigua i manteniment.", english: "No, they're 80 euros per month. Includes water and maintenance.", options: [] },
+    { speaker: "user", prompt: "Is the price negotiable?", wordBank: ["negociable","El","preu","és"], correctSentence: "El preu és negociable" },
+    { speaker: "agent", text: "Hi ha una mica de marge. Faci'm una oferta.", english: "There's a bit of room. Make me an offer.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 43: Attending a Wedding ──────────────────
 {
   id: 43,
-  title: "💒 Wedding Guest",
-  unlocksAfter: 68,
+  icon: "💒",
+
+  title: "Wedding Guest",
+  unlockAfterLesson: 68,
   difficulty: "intermediate",
   turns: [
-    { speaker: "guest", text: "Hola! No ets amic/ga dels nuvis?", translation: "Hi! Aren't you a friend of the couple?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, I work with the groom.", options: ["Sí, treballo amb el nuvi.", "No els conec.", "Sóc familiar."] },
-    { speaker: "guest", text: "Quina cerimònia tan bonica, oi?", translation: "What a beautiful ceremony, right?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, very emotional. Have you known them long?", options: ["Sí, molt emotiva. Fa temps que els coneixes?", "Sí.", "Ha estat llarga."] },
-    { speaker: "guest", text: "Des de la universitat. Som amics des de fa quinze anys.", translation: "Since university. We've been friends for fifteen years.", options: [] },
-    { speaker: "you", text: "", translation: "How nice! Shall we go to the reception?", options: ["Què bonic! Anem a la recepció?", "Genial.", "D'acord."] },
-    { speaker: "guest", text: "Sí, ja tinc gana! Diuen que el menú és boníssim.", translation: "Yes, I'm already hungry! They say the menu is amazing.", options: [] }
+    { speaker: "guest", text: "Hola! No ets amic/ga dels nuvis?", english: "Hi! Aren't you a friend of the couple?", options: [] },
+    { speaker: "user", prompt: "Yes, I work with the groom.", wordBank: ["amb","Sí","el","treballo","nuvi"], correctSentence: "Sí treballo amb el nuvi" },
+    { speaker: "guest", text: "Quina cerimònia tan bonica, oi?", english: "What a beautiful ceremony, right?", options: [] },
+    { speaker: "user", prompt: "Yes, very emotional. Have you known them long?", wordBank: ["que","Sí","Fa","molt","temps","els","coneixes","emotiva"], correctSentence: "Sí molt emotiva Fa temps que els coneixes" },
+    { speaker: "guest", text: "Des de la universitat. Som amics des de fa quinze anys.", english: "Since university. We've been friends for fifteen years.", options: [] },
+    { speaker: "user", prompt: "How nice! Shall we go to the reception?", wordBank: ["Anem","bonic","la","a","recepció","Què"], correctSentence: "Què bonic Anem a la recepció" },
+    { speaker: "guest", text: "Sí, ja tinc gana! Diuen que el menú és boníssim.", english: "Yes, I'm already hungry! They say the menu is amazing.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 44: Discussing Catalan Language ──────────
 {
   id: 44,
-  title: "📚 Language Learning",
-  unlocksAfter: 69,
+  icon: "📚",
+
+  title: "Language Learning",
+  unlockAfterLesson: 69,
   difficulty: "advanced",
   turns: [
-    { speaker: "teacher", text: "Com portes el català? Noto que has millorat molt.", translation: "How's your Catalan going? I notice you've improved a lot.", options: [] },
-    { speaker: "you", text: "", translation: "Thank you! I practice every day.", options: ["Gràcies! Practico cada dia.", "Encara em costa.", "No ho sé."] },
-    { speaker: "teacher", text: "Quina és la part més difícil per tu?", translation: "What's the hardest part for you?", options: [] },
-    { speaker: "you", text: "", translation: "The subjunctive is complicated.", options: ["El subjuntiu és complicat.", "Tot m'és fàcil.", "La pronunciació."] },
-    { speaker: "teacher", text: "És normal. Fins i tot per catalans és difícil! Llegeixes en català?", translation: "That's normal. Even for Catalans it's difficult! Do you read in Catalan?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, I read the news every morning.", options: ["Sí, llegeixo les notícies cada matí.", "No gaire.", "Només llibres."] },
-    { speaker: "teacher", text: "Excel·lent! La lectura és clau per millorar.", translation: "Excellent! Reading is key to improving.", options: [] }
+    { speaker: "teacher", text: "Com portes el català? Noto que has millorat molt.", english: "How's your Catalan going? I notice you've improved a lot.", options: [] },
+    { speaker: "user", prompt: "Thank you! I practice every day.", wordBank: ["cada","dia","Practico","Gràcies"], correctSentence: "Gràcies Practico cada dia" },
+    { speaker: "teacher", text: "Quina és la part més difícil per tu?", english: "What's the hardest part for you?", options: [] },
+    { speaker: "user", prompt: "The subjunctive is complicated.", wordBank: ["complicat","subjuntiu","és","El"], correctSentence: "El subjuntiu és complicat" },
+    { speaker: "teacher", text: "És normal. Fins i tot per catalans és difícil! Llegeixes en català?", english: "That's normal. Even for Catalans it's difficult! Do you read in Catalan?", options: [] },
+    { speaker: "user", prompt: "Yes, I read the news every morning.", wordBank: ["llegeixo","notícies","matí","les","cada","Sí"], correctSentence: "Sí llegeixo les notícies cada matí" },
+    { speaker: "teacher", text: "Excel·lent! La lectura és clau per millorar.", english: "Excellent! Reading is key to improving.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 45: Breakup Conversation ─────────────────
 {
   id: 45,
-  title: "💔 Ending Relationship",
-  unlocksAfter: 70,
+  icon: "💔",
+
+  title: "Ending Relationship",
+  unlockAfterLesson: 70,
   difficulty: "advanced",
   turns: [
-    { speaker: "partner", text: "Hem de parlar. Sento que les coses no van bé.", translation: "We need to talk. I feel things aren't going well.", options: [] },
-    { speaker: "you", text: "", translation: "I've felt it too. What do you want to do?", options: ["Jo també ho he sentit. Què vols fer?", "Tot va bé.", "No entenc."] },
-    { speaker: "partner", text: "Crec que necessitem un temps. No estic content/a.", translation: "I think we need some time. I'm not happy.", options: [] },
-    { speaker: "you", text: "", translation: "I understand. Maybe it's for the best.", options: ["T'entenc. Potser és el millor.", "No vull.", "Pots canviar."] },
-    { speaker: "partner", text: "Ho sento molt. Realment he intentat que funcioni.", translation: "I'm very sorry. I really tried to make it work.", options: [] },
-    { speaker: "you", text: "", translation: "I know. Me too. I hope we can be friends.", options: ["Ho sé. Jo també. Espero que puguem ser amics.", "T'odio.", "D'acord."] },
-    { speaker: "partner", text: "Amb el temps, segur. Cuida't molt.", translation: "With time, for sure. Take care of yourself.", options: [] }
+    { speaker: "partner", text: "Hem de parlar. Sento que les coses no van bé.", english: "We need to talk. I feel things aren't going well.", options: [] },
+    { speaker: "user", prompt: "I've felt it too. What do you want to do?", wordBank: ["Jo","també","fer","ho","he","sentit","Què","vols"], correctSentence: "Jo també ho he sentit Què vols fer" },
+    { speaker: "partner", text: "Crec que necessitem un temps. No estic content/a.", english: "I think we need some time. I'm not happy.", options: [] },
+    { speaker: "user", prompt: "I understand. Maybe it's for the best.", wordBank: ["T'entenc","millor","és","Potser","el"], correctSentence: "T'entenc Potser és el millor" },
+    { speaker: "partner", text: "Ho sento molt. Realment he intentat que funcioni.", english: "I'm very sorry. I really tried to make it work.", options: [] },
+    { speaker: "user", prompt: "I know. Me too. I hope we can be friends.", wordBank: ["també","sé","Jo","Espero","ser","puguem","Ho","amics","que"], correctSentence: "Ho sé Jo també Espero que puguem ser amics" },
+    { speaker: "partner", text: "Amb el temps, segur. Cuida't molt.", english: "With time, for sure. Take care of yourself.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 46: Reporting a Crime ────────────────────
 {
   id: 46,
-  title: "👮 Police Report",
-  unlocksAfter: 71,
+  icon: "👮",
+
+  title: "Police Report",
+  unlockAfterLesson: 71,
   difficulty: "advanced",
   turns: [
-    { speaker: "officer", text: "Bon dia. Què ha passat?", translation: "Good morning. What happened?", options: [] },
-    { speaker: "you", text: "", translation: "Someone stole my backpack on the metro.", options: ["Algú m'ha robat la motxilla al metro.", "M'han atacat.", "He perdut alguna cosa."] },
-    { speaker: "officer", text: "A quina línia i a quina hora?", translation: "On which line and at what time?", options: [] },
-    { speaker: "you", text: "", translation: "Line 3, around 10 am.", options: ["Línia 3, cap a les 10 del matí.", "No ho recordo.", "Ahir."] },
-    { speaker: "officer", text: "Què portava a dins?", translation: "What was inside?", options: [] },
-    { speaker: "you", text: "", translation: "My wallet, documents, and laptop.", options: ["La cartera, documents i l'ordinador portàtil.", "Poca cosa.", "No ho sé."] },
-    { speaker: "officer", text: "D'acord. Farem un informe. Té còpia dels documents?", translation: "Okay. We'll make a report. Do you have copies of the documents?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, at home. When can I get the report?", options: ["Sí, a casa. Quan puc recollir l'informe?", "No.", "Gràcies."] }
+    { speaker: "officer", text: "Bon dia. Què ha passat?", english: "Good morning. What happened?", options: [] },
+    { speaker: "user", prompt: "Someone stole my backpack on the metro.", wordBank: ["motxilla","la","m'ha","metro","robat","al","Algú"], correctSentence: "Algú m'ha robat la motxilla al metro" },
+    { speaker: "officer", text: "A quina línia i a quina hora?", english: "On which line and at what time?", options: [] },
+    { speaker: "user", prompt: "Line 3, around 10 am.", wordBank: ["del","cap","3","matí","a","Línia","10","les"], correctSentence: "Línia 3 cap a les 10 del matí" },
+    { speaker: "officer", text: "Què portava a dins?", english: "What was inside?", options: [] },
+    { speaker: "user", prompt: "My wallet, documents, and laptop.", wordBank: ["l'ordinador","i","documents","portàtil","cartera","La"], correctSentence: "La cartera documents i l'ordinador portàtil" },
+    { speaker: "officer", text: "D'acord. Farem un informe. Té còpia dels documents?", english: "Okay. We'll make a report. Do you have copies of the documents?", options: [] },
+    { speaker: "user", prompt: "Yes, at home. When can I get the report?", wordBank: ["a","recollir","l'informe","casa","puc","Quan","Sí"], correctSentence: "Sí a casa Quan puc recollir l'informe" }
   ]
 },
 
 // ─── CONVERSATION 47: Talking About Family Plans ───────────
 {
   id: 47,
-  title: "👶 Family Planning",
-  unlocksAfter: 72,
+  icon: "👶",
+
+  title: "Family Planning",
+  unlockAfterLesson: 72,
   difficulty: "advanced",
   turns: [
-    { speaker: "partner", text: "Últimament he estat pensant... vols tenir fills?", translation: "Lately I've been thinking... do you want to have children?", options: [] },
-    { speaker: "you", text: "", translation: "I've thought about it. Do you?", options: ["Hi he pensat. I tu?", "No.", "Sí, ara mateix."] },
-    { speaker: "partner", text: "M'agradaria, però encara no estic preparat/da. Potser d'aquí uns anys.", translation: "I'd like to, but I'm not ready yet. Maybe in a few years.", options: [] },
-    { speaker: "you", text: "", translation: "I agree. We should be more stable first.", options: ["Estic d'acord. Hauríem d'estar més estables primer.", "Jo ja estic preparat/da.", "Mai."] },
-    { speaker: "partner", text: "Quants en voldries?", translation: "How many would you want?", options: [] },
-    { speaker: "you", text: "", translation: "Two or three. A good number.", options: ["Dos o tres. Un bon nombre.", "Un.", "Molts."] },
-    { speaker: "partner", text: "Sí, a mi també em sembla bé. Ja ho decidirem quan arribi el moment.", translation: "Yes, that seems good to me too. We'll decide when the time comes.", options: [] }
+    { speaker: "partner", text: "Últimament he estat pensant... vols tenir fills?", english: "Lately I've been thinking... do you want to have children?", options: [] },
+    { speaker: "user", prompt: "I've thought about it. Do you?", wordBank: ["I","pensat","Hi","he","tu"], correctSentence: "Hi he pensat I tu" },
+    { speaker: "partner", text: "M'agradaria, però encara no estic preparat/da. Potser d'aquí uns anys.", english: "I'd like to, but I'm not ready yet. Maybe in a few years.", options: [] },
+    { speaker: "user", prompt: "I agree. We should be more stable first.", wordBank: ["més","primer","estables","d'estar","Hauríem","d'acord","Estic"], correctSentence: "Estic d'acord Hauríem d'estar més estables primer" },
+    { speaker: "partner", text: "Quants en voldries?", english: "How many would you want?", options: [] },
+    { speaker: "user", prompt: "Two or three. A good number.", wordBank: ["Dos","Un","bon","nombre","o","tres"], correctSentence: "Dos o tres Un bon nombre" },
+    { speaker: "partner", text: "Sí, a mi també em sembla bé. Ja ho decidirem quan arribi el moment.", english: "Yes, that seems good to me too. We'll decide when the time comes.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 48: At the Vet ───────────────────────────
 {
   id: 48,
-  title: "🐱 Veterinarian Visit",
-  unlocksAfter: 73,
+  icon: "🐱",
+
+  title: "Veterinarian Visit",
+  unlockAfterLesson: 73,
   difficulty: "intermediate",
   turns: [
-    { speaker: "vet", text: "Hola! Qui tenim aquí?", translation: "Hi! Who do we have here?", options: [] },
-    { speaker: "you", text: "", translation: "This is Luna, my cat. She's not eating well.", options: ["Aquesta és la Luna, la meva gata. No menja bé.", "El meu gos.", "Està malalta."] },
-    { speaker: "vet", text: "Des de quan?", translation: "Since when?", options: [] },
-    { speaker: "you", text: "", translation: "Three days ago. She also seems tired.", options: ["Fa tres dies. També sembla cansada.", "Ahir.", "No ho sé."] },
-    { speaker: "vet", text: "Deixi'm examinar-la. Té les vacunes al dia?", translation: "Let me examine her. Are her vaccines up to date?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, we did them last month.", options: ["Sí, les vam fer el mes passat.", "No.", "No ho recordo."] },
-    { speaker: "vet", text: "Perfecte. Sembla que té un refredat feliní. Li donaré un antibiòtic.", translation: "Perfect. It looks like she has a feline cold. I'll give her an antibiotic.", options: [] }
+    { speaker: "vet", text: "Hola! Qui tenim aquí?", english: "Hi! Who do we have here?", options: [] },
+    { speaker: "user", prompt: "This is Luna, my cat. She's not eating well.", wordBank: ["No","gata","menja","és","Aquesta","meva","la","bé","la","Luna"], correctSentence: "Aquesta és la Luna la meva gata No menja bé" },
+    { speaker: "vet", text: "Des de quan?", english: "Since when?", options: [] },
+    { speaker: "user", prompt: "Three days ago. She also seems tired.", wordBank: ["dies","tres","cansada","sembla","També","Fa"], correctSentence: "Fa tres dies També sembla cansada" },
+    { speaker: "vet", text: "Deixi'm examinar-la. Té les vacunes al dia?", english: "Let me examine her. Are her vaccines up to date?", options: [] },
+    { speaker: "user", prompt: "Yes, we did them last month.", wordBank: ["Sí","el","passat","les","vam","mes","fer"], correctSentence: "Sí les vam fer el mes passat" },
+    { speaker: "vet", text: "Perfecte. Sembla que té un refredat feliní. Li donaré un antibiòtic.", english: "Perfect. It looks like she has a feline cold. I'll give her an antibiotic.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 49: Discussing Career Change ─────────────
 {
   id: 49,
-  title: "🎯 Career Change",
-  unlocksAfter: 74,
+  icon: "🎯",
+
+  title: "Career Change",
+  unlockAfterLesson: 74,
   difficulty: "advanced",
   turns: [
-    { speaker: "friend", text: "Estic pensant en deixar la meva feina i canviar de sector.", translation: "I'm thinking of leaving my job and changing sectors.", options: [] },
-    { speaker: "you", text: "", translation: "Really? What do you want to do?", options: ["De veritat? Què vols fer?", "No ho facis.", "Bona idea."] },
-    { speaker: "friend", text: "M'agradaria dedicar-me a l'educació. Sempre m'ha agradat ensenyar.", translation: "I'd like to dedicate myself to education. I've always liked teaching.", options: [] },
-    { speaker: "you", text: "", translation: "That's a big change. Have you thought about the salary?", options: ["És un gran canvi. Has pensat en el sou?", "Genial!", "És difícil."] },
-    { speaker: "friend", text: "Sí, guanyaria menys. Però seria més feliç.", translation: "Yes, I'd earn less. But I'd be happier.", options: [] },
-    { speaker: "you", text: "", translation: "Happiness is important. I support you.", options: ["La felicitat és important. T'apoio.", "Pensa-t'ho bé.", "Mala idea."] },
-    { speaker: "friend", text: "Gràcies! El teu suport vol dir molt per mi.", translation: "Thanks! Your support means a lot to me.", options: [] }
+    { speaker: "friend", text: "Estic pensant en deixar la meva feina i canviar de sector.", english: "I'm thinking of leaving my job and changing sectors.", options: [] },
+    { speaker: "user", prompt: "Really? What do you want to do?", wordBank: ["De","veritat","vols","Què","fer"], correctSentence: "De veritat Què vols fer" },
+    { speaker: "friend", text: "M'agradaria dedicar-me a l'educació. Sempre m'ha agradat ensenyar.", english: "I'd like to dedicate myself to education. I've always liked teaching.", options: [] },
+    { speaker: "user", prompt: "That's a big change. Have you thought about the salary?", wordBank: ["És","un","sou","Has","gran","pensat","canvi","el","en"], correctSentence: "És un gran canvi Has pensat en el sou" },
+    { speaker: "friend", text: "Sí, guanyaria menys. Però seria més feliç.", english: "Yes, I'd earn less. But I'd be happier.", options: [] },
+    { speaker: "user", prompt: "Happiness is important. I support you.", wordBank: ["T'apoio","important","és","felicitat","La"], correctSentence: "La felicitat és important T'apoio" },
+    { speaker: "friend", text: "Gràcies! El teu suport vol dir molt per mi.", english: "Thanks! Your support means a lot to me.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 50: Apartment Viewing ────────────────────
 {
   id: 50,
-  title: "🏠 Viewing Apartment",
-  unlocksAfter: 75,
+  icon: "🏠",
+
+  title: "Viewing Apartment",
+  unlockAfterLesson: 75,
   difficulty: "intermediate",
   turns: [
-    { speaker: "owner", text: "Endavant, aquest és el menjador. Té balcó.", translation: "Come in, this is the dining room. It has a balcony.", options: [] },
-    { speaker: "you", text: "", translation: "It's very bright. Is it furnished?", options: ["Té molta llum. Està moblat?", "M'agrada.", "És car?"] },
-    { speaker: "owner", text: "Sí, completament. Inclou electrodomèstics nous.", translation: "Yes, completely. Includes new appliances.", options: [] },
-    { speaker: "you", text: "", translation: "Perfect. How much is the rent?", options: ["Perfecte. Quant és el lloguer?", "On està?", "Hi ha més pisos?"] },
-    { speaker: "owner", text: "900 euros al mes, més despeses.", translation: "900 euros per month, plus expenses.", options: [] },
-    { speaker: "you", text: "", translation: "What are the expenses?", options: ["Quines són les despeses?", "És massa.", "D'acord."] },
-    { speaker: "owner", text: "Uns 100 euros. Inclou aigua, llum i comunitat.", translation: "About 100 euros. Includes water, electricity and building fees.", options: [] },
-    { speaker: "you", text: "", translation: "When is it available?", options: ["Quan està disponible?", "El llogo.", "Ho penso."] }
+    { speaker: "owner", text: "Endavant, aquest és el menjador. Té balcó.", english: "Come in, this is the dining room. It has a balcony.", options: [] },
+    { speaker: "user", prompt: "It's very bright. Is it furnished?", wordBank: ["Té","Està","moblat","molta","llum"], correctSentence: "Té molta llum Està moblat" },
+    { speaker: "owner", text: "Sí, completament. Inclou electrodomèstics nous.", english: "Yes, completely. Includes new appliances.", options: [] },
+    { speaker: "user", prompt: "Perfect. How much is the rent?", wordBank: ["el","és","Quant","lloguer","Perfecte"], correctSentence: "Perfecte Quant és el lloguer" },
+    { speaker: "owner", text: "900 euros al mes, més despeses.", english: "900 euros per month, plus expenses.", options: [] },
+    { speaker: "user", prompt: "What are the expenses?", wordBank: ["les","despeses","són","Quines"], correctSentence: "Quines són les despeses" },
+    { speaker: "owner", text: "Uns 100 euros. Inclou aigua, llum i comunitat.", english: "About 100 euros. Includes water, electricity and building fees.", options: [] },
+    { speaker: "user", prompt: "When is it available?", wordBank: ["està","disponible","Quan"], correctSentence: "Quan està disponible" }
   ]
 },
 
 // ─── CONVERSATION 51: Tech Support Call ────────────────────
 {
   id: 51,
-  title: "💻 Tech Support",
-  unlocksAfter: 76,
+  icon: "💻",
+
+  title: "Tech Support",
+  unlockAfterLesson: 76,
   difficulty: "intermediate",
   turns: [
-    { speaker: "support", text: "Servei tècnic, bon dia. Com puc ajudar-lo?", translation: "Tech support, good morning. How can I help you?", options: [] },
-    { speaker: "you", text: "", translation: "My internet hasn't worked since yesterday.", options: ["Internet no funciona des d'ahir.", "Tinc un problema.", "Hola."] },
-    { speaker: "support", text: "Ho sento. Ha reiniciat el router?", translation: "I'm sorry. Have you restarted the router?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, several times. The lights keep blinking.", options: ["Sí, diverses vegades. Les llums parpellegen.", "No.", "Què és això?"] },
-    { speaker: "support", text: "D'acord. Sembla un problema de línia. Enviaré un tècnic.", translation: "Okay. It seems like a line problem. I'll send a technician.", options: [] },
-    { speaker: "you", text: "", translation: "When can they come?", options: ["Quan pot venir?", "Gràcies.", "Urgent!"] },
-    { speaker: "support", text: "Demà entre les 9 i les 13h. Li va bé?", translation: "Tomorrow between 9 and 1pm. Does that work?", options: [] },
-    { speaker: "you", text: "", translation: "Yes, perfect. Thank you.", options: ["Sí, perfecte. Gràcies.", "No puc.", "Massa tard."] }
+    { speaker: "support", text: "Servei tècnic, bon dia. Com puc ajudar-lo?", english: "Tech support, good morning. How can I help you?", options: [] },
+    { speaker: "user", prompt: "My internet hasn't worked since yesterday.", wordBank: ["Internet","d'ahir","des","no","funciona"], correctSentence: "Internet no funciona des d'ahir" },
+    { speaker: "support", text: "Ho sento. Ha reiniciat el router?", english: "I'm sorry. Have you restarted the router?", options: [] },
+    { speaker: "user", prompt: "Yes, several times. The lights keep blinking.", wordBank: ["diverses","Les","llums","Sí","parpellegen","vegades"], correctSentence: "Sí diverses vegades Les llums parpellegen" },
+    { speaker: "support", text: "D'acord. Sembla un problema de línia. Enviaré un tècnic.", english: "Okay. It seems like a line problem. I'll send a technician.", options: [] },
+    { speaker: "user", prompt: "When can they come?", wordBank: ["pot","Quan","venir"], correctSentence: "Quan pot venir" },
+    { speaker: "support", text: "Demà entre les 9 i les 13h. Li va bé?", english: "Tomorrow between 9 and 1pm. Does that work?", options: [] },
+    { speaker: "user", prompt: "Yes, perfect. Thank you.", wordBank: ["Gràcies","perfecte","Sí"], correctSentence: "Sí perfecte Gràcies" }
   ]
 },
 
 // ─── CONVERSATION 52: Planning a Birthday Party ────────────
 {
   id: 52,
-  title: "🎂 Birthday Party",
-  unlocksAfter: 77,
+  icon: "🎂",
+
+  title: "Birthday Party",
+  unlockAfterLesson: 77,
   difficulty: "intermediate",
   turns: [
-    { speaker: "friend", text: "Estic organitzant una festa pels meus 30. Vindràs?", translation: "I'm organizing a party for my 30th. Will you come?", options: [] },
-    { speaker: "you", text: "", translation: "Of course! When is it?", options: ["Per descomptat! Quan és?", "No puc.", "Potser."] },
-    { speaker: "friend", text: "Dissabte vinent a casa meva. A les vuit.", translation: "Next Saturday at my place. At eight.", options: [] },
-    { speaker: "you", text: "", translation: "Should I bring anything?", options: ["Porto alguna cosa?", "Genial!", "On vius?"] },
-    { speaker: "friend", text: "No cal, però si vols portar alguna cosa de beure, genial!", translation: "No need, but if you want to bring something to drink, great!", options: [] },
-    { speaker: "you", text: "", translation: "I'll bring wine. How many people are coming?", options: ["Portaré vi. Quanta gent vindrà?", "Porto cervesa.", "D'acord."] },
-    { speaker: "friend", text: "Uns vint. Serà divertit!", translation: "About twenty. It'll be fun!", options: [] }
+    { speaker: "friend", text: "Estic organitzant una festa pels meus 30. Vindràs?", english: "I'm organizing a party for my 30th. Will you come?", options: [] },
+    { speaker: "user", prompt: "Of course! When is it?", wordBank: ["Quan","descomptat","Per","és"], correctSentence: "Per descomptat Quan és" },
+    { speaker: "friend", text: "Dissabte vinent a casa meva. A les vuit.", english: "Next Saturday at my place. At eight.", options: [] },
+    { speaker: "user", prompt: "Should I bring anything?", wordBank: ["cosa","alguna","Porto"], correctSentence: "Porto alguna cosa" },
+    { speaker: "friend", text: "No cal, però si vols portar alguna cosa de beure, genial!", english: "No need, but if you want to bring something to drink, great!", options: [] },
+    { speaker: "user", prompt: "I'll bring wine. How many people are coming?", wordBank: ["Quanta","vi","gent","vindrà","Portaré"], correctSentence: "Portaré vi Quanta gent vindrà" },
+    { speaker: "friend", text: "Uns vint. Serà divertit!", english: "About twenty. It'll be fun!", options: [] }
   ]
 },
 
 // ─── CONVERSATION 53: At the Dentist ───────────────────────
 {
   id: 53,
-  title: "🦷 Dentist Appointment",
-  unlocksAfter: 78,
+  icon: "🦷",
+
+  title: "Dentist Appointment",
+  unlockAfterLesson: 78,
   difficulty: "intermediate",
   turns: [
-    { speaker: "dentist", text: "Hola! Què et fa mal exactament?", translation: "Hi! What hurts exactly?", options: [] },
-    { speaker: "you", text: "", translation: "This tooth on the right. When I eat cold things.", options: ["Aquesta dent de la dreta. Quan menjo coses fredes.", "Tot.", "No ho sé."] },
-    { speaker: "dentist", text: "D'acord. Deixa'm veure. Obre bé la boca.", translation: "Okay. Let me see. Open wide.", options: [] },
-    { speaker: "you", text: "", translation: "[Opens mouth]", options: ["[Obre la boca]", "Em fa mal.", "Espereu."] },
-    { speaker: "dentist", text: "Tens una càries. Haurem de fer un empastament.", translation: "You have a cavity. We'll need to do a filling.", options: [] },
-    { speaker: "you", text: "", translation: "Does it hurt?", options: ["Farà mal?", "Quant costa?", "D'acord."] },
-    { speaker: "dentist", text: "No, faré anestèsia local. No sentiràs res.", translation: "No, I'll do local anesthesia. You won't feel anything.", options: [] }
+    { speaker: "dentist", text: "Hola! Què et fa mal exactament?", english: "Hi! What hurts exactly?", options: [] },
+    { speaker: "user", prompt: "This tooth on the right. When I eat cold things.", wordBank: ["Quan","de","la","dent","fredes","dreta","coses","Aquesta","menjo"], correctSentence: "Aquesta dent de la dreta Quan menjo coses fredes" },
+    { speaker: "dentist", text: "D'acord. Deixa'm veure. Obre bé la boca.", english: "Okay. Let me see. Open wide.", options: [] },
+    { speaker: "user", prompt: "[Opens mouth]", wordBank: ["[Obre","la","boca]","Em","fa","mal.","Espereu."], correctSentence: "[Obre la boca]" },
+    { speaker: "dentist", text: "Tens una càries. Haurem de fer un empastament.", english: "You have a cavity. We'll need to do a filling.", options: [] },
+    { speaker: "user", prompt: "Does it hurt?", wordBank: ["mal","Farà"], correctSentence: "Farà mal" },
+    { speaker: "dentist", text: "No, faré anestèsia local. No sentiràs res.", english: "No, I'll do local anesthesia. You won't feel anything.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 54: Asking for a Raise ───────────────────
 {
   id: 54,
-  title: "📈 Requesting Raise",
-  unlocksAfter: 79,
+  icon: "📈",
+
+  title: "Requesting Raise",
+  unlockAfterLesson: 79,
   difficulty: "advanced",
   turns: [
-    { speaker: "you", text: "", translation: "Thank you for meeting with me. I wanted to discuss my salary.", options: ["Gràcies per reunir-te amb mi. Volia discutir el meu sou.", "Hola.", "Necessito parlar."] },
-    { speaker: "boss", text: "Per descomptat. Explica'm.", translation: "Of course. Tell me.", options: [] },
-    { speaker: "you", text: "", translation: "I've been here three years and exceeded all my targets.", options: ["Porto tres anys aquí i he superat tots els objectius.", "Treballo molt.", "Vull més diners."] },
-    { speaker: "boss", text: "És cert. El teu rendiment ha estat excel·lent.", translation: "That's true. Your performance has been excellent.", options: [] },
-    { speaker: "you", text: "", translation: "I'd like to discuss a salary increase.", options: ["M'agradaria discutir un augment de sou.", "Necessito més.", "Mereixo més."] },
-    { speaker: "boss", text: "Quin percentatge tenies al cap?", translation: "What percentage did you have in mind?", options: [] },
-    { speaker: "you", text: "", translation: "15%, based on market rates.", options: ["Un 15%, basat en les tarifes del mercat.", "Molt.", "No ho sé."] },
-    { speaker: "boss", text: "Deixa'm mirar els números. Parlarem dimarts que ve.", translation: "Let me look at the numbers. We'll talk next Tuesday.", options: [] }
+    { speaker: "user", prompt: "Thank you for meeting with me. I wanted to discuss my salary.", wordBank: ["amb","Gràcies","sou","meu","per","Volia","discutir","reunir-te","el","mi"], correctSentence: "Gràcies per reunir-te amb mi Volia discutir el meu sou" },
+    { speaker: "boss", text: "Per descomptat. Explica'm.", english: "Of course. Tell me.", options: [] },
+    { speaker: "user", prompt: "I've been here three years and exceeded all my targets.", wordBank: ["superat","aquí","anys","i","tres","he","objectius","tots","els","Porto"], correctSentence: "Porto tres anys aquí i he superat tots els objectius" },
+    { speaker: "boss", text: "És cert. El teu rendiment ha estat excel·lent.", english: "That's true. Your performance has been excellent.", options: [] },
+    { speaker: "user", prompt: "I'd like to discuss a salary increase.", wordBank: ["augment","un","discutir","sou","de","M'agradaria"], correctSentence: "M'agradaria discutir un augment de sou" },
+    { speaker: "boss", text: "Quin percentatge tenies al cap?", english: "What percentage did you have in mind?", options: [] },
+    { speaker: "user", prompt: "15%, based on market rates.", wordBank: ["en","tarifes","basat","les","mercat","15%","Un","del"], correctSentence: "Un 15% basat en les tarifes del mercat" },
+    { speaker: "boss", text: "Deixa'm mirar els números. Parlarem dimarts que ve.", english: "Let me look at the numbers. We'll talk next Tuesday.", options: [] }
   ]
 },
 
 // ─── CONVERSATION 55: Final Goodbye (Moving Away) ──────────
 {
   id: 55,
-  title: "👋 Farewell",
-  unlocksAfter: 80,
+  icon: "👋",
+
+  title: "Farewell",
+  unlockAfterLesson: 80,
   difficulty: "advanced",
   turns: [
-    { speaker: "friend", text: "Així que realment te'n vas a Alemanya...", translation: "So you're really leaving for Germany...", options: [] },
-    { speaker: "you", text: "", translation: "Yes, it's a great opportunity. But I'll miss you.", options: ["Sí, és una gran oportunitat. Però et trobaré a faltar.", "Sí.", "No estic segur/a."] },
-    { speaker: "friend", text: "I jo a tu. Barcelona no serà el mateix sense tu.", translation: "And I'll miss you. Barcelona won't be the same without you.", options: [] },
-    { speaker: "you", text: "", translation: "We'll visit each other. And there's video calls.", options: ["Ens visitarem. I hi ha videotrucades.", "Sí.", "Potser."] },
-    { speaker: "friend", text: "Tens raó. Quan marxes exactament?", translation: "You're right. When are you leaving exactly?", options: [] },
-    { speaker: "you", text: "", translation: "Next month. I still have a lot to organize.", options: ["El mes que ve. Encara tinc molt a organitzar.", "Aviat.", "No ho sé."] },
-    { speaker: "friend", text: "Si necessites ajuda amb alguna cosa, digues-m'ho.", translation: "If you need help with anything, tell me.", options: [] },
-    { speaker: "you", text: "", translation: "Thank you. You're a great friend.", options: ["Gràcies. Ets un gran amic/ga.", "D'acord.", "Sí."] }
+    { speaker: "friend", text: "Així que realment te'n vas a Alemanya...", english: "So you're really leaving for Germany...", options: [] },
+    { speaker: "user", prompt: "Yes, it's a great opportunity. But I'll miss you.", wordBank: ["Sí","és","una","gran","oportunitat","Però","et","faltar","trobaré","a"], correctSentence: "Sí és una gran oportunitat Però et trobaré a faltar" },
+    { speaker: "friend", text: "I jo a tu. Barcelona no serà el mateix sense tu.", english: "And I'll miss you. Barcelona won't be the same without you.", options: [] },
+    { speaker: "user", prompt: "We'll visit each other. And there's video calls.", wordBank: ["ha","hi","I","visitarem","Ens","videotrucades"], correctSentence: "Ens visitarem I hi ha videotrucades" },
+    { speaker: "friend", text: "Tens raó. Quan marxes exactament?", english: "You're right. When are you leaving exactly?", options: [] },
+    { speaker: "user", prompt: "Next month. I still have a lot to organize.", wordBank: ["Encara","a","organitzar","mes","El","tinc","que","ve","molt"], correctSentence: "El mes que ve Encara tinc molt a organitzar" },
+    { speaker: "friend", text: "Si necessites ajuda amb alguna cosa, digues-m'ho.", english: "If you need help with anything, tell me.", options: [] },
+    { speaker: "user", prompt: "Thank you. You're a great friend.", wordBank: ["amic/ga","gran","un","Ets","Gràcies"], correctSentence: "Gràcies Ets un gran amic/ga" }
   ]
 }
 
