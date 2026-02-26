@@ -4,15 +4,16 @@ import Auth from './Auth.jsx';
 import { CheckCircle, Lock, Award, Home, User, ArrowRight, RotateCw, BookOpen, Calendar, TrendingUp, MessageCircle, Clock, X, Trophy, Star, Volume2 } from 'lucide-react';
 import { getWordsToReview, updateWordReview, initializeWordForReview } from './reviewSystem.js';
 import { CONVERSATIONS } from './conversations.js';
-import { FillInTheBlank, SentenceOrdering, ListenAndType, MiniConversation, ErrorCorrection, ReportButton } from './LessonStages.jsx';
+import { FillInTheBlank, SentenceOrdering, ListenAndType, MiniConversation, ErrorCorrection, ReportButton, QuickFire, StoryMode } from './LessonStages.jsx';
 import { lessons as lessons50 } from './lessons50.js';
+import { lessons100 } from './lessons100.js';
 import { getTodayChallenge, wasChallengeCompletedToday, getChallengeStreak, getTimeUntilNextChallenge, CHALLENGE_TYPES } from './challenges.js';
 import { ACHIEVEMENTS, getUnlockedAchievements, getNewlyUnlocked, getAchievementProgress, getAchievementsByCategory } from './achievements.js';
 import { Analytics } from '@vercel/analytics/react';
 const ELEVENLABS_API_KEY = import.meta.env.VITE_ELEVENLABS_API_KEY;
 const ELEVENLABS_VOICE_ID = import.meta.env.VITE_ELEVENLABS_VOICE_ID;
 
-const LESSONS = lessons50;
+const LESSONS = [...lessons50, ...lessons100];
 
 // REVIEW GATE: Define lesson tiers (groups of 3 lessons)
 const LESSON_TIERS = [
@@ -49,7 +50,14 @@ const LESSON_TIERS = [
   { tier: 31, lessons: [90, 91, 92] },  // Review gate after L92
   { tier: 32, lessons: [93, 94, 95] },
   { tier: 33, lessons: [96, 97, 98] },  // Review gate after L98
-  { tier: 34, lessons: [99, 100] }
+  { tier: 34, lessons: [99, 100] },
+  { tier: 35, lessons: [101, 102, 103] },
+  { tier: 36, lessons: [104, 105, 106] },
+  { tier: 37, lessons: [107, 108, 109] },
+  { tier: 38, lessons: [110, 111, 112] },
+  { tier: 39, lessons: [113, 114, 115] },
+  { tier: 40, lessons: [116, 117, 118] },
+  { tier: 41, lessons: [119, 120] }
 
 ];
 
@@ -2877,6 +2885,27 @@ const handleQuizAnswer = (answer) => {
               ELEVENLABS_VOICE_ID={ELEVENLABS_VOICE_ID}
             />
           )}
+          {lessonStage === 'quickFire' && currentLesson.stageData?.quickFire && (
+            <QuickFire
+              exercises={currentLesson.stageData.quickFire}
+              onComplete={() => nextStage()}
+              onAnswer={handleLessonAnswer}
+              lessonTitle={currentLesson.title}
+              audioCache={audioCache}
+              ELEVENLABS_API_KEY={ELEVENLABS_API_KEY}
+              ELEVENLABS_VOICE_ID={ELEVENLABS_VOICE_ID}
+            />
+          )}
+          {lessonStage === 'storyMode' && currentLesson.stageData?.storyMode && (
+            <StoryMode
+              story={currentLesson.stageData.storyMode.story}
+              blanks={currentLesson.stageData.storyMode.blanks}
+              translation={currentLesson.stageData.storyMode.translation}
+              onComplete={() => nextStage()}
+              onAnswer={handleLessonAnswer}
+              lessonTitle={currentLesson.title}
+            />
+          )}
           {lessonStage === 'errorCorrection' && currentLesson.stageData?.errorCorrection && (
             <ErrorCorrection
               exercises={currentLesson.stageData.errorCorrection}
@@ -3702,6 +3731,7 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
 
 
 
