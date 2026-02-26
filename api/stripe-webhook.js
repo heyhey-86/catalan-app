@@ -31,6 +31,16 @@ async function getEmailFromCustomer(customerId, stripeKey) {
 }
 
 async function getUserByEmail(email, serviceKey) {
+  const res = await fetch(`${SUPABASE_URL}/auth/v1/admin/users?email=${encodeURIComponent(email)}`, {
+    headers: {
+      'apikey': serviceKey,
+      'Authorization': `Bearer ${serviceKey}`
+    }
+  });
+  const data = await res.json();
+  return (data.users || [])[0] || null;
+}
+async function getUserByEmail(email, serviceKey) {
   const res = await fetch(`${SUPABASE_URL}/auth/v1/admin/users`, {
     headers: {
       'apikey': serviceKey,

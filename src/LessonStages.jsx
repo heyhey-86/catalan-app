@@ -19,40 +19,43 @@ import { Volume2, Check, X, ArrowRight, RotateCcw, HelpCircle } from 'lucide-rea
 // SHARED: Audio playback helper (reuses your existing ElevenLabs setup)
 // ─────────────────────────────────────────────────────────────
 const playAudio = (text, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID, playbackRate = 1.0) => {
-  if (!text || !ELEVENLABS_API_KEY) return;
-  
+  if (!text) return;
   const cacheKey = text.toLowerCase().trim();
-  
   if (audioCache.current && audioCache.current[cacheKey]) {
     const audio = new Audio(audioCache.current[cacheKey]);
     audio.playbackRate = playbackRate;
     audio.play().catch(() => {});
     return;
   }
-  
-  fetch(`https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'xi-api-key': ELEVENLABS_API_KEY
-    },
-    body: JSON.stringify({
-      text: text,
-      model_id: 'eleven_v3',
-      language_code: 'es',
-      voice_settings: { stability: 1.0, similarity_boost: 1.0 }
+  fetch('/audio/mapping.json')
+    .then(r => r.json())
+    .then(mapping => {
+      const staticPath = mapping[cacheKey];
+      if (staticPath) {
+        if (audioCache.current) audioCache.current[cacheKey] = staticPath;
+        const audio = new Audio(staticPath);
+        audio.playbackRate = playbackRate;
+        audio.play().catch(() => {});
+      } else if (ELEVENLABS_API_KEY) {
+        fetch(`https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'xi-api-key': ELEVENLABS_API_KEY },
+          body: JSON.stringify({ text, model_id: 'eleven_multilingual_v2', voice_settings: { stability: 1.0, similarity_boost: 1.0 } })
+        })
+        .then(res => res.blob())
+        .then(blob => {
+          const url = URL.createObjectURL(blob);
+          if (audioCache.current) audioCache.current[cacheKey] = url;
+          const audio = new Audio(url);
+          audio.playbackRate = playbackRate;
+          audio.play().catch(() => {});
+        })
+        .catch(() => {});
+      }
     })
-  })
-  .then(res => res.blob())
-  .then(blob => {
-    const url = URL.createObjectURL(blob);
-    if (audioCache.current) audioCache.current[cacheKey] = url;
-    const audio = new Audio(url);
-    audio.playbackRate = playbackRate;
-    audio.play().catch(() => {});
-  })
-  .catch(() => {});
+    .catch(() => {});
 };
+
 
 // ─────────────────────────────────────────────────────────────
 // Normalize text for comparison (accent-forgiving)

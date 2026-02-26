@@ -1716,45 +1716,39 @@ const handleQuizAnswer = (answer) => {
 
   // Text-to-speech for Catalan words using ElevenLabs
   const speakWord = async (text, slow = false) => {
+    if (!text) return;
+    const cacheKey = text.toLowerCase().trim();
+    if (audioCache.current && audioCache.current[cacheKey]) {
+      const audio = new Audio(audioCache.current[cacheKey]);
+      audio.playbackRate = slow ? 0.6 : 1.0;
+      audio.play().catch(() => {});
+      return;
+    }
     try {
-      // Check cache first
-      if (audioCache.current[text]) {
-        const audio = new Audio(audioCache.current[text]);
-        audio.playbackRate = slow ? 0.5 : 1.0;
-        audio.play();
+      const mapping = await fetch('/audio/mapping.json').then(r => r.json());
+      const staticPath = mapping[cacheKey];
+      if (staticPath) {
+        if (audioCache.current) audioCache.current[cacheKey] = staticPath;
+        const audio = new Audio(staticPath);
+        audio.playbackRate = slow ? 0.6 : 1.0;
+        audio.play().catch(() => {});
         return;
       }
-
-      const response = await fetch('https://api.elevenlabs.io/v1/text-to-speech/AxFLn9byyiDbMn5fmyqu', {
+    } catch(e) {}
+    if (!ELEVENLABS_API_KEY) return;
+    try {
+      const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`, {
         method: 'POST',
-        headers: {
-          'Accept': 'audio/mpeg',
-          'Content-Type': 'application/json',
-          'xi-api-key': ELEVENLABS_API_KEY
-        },
-        body: JSON.stringify({
-          text: text,
-          model_id: 'eleven_v3',
-          language_code: 'es',
-          voice_settings: {
-            stability: 1.0,
-            similarity_boost: 1.0
-          }
-        })
+        headers: { 'Content-Type': 'application/json', 'xi-api-key': ELEVENLABS_API_KEY },
+        body: JSON.stringify({ text, model_id: 'eleven_multilingual_v2', voice_settings: { stability: 1.0, similarity_boost: 1.0 } })
       });
-
-      if (response.ok) {
-        const audioBlob = await response.blob();
-        const audioUrl = URL.createObjectURL(audioBlob);
-        // Cache the audio URL
-        audioCache.current[text] = audioUrl;
-        const audio = new Audio(audioUrl);
-        audio.playbackRate = slow ? 0.5 : 1.0;
-        audio.play();
-      }
-    } catch (error) {
-      console.error('Audio error:', error);
-    }
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      if (audioCache.current) audioCache.current[cacheKey] = url;
+      const audio = new Audio(url);
+      audio.playbackRate = slow ? 0.6 : 1.0;
+      audio.play().catch(() => {});
+    } catch(e) {}
   };
 
  const completeOnboarding = () => {
