@@ -3880,10 +3880,10 @@ export const lessons = [
   ],
   stageData: {
     fillInTheBlank: [
-      { sentence: "Ja parlo català ___", blank: "amb fluïdesa", options: ["bé", "amb fluïdesa", "una mica", "malament"], correctIndex: 1, translation: "I already speak Catalan fluently", explanation: "'Amb fluïdesa' = fluently. You've reached advanced proficiency!" },
-      { sentence: "Vull ___ el meu català", blank: "millorar", options: ["parlar", "millorar", "aprendre", "estudiar"], correctIndex: 1, translation: "I want to improve my Catalan", explanation: "'Millorar' = to improve. Learning is continuous!" },
-      { sentence: "Tinc una bona ___ en català", blank: "competència", options: ["idea", "competència", "pregunta", "resposta"], correctIndex: 1, translation: "I have good proficiency in Catalan", explanation: "'Competència' = proficiency/competence. Measure of language ability." },
-      { sentence: "La ___ fa el mestre", blank: "pràctica", options: ["teoria", "pràctica", "lectura", "gramàtica"], correctIndex: 1, translation: "Practice makes perfect", explanation: "'La pràctica fa el mestre' = practice makes the master (Catalan saying)." }
+      { sentence: "Ja parlo català ___", blank: "amb fluïdesa", options: ["bé", "una mica", "amb fluïdesa", "malament"], correctIndex: 2, translation: "I already speak Catalan fluently", explanation: "'Amb fluïdesa' = fluently. You've reached advanced proficiency!" },
+      { sentence: "Vull ___ el meu català", blank: "millorar", options: ["millorar", "parlar", "aprendre", "estudiar"], correctIndex: 0, translation: "I want to improve my Catalan", explanation: "'Millorar' = to improve. Learning is continuous!" },
+      { sentence: "Tinc una bona ___ en català", blank: "competència", options: ["idea", "pregunta", "resposta", "competència"], correctIndex: 3, translation: "I have good proficiency in Catalan", explanation: "'Competència' = proficiency/competence. Measure of language ability." },
+      { sentence: "La ___ fa el mestre", blank: "pràctica", options: ["teoria", "lectura", "pràctica", "gramàtica"], correctIndex: 2, translation: "Practice makes perfect", explanation: "'La pràctica fa el mestre' = practice makes the master (Catalan saying)." }
     ],
     listenAndType: [
       { catalan: "Felicitats per completar tots els nivells!", english: "Congratulations on completing all levels!", pronunciation: "feh-lee-see-TAHTS pehr kohm-pleh-TAR TOHTS ehls nee-BEHLS" },
