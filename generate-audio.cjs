@@ -82,12 +82,14 @@ function extractStrings() {
 
   // Read lessons50.js as text and extract Catalan content
   const lessonsContent = fs.readFileSync('src/lessons50.js', 'utf8');
+  const lessons100Content = fs.existsSync('src/lessons100.js') ? fs.readFileSync('src/lessons100.js', 'utf8') : '';
+  const allLessonsContent = lessonsContent + '\n' + lessons100Content;
   const conversationsContent = fs.readFileSync('src/conversations.js', 'utf8');
 
   // Extract from flashcard words: ca: "..."
   const caPattern = /\bca:\s*["']([^"']+)["']/g;
   let match;
-  while ((match = caPattern.exec(lessonsContent)) !== null) {
+  while ((match = caPattern.exec(allLessonsContent)) !== null) {
     strings.add(match[1].trim());
   }
   while ((match = caPattern.exec(conversationsContent)) !== null) {
@@ -96,20 +98,27 @@ function extractStrings() {
 
   // Extract from listenAndType: catalan: "..."
   const catalanPattern = /\bcatalan:\s*["']([^"']+)["']/g;
-  while ((match = catalanPattern.exec(lessonsContent)) !== null) {
+  while ((match = catalanPattern.exec(allLessonsContent)) !== null) {
     strings.add(match[1].trim());
   }
 
   // Extract from sentence ordering: correctOrder: "..."
   const orderPattern = /\bcorrectOrder:\s*["']([^"']+)["']/g;
-  while ((match = orderPattern.exec(lessonsContent)) !== null) {
+  while ((match = orderPattern.exec(allLessonsContent)) !== null) {
     strings.add(match[1].trim());
   }
 
   // Extract error correction sentences: sentence: "..."
   const sentencePattern = /\bsentence:\s*["']([^"']+)["']/g;
-  while ((match = sentencePattern.exec(lessonsContent)) !== null) {
+  while ((match = sentencePattern.exec(allLessonsContent)) !== null) {
     strings.add(match[1].trim());
+  }
+
+  // Extract miniConversation NPC text: fields from lessons
+  const miniTextPattern = /\btext:\s*["']([^"']+)["']/g;
+  while ((match = miniTextPattern.exec(allLessonsContent)) !== null) {
+    const t = match[1].trim();
+    if (t.length > 0 && t.length < 200) strings.add(t);
   }
 
   // Extract from conversations NPC lines: text: "..."
