@@ -188,6 +188,7 @@ const PREMIUM_TOKENS = {
   dev: 'HC_DEV_2026',
   
   beta: 'HC_BETA_LIFE',
+  test: 'HC_TEST_ALL',
 };
 
 // Free user testing token - bypasses launch lock but NOT paywall
@@ -236,6 +237,7 @@ const getInitialState = () => {
   if (providedToken && validTokens.includes(providedToken)) {
     if (providedToken === PREMIUM_TOKENS.beta && new Date() > new Date('2026-03-15')) { return { premium: false, reset: false }; }
     storePremium();
+    if (providedToken === PREMIUM_TOKENS.test) { const p = JSON.parse(localStorage.getItem('catalan_progress') || '{}'); p.unlockedTier = 99; localStorage.setItem('catalan_progress', JSON.stringify(p)); }
     window.history.replaceState({}, '', window.location.pathname);
     if (providedToken === PREMIUM_TOKENS.paid) { localStorage.setItem('hc_pending_conversion', 'true'); }
     return { premium: true, reset: false };
@@ -3731,6 +3733,8 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
+
 
 
 
