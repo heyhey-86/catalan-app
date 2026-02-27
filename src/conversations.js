@@ -1764,7 +1764,7 @@ export const CONVERSATIONS = [
   icon: "💼",
 
   title: "Job Interview: Advanced",
-  unlockAfterLesson: 51,
+  unlockAfterLesson: 105,
   difficulty: "advanced",
   turns: [
     { speaker: "interviewer", text: "Bon dia! Siè's i posa't còmode/a.", english: "Good morning! Sit down and make yourself comfortable.", options: [] },
@@ -1784,7 +1784,7 @@ export const CONVERSATIONS = [
   icon: "✂",
 
   title: "️ At the Barber",
-  unlockAfterLesson: 53,
+  unlockAfterLesson: 108,
   difficulty: "intermediate",
   turns: [
     { speaker: "barber", text: "Hola! Què vols fer avui?", english: "Hi! What would you like to do today?", options: [] },
@@ -2322,3 +2322,4 @@ export const CONVERSATIONS = [
 }
 
 ];
+
