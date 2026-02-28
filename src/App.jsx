@@ -380,6 +380,8 @@ const [lessonTotalQuestions, setLessonTotalQuestions] = useState(0);
   const [reviewGateComplete, setReviewGateComplete] = useState(false);
   const [reviewGatePassed, setReviewGatePassed] = useState(false);
   const [isComprehensiveReview, setIsComprehensiveReview] = useState(false);
+  const [reviewGateQuestionType, setReviewGateQuestionType] = useState('en_to_ca'); // 'en_to_ca' or 'ca_to_en'
+  const [reviewGateQuestionTypes, setReviewGateQuestionTypes] = useState([]); // pre-assigned per question
   const [showSaved, setShowSaved] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
   const [showPaymentSuccess, setShowPaymentSuccess] = useState(false);
@@ -837,24 +839,40 @@ const handleSignOut = async () => {
     setIsComprehensiveReview(comprehensive);
     
     const firstWord = shuffled[0];
-    const otherWords = words.filter(w => w.ca !== firstWord.ca);
-    const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ca);
-    setReviewGateOptions([firstWord.ca, ...wrongAnswers].sort(() => Math.random() - 0.5));
-    
+    // Pre-assign question types per question (tiers 35+ get mixed types)
+    const questionCount2 = comprehensive ? 20 : 10;
+    const types = Array.from({ length: questionCount2 }, () => {
+      if (tier >= 35) return Math.random() > 0.5 ? 'en_to_ca' : 'ca_to_en';
+      return 'en_to_ca';
+    });
+    setReviewGateQuestionTypes(types);
+    const firstType = types[0];
+    setReviewGateQuestionType(firstType);
+    if (firstType === 'ca_to_en') {
+      const otherWords = words.filter(w => w.en !== firstWord.en);
+      const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.en);
+      setReviewGateOptions([firstWord.en, ...wrongAnswers].sort(() => Math.random() - 0.5));
+    } else {
+      const otherWords = words.filter(w => w.ca !== firstWord.ca);
+      const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ca);
+      setReviewGateOptions([firstWord.ca, ...wrongAnswers].sort(() => Math.random() - 0.5));
+    }
     setReviewGateActive(true);
     setView('reviewGate');
   };
 
   const handleReviewGateAnswer = (answer) => {
     const currentWord = reviewGateWords[reviewGateIndex];
-    const isCorrect = answer === currentWord.ca;
+    const isCorrect = reviewGateQuestionType === 'ca_to_en'
+      ? answer === currentWord.en
+      : answer === currentWord.ca;
     setSelectedReviewGateAnswer(answer);
     
     if (isCorrect) {
       setReviewGateScore(reviewGateScore + 1);
       setReviewGateFeedback('Correcte! ✓');
     } else {
-      setReviewGateFeedback(`Incorrecte. La resposta és: "${currentWord.ca}"`);
+      setReviewGateFeedback(`Incorrecte. La resposta és: "${reviewGateQuestionType === 'ca_to_en' ? currentWord.en : currentWord.ca}"`);
     }
     
     if (isCorrect) {
@@ -866,10 +884,18 @@ const handleSignOut = async () => {
       setSelectedReviewGateAnswer(null);
 
       const nextWord = reviewGateWords[nextIndex];
+      const nextType = reviewGateQuestionTypes[nextIndex] || 'en_to_ca';
+      setReviewGateQuestionType(nextType);
       const allTierWords = getWordsFromTier(reviewGateTier);
-      const otherWords = allTierWords.filter(w => w.ca !== nextWord.ca);
-      const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ca);
-      setReviewGateOptions([nextWord.ca, ...wrongAnswers].sort(() => Math.random() - 0.5));
+      if (nextType === 'ca_to_en') {
+        const otherWords = allTierWords.filter(w => w.en !== nextWord.en);
+        const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.en);
+        setReviewGateOptions([nextWord.en, ...wrongAnswers].sort(() => Math.random() - 0.5));
+      } else {
+        const otherWords = allTierWords.filter(w => w.ca !== nextWord.ca);
+        const wrongAnswers = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ca);
+        setReviewGateOptions([nextWord.ca, ...wrongAnswers].sort(() => Math.random() - 0.5));
+      }
     } else {
       const finalScore = reviewGateScore + 1;
       const passThreshold = isComprehensiveReview ? 16 : 8;
@@ -952,7 +978,7 @@ const handleSignOut = async () => {
   };
 
   const shouldShowReviewGateButton = (tier) => {
-    return isTierComplete(tier, completed) && unlockedTier === tier && tier < 17;
+    return isTierComplete(tier, completed) && unlockedTier === tier;
   };
 
  const startReviewSession = () => {
@@ -2051,7 +2077,7 @@ const handleQuizAnswer = (answer) => {
               </div>
 
               <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-                <h3 className="text-lg text-gray-600 mb-2">What is this in Catalan?</h3>
+                <h3 className="text-lg text-gray-600 mb-2">{reviewGateQuestionType === 'ca_to_en' ? 'What does this mean in English?' : 'What is this in Catalan?'}</h3>
                 <div className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center py-6 bg-blue-50 rounded-xl flex items-center justify-center gap-1">
                   {reviewSessionWords[reviewSessionIndex]?.en}
                   <button onClick={() => speakWord(reviewSessionWords[reviewSessionIndex]?.ca)} className="p-1 rounded-full hover:bg-blue-200 active:bg-blue-300 transition-colors" title="Hear pronunciation">
@@ -2182,7 +2208,7 @@ const handleQuizAnswer = (answer) => {
               <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
                 <h3 className="text-lg text-gray-600 mb-2">What is this in Catalan?</h3>
                 <div className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center py-6 bg-purple-50 rounded-xl flex items-center justify-center gap-1">
-                  {reviewGateWords[reviewGateIndex]?.en}
+                  {reviewGateQuestionType === 'ca_to_en' ? reviewGateWords[reviewGateIndex]?.ca : reviewGateWords[reviewGateIndex]?.en}
                   <button onClick={() => speakWord(reviewGateWords[reviewGateIndex]?.ca)} className="p-2 rounded-full hover:bg-purple-200 active:bg-purple-300 transition-colors" title="Hear pronunciation">
                     <Volume2 className="w-6 h-6 text-purple-600" />
                   </button>
@@ -2199,7 +2225,7 @@ const handleQuizAnswer = (answer) => {
                       disabled={!!reviewGateFeedback}
                       className={`w-full p-4 rounded-xl font-semibold text-left transition-all ${
                         reviewGateFeedback
-                          ? option === reviewGateWords[reviewGateIndex]?.ca
+                          ? option === (reviewGateQuestionType === 'ca_to_en' ? reviewGateWords[reviewGateIndex]?.en : reviewGateWords[reviewGateIndex]?.ca)
                             ? 'bg-green-100 text-green-800 border-2 border-green-500'
                             : selectedReviewGateAnswer === option
                               ? 'bg-red-100 text-red-800 border-2 border-red-500'
