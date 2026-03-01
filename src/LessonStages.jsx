@@ -72,12 +72,12 @@ const normalizeText = (text) => {
     .replace(/\s+/g, ' ');
 };
 
-export const ReportButton = ({ lessonTitle, questionText }) => {
+export const ReportButton = ({ lessonTitle, questionText, stageType }) => {
   const subject = encodeURIComponent('Report: ' + (lessonTitle || 'Unknown'));
-  const body = encodeURIComponent('Question: ' + (questionText || '') + '\n\nMy issue: ');
+  const bodyText = 'Lesson: ' + (lessonTitle || 'Unknown') + '%0AStage: ' + (stageType || 'Unknown') + '%0AQuestion: ' + encodeURIComponent(questionText || '') + '%0A%0AMy issue: ';
   return (
         <a
-      href={'mailto:aprencatalaapp@gmail.com?subject=' + subject + '&body=' + body}
+      href={'mailto:aprencatalaapp@gmail.com?subject=' + subject + '&body=' + bodyText}
       className="flex items-center justify-center w-full text-center text-xs text-gray-400 hover:text-gray-600 mt-3 mx-auto"
     >
       🚩 Report incorrect
@@ -251,7 +251,7 @@ export function FillInTheBlank({
           </button>
         </div>
       )}
-      <ReportButton lessonTitle={lessonTitle} questionText={current.sentence} />
+      <ReportButton lessonTitle={lessonTitle} questionText={current.sentence} stageType="Fill in the Blank" />
     </div>
   );
 }
@@ -481,7 +481,7 @@ export function SentenceOrdering({
           </button>
         </div>
       )}
-      <ReportButton lessonTitle={lessonTitle} questionText={current.translation} />
+      <ReportButton lessonTitle={lessonTitle} questionText={current.translation} stageType="Error Correction" />
     </div>
   );
 }
@@ -678,7 +678,7 @@ name="catalan-answer"
           </button>
         </div>
       )}
-      <ReportButton lessonTitle={lessonTitle} questionText={current.english} />
+      <ReportButton lessonTitle={lessonTitle} questionText={current.english} stageType="Listen and Type" />
     </div>
   );
 }
@@ -899,7 +899,7 @@ if (idx === correctIdx) {
           )}
         </div>
       )}
-      <ReportButton lessonTitle={lessonTitle} questionText={currentTurnData?.text || ''} />
+      <ReportButton lessonTitle={lessonTitle} questionText={currentTurnData?.text || ''} stageType="Conversation" />
     </div>
   );
 }
@@ -1216,7 +1216,7 @@ export function QuickFire({ exercises, onComplete, onAnswer, lessonTitle, audioC
             }`}>{opt}</button>
         ))}
       </div>
-      <ReportButton lessonTitle={lessonTitle} questionText={current.en} />
+      <ReportButton lessonTitle={lessonTitle} questionText={current.en} stageType="Flashcard" />
     </div>
   );
 }
@@ -1302,7 +1302,7 @@ export function StoryMode({ story, blanks, translation, onComplete, onAnswer, le
             }`}>{opt}</button>
         ))}
       </div>
-      <ReportButton lessonTitle={lessonTitle} questionText={story} />
+      <ReportButton lessonTitle={lessonTitle} questionText={story} stageType="Story Mode" />
     </div>
   );
 }

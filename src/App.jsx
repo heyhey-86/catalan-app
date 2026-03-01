@@ -2646,6 +2646,14 @@ const handleQuizAnswer = (answer) => {
                 {conversationFeedback && <div className={`mt-4 p-4 rounded-lg text-center font-semibold ${conversationFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>{conversationFeedback}</div>}
               </>
             )}
+        <div className="text-center mt-4 pb-4">
+          <a
+            href={`mailto:aprencatalaapp@gmail.com?subject=${encodeURIComponent('Report: ' + currentConversation.title)}&body=${encodeURIComponent('Conversation: ' + currentConversation.title + ' (ID: ' + currentConversation.id + ')\nTurn: ' + (conversationTurnIndex + 1) + ' of ' + currentConversation.turns.length + '\nSpeaker: ' + (currentConversation.turns[conversationTurnIndex]?.speaker || '') + '\nPrompt: ' + (currentConversation.turns[conversationTurnIndex]?.prompt || '') + '\nCorrect answer: ' + (currentConversation.turns[conversationTurnIndex]?.correctSentence || '') + '\n\nMy issue: ')}`}
+            className="text-xs text-gray-400 hover:text-gray-600"
+          >
+            🚩 Report incorrect
+          </a>
+        </div>
           </div>
         </div>
       </div>
