@@ -132,7 +132,7 @@ export const lessons100 = [
   id: 105,
   title: "Health & Medical",
   module: "Daily Life",
-  stages: ['intro', 'flashcards', 'fillInTheBlank', 'miniConversation', 'quiz', 'quickFire'],
+  stages: ['intro', 'flashcards', 'fillInTheBlank', 'miniConversation', 'quickFire', 'quiz'],
   words: [
     { en: "Prescription", ca: "Recepta mèdica", pronunciation: "reh-SEHP-tah MEH-dee-kah" },
     { en: "Pharmacy", ca: "Farmàcia", pronunciation: "far-MAH-see-ah" },
@@ -261,7 +261,7 @@ export const lessons100 = [
   id: 109,
   title: "Banking & Finance",
   module: "Professional",
-  stages: ['intro', 'flashcards', 'fillInTheBlank', 'miniConversation', 'quiz', 'quickFire'],
+  stages: ['intro', 'flashcards', 'fillInTheBlank', 'miniConversation', 'quickFire', 'quiz'],
   words: [
     { en: "Bank account", ca: "Compte bancari", pronunciation: "KOHM-pteh bahn-KAH-ree" },
     { en: "Transfer", ca: "Transferència", pronunciation: "trahns-feh-REHN-see-ah" },
@@ -391,7 +391,7 @@ export const lessons100 = [
   id: 113,
   title: "Advanced Listening",
   module: "Grammar Advanced",
-  stages: ['intro', 'flashcards', 'listenAndType', 'quiz', 'quickFire'],
+  stages: ['intro', 'flashcards', 'listenAndType', 'quickFire', 'quiz'],
   words: [
     { en: "To understand", ca: "Comprendre", pronunciation: "kohm-PREHN-dreh" },
     { en: "To repeat", ca: "Repetir", pronunciation: "reh-peh-TEER" },
@@ -509,7 +509,7 @@ export const lessons100 = [
   id: 117,
   title: "Giving Directions (Advanced)",
   module: "Daily Life",
-  stages: ['intro', 'flashcards', 'sentenceOrdering', 'miniConversation', 'quiz', 'quickFire'],
+  stages: ['intro', 'flashcards', 'sentenceOrdering', 'miniConversation', 'quickFire', 'quiz'],
   words: [
     { en: "Roundabout", ca: "Rotonda", pronunciation: "roh-TOHN-dah" },
     { en: "Traffic lights", ca: "Semàfor", pronunciation: "seh-MAH-fohr" },
@@ -631,3 +631,5 @@ export const lessons100 = [
   }
 }
 ];
+
+
