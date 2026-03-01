@@ -68,6 +68,7 @@ const normalizeText = (text) => {
     .replace(/[.,!?¿¡;:'"()]/g, '')
     .replace(/·/g, '')
     .trim()
+    .replace(/·/g, '')
     .replace(/\s+/g, ' ');
 };
 
