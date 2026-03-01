@@ -10,6 +10,7 @@ import { lessons100 } from './lessons100.js';
 import { getTodayChallenge, wasChallengeCompletedToday, getChallengeStreak, getTimeUntilNextChallenge, CHALLENGE_TYPES } from './challenges.js';
 import { ACHIEVEMENTS, getUnlockedAchievements, getNewlyUnlocked, getAchievementProgress, getAchievementsByCategory } from './achievements.js';
 import { Analytics } from '@vercel/analytics/react';
+let _audioMappingCache = null;
 const ELEVENLABS_API_KEY = import.meta.env.VITE_ELEVENLABS_API_KEY;
 const ELEVENLABS_VOICE_ID = import.meta.env.VITE_ELEVENLABS_VOICE_ID;
 
@@ -1761,8 +1762,10 @@ const handleQuizAnswer = (answer) => {
       return;
     }
     try {
-      const mapping = await fetch('/audio/mapping.json').then(r => r.json());
-      const staticPath = mapping[cacheKey];
+      if (!_audioMappingCache) {
+        _audioMappingCache = await fetch('/audio/mapping.json').then(r => r.json());
+      }
+      const staticPath = _audioMappingCache[cacheKey];
       if (staticPath) {
         if (audioCache.current) audioCache.current[cacheKey] = staticPath;
         const audio = new Audio(staticPath);

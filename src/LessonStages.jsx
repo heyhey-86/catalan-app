@@ -1,4 +1,5 @@
 // ============================================================
+let _audioMappingCache = null;
 // LessonStages.jsx — New Interactive Stage Types for HolaCatalà
 // ============================================================
 // This file contains 5 new stage components:
@@ -27,8 +28,10 @@ const playAudio = (text, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID, pl
     audio.play().catch(() => {});
     return;
   }
-  fetch('/audio/mapping.json')
-    .then(r => r.json())
+  const getMapping = _audioMappingCache
+    ? Promise.resolve(_audioMappingCache)
+    : fetch('/audio/mapping.json').then(r => r.json()).then(m => { _audioMappingCache = m; return m; });
+  getMapping
     .then(mapping => {
       const staticPath = mapping[cacheKey];
       if (staticPath) {
