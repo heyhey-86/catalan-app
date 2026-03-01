@@ -31,24 +31,17 @@ async function getEmailFromCustomer(customerId, stripeKey) {
 }
 
 async function getUserByEmail(email, serviceKey) {
-  const res = await fetch(`${SUPABASE_URL}/auth/v1/admin/users?email=${encodeURIComponent(email)}`, {
+  // Query by email directly (efficient, no pagination issue)
+  const res = await fetch(`${SUPABASE_URL}/auth/v1/admin/users?email=${encodeURIComponent(email.toLowerCase())}`, {
     headers: {
       'apikey': serviceKey,
       'Authorization': `Bearer ${serviceKey}`
     }
   });
   const data = await res.json();
-  return (data.users || [])[0] || null;
-}
-async function getUserByEmail(email, serviceKey) {
-  const res = await fetch(`${SUPABASE_URL}/auth/v1/admin/users`, {
-    headers: {
-      'apikey': serviceKey,
-      'Authorization': `Bearer ${serviceKey}`
-    }
-  });
-  const data = await res.json();
-  return (data.users || []).find(u => u.email?.toLowerCase() === email.toLowerCase());
+  const users = data.users || [];
+  // Case-insensitive match in case email casing differs
+  return users.find(u => u.email?.toLowerCase() === email.toLowerCase()) || users[0] || null;
 }
 
 async function setUserPremium(userId, isPremium, serviceKey, expiresAt = null) {
@@ -111,12 +104,10 @@ export default async function handler(req, res) {
   if (event.type === 'invoice.payment_succeeded') {
     email = await getEmailFromCustomer(event.data.object.customer, STRIPE_KEY);
     isPremium = true;
-    // Access valid until end of this billing period
     const periodEnd = event.data.object.lines?.data?.[0]?.period?.end;
     expiresAt = periodEnd ? new Date(periodEnd * 1000).toISOString() : null;
   } else if (event.type === 'customer.subscription.deleted') {
     email = await getEmailFromCustomer(event.data.object.customer, STRIPE_KEY);
-    // Keep premium until end of already-paid period
     const periodEnd = event.data.object.current_period_end;
     expiresAt = periodEnd ? new Date(periodEnd * 1000).toISOString() : null;
     isPremium = expiresAt && new Date(expiresAt) > new Date() ? true : false;
@@ -133,7 +124,6 @@ export default async function handler(req, res) {
       await setUserPremium(user.id, isPremium, SERVICE_KEY, expiresAt);
       console.log(`Set is_premium=${isPremium} expires=${expiresAt} for ${email}`);
     } else {
-      // No account yet - store email for when they create one
       await storePendingPremium(email, SERVICE_KEY);
       console.log(`No user found - stored pending premium for ${email}`);
     }
@@ -141,5 +131,3 @@ export default async function handler(req, res) {
 
   res.json({ received: true });
 }
-
-
