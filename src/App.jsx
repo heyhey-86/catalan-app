@@ -2924,15 +2924,12 @@ const handleQuizAnswer = (answer) => {
               ELEVENLABS_VOICE_ID={ELEVENLABS_VOICE_ID}
             />
           )}
-          {lessonStage === 'quickFire' && currentLesson.stageData?.quickFire && (
+          {lessonStage === 'quickFire' && (
             <QuickFire
-              exercises={currentLesson.stageData.quickFire}
+              words={currentLesson.words}
               onComplete={() => nextStage()}
               onAnswer={handleLessonAnswer}
               lessonTitle={currentLesson.title}
-              audioCache={audioCache}
-              ELEVENLABS_API_KEY={ELEVENLABS_API_KEY}
-              ELEVENLABS_VOICE_ID={ELEVENLABS_VOICE_ID}
             />
           )}
           {lessonStage === 'storyMode' && currentLesson.stageData?.storyMode && (

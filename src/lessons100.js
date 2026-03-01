@@ -3,7 +3,7 @@ export const lessons100 = [
   id: 101,
   title: "Business Vocabulary",
   module: "Advanced",
-  stages: ['intro', 'flashcards', 'match', 'fillInTheBlank', 'errorCorrection'],
+  stages: ['intro', 'flashcards', 'match', 'fillInTheBlank', 'errorCorrection', 'quickFire'],
   words: [
     { en: "Contract", ca: "Contracte", pronunciation: "kohn-TRAK-teh" },
     { en: "Deadline", ca: "Data límit", pronunciation: "DAH-tah LEE-meet" },
@@ -132,7 +132,7 @@ export const lessons100 = [
   id: 105,
   title: "Health & Medical",
   module: "Daily Life",
-  stages: ['intro', 'flashcards', 'fillInTheBlank', 'miniConversation', 'quiz'],
+  stages: ['intro', 'flashcards', 'fillInTheBlank', 'miniConversation', 'quiz', 'quickFire'],
   words: [
     { en: "Prescription", ca: "Recepta mèdica", pronunciation: "reh-SEHP-tah MEH-dee-kah" },
     { en: "Pharmacy", ca: "Farmàcia", pronunciation: "far-MAH-see-ah" },
@@ -261,7 +261,7 @@ export const lessons100 = [
   id: 109,
   title: "Banking & Finance",
   module: "Professional",
-  stages: ['intro', 'flashcards', 'fillInTheBlank', 'miniConversation', 'quiz'],
+  stages: ['intro', 'flashcards', 'fillInTheBlank', 'miniConversation', 'quiz', 'quickFire'],
   words: [
     { en: "Bank account", ca: "Compte bancari", pronunciation: "KOHM-pteh bahn-KAH-ree" },
     { en: "Transfer", ca: "Transferència", pronunciation: "trahns-feh-REHN-see-ah" },
@@ -391,7 +391,7 @@ export const lessons100 = [
   id: 113,
   title: "Advanced Listening",
   module: "Grammar Advanced",
-  stages: ['intro', 'flashcards', 'listenAndType', 'quiz'],
+  stages: ['intro', 'flashcards', 'listenAndType', 'quiz', 'quickFire'],
   words: [
     { en: "To understand", ca: "Comprendre", pronunciation: "kohm-PREHN-dreh" },
     { en: "To repeat", ca: "Repetir", pronunciation: "reh-peh-TEER" },
@@ -509,7 +509,7 @@ export const lessons100 = [
   id: 117,
   title: "Giving Directions (Advanced)",
   module: "Daily Life",
-  stages: ['intro', 'flashcards', 'sentenceOrdering', 'miniConversation', 'quiz'],
+  stages: ['intro', 'flashcards', 'sentenceOrdering', 'miniConversation', 'quiz', 'quickFire'],
   words: [
     { en: "Roundabout", ca: "Rotonda", pronunciation: "roh-TOHN-dah" },
     { en: "Traffic lights", ca: "Semàfor", pronunciation: "seh-MAH-fohr" },

@@ -1131,98 +1131,106 @@ export function ErrorCorrection({
 // 6. QUICK FIRE
 // Fast-paced 45-second quiz: English flashes, tap correct Catalan
 // =============================================================
-export function QuickFire({ exercises, onComplete, onAnswer, lessonTitle, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID }) {
-  const [currentIndex, setCurrentIndex] = React.useState(0);
-  const [timeLeft, setTimeLeft] = React.useState(45);
-  const [score, setScore] = React.useState(0);
-  const [selected, setSelected] = React.useState(null);
-  const [isCorrect, setIsCorrect] = React.useState(null);
-  const [isComplete, setIsComplete] = React.useState(false);
-  const [shuffledOptions, setShuffledOptions] = React.useState([]);
-  const timerRef = React.useRef(null);
+export function QuickFire({ words, onComplete, onAnswer, lessonTitle }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [score, setScore] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(45);
+  const [answered, setAnswered] = useState(null);
+  const [selectedIdx, setSelectedIdx] = useState(null);
+  const [options, setOptions] = useState([]);
+  const [completed, setCompleted] = useState(false);
+  const [total, setTotal] = useState(0);
 
-  React.useEffect(() => {
-    if (exercises && exercises[0]) {
-      setShuffledOptions([...exercises[0].options].sort(() => Math.random() - 0.5));
-    }
-  }, [exercises]);
+  const getOptions = useCallback((idx, wordList) => {
+    if (!wordList || wordList.length === 0) return [];
+    const correct = wordList[idx];
+    const others = wordList.filter((_, i) => i !== idx);
+    const shuffled = others.sort(() => Math.random() - 0.5).slice(0, 3);
+    return [...shuffled, correct].sort(() => Math.random() - 0.5);
+  }, []);
 
-  React.useEffect(() => {
-    if (isComplete) return;
-    timerRef.current = setInterval(() => {
+  useEffect(() => {
+    if (words && words.length > 0) setOptions(getOptions(0, words));
+  }, [words, getOptions]);
+
+  useEffect(() => {
+    if (completed) return;
+    const timer = setInterval(() => {
       setTimeLeft(t => {
-        if (t <= 1) { clearInterval(timerRef.current); setIsComplete(true); return 0; }
+        if (t <= 1) { clearInterval(timer); setCompleted(true); if (onComplete) onComplete(); return 0; }
         return t - 1;
       });
     }, 1000);
-    return () => clearInterval(timerRef.current);
-  }, [isComplete]);
+    return () => clearInterval(timer);
+  }, [completed, onComplete]);
 
-  const handleAnswer = (option) => {
-    if (selected !== null) return;
-    const correct = option === exercises[currentIndex].ca;
-    setSelected(option); setIsCorrect(correct);
-    if (correct) setScore(s => s + 1);
-    if (onAnswer) onAnswer(correct);
+  const handleAnswer = (optionWord, optionIdx) => {
+    if (answered !== null) return;
+    const correct = words[currentIndex];
+    const isCorrect = optionWord.ca === correct.ca;
+    setAnswered(isCorrect ? 'correct' : 'wrong');
+    setSelectedIdx(optionIdx);
+    setTotal(t => t + 1);
+    if (isCorrect) setScore(s => s + 1);
+    if (onAnswer) onAnswer(isCorrect);
     setTimeout(() => {
       const next = currentIndex + 1;
-      if (next >= exercises.length) { clearInterval(timerRef.current); setIsComplete(true); }
-      else {
-        setCurrentIndex(next);
-        setShuffledOptions([...exercises[next].options].sort(() => Math.random() - 0.5));
-        setSelected(null); setIsCorrect(null);
-      }
-    }, 500);
+      if (next >= words.length) { setCompleted(true); if (onComplete) onComplete(); }
+      else { setCurrentIndex(next); setOptions(getOptions(next, words)); setAnswered(null); setSelectedIdx(null); }
+    }, 600);
   };
 
-  const timerPct = (timeLeft / 45) * 100;
-  const timerColor = timeLeft > 15 ? 'bg-green-500' : timeLeft > 7 ? 'bg-yellow-500' : 'bg-red-500';
+  if (!words || words.length === 0) return null;
 
-  if (isComplete) {
-    const pct = Math.round((score / exercises.length) * 100);
+  if (completed) {
     return (
-      <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 text-center">
-        <div className="text-5xl mb-4">{pct >= 80 ? '🔥' : pct >= 50 ? '⚡' : '💪'}</div>
-        <h2 className="text-2xl font-bold mb-2">Quick Fire Complete!</h2>
-        <p className="text-gray-600 mb-6">You scored {score} out of {exercises.length} — {pct}%</p>
-        <div className="bg-gray-100 rounded-full h-4 mb-6 overflow-hidden">
-          <div className="h-full bg-green-500 transition-all duration-1000" style={{ width: pct + '%' }} />
-        </div>
-        <button onClick={onComplete} className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700">Continue →</button>
+      <div className="text-center py-8 px-4">
+        <div className="text-5xl mb-4">⚡</div>
+        <h3 className="text-2xl font-bold text-gray-800 mb-2">QuickFire Complete!</h3>
+        <p className="text-gray-600 mb-4">You got <span className="font-bold text-green-600">{score}/{total}</span> correct</p>
       </div>
     );
   }
 
-  if (!exercises || exercises.length === 0) return null;
-  const current = exercises[currentIndex];
+  const current = words[currentIndex];
+  const timerPct = (timeLeft / 45) * 100;
+  const timerColor = timeLeft > 20 ? 'bg-green-500' : timeLeft > 10 ? 'bg-yellow-500' : 'bg-red-500';
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6">
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-sm font-semibold text-gray-600">{currentIndex + 1} / {exercises.length}</span>
-        <span className={`text-lg font-bold ${timeLeft <= 7 ? 'text-red-600 animate-pulse' : 'text-gray-700'}`}>⏱ {timeLeft}s</span>
+    <div className="max-w-md mx-auto px-4 py-6">
+      <div className="flex items-center justify-between mb-4">
+        <span className="text-sm font-semibold text-gray-600">⚡ QuickFire</span>
+        <span className={`text-lg font-bold ${timeLeft <= 10 ? 'text-red-600' : 'text-gray-800'}`}>{timeLeft}s</span>
       </div>
-      <div className="h-2 bg-gray-200 rounded-full mb-5 overflow-hidden">
-        <div className={`h-full ${timerColor} transition-all duration-1000`} style={{ width: timerPct + '%' }} />
+      <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
+        <div className={`h-2 rounded-full transition-all ${timerColor}`} style={{ width: `${timerPct}%` }} />
       </div>
-      <div className="bg-blue-50 rounded-xl p-5 mb-5 text-center">
-        <p className="text-xs text-blue-400 uppercase font-semibold mb-1">English</p>
-        <p className="text-2xl font-bold text-blue-800">{current.en}</p>
+      <div className="text-center mb-6">
+        <div className="text-xs text-gray-400 mb-1">What is this in Catalan?</div>
+        <div className="text-3xl font-bold text-gray-800">{current.en}</div>
+        <div className="text-sm text-gray-500 mt-1">{currentIndex + 1} / {words.length}</div>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        {shuffledOptions.map((opt, i) => (
-          <button key={i} onClick={() => handleAnswer(opt)} disabled={selected !== null}
-            className={`p-3 rounded-xl font-semibold text-sm transition-all active:scale-95 ${
-              selected === opt ? (isCorrect ? 'bg-green-500 text-white' : 'bg-red-500 text-white')
-              : selected !== null && opt === current.ca ? 'bg-green-200 text-green-800'
-              : 'bg-gray-100 hover:bg-blue-50 border-2 border-transparent hover:border-blue-300'
-            }`}>{opt}</button>
-        ))}
+        {options.map((opt, idx) => {
+          let bg = 'bg-white border-2 border-gray-200 hover:border-blue-400';
+          if (answered !== null && selectedIdx === idx) {
+            bg = answered === 'correct' ? 'bg-green-100 border-2 border-green-500' : 'bg-red-100 border-2 border-red-500';
+          } else if (answered !== null && opt.ca === words[currentIndex].ca) {
+            bg = 'bg-green-100 border-2 border-green-500';
+          }
+          return (
+            <button key={idx} onClick={() => handleAnswer(opt, idx)} disabled={answered !== null}
+              className={`${bg} rounded-xl p-4 text-center font-semibold transition-all active:scale-95`}>
+              {opt.ca}
+            </button>
+          );
+        })}
       </div>
-      <ReportButton lessonTitle={lessonTitle} questionText={current.en} stageType="Flashcard" />
+      <div className="text-center mt-4 text-sm text-gray-500">Score: {score}</div>
     </div>
   );
 }
+
 
 // =============================================================
 // 7. STORY MODE
