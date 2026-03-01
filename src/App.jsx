@@ -2599,7 +2599,7 @@ const handleQuizAnswer = (answer) => {
                     <div>
                       {turn.speaker === 'user' ? (turn.userAnswer || turn.text) : (
                         <>
-                          <div>{turn.text}</div>
+                          <div className="flex items-start gap-2"><span className="flex-1">{turn.text}</span><button onClick={() => speakWord(turn.text)} className="text-gray-400 hover:text-gray-600 flex-shrink-0 mt-0.5" title="Play audio">🔊</button></div>
                           {turn.english && (
                             <div className="mt-2 pt-2 border-t border-gray-300">
                               <button 
