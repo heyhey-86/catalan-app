@@ -46,22 +46,24 @@ async function getUserByEmail(email, serviceKey) {
 
 async function setUserPremium(userId, isPremium, serviceKey, expiresAt = null) {
   const update = {
+    user_id: userId,
     is_premium: isPremium,
     updated_at: new Date().toISOString(),
     premium_expires_at: expiresAt
   };
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/user_progress?user_id=eq.${userId}`, {
-    method: 'PATCH',
+  // Use UPSERT so row is created if it doesn't exist yet
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/user_progress`, {
+    method: 'POST',
     headers: {
       'apikey': serviceKey,
       'Authorization': `Bearer ${serviceKey}`,
       'Content-Type': 'application/json',
-      'Prefer': 'return=representation'
+      'Prefer': 'resolution=merge-duplicates,return=representation'
     },
     body: JSON.stringify(update)
   });
   const text = await res.text();
-  console.log('Supabase PATCH status:', res.status, 'body:', text);
+  console.log('Supabase UPSERT status:', res.status, 'body:', text);
 }
 
 async function storePendingPremium(email, serviceKey) {
