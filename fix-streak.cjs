@@ -1,0 +1,22 @@
+const fs = require('fs');
+const path = require('path');
+
+const filePath = path.join(process.cwd(), 'src', 'App.jsx');
+let content = fs.readFileSync(filePath, 'utf8');
+
+const le = content.includes('\r\n') ? '\r\n' : '\n';
+
+// Find and replace the entire button onClick block
+// Old: streak inside the if (!completed.includes) block
+const oldBlock = `                  if (!completed.includes(currentLesson.id)) {${le}                    setCompleted([...completed, currentLesson.id]);${le}                    setScore(score + 50);${le}                    const newWords = currentLesson.words.map(word => initializeWordForReview(word, currentLesson.id));${le}                    setWordHistory([...wordHistory, ...newWords]);${le}                    logEvent('lesson_completed', { lesson_id: currentLesson.id, lesson_title: currentLesson.title, words_learned: newWords.length });${le}                    // Update streak when completing a lesson${le}                    const today = new Date().toDateString();${le}                    if (lastReviewDate !== today) {${le}                      if (lastReviewDate) {${le}                        const lastDate = new Date(lastReviewDate);${le}                        const todayDate = new Date(today);${le}                        const diffDays = Math.ceil((todayDate - lastDate) / (1000 * 60 * 60 * 24));${le}                        if (diffDays === 1) {${le}                          const newStreak = reviewStreak + 1;${le}                          setReviewStreak(newStreak);${le}                          setStreakCelebrationData({${le}                            streak: newStreak,${le}                            isMilestone: [7, 14, 30, 50, 100].includes(newStreak)${le}                          });${le}                          setShowStreakCelebration(true);${le}                        } else if (diffDays > 1) {${le}                          setReviewStreak(1);${le}                        }${le}                      } else {${le}                        setReviewStreak(1);${le}                      }${le}                      setLastReviewDate(today);${le}                    }${le}                  }`;
+
+const newBlock = `                  if (!completed.includes(currentLesson.id)) {${le}                    setCompleted([...completed, currentLesson.id]);${le}                    setScore(score + 50);${le}                    const newWords = currentLesson.words.map(word => initializeWordForReview(word, currentLesson.id));${le}                    setWordHistory([...wordHistory, ...newWords]);${le}                    logEvent('lesson_completed', { lesson_id: currentLesson.id, lesson_title: currentLesson.title, words_learned: newWords.length });${le}                  }${le}                  // Update streak on any lesson completion (new or replayed)${le}                  const now = new Date();${le}                  const today = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');${le}                  if (lastReviewDate !== today) {${le}                    if (lastReviewDate) {${le}                      const lastDate = new Date(lastReviewDate);${le}                      const todayDate = new Date(today);${le}                      const diffDays = Math.round((todayDate - lastDate) / (1000 * 60 * 60 * 24));${le}                      if (diffDays === 1) {${le}                        const newStreak = reviewStreak + 1;${le}                        setReviewStreak(newStreak);${le}                        setStreakCelebrationData({${le}                          streak: newStreak,${le}                          isMilestone: [7, 14, 30, 50, 100].includes(newStreak)${le}                        });${le}                        setShowStreakCelebration(true);${le}                      } else if (diffDays > 1) {${le}                        setReviewStreak(1);${le}                      }${le}                    } else {${le}                      setReviewStreak(1);${le}                    }${le}                    setLastReviewDate(today);${le}                  }`;
+
+if (content.includes(oldBlock)) {
+  content = content.replace(oldBlock, newBlock);
+  fs.writeFileSync(filePath, content, 'utf8');
+  console.log('SUCCESS: Streak logic moved outside new-lesson check and date format fixed');
+} else {
+  console.log('ERROR: Could not find target block');
+  process.exit(1);
+}

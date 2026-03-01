@@ -3038,37 +3038,30 @@ const handleQuizAnswer = (answer) => {
                     setWordHistory([...wordHistory, ...newWords]);
                     logEvent('lesson_completed', { lesson_id: currentLesson.id, lesson_title: currentLesson.title, words_learned: newWords.length });
                     
-                    // Update streak when completing a lesson
-                    const today = new Date().toDateString();
-                    
-                    if (lastReviewDate !== today) {
-                      if (lastReviewDate) {
-                        const lastDate = new Date(lastReviewDate);
-                        const todayDate = new Date(today);
-                        const diffDays = Math.ceil((todayDate - lastDate) / (1000 * 60 * 60 * 24));
-                        
-                        
-                        if (diffDays === 1) {
-                          const newStreak = reviewStreak + 1;
-                          
-                          setReviewStreak(newStreak);
-                          
-                          
-                          setStreakCelebrationData({
-                            streak: newStreak,
-                            isMilestone: [7, 14, 30, 50, 100].includes(newStreak)
-                          });
-                          setShowStreakCelebration(true);
-                          
-                          
-                        } else if (diffDays > 1) {
-                          setReviewStreak(1);
-                        }
-                      } else {
+                  }
+                  // Update streak on any lesson completion (new or replayed)
+                  const now = new Date();
+                  const today = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+                  if (lastReviewDate !== today) {
+                    if (lastReviewDate) {
+                      const lastDate = new Date(lastReviewDate);
+                      const todayDate = new Date(today);
+                      const diffDays = Math.round((todayDate - lastDate) / (1000 * 60 * 60 * 24));
+                      if (diffDays === 1) {
+                        const newStreak = reviewStreak + 1;
+                        setReviewStreak(newStreak);
+                        setStreakCelebrationData({
+                          streak: newStreak,
+                          isMilestone: [7, 14, 30, 50, 100].includes(newStreak)
+                        });
+                        setShowStreakCelebration(true);
+                      } else if (diffDays > 1) {
                         setReviewStreak(1);
                       }
-                      setLastReviewDate(today);
+                    } else {
+                      setReviewStreak(1);
                     }
+                    setLastReviewDate(today);
                   }
                   
                   setView('home');
