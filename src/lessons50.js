@@ -1972,7 +1972,13 @@ export const lessons = [
       { en: "July", ca: "Juliol", pronunciation: "zhoo-lee-OHL" },
       { en: "August", ca: "Agost", pronunciation: "ah-GOST" },
       { en: "September", ca: "Setembre", pronunciation: "seh-TEM-breh" },
-      { en: "October", ca: "Octubre", pronunciation: "ook-TOO-breh" }
+      { en: "October", ca: "Octubre", pronunciation: "ook-TOO-breh" },
+      { en: "November", ca: "Novembre", pronunciation: "noh-VEM-breh" },
+      { en: "December", ca: "Desembre", pronunciation: "deh-ZEM-breh" },
+      { en: "Spring", ca: "Primavera", pronunciation: "pree-mah-VEH-rah" },
+      { en: "Summer", ca: "Estiu", pronunciation: "es-TEE-oo" },
+      { en: "Autumn", ca: "Tardor", pronunciation: "tar-DOR" },
+      { en: "Winter", ca: "Hivern", pronunciation: "ee-VERN" }
     ],
     stageData: {
       fillInTheBlank: [
