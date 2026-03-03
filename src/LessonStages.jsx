@@ -754,7 +754,7 @@ export function MiniConversation({
         setVisibleMessages(prev => [...prev, { ...turn, turnIndex: currentTurn }]);
         if (!turn.noAudio) playAudio(turn.text, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID);
         setCurrentTurn(c => c + 1);
-      }, 800);
+      }, 0);
     }
   }, [currentTurn, total]);
 
@@ -781,15 +781,7 @@ export function MiniConversation({
     }]);
 
     playAudio(responseText, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID);
-
-    if (correct) {
-      setTimeout(() => {
-        setSelected(null);
-        setIsCorrect(null);
-        setCurrentTurn(c => c + 1);
-      }, 1500);
-    }
-  };
+};
 
   if (completed) {
     return (
@@ -883,22 +875,25 @@ if (idx === correctIdx) {
             })}
           </div>
           
-          {isCorrect === false && (
-            <>
-              <p className="text-center text-sm text-red-500 mt-2">
-                Correct: <strong>{(shuffledTurnOptions[currentTurn]?.options || currentTurnData.options)[shuffledTurnOptions[currentTurn]?.correctIndex ?? currentTurnData.correctIndex]}</strong>
-              </p>
+         {isCorrect === false && (
+            <div className="mt-3 bg-red-50 border-2 border-red-200 rounded-xl p-4">
+              <p className="text-center text-red-600 font-bold mb-1">✗ Not quite!</p>
+              <p className="text-center text-sm text-red-500 mb-3">Correct answer: <strong>{(shuffledTurnOptions[currentTurn]?.options || currentTurnData.options)[shuffledTurnOptions[currentTurn]?.correctIndex ?? currentTurnData.correctIndex]}</strong></p>
               <button
-                onClick={() => {
-                  setSelected(null);
-                  setIsCorrect(null);
-                  setCurrentTurn(c => c + 1);
-                }}
-                className="mt-2 w-full bg-white text-gray-700 border-2 border-gray-300 py-2 rounded-xl font-semibold hover:bg-gray-50 active:scale-95 transition-all"
+                onClick={() => { setSelected(null); setIsCorrect(null); setCurrentTurn(c => c + 1); }}
+                className="w-full bg-white text-gray-700 border-2 border-gray-300 py-2 rounded-xl font-semibold hover:bg-gray-50 active:scale-95 transition-all"
               >
                 Continue →
               </button>
-            </>
+            </div>
+          )}
+          {isCorrect === true && (
+            <button
+              onClick={() => { setSelected(null); setIsCorrect(null); setCurrentTurn(c => c + 1); }}
+              className="mt-2 w-full bg-green-500 text-white py-3 rounded-xl font-semibold hover:bg-green-600 active:scale-95 transition-all"
+            >
+              Continue →
+            </button>
           )}
         </div>
       )}
