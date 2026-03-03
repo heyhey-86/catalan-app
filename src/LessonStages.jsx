@@ -40,6 +40,7 @@ const playAudio = (text, audioCache, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID, pl
         audio.playbackRate = playbackRate;
         audio.play().catch(() => {});
       } else if (ELEVENLABS_API_KEY) {
+        fetch('/api/log-missing-audio', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ text, source: 'LessonStages' }) }).catch(()=>{});
         fetch(`https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'xi-api-key': ELEVENLABS_API_KEY },
