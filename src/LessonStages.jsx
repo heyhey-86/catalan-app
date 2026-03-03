@@ -1239,6 +1239,14 @@ export function StoryMode({ story, blanks, translation, onComplete, onAnswer, le
   const [shuffledOptions, setShuffledOptions] = React.useState([]);
   const [isComplete, setIsComplete] = React.useState(false);
   const [score, setScore] = React.useState(0);
+  const [showTranslation, setShowTranslation] = React.useState(false);
+  const handleContinue = () => {
+    const newAnswers = [...answers, feedback.correct ? feedback.option : `[${blanks[currentBlank].word}]`];
+    setAnswers(newAnswers); setFeedback(null);
+    const next = currentBlank + 1;
+    if (next >= blanks.length) setIsComplete(true);
+    else { setCurrentBlank(next); setShuffledOptions([...blanks[next].options].sort(() => Math.random() - 0.5)); }
+  };
 
   React.useEffect(() => {
     if (blanks && blanks[0]) setShuffledOptions([...blanks[0].options].sort(() => Math.random() - 0.5));
@@ -1252,13 +1260,7 @@ export function StoryMode({ story, blanks, translation, onComplete, onAnswer, le
     setFeedback({ correct, option, correctWord: blanks[currentBlank].word });
     if (correct) setScore(s => s + 1);
     if (onAnswer) onAnswer(correct);
-    setTimeout(() => {
-      const newAnswers = [...answers, correct ? option : `[${blanks[currentBlank].word}]`];
-      setAnswers(newAnswers); setFeedback(null);
-      const next = currentBlank + 1;
-      if (next >= blanks.length) setIsComplete(true);
-      else { setCurrentBlank(next); setShuffledOptions([...blanks[next].options].sort(() => Math.random() - 0.5)); }
-    }, 1200);
+   ;
   };
 
   const renderStory = () => storyParts.map((part, i) => (
@@ -1293,11 +1295,22 @@ export function StoryMode({ story, blanks, translation, onComplete, onAnswer, le
     <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6">
       <h2 className="text-xl font-bold mb-2 text-center">📖 Story Mode</h2>
       <p className="text-xs text-gray-500 text-center mb-4">Blank {currentBlank + 1} of {blanks.length}</p>
-      <div className="bg-blue-50 rounded-xl p-4 mb-5 text-base leading-loose">{renderStory()}</div>
+      <div className="bg-blue-50 rounded-xl p-4 mb-2 text-base leading-loose">{renderStory()}</div>
+      <div className="text-center mb-3">
+        <button onClick={() => setShowTranslation(t => !t)} className="text-xs text-blue-500 underline">
+          {showTranslation ? 'Hide translation' : '🌐 Show translation'}
+        </button>
+        {showTranslation && <p className="text-xs text-gray-500 italic mt-1">{translation}</p>}
+      </div>
       {feedback && (
         <div className={`text-center font-semibold mb-3 py-2 rounded-lg ${feedback.correct ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
           {feedback.correct ? '✔ Correcte!' : `✘ The answer is: ${feedback.correctWord}`}
         </div>
+      )}
+      {feedback && (
+        <button onClick={handleContinue} className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold mb-3 hover:bg-blue-700 active:scale-95 transition-all">
+          Continue →
+        </button>
       )}
       <div className="grid grid-cols-2 gap-3">
         {shuffledOptions.map((opt, i) => (

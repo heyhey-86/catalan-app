@@ -7,13 +7,14 @@ import { CONVERSATIONS } from './conversations.js';
 import { FillInTheBlank, SentenceOrdering, ListenAndType, MiniConversation, ErrorCorrection, ReportButton, QuickFire, StoryMode } from './LessonStages.jsx';
 import { lessons as lessons50 } from './lessons50.js';
 import { lessons100 } from './lessons100.js';
+import { lessons120 } from './lessons120.js';
 import { getTodayChallenge, wasChallengeCompletedToday, getChallengeStreak, getTimeUntilNextChallenge, CHALLENGE_TYPES } from './challenges.js';
 import { ACHIEVEMENTS, getUnlockedAchievements, getNewlyUnlocked, getAchievementProgress, getAchievementsByCategory } from './achievements.js';
 import { Analytics } from '@vercel/analytics/react';
 const ELEVENLABS_API_KEY = import.meta.env.VITE_ELEVENLABS_API_KEY;
 const ELEVENLABS_VOICE_ID = import.meta.env.VITE_ELEVENLABS_VOICE_ID;
 
-const LESSONS = [...lessons50, ...lessons100];
+const LESSONS = [...lessons50, ...lessons100, ...lessons120];
 
 // REVIEW GATE: Define lesson tiers (groups of 3 lessons)
 const LESSON_TIERS = [
@@ -57,7 +58,14 @@ const LESSON_TIERS = [
   { tier: 38, lessons: [110, 111, 112] },
   { tier: 39, lessons: [113, 114, 115] },
   { tier: 40, lessons: [116, 117, 118] },
-  { tier: 41, lessons: [119, 120] }
+  { tier: 41, lessons: [119, 120] },
+  { tier: 42, lessons: [121, 122, 123] },
+  { tier: 43, lessons: [124, 125, 126] },
+  { tier: 44, lessons: [127, 128, 129] },
+  { tier: 45, lessons: [130, 131, 132] },
+  { tier: 46, lessons: [133, 134, 135] },
+  { tier: 47, lessons: [136, 137, 138] },
+  { tier: 48, lessons: [139, 140] }
 
 ];
 
@@ -2922,9 +2930,9 @@ const handleQuizAnswer = (answer) => {
               ELEVENLABS_VOICE_ID={ELEVENLABS_VOICE_ID}
             />
           )}
-          {lessonStage === 'quickFire' && currentLesson.stageData?.quickFire && (
+          {lessonStage === 'quickFire' && currentLesson.words && (
             <QuickFire
-              exercises={currentLesson.stageData.quickFire}
+              words={currentLesson.words}
               onComplete={() => nextStage()}
               onAnswer={handleLessonAnswer}
               lessonTitle={currentLesson.title}
