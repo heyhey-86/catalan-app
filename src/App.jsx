@@ -2597,7 +2597,15 @@ const handleQuizAnswer = (answer) => {
                     <div>
                       {turn.speaker === 'user' ? (turn.userAnswer || turn.text) : (
                         <>
-                          <div>{turn.text}</div>
+                          <div className="flex items-center gap-2">
+  <span>{turn.text}</span>
+  <button
+    onClick={() => speakWord(turn.text)}
+    className="ml-1 p-1 rounded-full bg-gray-200 hover:bg-gray-300 active:scale-95 transition-all flex-shrink-0"
+  >
+    🔊
+  </button>
+</div>
                           {turn.english && (
                             <div className="mt-2 pt-2 border-t border-gray-300">
                               <button 
