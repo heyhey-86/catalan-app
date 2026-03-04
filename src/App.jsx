@@ -245,7 +245,7 @@ const getInitialState = () => {
   if (providedToken && validTokens.includes(providedToken)) {
     if (providedToken === PREMIUM_TOKENS.beta && new Date() > new Date('2026-03-15')) { return { premium: false, reset: false }; }
     storePremium();
-    if (providedToken === PREMIUM_TOKENS.test) { const p = JSON.parse(localStorage.getItem('catalan_progress') || '{}'); p.unlockedTier = 99; p.completed = Array.from({length: 120}, (_, i) => i + 1); localStorage.setItem('catalan_progress', JSON.stringify(p)); }
+    if (providedToken === PREMIUM_TOKENS.test) { const p = JSON.parse(localStorage.getItem('catalan_progress') || '{}'); p.unlockedTier = 99; p.completed = Array.from({length: 140}, (_, i) => i + 1); localStorage.setItem('catalan_progress', JSON.stringify(p)); }
     window.history.replaceState({}, '', window.location.pathname);
     if (providedToken === PREMIUM_TOKENS.paid) { localStorage.setItem('hc_pending_conversion', 'true'); }
     return { premium: true, reset: false };
@@ -334,6 +334,7 @@ const [previousStreak, setPreviousStreak] = useState(0);
   const [conversationTurnIndex, setConversationTurnIndex] = useState(0);
   const [userSentence, setUserSentence] = useState([]);
   const [conversationFeedback, setConversationFeedback] = useState('');
+  const [conversationCorrect, setConversationCorrect] = useState(null);
   const [showTranslation, setShowTranslation] = useState({});
   const [showChallengeTranslation, setShowChallengeTranslation] = useState({});
   const [shuffledWordBank, setShuffledWordBank] = useState([]);
@@ -1444,37 +1445,38 @@ const handleSignOut = async () => {
     const correctAnswer = currentTurn.correctSentence;
     if (userAnswer === correctAnswer) {
       setConversationFeedback('Correcte! ✓');
+      setConversationCorrect(true);
       setScore(score + 15);
       const updatedTurns = [...currentConversation.turns];
       updatedTurns[conversationTurnIndex] = { ...currentTurn, userAnswer };
       setCurrentConversation({ ...currentConversation, turns: updatedTurns });
-      setTimeout(() => {
-        let nextIndex = conversationTurnIndex + 1;
-        while (nextIndex < currentConversation.turns.length && currentConversation.turns[nextIndex].speaker !== 'user') {
-          nextIndex++;
-        }
-        if (nextIndex < currentConversation.turns.length) {
-          setConversationTurnIndex(nextIndex);
-          setUserSentence([]);
-          setConversationFeedback('');
-          // Update word bank for next turn
-          const nextTurn = currentConversation.turns[nextIndex];
-          if (nextTurn && nextTurn.wordBank) {
-            setShuffledWordBank([...nextTurn.wordBank].sort(() => Math.random() - 0.5));
-          }
-        } else {
-          if (!completedConversations.includes(currentConversation.id)) {
-            setCompletedConversations([...completedConversations, currentConversation.id]);
-            setScore(s => s + 50);
-            logEvent('conversation_completed', { conversation_id: currentConversation.id, conversation_title: currentConversation.title });
-
-          }
-          setView('conversationComplete');
-        }
-      }, 1500);
     } else {
-      setConversationFeedback(`Try again! The correct answer is: "${correctAnswer}"`);
-      setTimeout(() => { setConversationFeedback(''); setUserSentence([]); }, 3000);
+      setConversationFeedback(`The correct answer is: "${correctAnswer}"`);
+      setConversationCorrect(false);
+    }
+  };
+
+  const handleConversationContinue = () => {
+    let nextIndex = conversationTurnIndex + 1;
+    while (nextIndex < currentConversation.turns.length && currentConversation.turns[nextIndex].speaker !== 'user') {
+      nextIndex++;
+    }
+    if (nextIndex < currentConversation.turns.length) {
+      setConversationTurnIndex(nextIndex);
+      setUserSentence([]);
+      setConversationFeedback('');
+      setConversationCorrect(null);
+      const nextTurn = currentConversation.turns[nextIndex];
+      if (nextTurn && nextTurn.wordBank) {
+        setShuffledWordBank([...nextTurn.wordBank].sort(() => Math.random() - 0.5));
+      }
+    } else {
+      if (!completedConversations.includes(currentConversation.id)) {
+        setCompletedConversations([...completedConversations, currentConversation.id]);
+        setScore(s => s + 50);
+        logEvent('conversation_completed', { conversation_id: currentConversation.id, conversation_title: currentConversation.title });
+      }
+      setView('conversationComplete');
     }
   };
 
@@ -2660,7 +2662,21 @@ const handleQuizAnswer = (answer) => {
                   <button onClick={removeLastWord} disabled={userSentence.length === 0} className="px-6 py-2 bg-gray-200 rounded-lg font-semibold disabled:opacity-50">← Remove</button>
                   <button onClick={checkConversationAnswer} disabled={userSentence.length === 0} className="flex-1 bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50">Check Answer</button>
                 </div>
-                {conversationFeedback && <div className={`mt-4 p-4 rounded-lg text-center font-semibold ${conversationFeedback.includes('Correcte') ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>{conversationFeedback}</div>}
+                {conversationFeedback && (
+  <div className={`mt-4 p-4 rounded-lg text-center font-semibold ${conversationCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+    {conversationFeedback}
+  </div>
+)}
+{conversationCorrect === true && (
+  <button onClick={handleConversationContinue} className="w-full mt-3 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 active:scale-95 transition-all">
+    Continue →
+  </button>
+)}
+{conversationCorrect === false && (
+  <button onClick={() => { setUserSentence([]); setConversationFeedback(''); setConversationCorrect(null); }} className="w-full mt-3 bg-orange-500 text-white py-3 rounded-xl font-semibold hover:bg-orange-600 active:scale-95 transition-all">
+    Try Again
+  </button>
+)}
               </>
             )}
           </div>
@@ -3351,7 +3367,8 @@ const handleQuizAnswer = (answer) => {
             <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">Practice real conversations in Catalan. Unlock scenarios by completing lessons!</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {[...CONVERSATIONS].sort((a, b) => { const aUnlocked = completed.includes(a.unlockAfterLesson) ? 0 : 1; const bUnlocked = completed.includes(b.unlockAfterLesson) ? 0 : 1; if (aUnlocked !== bUnlocked) return aUnlocked - bUnlocked; return a.unlockAfterLesson - b.unlockAfterLesson; }).map((conv) => {
-                const unlocked = completed.includes(conv.unlockAfterLesson || conv.unlocksAfter);
+                const unlockId = conv.unlockAfterLesson || (conv.unlocksAfter ? parseInt(conv.unlocksAfter.replace('L', '')) : null);
+                const unlocked = completed.includes(unlockId);
                 const isComplete = completedConversations.includes(conv.id);
                 return (
                   <div key={conv.id} onClick={() => { if (unlocked) { startConversation(conv); } else if (!premium) { setShowPaywall(true); } }} className={`border-2 rounded-lg p-3 sm:p-4 transition-all active:scale-98 ${!unlocked ? 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-60' : isComplete ? 'border-green-500 bg-green-50 cursor-pointer hover:bg-green-100' : 'border-gray-200 hover:border-green-400 hover:bg-green-50 cursor-pointer'}`}>
