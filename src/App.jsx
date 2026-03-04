@@ -2616,7 +2616,7 @@ const handleQuizAnswer = (answer) => {
     🔊
   </button>
 </div>
-                          {turn.english && (
+                          {(turn.english || turn.translation) && (
                             <div className="mt-2 pt-2 border-t border-gray-300">
                               <button 
                                 onClick={() => setShowTranslation({...showTranslation, [i]: !showTranslation[i]})}
@@ -2625,7 +2625,7 @@ const handleQuizAnswer = (answer) => {
                                 🇬🇧 {showTranslation[i] ? 'Hide' : 'Show'} translation
                               </button>
                               {showTranslation[i] && (
-                                <div className="text-sm italic text-gray-600 mt-1">{turn.english}</div>
+                                <div className="text-sm italic text-gray-600 mt-1">{turn.english || turn.translation}</div>
                               )}
                             </div>
                           )}
