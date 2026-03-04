@@ -3366,7 +3366,7 @@ const handleQuizAnswer = (answer) => {
             <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4">Conversation Practice</h2>
             <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">Practice real conversations in Catalan. Unlock scenarios by completing lessons!</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-              {[...CONVERSATIONS].sort((a, b) => { const aUnlocked = completed.includes(a.unlockAfterLesson) ? 0 : 1; const bUnlocked = completed.includes(b.unlockAfterLesson) ? 0 : 1; if (aUnlocked !== bUnlocked) return aUnlocked - bUnlocked; return a.unlockAfterLesson - b.unlockAfterLesson; }).map((conv) => {
+              {[...CONVERSATIONS].sort((a, b) => { const aId = a.unlockAfterLesson || (a.unlocksAfter ? parseInt(a.unlocksAfter.replace('L', '')) : 0); const bId = b.unlockAfterLesson || (b.unlocksAfter ? parseInt(b.unlocksAfter.replace('L', '')) : 0); const aUnlocked = completed.includes(aId) ? 0 : 1; const bUnlocked = completed.includes(bId) ? 0 : 1; if (aUnlocked !== bUnlocked) return aUnlocked - bUnlocked; return aId - bId; }).map((conv) => {
                 const unlockId = conv.unlockAfterLesson || (conv.unlocksAfter ? parseInt(conv.unlocksAfter.replace('L', '')) : null);
                 const unlocked = completed.includes(unlockId);
                 const isComplete = completedConversations.includes(conv.id);
