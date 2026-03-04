@@ -167,6 +167,26 @@ function extractStrings() {
     }
   }
 
+  // Extract fillInTheBlank completed sentences (sentence with blank filled in)
+  const fibPattern = /sentence:\s*["']([^"']+)["'],\s*blank:\s*["']([^"']+)["']/g;
+  while ((match = fibPattern.exec(allLessonsContent)) !== null) {
+    const completed = match[1].replace('___', match[2]);
+    strings.add(completed.trim());
+  }
+
+  // Extract errorCorrection corrected sentences (sentence with error word replaced by correct option)
+  const ecPattern = /sentence:\s*["']([^"']+)["'][^}]*errorWordIndex:\s*(\d+)[^}]*options:\s*\[([^\]]+)\][^}]*correctIndex:\s*(\d+)/g;
+  while ((match = ecPattern.exec(allLessonsContent)) !== null) {
+    const words = match[1].trim().split(' ');
+    const errorIdx = parseInt(match[2]);
+    const options = match[3].match(/["']([^"']+)["']/g)?.map(s => s.replace(/["']/g, '')) || [];
+    const correctIdx = parseInt(match[4]);
+    if (options[correctIdx] && words[errorIdx] !== undefined) {
+      words[errorIdx] = options[correctIdx];
+      strings.add(words.join(' ').trim());
+    }
+  }
+  
   return [...strings].filter(s => s.length > 0 && s.length < 300);
 }
 
