@@ -83,8 +83,10 @@ function extractStrings() {
   // Read lessons50.js as text and extract Catalan content
   const lessonsContent = fs.readFileSync('src/lessons50.js', 'utf8');
   const lessons100Content = fs.existsSync('src/lessons100.js') ? fs.readFileSync('src/lessons100.js', 'utf8') : '';
-  const allLessonsContent = lessonsContent + '\n' + lessons100Content;
+  const lessons120Content = fs.existsSync('src/lessons120.js') ? fs.readFileSync('src/lessons120.js', 'utf8') : '';
+  const allLessonsContent = lessonsContent + '\n' + lessons100Content + '\n' + lessons120Content;
   const conversationsContent = fs.readFileSync('src/conversations.js', 'utf8');
+  const challengesContent = fs.existsSync('src/challenges.js') ? fs.readFileSync('src/challenges.js', 'utf8') : '';
 
   // Extract from flashcard words: ca: "..."
   const caPattern = /\bca:\s*["']([^"']+)["']/g;
@@ -121,6 +123,23 @@ function extractStrings() {
     if (t.length > 0 && t.length < 200) strings.add(t);
   }
 
+  // Extract miniConversation OPTIONS (user selectable responses - these get played too)
+  const optionsPattern = /options:\s*\[([^\]]+)\]/g;
+  while ((match = optionsPattern.exec(allLessonsContent)) !== null) {
+    const optBlock = match[1];
+    const strPattern = /["']([^"']{2,150})["']/g;
+    let strMatch;
+    while ((strMatch = strPattern.exec(optBlock)) !== null) {
+      const t = strMatch[1].trim();
+      if (!t.match(/^[A-Z][a-z]+ [A-Z]/) && t.length < 200) strings.add(t);
+    }
+  }
+  // Extract storyMode story strings
+  const storyPattern = /\bstory:\s*["']([^"']+)["']/g;
+  while ((match = storyPattern.exec(allLessonsContent)) !== null) {
+    strings.add(match[1].replace(/\[BLANK\]/g, '______').trim());
+  }
+
   // Extract from conversations NPC lines: text: "..."
   const textPattern = /\btext:\s*["']([^"']+)["']/g;
   while ((match = textPattern.exec(conversationsContent)) !== null) {
@@ -128,6 +147,23 @@ function extractStrings() {
     // Only include Catalan-looking text (skip English options)
     if (!t.match(/^[A-Z][a-z]+ [A-Z]/) && t.length < 200) {
       strings.add(t);
+    }
+  }
+
+  // Extract challenge sentences
+  const challengeCaPattern = /\bca:\s*["']([^"']+)["']/g;
+  while ((match = challengeCaPattern.exec(challengesContent)) !== null) {
+    strings.add(match[1].trim());
+  }
+
+  // Extract conversation wordBank items (plain string arrays)
+  const wordBankPattern = /wordBank:\s*\[([^\]]+)\]/g;
+  while ((match = wordBankPattern.exec(conversationsContent)) !== null) {
+    const block = match[1];
+    const itemPattern = /["']([^"']{2,150})["']/g;
+    let item;
+    while ((item = itemPattern.exec(block)) !== null) {
+      strings.add(item[1].trim());
     }
   }
 
