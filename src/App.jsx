@@ -93,20 +93,20 @@ const PLACEMENT_QUESTIONS = [
   {
     id: 3,
     question: "Which means 'I was studying' (imperfect)?",
-    options: ["Vaig estudiar", "Estudiava", "Estudiaré", "He estudiat"],
+    options: ["Vaig estudiar", "Estudiava", "Estudiar�", "He estudiat"],
     correct: 1,
     level: "intermediate"
   },
   {
     id: 4,
     question: "Complete: 'Si ___ temps, aniria' (If I had time, I would go)",
-    options: ["tinc", "tenia", "tingués", "tindré"],
+    options: ["tinc", "tenia", "tingu�s", "tindr�"],
     correct: 2,
     level: "advanced"
   },
   {
     id: 5,
-    question: "What's the difference? 'Sortida' vs 'Èxit'",
+    question: "What's the difference? 'Sortida' vs '�xit'",
     options: ["Both mean exit", "Exit vs Success", "Success vs Failure", "Entry vs Exit"],
     correct: 1,
     level: "intermediate"
@@ -114,21 +114,21 @@ const PLACEMENT_QUESTIONS = [
   {
     id: 6,
     question: "How do you say 'It's raining cats and dogs' (idiomatically)?",
-    options: ["Plou molt", "Plou gats i gossos", "Plou a bots i barrals", "Està plovent"],
+    options: ["Plou molt", "Plou gats i gossos", "Plou a bots i barrals", "Est� plovent"],
     correct: 2,
     level: "advanced"
   },
   {
     id: 7,
     question: "Formal 'you' pronoun in Catalan:",
-    options: ["Tu", "Vosté", "Vostè", "Vosaltres"],
+    options: ["Tu", "Vost�", "Vost�", "Vosaltres"],
     correct: 2,
     level: "intermediate"
   },
   {
     id: 8,
     question: "Complete with subjunctive: 'Dubto que ___ la veritat' (I doubt he knows the truth)",
-    options: ["sap", "sabia", "sàpiga", "sabrà"],
+    options: ["sap", "sabia", "s�piga", "sabr�"],
     correct: 2,
     level: "advanced"
   },
@@ -142,7 +142,7 @@ const PLACEMENT_QUESTIONS = [
   {
     id: 10,
     question: "Passive voice: 'Catalan ___ spoken here'",
-    options: ["està", "es parla", "és parlat", "parlen"],
+    options: ["est�", "es parla", "�s parlat", "parlen"],
     correct: 1,
     level: "advanced"
   }
@@ -884,9 +884,9 @@ const handleSignOut = async () => {
     
     if (isCorrect) {
       setReviewGateScore(reviewGateScore + 1);
-      setReviewGateFeedback('Correcte! ✓');
+      setReviewGateFeedback('Correcte! ?');
     } else {
-      setReviewGateFeedback(`Incorrecte. La resposta és: "${reviewGateQuestionType === 'ca_to_en' ? currentWord.en : currentWord.ca}"`);
+      setReviewGateFeedback(`Incorrecte. La resposta �s: "${reviewGateQuestionType === 'ca_to_en' ? currentWord.en : currentWord.ca}"`);
     }
     
     if (isCorrect) {
@@ -1039,9 +1039,9 @@ const handleSignOut = async () => {
     
     if (isCorrect) {
       setReviewSessionScore(reviewSessionScore + 1);
-      setReviewSessionFeedback('Correcte! ✓');
+      setReviewSessionFeedback('Correcte! ?');
     } else {
-      setReviewSessionFeedback(`Incorrecte. La resposta és: "${currentWord.ca}"`);
+      setReviewSessionFeedback(`Incorrecte. La resposta �s: "${currentWord.ca}"`);
     }
     
     if (isCorrect) {
@@ -1193,7 +1193,7 @@ const handleSignOut = async () => {
     const correctAnswer = currentTurn.correctSentence;
 
     if (normalizeText(userAnswer) === normalizeText(correctAnswer)) {
-      setChallengeConvFeedback('Correcte! ✓');
+      setChallengeConvFeedback('Correcte! ?');
       
       // Mark this turn as answered
       const updatedConvs = [...challengeConversations];
@@ -1259,7 +1259,7 @@ const handleSignOut = async () => {
     return text
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')  // Remove accents
-      .replace(/[?!.,;:'"¿¡]/g, '')      // Remove punctuation
+      .replace(/[?!.,;:'"��]/g, '')      // Remove punctuation
       .toLowerCase()
       .trim();
   };
@@ -1284,10 +1284,10 @@ const handleSignOut = async () => {
       setChallengeProgress(newProgress);
       
       if (isExactMatch) {
-        setChallengeFeedback('Correcte! ✓');
+        setChallengeFeedback('Correcte! ?');
       } else {
         // Correct but missing/wrong accents
-        setChallengeFeedback(`Correcte! ✓ Amb accents: "${correctAnswer}"`);
+        setChallengeFeedback(`Correcte! ? Amb accents: "${correctAnswer}"`);
       }
       
       setTimeout(() => {
@@ -1301,7 +1301,7 @@ const handleSignOut = async () => {
         }
       }, 2000); // 2 seconds to read feedback
     } else {
-      setChallengeFeedback(`Incorrecte. La resposta és: "${correctAnswer}"`);
+      setChallengeFeedback(`Incorrecte. La resposta �s: "${correctAnswer}"`);
       setTimeout(() => {
         // Move to next question if there are more
         if (challengeCurrentIndex + 1 < challengeItems.length) {
@@ -1392,7 +1392,7 @@ const handleSignOut = async () => {
         e.preventDefault();
         const newHistory = challengeHistory.filter(h => h.date !== new Date().toDateString());
         setChallengeHistory(newHistory);
-        console.log('🔄 Daily challenge reset for testing');
+        console.log('?? Daily challenge reset for testing');
         alert('Daily challenge reset!');
       }
     };
@@ -1449,7 +1449,7 @@ const handleSignOut = async () => {
     const userAnswer = userSentence.join(' ');
     const correctAnswer = currentTurn.correctSentence;
     if (userAnswer === correctAnswer) {
-      setConversationFeedback('Correcte! ✓');
+      setConversationFeedback('Correcte! ?');
       setConversationCorrect(true);
       setScore(score + 15);
       const updatedTurns = [...currentConversation.turns];
@@ -1557,7 +1557,7 @@ const handleSignOut = async () => {
     } else if (isEdge) {
       msg = "Tap the three-dot menu in Edge, then tap 'Add to phone' or 'Install app'";
     } else {
-      msg = "To install, open HolaCatalà in Chrome, tap the three-dot menu, then tap 'Add to Home Screen'";
+      msg = "To install, open HolaCatal� in Chrome, tap the three-dot menu, then tap 'Add to Home Screen'";
     }
     alert(msg);
   }
@@ -1677,7 +1677,7 @@ const handleQuizAnswer = (answer) => {
   const isCorrect = answer === correct.ca;
   
   if (isCorrect) {
-    setQuizFeedback('Correcte! ✓');
+    setQuizFeedback('Correcte! ?');
     setQuizCorrectCount(prev => prev + 1); // INCREMENT COUNTER
     handleLessonAnswer(true); // TRACK CORRECT ANSWER
     if (!completed.includes(currentLesson.id)) {
@@ -1716,7 +1716,7 @@ const handleQuizAnswer = (answer) => {
       }
     }, 1000);
   } else {
-    setQuizFeedback(`Incorrecte. La resposta és: "${quizWords[quizIndex].ca}"`);
+    setQuizFeedback(`Incorrecte. La resposta �s: "${quizWords[quizIndex].ca}"`);
     handleLessonAnswer(false); // TRACK WRONG ANSWER
   }
 };
@@ -1738,18 +1738,18 @@ const handleQuizAnswer = (answer) => {
   const [showVerifyPrompt, setShowVerifyPrompt] = useState(false);
 
   const goals = [
-    { id: 'living', label: 'Already living in Catalonia/Andorra', icon: '📍' },
-    { id: 'moving', label: 'Moving to Barcelona/Catalonia', icon: '🏠' },
-    { id: 'andorra', label: 'Moving to Andorra', icon: '🏔️' },
-    { id: 'family', label: 'Family or relationship', icon: '❤️' },
-    { id: 'travel', label: 'Travel and holidays', icon: '✈️' },
-    { id: 'curious', label: 'Just curious!', icon: '🤔' }
+    { id: 'living', label: 'Already living in Catalonia/Andorra', icon: '??' },
+    { id: 'moving', label: 'Moving to Barcelona/Catalonia', icon: '??' },
+    { id: 'andorra', label: 'Moving to Andorra', icon: '???' },
+    { id: 'family', label: 'Family or relationship', icon: '??' },
+    { id: 'travel', label: 'Travel and holidays', icon: '??' },
+    { id: 'curious', label: 'Just curious!', icon: '??' }
   ];
 
   const timeOptions = [
-    { id: '5', label: '5 min/day', desc: 'Casual learner', icon: '🌱' },
-    { id: '10', label: '10 min/day', desc: 'Regular practice', icon: '🌿' },
-    { id: '15', label: '15+ min/day', desc: 'Serious student', icon: '🌳' }
+    { id: '5', label: '5 min/day', desc: 'Casual learner', icon: '??' },
+    { id: '10', label: '10 min/day', desc: 'Regular practice', icon: '??' },
+    { id: '15', label: '15+ min/day', desc: 'Serious student', icon: '??' }
   ];
 
   // Shuffle array helper
@@ -1764,6 +1764,18 @@ const handleQuizAnswer = (answer) => {
 
   // Audio cache to ensure consistent pronunciation
   const audioCache = useRef({});
+const audioMapping = useRef(null);
+const loadAudioMapping = async () => {
+  if (!audioMapping.current) {
+    try {
+      const res = await fetch('/audio/mapping.json');
+      audioMapping.current = await res.json();
+    } catch (e) {
+      audioMapping.current = {};
+    }
+  }
+  return audioMapping.current;
+};
 
   // Text-to-speech for Catalan words using ElevenLabs
   const speakWord = async (text, slow = false) => {
@@ -1785,11 +1797,8 @@ const handleQuizAnswer = (answer) => {
         audio.play().catch(() => {});
         return;
       }
-    } catch(e) {}
-    if (!ELEVENLABS_API_KEY) return;
-    try {
-      fetch('/api/log-missing-audio', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ text, source: 'App' }) }).catch(()=>{});
-      const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`, {
+
+      const response = await fetch('https://api.elevenlabs.io/v1/text-to-speech/AxFLn9byyiDbMn5fmyqu', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'xi-api-key': ELEVENLABS_API_KEY },
         body: JSON.stringify({ text, model_id: 'eleven_multilingual_v2', voice_settings: { stability: 1.0, similarity_boost: 1.0 } })
@@ -1845,13 +1854,13 @@ const handleQuizAnswer = (answer) => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
-         <img src="./bubblesolo.png" alt="HolaCatalà" className="h-56 w-auto mx-auto mb-4" />
+         <img src="./bubblesolo.png" alt="HolaCatal�" className="h-56 w-auto mx-auto mb-4" />
         
-          <h1 className="text-2xl font-bold mb-2">We're Launching Soon! 🚀</h1>
-          <p className="text-gray-600 mb-6">Thank you for being a beta tester! We're putting the finishing touches on HolaCatalà and launching very soon!</p>
+          <h1 className="text-2xl font-bold mb-2">We're Launching Soon! ??</h1>
+          <p className="text-gray-600 mb-6">Thank you for being a beta tester! We're putting the finishing touches on HolaCatal� and launching very soon!</p>
           <p className="text-gray-600 mb-6">Check your email on launch day for your special beta tester discount!</p>
           <a href="mailto:aprencatalaapp@gmail.com" className="block w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-semibold">
-            Questions? Contact Us →
+            Questions? Contact Us ?
           </a>
         </div>
       </div>
@@ -1866,10 +1875,10 @@ const handleQuizAnswer = (answer) => {
           {/* Step 0: Welcome */}
           {onboardingStep === 0 && (
             <div className="text-center">
-              <img src="./bubblesolo.png" alt="HolaCatalà" className="h-56 sm:h-64 w-auto mx-auto mb-3" />
+              <img src="./bubblesolo.png" alt="HolaCatal�" className="h-56 sm:h-64 w-auto mx-auto mb-3" />
               <p className="text-gray-600 mb-8">Learn Catalan the easy way. Perfect for expats in Barcelona, Catalonia & Andorra.</p>
               <button onClick={() => setOnboardingStep(1)} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all">
-                Let's Get Started →
+                Let's Get Started ?
               </button>
               
               <p className="text-sm text-gray-500 mt-6">
@@ -1888,7 +1897,7 @@ const handleQuizAnswer = (answer) => {
           {onboardingStep === 1 && (
             <div>
               <div className="text-center mb-6">
-                <div className="text-4xl mb-2">👋</div>
+                <div className="text-4xl mb-2">??</div>
                 <h2 className="text-2xl font-bold">What's your name?</h2>
                 <p className="text-gray-600 text-sm">We'll use this to personalize your experience</p>
               </div>
@@ -1906,9 +1915,9 @@ const handleQuizAnswer = (answer) => {
   autoFocus
 />
               <button onClick={() => setOnboardingStep(2)} className="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700">
-                Continue →
+                Continue ?
               </button>
-              <button onClick={() => setOnboardingStep(0)} className="w-full text-gray-500 py-2 mt-2 text-sm">← Back</button>
+              <button onClick={() => setOnboardingStep(0)} className="w-full text-gray-500 py-2 mt-2 text-sm">? Back</button>
             </div>
           )}
 
@@ -1916,7 +1925,7 @@ const handleQuizAnswer = (answer) => {
           {onboardingStep === 2 && (
             <div>
               <div className="text-center mb-6">
-                <div className="text-4xl mb-2">🎯</div>
+                <div className="text-4xl mb-2">??</div>
                 <h2 className="text-2xl font-bold">Why learn Catalan?</h2>
                 <p className="text-gray-600 text-sm">This helps us tailor your learning</p>
               </div>
@@ -1933,9 +1942,9 @@ const handleQuizAnswer = (answer) => {
                 ))}
               </div>
               <button onClick={() => onboardingGoal && setOnboardingStep(3)} disabled={!onboardingGoal} className="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
-                Continue →
+                Continue ?
               </button>
-              <button onClick={() => setOnboardingStep(1)} className="w-full text-gray-500 py-2 mt-2 text-sm">← Back</button>
+              <button onClick={() => setOnboardingStep(1)} className="w-full text-gray-500 py-2 mt-2 text-sm">? Back</button>
             </div>
           )}
 
@@ -1943,7 +1952,7 @@ const handleQuizAnswer = (answer) => {
           {onboardingStep === 3 && (
             <div>
               <div className="text-center mb-6">
-                <div className="text-4xl mb-2">⏰</div>
+                <div className="text-4xl mb-2">?</div>
                 <h2 className="text-2xl font-bold">Daily goal?</h2>
                 <p className="text-gray-600 text-sm">How much time can you practice?</p>
               </div>
@@ -1963,9 +1972,9 @@ const handleQuizAnswer = (answer) => {
                 ))}
               </div>
               <button onClick={() => onboardingTime && setOnboardingStep(4)} disabled={!onboardingTime} className="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
-                Continue →
+                Continue ?
               </button>
-              <button onClick={() => setOnboardingStep(2)} className="w-full text-gray-500 py-2 mt-2 text-sm">← Back</button>
+              <button onClick={() => setOnboardingStep(2)} className="w-full text-gray-500 py-2 mt-2 text-sm">? Back</button>
             </div>
           )}
 
@@ -1973,7 +1982,7 @@ const handleQuizAnswer = (answer) => {
           {onboardingStep === 4 && (
             <div>
               <div className="text-center mb-6">
-                <div className="text-4xl mb-2">🔐</div>
+                <div className="text-4xl mb-2">??</div>
                 <h2 className="text-2xl font-bold">Save Your Progress</h2>
                 <p className="text-gray-600 text-sm">Create an account so you never lose your learning progress</p>
               </div>
@@ -2026,7 +2035,7 @@ const handleQuizAnswer = (answer) => {
                   disabled={authLoading}
                   className="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white py-4 px-6 rounded-xl font-semibold text-base hover:from-green-600 hover:to-emerald-600 transition-all disabled:opacity-50"
                 >
-                  {authLoading ? 'Creating Account...' : 'Create Account & Start Learning 🎉'}
+                  {authLoading ? 'Creating Account...' : 'Create Account & Start Learning ??'}
                 </button>
               </form>
               
@@ -2039,7 +2048,7 @@ const handleQuizAnswer = (answer) => {
                 </button>
               </div>
               
-              <button onClick={() => setOnboardingStep(3)} className="w-full text-gray-500 py-2 mt-2 text-sm">← Back</button>
+              <button onClick={() => setOnboardingStep(3)} className="w-full text-gray-500 py-2 mt-2 text-sm">? Back</button>
             </div>
           )}
 
@@ -2075,7 +2084,7 @@ const handleQuizAnswer = (answer) => {
               <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 mb-4 sm:mb-6">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl">📚</span>
+                    <span className="text-3xl">??</span>
                     <div>
                       <h2 className="text-lg sm:text-xl font-bold">Word Review</h2>
                       <p className="text-gray-600 text-sm">Daily practice session</p>
@@ -2100,7 +2109,7 @@ const handleQuizAnswer = (answer) => {
                     <Volume2 className="w-5 h-5 text-blue-600" />
                   </button>
                   <button onClick={() => speakWord(reviewSessionWords[reviewSessionIndex]?.ca, true)} className="rounded-full hover:bg-blue-200 active:bg-blue-300 transition-colors inline-flex items-center justify-center h-8 w-8" title="Hear slowly">
-                    <span className="block -mt-1" style={{fontSize: '24px', lineHeight: '24px'}}>🐢</span>
+                    <span className="block -mt-1" style={{fontSize: '24px', lineHeight: '24px'}}>??</span>
                   </button>
                 </div>
                 
@@ -2153,7 +2162,7 @@ const handleQuizAnswer = (answer) => {
         }}
         className="mt-3 w-full bg-white text-gray-700 border-2 border-gray-300 px-6 py-2 rounded-xl font-semibold hover:bg-gray-50"
       >
-        Next →
+        Next ?
       </button>
     )}
   </div>
@@ -2165,18 +2174,18 @@ const handleQuizAnswer = (answer) => {
   <div className="flex justify-center mb-4">
     <img src="./bubblesolo.png" alt="Celebration" className="h-40 sm:h-48 w-auto animate-bounce" />
   </div>
-  <div className="text-2xl mb-2">🎉✨🎊</div>
+  <div className="text-2xl mb-2">?????</div>
   <h2 className="text-2xl sm:text-3xl font-bold mb-2">Review Complete!</h2>
   <p className="text-gray-600 mb-6">You scored {reviewSessionScore}/{reviewSessionWords.length}</p>
   <div className="bg-gradient-to-r from-blue-100 to-cyan-100 rounded-xl p-4 mb-6">
     <div className="flex items-center justify-center gap-3">
-      <span className="text-2xl">⭐</span>
+      <span className="text-2xl">?</span>
       <span className="text-xl font-bold text-blue-700">+{reviewSessionScore * 5} Points!</span>
     </div>
   </div>
   <p className="text-sm text-gray-500 mb-4">Come back tomorrow for more practice!</p>
   <button onClick={exitReviewSession} className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-4 rounded-xl font-bold text-lg">
-    Return to Dashboard →
+    Return to Dashboard ?
   </button>
 </div>
           )}
@@ -2204,7 +2213,7 @@ const handleQuizAnswer = (answer) => {
               <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 mb-4 sm:mb-6">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl">{isComprehensiveReview ? '🏆' : '🔓'}</span>
+                    <span className="text-3xl">{isComprehensiveReview ? '??' : '??'}</span>
                     <div>
                       <h2 className="text-lg sm:text-xl font-bold">{isComprehensiveReview ? 'Comprehensive Review' : 'Unlock Next Lessons'}</h2>
                       <p className="text-gray-600 text-sm">Score {isComprehensiveReview ? '16/20' : '8/10'} to continue</p>
@@ -2229,7 +2238,7 @@ const handleQuizAnswer = (answer) => {
                     <Volume2 className="w-6 h-6 text-purple-600" />
                   </button>
                   <button onClick={() => speakWord(reviewGateWords[reviewGateIndex]?.ca, true)} className="p-2 rounded-full hover:bg-purple-200 active:bg-purple-300 transition-colors inline-flex items-center justify-center h-10 w-10" title="Hear slowly">
-                    <span className="text-2xl leading-none">🐢</span>
+                    <span className="text-2xl leading-none">??</span>
                   </button>
                 </div>
                 
@@ -2286,7 +2295,7 @@ const handleQuizAnswer = (answer) => {
         }}
         className="mt-3 w-full bg-white text-gray-700 border-2 border-gray-300 px-6 py-2 rounded-xl font-semibold hover:bg-gray-50"
       >
-        Next →
+        Next ?
       </button>
     )}
   </div>
@@ -2300,7 +2309,7 @@ const handleQuizAnswer = (answer) => {
                   <img src="./bubblesolo.png" alt="Celebration" className="h-40 sm:h-48 w-auto animate-bounce" />
                 </div>
               ) : (
-                <div className="text-6xl mb-4">😔</div>
+                <div className="text-6xl mb-4">??</div>
               )}
               <h2 className="text-2xl sm:text-3xl font-bold mb-2">{reviewGatePassed ? 'Review Passed!' : 'Not Quite...'}</h2>
               <p className="text-gray-600 mb-6">
@@ -2325,7 +2334,7 @@ const handleQuizAnswer = (answer) => {
               
               <div className="space-y-3">
                 {reviewGatePassed ? (
-                  <button onClick={exitReviewGate} className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 rounded-xl font-bold text-lg">Continue Learning →</button>
+                  <button onClick={exitReviewGate} className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 rounded-xl font-bold text-lg">Continue Learning ?</button>
                 ) : (
                   <>
                     <button onClick={retryReviewGate} className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 rounded-xl font-bold text-lg">Try Again</button>
@@ -2413,7 +2422,7 @@ const handleQuizAnswer = (answer) => {
                     </div>
                   ) : (
                     <div className="text-center py-8">
-                      <div className="text-5xl mb-4">📚</div>
+                      <div className="text-5xl mb-4">??</div>
                       <h3 className="text-xl font-bold mb-2">Not Enough Words Yet!</h3>
                       <p className="text-gray-600 mb-4">You've completed all your learned words. Finish more lessons to unlock the full challenge!</p>
                       <button onClick={exitChallenge} className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-6 py-3 rounded-xl font-bold">Back to Dashboard</button>
@@ -2430,7 +2439,7 @@ const handleQuizAnswer = (answer) => {
                     ))}
                   </div>
                   <div className="space-y-2 sm:space-y-3">
-                    <h3 className="font-semibold text-gray-600 mb-2 text-sm sm:text-base">Català</h3>
+                    <h3 className="font-semibold text-gray-600 mb-2 text-sm sm:text-base">Catal�</h3>
                     {challengeShuffledCatalan.map((word, i) => (
                       <button key={i} onClick={() => handleChallengeMatchClick(word, 'ca')} disabled={challengeMatchedPairs.includes(word.ca)} className={`w-full p-4 rounded-lg font-semibold transition-all ${challengeMatchedPairs.includes(word.ca) ? 'bg-green-100 text-green-800 opacity-50' : challengeSelectedPairs.some(p => p.word === word && p.type === 'ca') ? 'bg-orange-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>{word.ca}</button>
                     ))}
@@ -2478,7 +2487,7 @@ const handleQuizAnswer = (answer) => {
                                             onClick={() => setShowChallengeTranslation({...showChallengeTranslation, [i]: !showChallengeTranslation[i]})}
                                             className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
                                           >
-                                            🇬🇧 {showChallengeTranslation[i] ? 'Hide' : 'Show'} translation
+                                            ???? {showChallengeTranslation[i] ? 'Hide' : 'Show'} translation
                                           </button>
                                           {showChallengeTranslation[i] && (
                                             <div className="text-sm italic text-gray-600 mt-1">{turn.english}</div>
@@ -2518,7 +2527,7 @@ const handleQuizAnswer = (answer) => {
                               })}
                             </div>
                             <div className="flex gap-0.5 items-center">
-                              <button onClick={removeChallengeConvWord} disabled={challengeConvUserSentence.length === 0} className="px-4 py-2 bg-gray-200 rounded-lg font-semibold text-sm disabled:opacity-50">← Remove</button>
+                              <button onClick={removeChallengeConvWord} disabled={challengeConvUserSentence.length === 0} className="px-4 py-2 bg-gray-200 rounded-lg font-semibold text-sm disabled:opacity-50">? Remove</button>
                               <button onClick={checkChallengeConvAnswer} disabled={challengeConvUserSentence.length === 0} className="flex-1 bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50">Check Answer</button>
                             </div>
                             {challengeConvFeedback && (
@@ -2559,7 +2568,7 @@ const handleQuizAnswer = (answer) => {
               <div className="flex justify-center mb-4">
                 <img src="./bubblesolo.png" alt="Celebration" className="h-20 sm:h-28 w-auto animate-bounce" />
               </div>
-              <div className="text-2xl mb-2">🎉✨🎊</div>
+              <div className="text-2xl mb-2">?????</div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-2">Challenge Complete!</h2>
               <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">You earned {currentChallenge.points} points!</p>
               <div className="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
@@ -2570,7 +2579,7 @@ const handleQuizAnswer = (answer) => {
           )}
           {challengeFailed && (
             <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 text-center">
-              <div className="text-5xl sm:text-6xl mb-4">😔</div>
+              <div className="text-5xl sm:text-6xl mb-4">??</div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-2">
                 {challengeProgress < (currentChallenge.passingScore || currentChallenge.targetCount) ? "Not Quite!" : "Time's Up!"}
               </h2>
@@ -2618,7 +2627,7 @@ const handleQuizAnswer = (answer) => {
     onClick={() => speakWord(turn.text)}
     className="ml-1 p-1 rounded-full bg-gray-200 hover:bg-gray-300 active:scale-95 transition-all flex-shrink-0"
   >
-    🔊
+    ??
   </button>
 </div>
                           {(turn.english || turn.translation) && (
@@ -2627,7 +2636,7 @@ const handleQuizAnswer = (answer) => {
                                 onClick={() => setShowTranslation({...showTranslation, [i]: !showTranslation[i]})}
                                 className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
                               >
-                                🇬🇧 {showTranslation[i] ? 'Hide' : 'Show'} translation
+                                ???? {showTranslation[i] ? 'Hide' : 'Show'} translation
                               </button>
                               {showTranslation[i] && (
                                 <div className="text-sm italic text-gray-600 mt-1">{turn.english || turn.translation}</div>
@@ -2664,7 +2673,7 @@ const handleQuizAnswer = (answer) => {
 })}
 </div>
                 <div className="flex gap-3">
-                  <button onClick={removeLastWord} disabled={userSentence.length === 0} className="px-6 py-2 bg-gray-200 rounded-lg font-semibold disabled:opacity-50">← Remove</button>
+                  <button onClick={removeLastWord} disabled={userSentence.length === 0} className="px-6 py-2 bg-gray-200 rounded-lg font-semibold disabled:opacity-50">? Remove</button>
                   <button onClick={checkConversationAnswer} disabled={userSentence.length === 0} className="flex-1 bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50">Check Answer</button>
                 </div>
                 {conversationFeedback && (
@@ -2674,7 +2683,7 @@ const handleQuizAnswer = (answer) => {
 )}
 {conversationCorrect === true && (
   <button onClick={handleConversationContinue} className="w-full mt-3 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 active:scale-95 transition-all">
-    Continue →
+    Continue ?
   </button>
 )}
 {conversationCorrect === false && (
@@ -2723,13 +2732,13 @@ const handleQuizAnswer = (answer) => {
     className="h-40 w-auto animate-bounce"
   />
 </div>
-<div className="text-3xl mb-2">🎉✨🎊</div>
+<div className="text-3xl mb-2">?????</div>
 <h2 className="text-3xl font-bold mb-2 text-gray-800">Conversation Complete!</h2>
-<p className="text-gray-600 text-lg">Great job practicing! 🗣️</p>
+<p className="text-gray-600 text-lg">Great job practicing! ???</p>
 
 <div className="mt-4 bg-gradient-to-r from-green-100 to-teal-100 rounded-xl p-4 mb-4">
   <div className="flex items-center justify-center gap-3">
-    <span className="text-2xl">💬</span>
+    <span className="text-2xl">??</span>
     <span className="text-xl font-bold text-green-700">+65 Points!</span>
   </div>
 </div>
@@ -2741,7 +2750,7 @@ const handleQuizAnswer = (answer) => {
   }}
   className="w-full bg-gradient-to-r from-green-500 to-teal-500 text-white py-4 rounded-xl font-bold text-lg"
 >
-  Return to Dashboard →
+  Return to Dashboard ?
 </button>
           </div>
         </div>
@@ -2758,12 +2767,12 @@ const handleQuizAnswer = (answer) => {
         </nav>
         {!authUser && (
           <div className="bg-amber-50 border-b border-amber-200 p-3 text-center text-sm">
-            <span className="text-amber-800 font-medium">⚠️ Progress won't be saved! </span>
+            <span className="text-amber-800 font-medium">?? Progress won't be saved! </span>
             <button
               onClick={() => { setView('home'); setShowAuth(true); }}
               className="text-blue-600 font-semibold underline ml-1"
             >
-              Create an account or log in to save your progress →
+              Create an account or log in to save your progress ?
             </button>
           </div>
         )}
@@ -2786,7 +2795,7 @@ const handleQuizAnswer = (answer) => {
                         <Volume2 className="w-5 h-5 text-blue-600" />
                       </button>
                       <button onClick={() => speakWord(word.ca, true)} className="rounded-full hover:bg-blue-200 active:bg-blue-300 transition-colors inline-flex items-center justify-center h-7 w-7" title="Hear slowly">
-                        <span className="block -mt-1.5" style={{fontSize: '20px', lineHeight: '20px'}}>🐢</span>
+                        <span className="block -mt-1.5" style={{fontSize: '20px', lineHeight: '20px'}}>??</span>
                       </button>
                     </div>
                     <div className="text-xs sm:text-sm text-gray-600 italic">{word.pronunciation}</div>
@@ -2813,7 +2822,7 @@ const handleQuizAnswer = (answer) => {
                             <Volume2 className="w-6 h-6" />
                           </button>
                           <button onClick={(e) => { e.stopPropagation(); speakWord(currentLesson.words[currentCardIndex].ca, true); }} className="p-2 rounded-full bg-white/20 hover:bg-white/30 active:bg-white/40 transition-colors inline-flex items-center justify-center h-10 w-10" title="Hear slowly">
-                            <span className="text-xl leading-none block -mt-1">🐢</span>
+                            <span className="text-xl leading-none block -mt-1">??</span>
                           </button>
                         </div>
                       </>
@@ -2846,7 +2855,7 @@ const handleQuizAnswer = (answer) => {
                   ))}
                 </div>
                 <div className="space-y-2 sm:space-y-3">
-                  <h3 className="font-semibold text-gray-600 mb-2 text-sm sm:text-base">Català</h3>
+                  <h3 className="font-semibold text-gray-600 mb-2 text-sm sm:text-base">Catal�</h3>
                   {shuffledCatalan.map((word, i) => (
                     <button key={i} onClick={() => handleMatchClick(word, 'ca')} disabled={matchedPairs.includes(word.ca)} className={`w-full p-2 sm:p-4 rounded-lg font-semibold transition-all text-sm sm:text-base ${matchedPairs.includes(word.ca) ? 'bg-green-100 text-green-800 opacity-50' : selectedPairs.some(p => p.word === word && p.type === 'ca') ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200 active:bg-gray-300'}`}>{word.ca}</button>
                   ))}
@@ -2855,7 +2864,7 @@ const handleQuizAnswer = (answer) => {
               </div>
               {matchedPairs.length === currentLesson.words.length && (
                 <div className="mt-6 sm:mt-8 text-center">
-                  <div className="mb-4 text-green-600 font-bold text-lg sm:text-xl">Perfect! All matched! 🎉</div>
+                  <div className="mb-4 text-green-600 font-bold text-lg sm:text-xl">Perfect! All matched! ??</div>
                   <button onClick={nextStage} className="w-full max-w-md mx-auto block bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700">Continue to Quiz</button>
                 </div>
               )}
@@ -2874,7 +2883,7 @@ const handleQuizAnswer = (answer) => {
                     <Volume2 className="w-5 h-5 text-blue-600" />
                   </button>
                   <button onClick={() => speakWord(quizWords[quizIndex].ca, true)} className="p-1 rounded-full hover:bg-blue-100 active:bg-blue-200 transition-colors inline-flex items-center justify-center h-7 w-7" title="Hear slowly">
-                    <span className="text-lg leading-none block -mt-1">🐢</span>
+                    <span className="text-lg leading-none block -mt-1">??</span>
                   </button>
                 </h3>
                 </div>
@@ -2903,7 +2912,7 @@ const handleQuizAnswer = (answer) => {
         }}
         className="mt-3 block w-full bg-white text-gray-700 border-2 border-gray-300 px-6 py-2 rounded-xl font-semibold hover:bg-gray-50 active:scale-95 transition-all"
       >
-        Next →
+        Next ?
       </button>
     )}
   </div>
@@ -2985,7 +2994,7 @@ const handleQuizAnswer = (answer) => {
 
 {lessonStage === 'failed' && (
             <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
-              <div className="text-6xl mb-4">😔</div>
+              <div className="text-6xl mb-4">??</div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-gray-800">Not Quite There Yet</h2>
               <p className="text-gray-600 mb-6">
                 You got <span className="font-bold text-red-600">{lessonCorrectAnswers}/{lessonTotalQuestions}</span> correct 
@@ -2994,7 +3003,7 @@ const handleQuizAnswer = (answer) => {
               <p className="text-gray-700 mb-8">You need 70% to pass this lesson. Let's review and try again!</p>
               
               <div className="bg-blue-50 rounded-xl p-6 mb-6">
-                <h3 className="font-bold text-blue-900 mb-3">💡 Study Tip</h3>
+                <h3 className="font-bold text-blue-900 mb-3">?? Study Tip</h3>
                 <p className="text-blue-800 text-sm">
                   Take your time with each question. Listen carefully to the pronunciations and read the translations.
                 </p>
@@ -3058,7 +3067,7 @@ const handleQuizAnswer = (answer) => {
               <div className="flex justify-center mb-4">
                 <img src="./bubblesolo.png" alt="Celebration" className="h-40 sm:h-48 w-auto animate-bounce" />
               </div>
-              <div className="text-2xl mb-2">🎉✨🎊</div>
+              <div className="text-2xl mb-2">?????</div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-2">Lesson Complete!</h2>
               <p className="text-gray-600 mb-6">You've learned {currentLesson.words.length} new words!</p>
               <div className="bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl p-6 mb-6">
@@ -3116,7 +3125,7 @@ const handleQuizAnswer = (answer) => {
                 }} 
                 className="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white py-4 rounded-xl font-bold text-lg"
               >
-                Continue →
+                Continue ?
               </button>
             </div>
           )}
@@ -3134,7 +3143,7 @@ const handleQuizAnswer = (answer) => {
       if (secretTapsRef.current >= 5) {
         const newPremium = !premium;
         setPremium(newPremium);
-        window.alert(newPremium ? '🔓 Premium ENABLED!' : '🔒 Premium DISABLED!');
+        window.alert(newPremium ? '?? Premium ENABLED!' : '?? Premium DISABLED!');
       }
       secretTapsRef.current = 0;
     }, 800);
@@ -3145,11 +3154,11 @@ const handleQuizAnswer = (answer) => {
       <nav className="bg-white shadow-sm border-b sticky top-0 z-40">
         <div className="max-w-6xl mx-auto px-3 sm:px-4 py-3 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <img src="./bubble.png" alt="HolaCatalà" className="h-9 sm:h-11 w-auto" />
-            <span className="text-xl sm:text-2xl font-bold text-blue-600">HolaCatalà</span>
+            <img src="./bubble.png" alt="HolaCatal�" className="h-9 sm:h-11 w-auto" />
+            <span className="text-xl sm:text-2xl font-bold text-blue-600">HolaCatal�</span>
           </div>
           <div className="flex items-center gap-2 sm:gap-4">
-            <a href="mailto:aprencatalaapp@gmail.com?subject=HolaCatalà Beta Feedback" className="text-xs sm:text-sm bg-purple-100 text-purple-700 px-2 sm:px-3 py-1 rounded-full hover:bg-purple-200 transition-colors">Feedback</a>
+            <a href="mailto:aprencatalaapp@gmail.com?subject=HolaCatal� Beta Feedback" className="text-xs sm:text-sm bg-purple-100 text-purple-700 px-2 sm:px-3 py-1 rounded-full hover:bg-purple-200 transition-colors">Feedback</a>
             {authUser ? (
               <button 
                 onClick={handleSignOut}
@@ -3202,7 +3211,7 @@ const handleQuizAnswer = (answer) => {
           >
             <div className="flex items-center justify-between text-white">
               <div className="flex items-center gap-3">
-                <div className="bg-white/20 rounded-full p-2">🎯</div>
+                <div className="bg-white/20 rounded-full p-2">??</div>
                 <div>
                   <div className="text-sm opacity-90">New to Catalan?</div>
                   <div className="font-bold">Take Placement Test - Skip to Your Level</div>
@@ -3237,12 +3246,12 @@ const handleQuizAnswer = (answer) => {
       <div className="text-base sm:text-lg font-bold mt-1">{todayChallenge.title}</div>
       {attemptedToday ? (
         wasChallengeCompletedSuccessfully() ? 
-          <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">✓ Done!</div> :
-          <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">✗ Try tomorrow</div>
+          <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">? Done!</div> :
+          <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">? Try tomorrow</div>
       ) : !canDoChallenge ? (
-        <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">Complete more to unlock →</div>
+        <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">Complete more to unlock ?</div>
       ) : (
-        <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">+{todayChallenge.points} pts →</div>
+        <div className="mt-2 sm:mt-3 text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">+{todayChallenge.points} pts ?</div>
       )}
     </div>
   );
@@ -3253,7 +3262,7 @@ const handleQuizAnswer = (answer) => {
           <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-xl shadow-lg p-4 sm:p-6 text-white min-w-[140px] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
             <div className="flex items-center justify-between mb-2"><Calendar className="w-6 h-6 sm:w-8 sm:h-8" /><span className="text-2xl sm:text-3xl font-bold">{reviewStreak}</span></div>
             <div className="text-xs sm:text-sm opacity-90">Day Streak</div>
-            <div className="mt-2 sm:mt-3 text-xs opacity-75">Keep it up! 🔥</div>
+            <div className="mt-2 sm:mt-3 text-xs opacity-75">Keep it up! ??</div>
           </div>
           <div 
             onClick={() => {
@@ -3279,10 +3288,10 @@ const handleQuizAnswer = (answer) => {
             <div className="text-xs sm:text-sm opacity-90">Words Learned</div>
             <div className="mt-2 sm:mt-3 text-xs opacity-75">
               {lastDailyReviewDate === new Date().toDateString() && dailyReviewsCompleted >= 1
-                ? '✓ Done today! Come back tomorrow' 
+                ? '? Done today! Come back tomorrow' 
                 : wordHistory.length >= 10 
-                  ? 'Click here to daily review →' 
-                  : 'Complete lessons to unlock →'}
+                  ? 'Click here to daily review ?' 
+                  : 'Complete lessons to unlock ?'}
             </div>
           </div>
         </div>
@@ -3338,7 +3347,7 @@ const handleQuizAnswer = (answer) => {
               <div className="text-xs text-purple-600 mt-1">Complete review to unlock</div>
             )}
             {lockStatus.locked && lockStatus.reason === 'daygate' && (
-              <div className="text-xs text-blue-600 mt-1">🕐 Unlocks tomorrow — come back!</div>
+              <div className="text-xs text-blue-600 mt-1">?? Unlocks tomorrow � come back!</div>
             )}
           </div>
           {lockStatus.locked ? <Lock className="w-6 h-6 text-gray-400" /> : isComplete ? <CheckCircle className="w-6 h-6 text-green-600" /> : null}
@@ -3349,7 +3358,7 @@ const handleQuizAnswer = (answer) => {
         <div onClick={() => startReviewGate(lessonTier, isComprehensiveReviewPoint(lesson.id))} className="mt-2 mb-4 border-2 border-purple-400 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg p-4 cursor-pointer hover:from-purple-100 hover:to-indigo-100 transition-all">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="text-2xl">{isComprehensiveReviewPoint(lesson.id) ? '🏆' : '🔓'}</span>
+              <span className="text-2xl">{isComprehensiveReviewPoint(lesson.id) ? '??' : '??'}</span>
               <div>
                 <div className="font-semibold text-purple-800">{isComprehensiveReviewPoint(lesson.id) ? 'Comprehensive Review' : 'Unlock Next Lessons'}</div>
                 <div className="text-xs text-purple-600">{isComprehensiveReviewPoint(lesson.id) ? 'Pass a big review (16/20) to continue' : 'Pass a quick review (8/10) to continue'}</div>
@@ -3438,42 +3447,42 @@ const handleQuizAnswer = (answer) => {
   <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowPaywall(false)}>
     <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8" onClick={(e) => e.stopPropagation()}>
       <div className="text-center">
-        <div className="text-5xl mb-4">{completed.length >= 3 ? '🎓' : '🚀'}</div>
+        <div className="text-5xl mb-4">{completed.length >= 3 ? '??' : '??'}</div>
         <h2 className="text-2xl font-bold mb-2">{completed.length >= 3 ? `You've learned ${wordHistory.length} words!` : 'Unlock Full Access'}</h2>
         <p className="text-gray-600 mb-6">{completed.length >= 3 ? "You're making great progress! Subscribe now to unlock everything instantly, or come back tomorrow for more free lessons." : 'Start your Catalan learning journey with full access to all content.'}</p>
         
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 mb-6">
           <div className="space-y-3">
             <div className="flex items-center gap-3 text-left">
-              <span className="text-xl">📚</span>
+              <span className="text-xl">??</span>
               <span className="text-sm font-medium">Full access to all lessons & vocabulary</span>
             </div>
             <div className="flex items-center gap-3 text-left">
-              <span className="text-xl">🗣️</span>
+              <span className="text-xl">???</span>
               <span className="text-sm font-medium">Real conversation practice scenarios</span>
             </div>
             <div className="flex items-center gap-3 text-left">
-              <span className="text-xl">🔊</span>
+              <span className="text-xl">??</span>
               <span className="text-sm font-medium">Audio pronunciation for every word</span>
             </div>
             <div className="flex items-center gap-3 text-left">
-              <span className="text-xl">🏆</span>
+              <span className="text-xl">??</span>
               <span className="text-sm font-medium">Daily challenges & achievements</span>
             </div>
             <div className="flex items-center gap-3 text-left">
-              <span className="text-xl">🎯</span>
+              <span className="text-xl">??</span>
               <span className="text-sm font-medium">Placement test - skip to your level</span>
             </div>
           </div>
         </div>
         
         <div className="mb-4">
-          <div className="text-3xl font-bold text-blue-600">€3.99<span className="text-base font-normal text-gray-500">/month</span></div>
+          <div className="text-3xl font-bold text-blue-600">�3.99<span className="text-base font-normal text-gray-500">/month</span></div>
           <div className="text-xs text-gray-500 mt-1">Cancel anytime</div>
         </div>
         
         <a href="https://buy.stripe.com/4gM28s044cIP7o8f5VefC00" className="block w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition-all text-center">
-          Subscribe Now →
+          Subscribe Now ?
         </a>
         
         <button onClick={() => setShowPaywall(false)} className="w-full text-gray-500 py-3 mt-2 text-sm">Maybe later</button>
@@ -3517,20 +3526,20 @@ const handleQuizAnswer = (answer) => {
     )}
     
     <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8 text-center relative z-10">
-      <div className="text-6xl mb-4">🔥</div>
+      <div className="text-6xl mb-4">??</div>
       <h2 className="text-3xl font-bold mb-2">
         {streakCelebrationData.isMilestone ? `${streakCelebrationData.streak} Day Streak!` : `${streakCelebrationData.streak} Day Streak!`}
       </h2>
       <p className="text-gray-600 mb-6">
         {streakCelebrationData.isMilestone 
-          ? "Incredible dedication! You're unstoppable! 🎉" 
+          ? "Incredible dedication! You're unstoppable! ??" 
           : "Keep it up! Come back tomorrow!"}
       </p>
       
       {streakCelebrationData.isMilestone && (
         <div className="bg-gradient-to-r from-orange-100 to-red-100 rounded-xl p-4 mb-6">
           <div className="flex items-center justify-center gap-3">
-            <span className="text-3xl">🏆</span>
+            <span className="text-3xl">??</span>
             <span className="text-xl font-bold text-orange-700">Milestone Achievement!</span>
           </div>
         </div>
@@ -3540,7 +3549,7 @@ const handleQuizAnswer = (answer) => {
         onClick={() => setShowStreakCelebration(false)}
         className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-4 rounded-xl font-bold text-lg"
       >
-        Continue Learning →
+        Continue Learning ?
       </button>
     </div>
   </div>
@@ -3550,7 +3559,7 @@ const handleQuizAnswer = (answer) => {
 {showStreakLost && (
   <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
     <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8 text-center">
-      <div className="text-6xl mb-4">😔</div>
+      <div className="text-6xl mb-4">??</div>
       <h2 className="text-3xl font-bold mb-2">Streak Ended</h2>
       <p className="text-gray-600 mb-6">
   {previousStreak > 0 
@@ -3560,7 +3569,7 @@ const handleQuizAnswer = (answer) => {
       
       <div className="bg-blue-50 rounded-xl p-4 mb-6">
         <p className="text-blue-800 font-medium">
-          Starting fresh today. Let's build an even longer streak! 💪
+          Starting fresh today. Let's build an even longer streak! ??
         </p>
       </div>
       
@@ -3568,7 +3577,7 @@ const handleQuizAnswer = (answer) => {
         onClick={() => setShowStreakLost(false)}
         className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-4 rounded-xl font-bold text-lg"
       >
-        Start New Streak →
+        Start New Streak ?
       </button>
     </div>
   </div>
@@ -3578,28 +3587,28 @@ const handleQuizAnswer = (answer) => {
 {showInstallPrompt && (
   <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
     <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8 text-center">
-      <div className="text-6xl mb-4">📱</div>
-      <h2 className="text-2xl font-bold mb-2">Install HolaCatalà</h2>
+      <div className="text-6xl mb-4">??</div>
+      <h2 className="text-2xl font-bold mb-2">Install HolaCatal�</h2>
       <p className="text-gray-600 mb-6">
-        Add HolaCatalà to your home screen for the best learning experience!
+        Add HolaCatal� to your home screen for the best learning experience!
       </p>
       
       <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 mb-6">
         <div className="space-y-3 text-left">
           <div className="flex items-center gap-3">
-            <span className="text-2xl">⚡</span>
+            <span className="text-2xl">?</span>
             <span className="text-sm font-medium">Launch instantly from your home screen</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-2xl">📱</span>
+            <span className="text-2xl">??</span>
             <span className="text-sm font-medium">App icon on your phone</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-2xl">🚀</span>
+            <span className="text-2xl">??</span>
             <span className="text-sm font-medium">Full screen experience</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-2xl">⭐</span>
+            <span className="text-2xl">?</span>
             <span className="text-sm font-medium">No browser distractions</span>
           </div>
         </div>
@@ -3693,9 +3702,9 @@ const handleQuizAnswer = (answer) => {
   <div className="fixed inset-0 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center z-50 p-4">
     <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8 text-center">
       <div className="text-6xl mb-4">
-        {placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 9 ? '🌟' : 
-         placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 7 ? '🎯' : 
-         placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 4 ? '📚' : '🌱'}
+        {placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 9 ? '??' : 
+         placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 7 ? '??' : 
+         placementAnswers.reduce((count, answer, idx) => count + (answer === PLACEMENT_QUESTIONS[idx].correct ? 1 : 0), 0) >= 4 ? '??' : '??'}
       </div>
       
       <h2 className="text-2xl font-bold mb-2">
@@ -3724,7 +3733,7 @@ const handleQuizAnswer = (answer) => {
         onClick={finishPlacementTest}
         className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:to-purple-700"
       >
-        Start Learning! →
+        Start Learning! ?
       </button>
     </div>
   </div>
@@ -3735,7 +3744,7 @@ const handleQuizAnswer = (answer) => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowVerifyPrompt(false)}>
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8" onClick={(e) => e.stopPropagation()}>
             <div className="text-center">
-              <div className="text-5xl mb-4">📧</div>
+              <div className="text-5xl mb-4">??</div>
               <h2 className="text-2xl font-bold mb-2">Great job on your first lesson!</h2>
               <p className="text-gray-600 mb-6">Check your email to verify your account and make sure your progress is saved forever.</p>
               
@@ -3777,7 +3786,7 @@ const handleQuizAnswer = (answer) => {
       )}
       {showSaved && (
         <div className="fixed top-16 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-full shadow-lg z-50 text-sm font-medium opacity-90">
-          ✓ Progress saved
+          ? Progress saved
         </div>
       )}
       {newAchievement && (
@@ -3798,6 +3807,7 @@ const handleQuizAnswer = (answer) => {
 }
 
 export default App;
+
 
 
 
