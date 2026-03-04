@@ -8,13 +8,14 @@ import { FillInTheBlank, SentenceOrdering, ListenAndType, MiniConversation, Erro
 import { lessons as lessons50 } from './lessons50.js';
 import { lessons100 } from './lessons100.js';
 import { lessons120 } from './lessons120.js';
+import { lessons140 } from './lessons140.js'
 import { getTodayChallenge, wasChallengeCompletedToday, getChallengeStreak, getTimeUntilNextChallenge, CHALLENGE_TYPES } from './challenges.js';
 import { ACHIEVEMENTS, getUnlockedAchievements, getNewlyUnlocked, getAchievementProgress, getAchievementsByCategory } from './achievements.js';
 import { Analytics } from '@vercel/analytics/react';
 const ELEVENLABS_API_KEY = import.meta.env.VITE_ELEVENLABS_API_KEY;
 const ELEVENLABS_VOICE_ID = import.meta.env.VITE_ELEVENLABS_VOICE_ID;
 
-const LESSONS = [...lessons50, ...lessons100, ...lessons120];
+const LESSONS = [...lessons50, ...lessons100, ...lessons120, ...lessons140]
 
 // REVIEW GATE: Define lesson tiers (groups of 3 lessons)
 const LESSON_TIERS = [
@@ -65,7 +66,11 @@ const LESSON_TIERS = [
   { tier: 45, lessons: [130, 131, 132] },
   { tier: 46, lessons: [133, 134, 135] },
   { tier: 47, lessons: [136, 137, 138] },
-  { tier: 48, lessons: [139, 140] }
+  { tier: 48, lessons: [139, 140] },
+  { tier: 49, lessons: [141, 142, 143] },
+  { tier: 50, lessons: [144, 145, 146] },
+  { tier: 51, lessons: [147, 148, 149] },
+  { tier: 52, lessons: [150] },
 
 ];
 

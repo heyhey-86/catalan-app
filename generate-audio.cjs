@@ -84,7 +84,8 @@ function extractStrings() {
   const lessonsContent = fs.readFileSync('src/lessons50.js', 'utf8');
   const lessons100Content = fs.existsSync('src/lessons100.js') ? fs.readFileSync('src/lessons100.js', 'utf8') : '';
   const lessons120Content = fs.existsSync('src/lessons120.js') ? fs.readFileSync('src/lessons120.js', 'utf8') : '';
-  const allLessonsContent = lessonsContent + '\n' + lessons100Content + '\n' + lessons120Content;
+  const lessons140Content = fs.existsSync('src/lessons140.js') ? fs.readFileSync('src/lessons140.js', 'utf8') : '';
+  const allLessonsContent = lessonsContent + '\n' + lessons100Content + '\n' + lessons120Content + '\n' + lessons140Content;
   const conversationsContent = fs.readFileSync('src/conversations.js', 'utf8');
   const challengesContent = fs.existsSync('src/challenges.js') ? fs.readFileSync('src/challenges.js', 'utf8') : '';
 
@@ -267,3 +268,4 @@ async function main() {
 }
 
 main().catch(console.error);
+
